@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	
-	<title>Customer</title>
+	<title>System - Customer</title>
 
 	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"></link>
@@ -47,6 +47,50 @@
            </button>
            <a class="navbar-brand topnav" href="${pageContext.request.contextPath}/">Web Reservation</a>
         </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Schedule <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/software/"><b>Schedule</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/software/email/">Email</a></li>
+				            <li><a href="/webreservation/software/charging/">Charging</a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/software/userPassword/">Password</a></li>     
+				         </ul>
+                    </li>
+   
+                    <li class="dropdown">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">User <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/user/"><b>User Dashboard</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/user/user/">User Information</a></li>
+				            <li><a href="/webreservation/user/activity">Activity</a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/user/userReport/">User Report</a></li>
+				            <li><a href="/webreservation/user/reservationReport/">Reservation Report</a></li>
+				            <li><a href="/webreservation/user/chargingReport/">Charging Report</a></li>    
+				         </ul>
+                     </li>     
+                         		
+        			<li class="dropdown active">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/system/"><b>System Dashboard</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
+				            <li><a href="/webreservation/system/time/">Time</a></li>
+				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
+				            <li><a href="/webreservation/system/customer/">Customer</a></li>
+				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/charge/">Charge</a></li>
+				            <li><a href="/webreservation/system/code/">Code</a></li>      
+				         </ul>
+                    </li>		                    
+                </ul>
+            </div>   
     </div>
 </nav>
     

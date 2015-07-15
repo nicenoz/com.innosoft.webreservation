@@ -170,6 +170,88 @@ dt {
 .panel-brown-footer {
     color: #8B4513;
 }
+
+
+.panel-pink {
+    border-color: #FF66FF;
+    background-color: #FF66FF;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-pink-footer {
+    color: #FF66FF;
+}
+
+.panel-green {
+    border-color: #339966;
+    background-color: #339966;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-green-footer {
+    color: #339966;
+}
+
+
+.panel-orange {
+    border-color: #FF9966;
+    background-color: #FF9966;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-orange-footer {
+    color: #FF9966;
+}
+
+.panel-maroon {
+    border-color: #800000;
+    background-color: #800000;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-maroon-footer {
+    color: #800000;
+}
+
+.panel-bluegreen {
+    border-color: #00FFFF;
+    background-color: #00FFFF;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-bluegreen-footer {
+    color: #00FFFF;
+}
+
+.panel-black {
+    border-color: #000000;
+    background-color: #000000;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-black-footer {
+    color: #000000;
+}
+
+.panel-lightbrown {
+    border-color: #996633;
+    background-color: #996633;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-lightbrown-footer {
+    color: #996633;
+}
+
+
+
 .panel-prim {
 	box-shadow: 7px 7px 10px 1px grey;
 }

@@ -38,6 +38,50 @@
            </button>
            <a class="navbar-brand topnav" href="${pageContext.request.contextPath}/">Web Reservation</a>
         </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown active">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Schedule <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/software/"><b>Schedule</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/software/email/">Email</a></li>
+				            <li><a href="/webreservation/software/charging/">Charging</a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/software/userPassword/">Password</a></li>     
+				         </ul>
+                    </li>
+   
+                    <li class="dropdown">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">User <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/user/"><b>User Dashboard</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/user/user/">User Information</a></li>
+				            <li><a href="/webreservation/user/activity">Activity</a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/user/userReport/">User Report</a></li>
+				            <li><a href="/webreservation/user/reservationReport/">Reservation Report</a></li>
+				            <li><a href="/webreservation/user/chargingReport/">Charging Report</a></li>    
+				         </ul>
+                     </li>     
+                         		
+        			<li class="dropdown">
+        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+				            <li><a href="/webreservation/system/"><b>System Dashboard</b></a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
+				            <li><a href="/webreservation/system/time/">Time</a></li>
+				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
+				            <li><a href="/webreservation/system/customer/">Customer</a></li>
+				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/charge/">Charge</a></li>
+				            <li><a href="/webreservation/system/code/">Code</a></li>      
+				         </ul>
+                    </li>		                    
+                </ul>
+            </div>   
     </div>
 </nav>
 
@@ -51,16 +95,16 @@
             <div class="row">
             
                 <div class="col-lg-4 col-md-4">
-                    <a href="#">
+                    <a href="/webreservation/user/user/">
                         <div class="panel panel-primary panel-prim">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-cog fa-5x"></i>
+                                        <i class="fa fa-info fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge" id="UsersCounts">&nbsp;</div>
-                                        <div>Setup</div>
+                                        <div>User Information</div>
                                     </div>
                                 </div>
                             </div>
@@ -74,16 +118,16 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-4">
-                    <a href="customer">
+                    <a href="/webreservation/user/activity/">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-user fa-5x"></i>
+                                        <i class="fa fa-thumb-tack fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge" id="EventsCounts">&nbsp;</div>
-                                        <div>Customers</div>
+                                        <div>Activity</div>
                                     </div>
                                 </div>
                             </div>
@@ -95,105 +139,11 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-4 col-md-4">
-                    <a href="#">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="SalesCounts">&nbsp;</div>
-                                        <div>User</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-footer panel-red-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <a href="#">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="ProductsCounts">&nbsp;</div>
-                                        <div>Reservation</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-footer panel-green-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <a href="#">
-                        <div class="panel panel-violet">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-file-text-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="PackagesCounts">&nbsp;</div>
-                                        <div>Reports</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-footer panel-violet-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <a href="#">
-                        <div class="panel panel-brown">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-pencil-square-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="NewsCounts">&nbsp;</div>
-                                        <div>Logs</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-footer panel-brown-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                
             </div>
         </div>
         <!-- /.row -->
     </div>
-</div>
 </div>
 </div>
 
