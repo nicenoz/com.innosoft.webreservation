@@ -96,7 +96,7 @@
             
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/user/">
-                        <div class="panel panel-primary panel-prim">
+                        <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer">
+                            <div class="panel-footer panel-green-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
