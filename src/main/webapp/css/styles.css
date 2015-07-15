@@ -1,0 +1,179 @@
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #555 !important;
+}
+
+a {
+    color: #337ab7 !important;
+}
+
+.info-div {
+    white-space:nowrap;
+    text-align:center;
+}
+
+.box {
+    background-color: coral;
+    width: 30%;
+    display:inline-block;
+    margin:10px 0;
+    border-radius:5px;
+}
+
+.text {
+    padding: 20px 0;
+    color:black;
+    font-weight:bold;
+    text-align:center;
+}
+
+dd {
+    margin-bottom: 8px;
+}
+
+dt {
+    margin-top: 5px;
+}
+
+.scroll{
+    max-height: 450px;
+    overflow-y: hidden;
+}
+
+.custom-width {
+    width: 60% !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+#UserGrid {
+    margin-top: 17px;
+}
+
+#PurchasersLedgerGrid {
+    margin-top: 10px;
+}
+
+.info-div-ledger {
+    white-space:nowrap;
+    text-align:center;
+}
+
+.box-ledger {
+  width: 68%;
+  display: inline-block;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.text-ledger {
+    padding: 10px 0;
+    text-align:center;
+}
+
+.fieldLabel-ledger {
+      width: 30%;
+      display: inline-block;
+      margin: 5px 0px;
+      border-radius: 5px;
+}
+
+.user-fieldLabel-ledger {
+      width: 15%;
+      display: inline-block;
+      margin: 5px 0px;
+      border-radius: 5px;
+}
+
+.header {
+    margin-top: 80px;
+}
+
+.errorHighlight { 
+    border: 1px solid #CC0000; 
+} 
+
+.textinput { 
+    border: 1px silver solid;
+}
+
+@media screen and (min-width: 1200px){
+    .marginTop{
+        margin-top: -38px;
+    }
+}
+
+.marginButton {
+    margin-top: -11px;
+}
+
+.bodytopindent {
+	padding-top: 65px;
+}
+
+.jumbotron-padding {
+  		padding: 10px;
+  		padding-bottom: 30px;
+  	}
+.panel-green {
+    border-color: #5cb85c;
+    background-color: #5cb85c;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-green-footer {
+    color : #5cb85c;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+    background-color: #f0ad4e;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-yellow-footer {
+    color: #f0ad4e;
+}
+
+.panel-red {
+    border-color: #d9534f;
+    background-color: #d9534f;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-red-footer {
+    color: #d9534f;
+}
+
+.panel-violet {
+    border-color: #990099;
+    background-color: #990099;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-violet-footer {
+    color: #990099;
+}
+
+.panel-brown {
+    border-color: #8B4513;
+    background-color: #8B4513;
+    color: #ffffff;
+    box-shadow: 7px 7px 10px 1px grey;
+}
+
+.panel-brown-footer {
+    color: #8B4513;
+}
+.panel-prim {
+	box-shadow: 7px 7px 10px 1px grey;
+}
+
+.btn-extend-padding {
+	height: 34px;
+}

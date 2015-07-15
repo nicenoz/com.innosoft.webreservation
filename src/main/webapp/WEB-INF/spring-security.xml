@@ -1,0 +1,37 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+		
+	<beans:bean id="loginServiceImpl" class="com.innosoft.webreservation.service.LoginServiceImpl"/>
+	
+	<http auto-config="true">  
+		<intercept-url pattern="/software/*" access="ROLE_USER"/>  
+		<intercept-url pattern="/api/customer/*" access="ROLE_USER"/> 
+	    <intercept-url pattern="/setup/*" access="ROLE_ADMIN"/>   
+	    <form-login login-page="/login/"></form-login>
+		<form-login 
+		    login-page="/login/" 
+		    default-target-url="/" 
+			authentication-failure-url="/login?error" />
+		<logout logout-success-url="/" />
+		<!-- enable csrf protection -->
+		<!-- <csrf/>	  -->   
+	</http>  
+  
+	<authentication-manager>  
+	    <authentication-provider user-service-ref="loginServiceImpl">  
+	        <password-encoder hash="plaintext">  
+	    </password-encoder></authentication-provider>  
+	</authentication-manager>
+
+<!--  <authentication-manager>
+    <authentication-provider>
+      <jdbc-user-service data-source-ref="myDataSource"/> 
+    </authentication-provider>
+  </authentication-manager> -->
+  
+</beans:beans> 
