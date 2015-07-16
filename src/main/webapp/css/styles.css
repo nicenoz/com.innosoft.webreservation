@@ -274,7 +274,6 @@ dt {
     border-radius: 0;
 }
 
-
 .panel-dark-blue {
     border-color: #003366;
     background-color: #003366;
@@ -287,6 +286,8 @@ dt {
     color: #003366;
     border-radius: 0;
 }
+
+
 
 .btn-extend-padding {
 	height: 34px;
