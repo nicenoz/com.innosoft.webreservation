@@ -75,7 +75,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/message/">Messege</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
@@ -93,22 +93,22 @@
         <br/>
         <div class="marginCenter">
             <div class="row">
-            
+                
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/user/">
-                        <div class="panel panel-primary panel-prim">
+                        <div class="panel panel-violet">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         <i class="fa fa-info fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge" id="UsersCounts">&nbsp;</div>
+                                        <div class="huge" id="EventsCounts">&nbsp;</div>
                                         <div>User Information</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer">
+                            <div class="panel-footer panel-violet-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -119,7 +119,7 @@
                 
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/activity/">
-                        <div class="panel panel-yellow">
+                        <div class="panel panel-brown">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-yellow-footer">
+                            <div class="panel-footer panel-brown-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -157,7 +157,7 @@
             
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/userReport/">
-                        <div class="panel panel-red">
+                        <div class="panel panel-pink">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-red-footer">
+                            <div class="panel-footer panel-pink-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -180,7 +180,7 @@
                 
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/reservationReport/">
-                        <div class="panel panel-violet">
+                        <div class="panel panel-gray">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -192,7 +192,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-violet-footer">
+                            <div class="panel-footer panel-gray-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -203,7 +203,7 @@
                 
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/user/chargingReport/">
-                        <div class="panel panel-brown">
+                        <div class="panel panel-orange">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -215,7 +215,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-brown-footer">
+                            <div class="panel-footer panel-orange-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>

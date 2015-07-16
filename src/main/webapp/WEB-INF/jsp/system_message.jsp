@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Software Dashboard</title>
+	<title>System - Message</title>
 
 	<!-- Bootstrap Core CSS -->
     <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
@@ -40,7 +40,7 @@
         </div>
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown active">
+                <li class="dropdown">
         				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Schedule <span class="caret"></span></a>
                         <ul class="dropdown-menu">
 				            <li><a href="/webreservation/software/"><b>Schedule</b></a></li>
@@ -66,7 +66,7 @@
 				         </ul>
                      </li>     
                          		
-        			<li class="dropdown">
+        			<li class="dropdown active">
         				<a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
                         <ul class="dropdown-menu">
 				            <li><a href="/webreservation/system/"><b>System Dashboard</b></a></li>
@@ -75,7 +75,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/message/">Messege</a></li>
+				            <li><a href="/webreservation/system/messege/">Messege</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
@@ -86,105 +86,7 @@
 </nav>
 
 <div class="container">
-<div align="center" class="jumbotron jumbotron-padding">
-<div class="page-wrapper">
-    <div class="container-fluid">
-        <br/>
-        <br/>
-        <div class="marginCenter">
-            <div class="row">
-            
-                <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/software/email/">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-envelope fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="UsersCounts">&nbsp;</div>
-                                        <div>Email</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-green-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/software/charging/">
-                        <div class="panel panel-orange">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-bar-chart-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="EventsCounts">&nbsp;</div>
-                                        <div>Charging</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-orange-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-        <!-- /.row -->
-    </div>
-</div>
-</div>
-</div>
-
-<div class="container">
-<div align="center" class="jumbotron jumbotron-padding">
-<div class="page-wrapper">
-    <div class="container-fluid">
-        <br/>
-        <br/>
-        <div class="marginCenter">
-            <div class="row">
-            
-                <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/software/userPassword/">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-key fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="UsersCounts">&nbsp;</div>
-                                        <div>Password</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-red-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-    </div>
-</div>
-</div>
+	System - Message
 </div>
 
 <!-- jQuery -->

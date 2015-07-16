@@ -75,7 +75,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/message/">Messege</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
@@ -96,7 +96,7 @@
             
               <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/system/calendar/">
-                        <div class="panel panel-pink">
+                        <div class="panel panel-dark-green">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-pink-footer">
+                            <div class="panel-footer panel-dark-green-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -119,7 +119,7 @@
                 
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/system/time/">
-                        <div class="panel panel-green">
+                        <div class="panel panel-brownish">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-green-footer">
+                            <div class="panel-footer panel-brownish-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
@@ -142,7 +142,7 @@
                 
                 <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/system/userPassword/">
-                        <div class="panel panel-orange">
+                        <div class="panel panel-red">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -151,6 +151,75 @@
                                     <div class="col-xs-9 text-right">
                                         <div class="huge" id="EventsCounts">&nbsp;</div>
                                         <div>Password</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel-red-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <a href="/webreservation/system/customer/">
+                        <div class="panel panel-dark-brown">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge" id="EventsCounts">&nbsp;</div>
+                                        <div>Customers</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel-dark-brown-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <a href="/webreservation/system/message/">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-envelope-o fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge" id="EventsCounts">&nbsp;</div>
+                                        <div>Messege</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer panel-yellow-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-4">
+                    <a href="/webreservation/system/charge/">
+                        <div class="panel panel-orange">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-bar-chart-o fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge" id="EventsCounts">&nbsp;</div>
+                                        <div>Charge</div>
                                     </div>
                                 </div>
                             </div>
@@ -164,77 +233,8 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/system/customer/">
-                        <div class="panel panel-maroon">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="EventsCounts">&nbsp;</div>
-                                        <div>Customers</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-maroon-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/system/messege/">
-                        <div class="panel panel-bluegreen">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-envelope-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="EventsCounts">&nbsp;</div>
-                                        <div>Messege</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-bluegreen-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-4 col-md-4">
-                    <a href="/webreservation/system/charge/">
-                        <div class="panel panel-black">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-bar-chart-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="EventsCounts">&nbsp;</div>
-                                        <div>Charge</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer panel-black-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-4 col-md-4">
                     <a href="/webreservation/system/code/">
-                        <div class="panel panel-lightbrown">
+                        <div class="panel panel-dark-blue">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -246,7 +246,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer panel-lightbrown-footer">
+                            <div class="panel-footer panel-dark-blue-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
