@@ -42,7 +42,7 @@ public class SystemController {
 	@RequestMapping("/message")
 	public String message(Model model) {
 		return "system_message";
-	}		
+	}
 	
 	@RequestMapping("/userPassword")
 	public String userPassword(Model model) {
