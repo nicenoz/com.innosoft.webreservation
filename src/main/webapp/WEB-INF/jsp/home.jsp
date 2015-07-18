@@ -151,7 +151,7 @@
 
     </div>
     <!-- /.banner -->
-
+ 
     <!-- Footer -->
     <footer class="navbar-inverse navbar-fixed-bottom">
         <div class="container">

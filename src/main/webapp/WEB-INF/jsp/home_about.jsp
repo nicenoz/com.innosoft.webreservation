@@ -9,4 +9,4 @@
 <body>
 <img src="/img/phones.png" alt="">
 </body>
-</html>
+</html> 
