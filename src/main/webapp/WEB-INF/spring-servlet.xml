@@ -31,7 +31,7 @@
 		</property>
 	</bean>
 
-	<bean id="myDataSource"
+<!-- 	<bean id="myDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
@@ -44,7 +44,9 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
 			<list>
+			<value>com.innosoft.webreservation.entity.MstCode</value>	
 				<value>com.innosoft.webreservation.entity.MstCustomer</value>	
+				<value>com.innosoft.webreservation.entity.MstMessage</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityUser</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityRole</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityUserRole</value>				
@@ -57,6 +59,6 @@
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
-	</bean>
+	</bean> -->
 				
 </beans>

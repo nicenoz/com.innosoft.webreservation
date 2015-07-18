@@ -15,9 +15,13 @@
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
-			<list>
+			<list>				
+				<value>com.innosoft.webreservation.entity.MstCharge</value>
+				<value>com.innosoft.webreservation.entity.MstCustomerTime</value>
+				<value>com.innosoft.webreservation.entity.MstCalendar</value>
 				<value>com.innosoft.webreservation.entity.MstCode</value>
 				<value>com.innosoft.webreservation.entity.MstCustomer</value>	
+				<value>com.innosoft.webreservation.entity.MstMessage</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityUser</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityRole</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityUserRole</value>				

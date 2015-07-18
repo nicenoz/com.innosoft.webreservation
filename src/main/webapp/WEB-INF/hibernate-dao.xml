@@ -17,5 +17,25 @@
 	<bean id="userDao" class="com.innosoft.webreservation.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>	
+	
+	<bean id="messageDao" class="com.innosoft.webreservation.dao.MessageDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>	
+	
+	<bean id="codeDao" class="com.innosoft.webreservation.dao.CodeDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>	
 			
+	<bean id="chargeDao" class="com.innosoft.webreservation.dao.ChargeDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>	
+	
+	<bean id="calendarDao" class="com.innosoft.webreservation.dao.CalendarDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>		
+				
+	<bean id="customerTimeDao" class="com.innosoft.webreservation.dao.CustomerTimeDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+					
 </beans>
