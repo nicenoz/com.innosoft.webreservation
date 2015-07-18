@@ -35,7 +35,7 @@
 <body class="bodytopindent">
 
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <!-- Brand and toggle get grouped for better mobile display -->
        <div class="navbar-header">
@@ -84,7 +84,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/message/">Message</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
@@ -106,21 +106,21 @@
 	    <div class="col-lg-4">
 	        <div class="input-group">
 	            <span class="input-group-btn">
-	                <button class="btn btn-default btn-extend-padding" type="button" readonly>
+	                <button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
 	                <i class="fa fa-search"></i>
 	                </button>
 	            </span>
-	            <input type="text" class="form-control" id="InputFilter" placeholder="Search...">
+	            <input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
 	        </div>
 	    </div>
 	    <div class="col-lg-8">
-	        <button id="cmdAddProduct" type="submit" class="btn btn-primary pull-right" onclick="cmdProductAdd_OnClick()">Add</button>
+	        <button id="cmdAddProduct" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdProductAdd_OnClick()">Add</button>
 	    </div>
 	</div>
 	<br />
-	<div class="row">
-	    <div class="col-lg-12">
-	        <div id="CustomerGrid" class="grid"></div>
+	<div class="row table-form-custom">
+	    <div class="col-lg-12 table-form-custom">
+	        <div id="CustomerGrid" class="grid table-form-custom"></div>
 	    </div>
 	</div>
 	
@@ -128,17 +128,17 @@
 	
 	<div class="row">
 	    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-	        <button type="button" class="btn btn-default btn-extend-padding" id="btnMoveToFirstPageGrid">
+	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
 	            <span class="glyphicon glyphicon-fast-backward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding" id="btnMoveToPreviousPageGrid">
+	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
 	            <span class="glyphicon glyphicon-step-backward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-	        <button type="button" class="btn btn-default btn-extend-padding" id="btnMoveToNextPageGrid">
+	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
+	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
 	            <span class="glyphicon glyphicon-step-forward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding" id="btnMoveToLastPageGrid">
+	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
 	            <span class="glyphicon glyphicon-fast-forward"></span>
 	        </button>
 	    </div>
@@ -283,8 +283,8 @@
                 if (Results.length > 0) {
                     for (i = 0; i < Results.length; i++) {
                         customers.push({
-                            EditId: "<button class='btn btn-primary btn-xs' data-toggle='modal' id='cmdEditCustomer' onclick='cmdCustomerEdit_OnClick()'>Edit</button>",
-                            DeleteId: "<button class='btn btn-danger btn-xs' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerDelete_OnClick()'>Delete</button>",
+                            EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCustomer' onclick='cmdCustomerEdit_OnClick()'>Edit</button>",
+                            DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerDelete_OnClick()'>Delete</button>",
                             Id: Results[i]["cust_ID"],
                             CustomerName: Results[i]["cust_NAME"]
                         });

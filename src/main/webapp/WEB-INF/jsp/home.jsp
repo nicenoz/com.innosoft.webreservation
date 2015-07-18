@@ -21,7 +21,8 @@
 
     <!-- Custom CSS -->
     <link href="<c:url value='/css/landing-page.css' />" rel="stylesheet">
-
+	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
+	
     <!-- Custom Fonts -->
     <link href="<c:url value='/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -38,7 +39,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -108,7 +109,7 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Web Reservation</h2>
                     <p class="lead">A Web Reservation System - Innosoft trial software manufacture.</p>
-                    <a href="software/" class="btn btn-primary btn-lg"><span class="network-name">Launch Software</span></a>
+                    <a href="software/" class="btn btn-primary btn-lg btn-form-custom"><span class="network-name">Launch Software</span></a>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="<c:url value='/img/ipad.png'/>" alt="">
@@ -127,19 +128,19 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-6">
-                    <h2>Connect to Innosoft: +63 32 2663773</h2>
+                <div class="col-lg-9">
+                    <h2 class="footer-bottom-indent">Connect to Innosoft: +63 32 2663773</h2>
                 </div>
-                <!-- <div class="col-lg-6">
+              	 <!-- <div class="col-lg-3">
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg btn-form-custom"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                         </li>
                         <li>
-                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg btn-form-custom"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
                         </li>
                         <li>
-                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            <a href="#" class="btn btn-default btn-lg btn-form-custom"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                         </li>
                     </ul>
                 </div> -->
@@ -152,7 +153,7 @@
     <!-- /.banner -->
 
     <!-- Footer -->
-    <footer>
+    <footer class="navbar-inverse navbar-fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

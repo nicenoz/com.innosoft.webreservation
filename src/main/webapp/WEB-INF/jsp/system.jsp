@@ -26,7 +26,7 @@
 <body class="bodytopindent">
 
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <!-- Brand and toggle get grouped for better mobile display -->
        <div class="navbar-header">
@@ -75,7 +75,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/message/">Messege</a></li>
+				            <li><a href="/webreservation/system/message/">Message</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
@@ -262,6 +262,15 @@
 </div>
 </div>
 
+	<footer class="navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; Innosoft Solutions 2015. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 <!-- jQuery -->
 <script src="<c:url value='/js/jquery.js'/>"></script>

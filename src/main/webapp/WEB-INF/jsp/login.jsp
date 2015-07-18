@@ -16,28 +16,18 @@
 
     <!-- Custom CSS -->
     <link href="<c:url value='/css/landing-page.css' />" rel="stylesheet">
-
+	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
+	
     <!-- Custom Fonts -->
     <link href="<c:url value='/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 <style>
-.bodytopindent {
-	margin-top: 65px;
-}
-.panel-color {
-	background-color: black;
-	color: white;
-}
 
-.error {
-	color: red;
-	font-size: 12px;
-}
 </style>
 </head>
 <body class="bodytopindent">
  <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -59,15 +49,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-primary">
-                    <div class="panel-heading panel-color ">
+                <div class="login-panel panel panel-primary panel-custom">
+                    <div class="panel-heading panel-custom">
                         <h3 class="panel-title ">Please Login</h3>
                     </div>
                     <div class="panel-body">
                         <fieldset>
-                           	<input type="text" name="j_username" class="form-control" id="j_username" size="30" maxlength="40" placeholder="Username"/>
+                           	<input type="text" name="j_username" class="form-control btn-form-custom" id="j_username" size="30" maxlength="40" placeholder="Username"/>
                             <br />
-                            <input type="password" name="j_password" class="form-control" id="j_password" size="30" maxlength="32" placeholder="Password"/>
+                            <input type="password" name="j_password" class="form-control btn-form-custom" id="j_password" size="30" maxlength="32" placeholder="Password"/>
                             <br />
                             <div class="checkbox">
                                 <label>
@@ -75,7 +65,7 @@
                                 </label>
                             </div>
                             <br />
-                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block" />
+                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block btn-form-custom" />
                         </fieldset>
                         <br>
                         <p>
@@ -92,7 +82,7 @@
 </form></section>
 </div>
 	   <!-- Footer -->
-    <footer>
+    <footer class="navbar-inverse navbar-fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

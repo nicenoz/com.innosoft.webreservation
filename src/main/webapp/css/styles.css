@@ -2,10 +2,6 @@
     color: #555 !important;
 }
 
-a {
-    color: #337ab7 !important;
-}
-
 .info-div {
     white-space:nowrap;
     text-align:center;
@@ -104,6 +100,10 @@ dt {
     }
 }
 
+.footer-bottom-indent {
+	padding-bottom: 150px;
+}
+
 .marginButton {
     margin-top: -11px;
 }
@@ -112,12 +112,34 @@ dt {
 	padding-top: 65px;
 }
 
+.panel-custom {
+	border-radius: 0 !important;
+}
+
+.btn-form-custom {
+	border-radius: 0 !important;
+}
+
+.table-form-custom {
+	border-radius: 0 !important;
+}
+
+.input-form-custom {
+	border-radius: 0 !important;
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
+
 .jumbotron-padding {
-  		padding: 10px;
-  		padding-bottom: 30px;
-  	}
-  	
-  	
+  	padding: 10px;
+  	padding-bottom: 30px;
+  	border-radius: 0 !important;
+  	background-color: #E0E0D1;
+}
+		
 .panel-green {
     border-color: #005C1F;
     background-color: #005C1F;
@@ -292,3 +314,4 @@ dt {
 .btn-extend-padding {
 	height: 34px;
 }
+

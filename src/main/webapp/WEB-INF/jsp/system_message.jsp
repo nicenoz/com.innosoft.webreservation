@@ -25,7 +25,7 @@
 <body class="bodytopindent">
 
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <!-- Brand and toggle get grouped for better mobile display -->
        <div class="navbar-header">
@@ -74,7 +74,7 @@
 				            <li><a href="/webreservation/system/time/">Time</a></li>
 				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/messege/">Messege</a></li>
+				            <li><a href="/webreservation/system/message/">Message</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
 				            <li><a href="/webreservation/system/code/">Code</a></li>      
 				         </ul>
