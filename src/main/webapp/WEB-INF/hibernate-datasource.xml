@@ -16,6 +16,7 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
 			<list>
+				<value>com.innosoft.webreservation.entity.MstCode</value>
 				<value>com.innosoft.webreservation.entity.MstCustomer</value>	
 				<value>com.innosoft.webreservation.entity.MstSecurityUser</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityRole</value>
