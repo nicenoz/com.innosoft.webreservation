@@ -16,7 +16,8 @@
 
     <!-- Custom CSS -->
     <link href="<c:url value='/css/landing-page.css' />" rel="stylesheet">
-
+	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
+	
     <!-- Custom Fonts -->
     <link href="<c:url value='/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">

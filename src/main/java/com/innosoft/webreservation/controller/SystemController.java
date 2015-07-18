@@ -39,13 +39,15 @@ public class SystemController {
 		return "system_time";
 	}	
 	
-	@RequestMapping("/message")
-	public String message(Model model) {
-		return "system_message";
-	}		
 	
 	@RequestMapping("/userPassword")
 	public String userPassword(Model model) {
 		return "system_userPassword";
-	}		
+	}	
+	
+	@RequestMapping("/message")
+	public String message(Model model) {
+		return "system_message";
+	}
+	
 }
