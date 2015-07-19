@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCharge;
-import com.innosoft.webreservation.entity.MstCustomer;
 import com.innosoft.webreservation.service.ChargeService;
-import com.innosoft.webreservation.service.CustomerService;
 
 @Controller
 @RequestMapping("api/charge")

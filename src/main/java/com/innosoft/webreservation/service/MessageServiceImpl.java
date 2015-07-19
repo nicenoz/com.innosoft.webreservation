@@ -19,4 +19,8 @@ public class MessageServiceImpl implements MessageService{
 	public List<MstMessage> listMessage(){
 		return messageDao.listMessage();
 	}
+	
+	public MstMessage addMessage(MstMessage message){
+		return messageDao.addMessage(message);
+	}	
 }

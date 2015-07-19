@@ -6,4 +6,5 @@ import com.innosoft.webreservation.entity.MstMessage;
 
 public interface MessageService {
 	public List<MstMessage> listMessage();
+	public MstMessage addMessage(MstMessage message);
 }

@@ -44,15 +44,17 @@ public class MstMessage {
 	@Id
     @GeneratedValue
     @Column(name="MESG_ID")	
-	private int MESG_ID;
+	public int MESG_ID;
+	
 	@Column(name="MESG_CODE")
-	private String MESG_CODE;
+	public String MESG_CODE;
+	
 	@Column(name="MESG_LEVEL")
-	private String MESG_LEVEL;
+	public String MESG_LEVEL;
+	
 	@Column(name="MESG_START_DATE")
-	private Date MESG_START_DATE;
+	public Date MESG_START_DATE;
+	
 	@Column(name="MESG_END_DATE")
-	private Date MESG_END_DATE;
-
-
+	public Date MESG_END_DATE;
 }
