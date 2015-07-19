@@ -126,6 +126,7 @@ dt {
 
 .input-form-custom {
 	border-radius: 0 !important;
+	max-width: 350px;
 }
 
 .error {
