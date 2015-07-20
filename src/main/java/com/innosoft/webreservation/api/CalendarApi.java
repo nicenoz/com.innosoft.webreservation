@@ -37,7 +37,7 @@ public class CalendarApi {
 				return new ResponseEntity<MstCalendar>(newCalendar, HttpStatus.OK);
 			} else {
 				MstCalendar editCalendar = calendarService.editCalendar(calendar);
-				return new ResponseEntity<MstCalendar>(calendar, HttpStatus.OK);
+				return new ResponseEntity<MstCalendar>(editCalendar, HttpStatus.OK);
 			}
 		} catch(Exception e) {
 			return new ResponseEntity<MstCalendar>(calendar, HttpStatus.BAD_REQUEST);

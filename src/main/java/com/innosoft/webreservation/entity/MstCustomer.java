@@ -69,26 +69,36 @@ public class MstCustomer {
 	public void setCUST_ISDELETED(int cUST_ISDELETED) {
 		CUST_ISDELETED = cUST_ISDELETED;
 	}
+	
 	@Id
     @GeneratedValue
     @Column(name="CUST_ID")	
-	private int CUST_ID;
+	public int CUST_ID;
+	
 	@Column(name="CUST_CUSTOMER_NO")	
-	private String CUST_CUSTOMER_NO;
+	public String CUST_CUSTOMER_NO;
+	
 	@Column(name="CUST_NAME")	
-	private String CUST_NAME;
+	public String CUST_NAME;
+	
 	@Column(name="CUST_PHONENO")	
-	private String CUST_PHONENO;
+	public String CUST_PHONENO;
+	
 	@Column(name="CUST_EMAIL")	
-	private String CUST_EMAIL;
+	public String CUST_EMAIL;
+	
 	@Column(name="CUST_ZIPCODE")	
-	private String CUST_ZIPCODE;
+	public String CUST_ZIPCODE;
+	
 	@Column(name="CUST_ADDRESS1")	
-	private String CUST_ADDRESS1;
+	public String CUST_ADDRESS1;
+	
 	@Column(name="CUST_ADDRESS2")	
-	private String CUST_ADDRESS2;
+	public String CUST_ADDRESS2;
+	
 	@Column(name="CUST_ADDRESS3")	
-	private String CUST_ADDRESS3;
+	public String CUST_ADDRESS3;
+	
 	@Column(name="CUST_ISDELETED")		
-	private int CUST_ISDELETED;
+	public int CUST_ISDELETED;
 }

@@ -36,7 +36,8 @@ public class CodeApi {
 				MstCode newCode = codeService.addCode(code);
 				return new ResponseEntity<MstCode>(newCode, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<MstCode>(code, HttpStatus.OK);
+				MstCode editCode = codeService.editCode(code);
+				return new ResponseEntity<MstCode>(editCode, HttpStatus.OK);
 			}
 		} catch(Exception e) {
 			return new ResponseEntity<MstCode>(code, HttpStatus.BAD_REQUEST);

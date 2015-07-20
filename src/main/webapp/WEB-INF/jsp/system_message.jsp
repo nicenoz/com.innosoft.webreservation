@@ -206,386 +206,393 @@
 </div>
 
 <script type="text/javascript">
-	// ================
-	// Global variables
-	// ================
-    var messages;
-    var messageGrid;
+// ================
+// Global variables
+// ================
+var messages;
+var messageGrid;
+
+var messageStartDate;
+var messageEditDate;
+
+var btnFirstPageGrid;
+var btnPreviousPageGrid;
+var btnNextPageGrid;
+var btnLastPageGrid;
+var btnCurrentPageGrid;
+
+// ===================
+// Edit Button Clicked
+// ===================
+function cmdMessageEdit_OnClick() {
+    messages.editItem(messages.currentItem);
+
+    $('#MessageEdit').modal({
+        show: true,
+        backdrop: false
+    });
+
+    var message = messages.currentEditItem;
     
-    var messageStartDate;
-    var messageEditDate;
+    document.getElementById('EDIT_MESG_ID').value = message.MESG_ID !== null && typeof (message.MESG_ID) != 'undefined' ? wijmo.Globalize.format(message.MESG_ID) : 0;
+    document.getElementById('EDIT_MESG_CODE').value = message.MESG_CODE ? message.MESG_CODE : '';
+    document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : '';
+    document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
+    document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
     
-    var btnFirstPageGrid;
-    var btnPreviousPageGrid;
-    var btnNextPageGrid;
-    var btnLastPageGrid;
-    var btnCurrentPageGrid;
-    // ===================
-    // Edit Button Clicked
-    // ===================
-    function cmdMessageEdit_OnClick() {
-        messages.editItem(messages.currentItem);
-
-        $('#MessageEdit').modal({
-            show: true,
-            backdrop: false
-        });
-
-        var message = messages.currentEditItem;
-        document.getElementById('EDIT_MESG_ID').value = message.MESG_ID !== null && typeof (message.MESG_ID) != 'undefined' ? wijmo.Globalize.format(message.MESG_ID) : 0;
-        document.getElementById('EDIT_MESG_CODE').value = message.MESG_CODE ? message.MESG_CODE : '';
-        document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : '';
-        document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
-        document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
-        
-        var splitStartDate = message.MESG_START_DATE.split("-");
-        var splitEndDate = message.MESG_END_DATE.split("-");
-        
-        messageStartDate.dispose();
-        messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
-            format: 'MM/dd/yyyy',
-            value: new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]),
-            onValueChanged: function () {
-                document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-            }
-        });    
-        messageEndDate.dispose();
-        messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
-            format: 'MM/dd/yyyy',
-            value: new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]),
-            onValueChanged: function () {
-                document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-            }
-        });        
-    }
-    // ==================
-    // Add Button Clicked
-    // ==================   
-    function cmdMessageAdd_OnClick() {
-        $('#MessageEdit').modal({
-            show: true,
-            backdrop: false
-        });
-        
-        var currentDate = new Date();
-        
-        document.getElementById('EDIT_MESG_ID').value = 0;
-        document.getElementById('EDIT_MESG_CODE').value = '';
-        document.getElementById('EDIT_MESG_LEVEL').value = '';
-        document.getElementById('EDIT_MESG_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
-        document.getElementById('EDIT_MESG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");  
-        
-        messageStartDate.dispose();
-        messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
-            format: 'MM/dd/yyyy',
-            value: currentDate,
-            onValueChanged: function () {
-                document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-            }
-        });    
-        messageEndDate.dispose();
-        messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
-            format: 'MM/dd/yyyy',
-            value: currentDate,
-            onValueChanged: function () {
-                document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-            }
-        });         
-    }
-    // =====================
-    // Delete Button Clicked
-    // =====================   
-    function cmdMessageDelete_OnClick() {
-        messages.editItem(messages.currentItem);
-        
-        var id = messages.currentEditItem.MESG_ID;
-        var messageCode = messages.currentEditItem.MESG_CODE;
-
-        if (confirm("Delete " + messageCode + "?") == true) {
-            $.ajax({
-                type: "DELETE",
-                url: '${pageContext.request.contextPath}/api/message/delete/' + id,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                statusCode: {
-                    200: function () {
-                        toastr.success('Successfully Deleted.');
-                        window.setTimeout(function () { location.reload() }, 1000);
-                    },
-                    404: function () {
-                        toastr.error("Not found.");
-                    },
-                    400: function () {
-                        toastr.error("Bad request.");
-                    }
-                }
-            });
+    var splitStartDate = message.MESG_START_DATE.split("-");
+    var splitEndDate = message.MESG_END_DATE.split("-");
+    
+    messageStartDate.dispose();
+    messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
+        format: 'MM/dd/yyyy',
+        value: new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]),
+        onValueChanged: function () {
+            document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }
-    }
-    // =================================
-    // Edit Detail Cancel Button Clicked
-    // =================================     
-    function cmdMessageEditCancel_OnClick() {
-    	$('#MessageEdit').modal('hide');    	
-    }
-    // =============================
-    // Edit Detail OK Button Clicked
-    // =============================     
-    function cmdMessageEditOk_OnClick() {
-	    var messageObject = new Object();
-	
-	    messageObject.MESG_ID = parseInt(document.getElementById('EDIT_MESG_ID').value);
-	    messageObject.MESG_CODE = document.getElementById('EDIT_MESG_CODE').value;
-	    messageObject.MESG_LEVEL = document.getElementById('EDIT_MESG_LEVEL').value;
-	    
-	    var splitStartDate = document.getElementById('EDIT_MESG_START_DATE_DATA').value.split("-");
-	    var splitEndDate = document.getElementById('EDIT_MESG_END_DATE_DATA').value.split("-");
+    });    
+    messageEndDate.dispose();
+    messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
+        format: 'MM/dd/yyyy',
+        value: new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]),
+        onValueChanged: function () {
+            document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+        }
+    });        
+}
 
-	    messageObject.MESG_START_DATE = new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]);
-	    messageObject.MESG_END_DATE = new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]);
+// ==================
+// Add Button Clicked
+// ==================   
+function cmdMessageAdd_OnClick() {
+    $('#MessageEdit').modal({
+        show: true,
+        backdrop: false
+    });
+    
+    var currentDate = new Date();
+    
+    document.getElementById('EDIT_MESG_ID').value = 0;
+    document.getElementById('EDIT_MESG_CODE').value = '';
+    document.getElementById('EDIT_MESG_LEVEL').value = '';
+    document.getElementById('EDIT_MESG_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
+    document.getElementById('EDIT_MESG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");  
+    
+    messageStartDate.dispose();
+    messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
+        format: 'MM/dd/yyyy',
+        value: currentDate,
+        onValueChanged: function () {
+            document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+        }
+    });    
+    messageEndDate.dispose();
+    messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
+        format: 'MM/dd/yyyy',
+        value: currentDate,
+        onValueChanged: function () {
+            document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+        }
+    });         
+}
 
-	    var data = JSON.stringify(messageObject);
-	
+// =====================
+// Delete Button Clicked
+// =====================   
+function cmdMessageDelete_OnClick() {
+    messages.editItem(messages.currentItem);
+    
+    var id = messages.currentEditItem.MESG_ID;
+    var messageCode = messages.currentEditItem.MESG_CODE;
+
+    if (confirm("Delete " + messageCode + "?") == true) {
         $.ajax({
-            type: "POST",
-            url: '${pageContext.request.contextPath}/api/message/update',
+            type: "DELETE",
+            url: '${pageContext.request.contextPath}/api/message/delete/' + id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: data,
-            success: function (data) {
-                if (data.MESG_ID > 0) {
-                    toastr.success('Successfully updated.');
+            statusCode: {
+                200: function () {
+                    toastr.success('Successfully Deleted.');
                     window.setTimeout(function () { location.reload() }, 1000);
-                } else {
-                    toastr.error("Not updated.");
+                },
+                404: function () {
+                    toastr.error("Not found.");
+                },
+                400: function () {
+                    toastr.error("Bad request.");
                 }
             }
         });
+    }
+}
 
-    }
-    // =================
-    // Get Messages Data
-    // =================   
-    function getMessages() {
-        var messages = new wijmo.collections.ObservableArray();
-        $('#loading').modal('show');
-        $.ajax({
-            url: '${pageContext.request.contextPath}/api/message/list',
-            cache: false,
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            data: {},
-            success: function (Results) {
-                $('#loading').modal('hide');
-                if (Results.length > 0) {
-                    for (i = 0; i < Results.length; i++) {
-                        messages.push({
-                            EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditMessage' onclick='cmdMessageEdit_OnClick()'>Edit</button>",
-                            DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdMessageDelete_OnClick()'>Delete</button>",
-                            MESG_ID: Results[i]["mesg_ID"],
-                            MESG_CODE: Results[i]["mesg_CODE"],
-                            MESG_LEVEL: Results[i]["mesg_LEVEL"],
-                            MESG_START_DATE: Results[i]["mesg_START_DATE"],
-                            MESG_END_DATE: Results[i]["mesg_END_DATE"]
-                        });
-                    }
-                } else {
-                    alert("No data.");
+// =================================
+// Edit Detail Cancel Button Clicked
+// =================================     
+function cmdMessageEditCancel_OnClick() {
+	$('#MessageEdit').modal('hide');    	
+}
+
+// =============================
+// Edit Detail OK Button Clicked
+// =============================     
+function cmdMessageEditOk_OnClick() {
+	var messageObject = new Object();
+
+	messageObject.MESG_ID = parseInt(document.getElementById('EDIT_MESG_ID').value);
+	messageObject.MESG_CODE = document.getElementById('EDIT_MESG_CODE').value;
+	messageObject.MESG_LEVEL = document.getElementById('EDIT_MESG_LEVEL').value;
+		 
+	var splitStartDate = document.getElementById('EDIT_MESG_START_DATE_DATA').value.split("-");
+	var splitEndDate = document.getElementById('EDIT_MESG_END_DATE_DATA').value.split("-");
+	
+	messageObject.MESG_START_DATE = new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]);
+	messageObject.MESG_END_DATE = new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]);
+	
+	var data = JSON.stringify(messageObject);
+	
+	$.ajax({
+	    type: "POST",
+	    url: '${pageContext.request.contextPath}/api/message/update',
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    data: data,
+	    success: function (data) {
+	        if (data.MESG_ID > 0) {
+	            toastr.success('Successfully updated.');
+	            window.setTimeout(function () { location.reload() }, 1000);
+	        } else {
+	            toastr.error("Not updated.");
+	        }
+	    }
+	});
+}
+
+// =================
+// Get Messages Data
+// =================   
+function getMessages() {
+    var messages = new wijmo.collections.ObservableArray();
+    $('#loading').modal('show');
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/message/list',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {},
+        success: function (Results) {
+            $('#loading').modal('hide');
+            if (Results.length > 0) {
+                for (i = 0; i < Results.length; i++) {
+                    messages.push({
+                        EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditMessage' onclick='cmdMessageEdit_OnClick()'>Edit</button>",
+                        DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdMessageDelete_OnClick()'>Delete</button>",
+                        MESG_ID: Results[i]["mesg_ID"],
+                        MESG_CODE: Results[i]["mesg_CODE"],
+                        MESG_LEVEL: Results[i]["mesg_LEVEL"],
+                        MESG_START_DATE: Results[i]["mesg_START_DATE"],
+                        MESG_END_DATE: Results[i]["mesg_END_DATE"]
+                    });
                 }
+            } else {
+                alert("No data.");
             }
-        }).fail(
-            function (xhr, textStatus, err) {
-                alert(err);
-            }
-        );
-        return messages;
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );
+	return messages;
+}
+
+// ==================
+// Navigation Buttons
+// ==================   
+function updateNavigateButtonsMessage() {
+    if (messages.pageSize <= 0) {
+        document.getElementById('naviagtionPageGrid').style.display = 'none';
+        return;
     }
-    // ==================
-    // Navigation Buttons
-    // ==================   
-    function updateNavigateButtonsMessage() {
-        if (messages.pageSize <= 0) {
-            document.getElementById('naviagtionPageGrid').style.display = 'none';
-            return;
+    document.getElementById('naviagtionPageGrid').style.display = 'block';
+    if (messages.pageIndex === 0) {
+        btnFirstPageGrid.setAttribute('disabled', 'disabled');
+        btnPreviousPageGrid.setAttribute('disabled', 'disabled');
+        btnNextPageGrid.removeAttribute('disabled');
+        btnLastPageGrid.removeAttribute('disabled');
+    }
+    else if (messages.pageIndex === (Messages.pageCount - 1)) {
+        btnFirstPageGrid.removeAttribute('disabled');
+        btnPreviousPageGrid.removeAttribute('disabled');
+        btnLastPageGrid.setAttribute('disabled', 'disabled');
+        btnNextPageGrid.setAttribute('disabled', 'disabled');
+    }
+    else {
+        btnFirstPageGrid.removeAttribute('disabled');
+        btnPreviousPageGrid.removeAttribute('disabled');
+        btnNextPageGrid.removeAttribute('disabled');
+        btnLastPageGrid.removeAttribute('disabled');
+    }
+    btnCurrentPageGrid.innerHTML = (messages.pageIndex + 1) + ' / ' + messages.pageCount;
+}
+
+// =====================
+// Detail Edit Validator
+// =====================     
+function FormValidate() {
+    var validator = $('form').validate({
+        submitHandler: function (form) {
+            form.submit();
         }
-        document.getElementById('naviagtionPageGrid').style.display = 'block';
-        if (messages.pageIndex === 0) {
-            btnFirstPageGrid.setAttribute('disabled', 'disabled');
-            btnPreviousPageGrid.setAttribute('disabled', 'disabled');
-            btnNextPageGrid.removeAttribute('disabled');
-            btnLastPageGrid.removeAttribute('disabled');
-        }
-        else if (messages.pageIndex === (Messages.pageCount - 1)) {
-            btnFirstPageGrid.removeAttribute('disabled');
-            btnPreviousPageGrid.removeAttribute('disabled');
-            btnLastPageGrid.setAttribute('disabled', 'disabled');
-            btnNextPageGrid.setAttribute('disabled', 'disabled');
+    });
+    var x = validator.form();
+    console.log(x);
+    return x;
+}
+
+// ==============================
+// Detail Edit Validator Defaults
+// ==============================    
+$.validator.setDefaults({
+    errorPlacement: function (error, element) {
+        $(element).attr({ "title": error.append() });
+    },
+    highlight: function (element) {
+        $(element).removeClass("textinput");
+        $(element).addClass("errorHighlight");
+    },
+    unhighlight: function (element) {
+        $(element).removeClass("errorHighlight");
+        $(element).addClass("textinput");
+    }
+});
+
+// ============
+// On Page Load
+// ============
+$(document).ready(function () {
+	
+	 // Date Control Initialization
+    messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
+        format: 'MM/dd/yyyy',
+        value: new Date()
+    });    	
+    messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
+        format: 'MM/dd/yyyy',
+        value: new Date()
+    });     	
+	
+    // Validation
+    $('#CmdMessageEditOk').click(function () {
+        if (FormValidate() == true) {
+            cmdMessageEditOkFunction();
+            $('#MessageEdit').modal('hide');
         }
         else {
-            btnFirstPageGrid.removeAttribute('disabled');
-            btnPreviousPageGrid.removeAttribute('disabled');
-            btnNextPageGrid.removeAttribute('disabled');
-            btnLastPageGrid.removeAttribute('disabled');
-        }
-        btnCurrentPageGrid.innerHTML = (messages.pageIndex + 1) + ' / ' + messages.pageCount;
-    }
-    // =====================
-    // Detail Edit Validator
-    // =====================     
-    function FormValidate() {
-        var validator = $('form').validate({
-            submitHandler: function (form) {
-                form.submit();
-            }
-        });
-        var x = validator.form();
-        console.log(x);
-        return x;
-    }
-    // ==============================
-    // Detail Edit Validator Defaults
-    // ==============================    
-    $.validator.setDefaults({
-        errorPlacement: function (error, element) {
-            $(element).attr({ "title": error.append() });
-        },
-        highlight: function (element) {
-            $(element).removeClass("textinput");
-            $(element).addClass("errorHighlight");
-        },
-        unhighlight: function (element) {
-            $(element).removeClass("errorHighlight");
-            $(element).addClass("textinput");
+            toastr.error("Fill the required field!");
         }
     });
-    // ============
-    // On Page Load
-    // ============
-    $(document).ready(function () {
-    	
-    	// Date Control Initialization
-        messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
-            format: 'MM/dd/yyyy',
-            value: new Date()
-        });    	
-        messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
-            format: 'MM/dd/yyyy',
-            value: new Date()
-        });     	
-    	
-		// Validation
-        $('#CmdMessageEditOk').click(function () {
-            if (FormValidate() == true) {
-                cmdMessageEditOkFunction();
-                $('#MessageEdit').modal('hide');
-            }
-            else {
-                toastr.error("Fill the required field!");
-            }
-        });
+    $('#CmdMessageEditCancel, .close').click(function () {
+        $("form input").removeClass("errorHighlight");
+        $('form')[0].reset();
+        $('#MessageEdit').modal('hide');
+    });
+    $('.close-btn').hide();
 
-        $('#CmdMessageEditCancel, .close').click(function () {
-            $("form input").removeClass("errorHighlight");
-            $('form')[0].reset();
-            $('#MessageEdit').modal('hide');
-        });
-
-        $('.close-btn').hide();
-
-        // Collection View
-        messages = new wijmo.collections.CollectionView(getMessages());
-        messages.canFilter = true;
-        messages.pageSize  = 15;
-        
-        var filterText = '';
-        $('#InputFilter').keyup(function () {
-            filterText = this.value.toLowerCase();
-            messages.refresh();
-        });
-        messages.filter = function (item) {
-            return !filterText || (item.MessageCode.toLowerCase().indexOf(filterText) > -1);
-        }
-        
-        messages.collectionChanged.addHandler(function (sender, args) {
-            updateNavigateButtonsMessage();
-        });
-        
-        // Flex Grid
-        messageGrid = new wijmo.grid.FlexGrid('#messageGrid');
-        messageGrid.initialize({
-            columns: [
-                        {
-                            "header": "Edit",
-                            "binding": "EditId",
-                            "width": 60,
-                            "allowSorting": false,
-                            "isContentHtml": true
-                        },
-                        {
-                            "header": "Delete",
-                            "binding": "DeleteId",
-                            "width": 60,
-                            "allowSorting": false,
-                            "isContentHtml": true
-                        },
-                        {
-                            "header": "Code",
-                            "binding": "MESG_CODE",
-                            "allowSorting": true,
-                            "width": "6*"
-                        },
-                        {
-                            "header": "Level",
-                            "binding": "MESG_LEVEL",
-                            "allowSorting": true,
-                            "width": "6*"
-                        },
-                        {
-                            "header": "Start Date",
-                            "binding": "MESG_START_DATE",
-                            "allowSorting": true,
-                            "width": "6*"
-                        },
-                        {
-                            "header": "End Date",
-                            "binding": "MESG_END_DATE",
-                            "allowSorting": true,
-                            "width": "6*"
-                        }                         
-            ],
-            autoGenerateColumns: false,
-            itemsSource: messages,
-            isReadOnly: true,
-            selectionMode: wijmo.grid.SelectionMode.Row
-        });
-        messageGrid.trackChanges = true;
-
-        // Navigation button
-        btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
-        btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
-        btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
-        btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
-        btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
-
+    // Collection View
+    messages = new wijmo.collections.CollectionView(getMessages());
+    messages.canFilter = true;
+    messages.pageSize  = 15;
+    
+    var filterText = '';
+    $('#InputFilter').keyup(function () {
+        filterText = this.value.toLowerCase();
+        messages.refresh();
+    });
+    messages.filter = function (item) {
+        return !filterText || (item.MessageCode.toLowerCase().indexOf(filterText) > -1);
+    }
+    messages.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsMessage();
-
-        btnFirstPageGrid.addEventListener('click', function () {
-            messages.moveToFirstPage();
-            updateNavigateButtonsMessage();
-        });
-        btnPreviousPageGrid.addEventListener('click', function () {
-            messages.moveToPreviousPage();
-            updateNavigateButtonsMessage();
-        });
-        btnNextPageGrid.addEventListener('click', function () {
-            messages.moveToNextPage();
-            updateNavigateButtonsMessage();
-        });
-        btnLastPageGrid.addEventListener('click', function () {
-            messages.moveToLastPage();
-            updateNavigateButtonsMessage();
-        });
     });
+    
+    // Flex Grid
+    messageGrid = new wijmo.grid.FlexGrid('#messageGrid');
+    messageGrid.initialize({
+        columns: [
+                    {
+                        "header": "Edit",
+                        "binding": "EditId",
+                        "width": 60,
+                        "allowSorting": false,
+                        "isContentHtml": true
+                    },
+                    {
+                        "header": "Delete",
+                        "binding": "DeleteId",
+                        "width": 60,
+                        "allowSorting": false,
+                        "isContentHtml": true
+                    },
+                    {
+                        "header": "Code",
+                        "binding": "MESG_CODE",
+                        "allowSorting": true,
+                        "width": "6*"
+                    },
+                    {
+                        "header": "Level",
+                        "binding": "MESG_LEVEL",
+                        "allowSorting": true,
+                        "width": "6*"
+                    },
+                    {
+                        "header": "Start Date",
+                        "binding": "MESG_START_DATE",
+                        "allowSorting": true,
+                        "width": "6*"
+                    },
+                    {
+                        "header": "End Date",
+                        "binding": "MESG_END_DATE",
+                        "allowSorting": true,
+                        "width": "6*"
+                    }                         
+        ],
+        autoGenerateColumns: false,
+        itemsSource: messages,
+        isReadOnly: true,
+        selectionMode: wijmo.grid.SelectionMode.Row
+    });
+    messageGrid.trackChanges = true;
+
+    // Navigation button
+    btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
+    btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+    btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
+    btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
+    btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
+
+    updateNavigateButtonsMessage();
+
+    btnFirstPageGrid.addEventListener('click', function () {
+        messages.moveToFirstPage();
+        updateNavigateButtonsMessage();
+    });
+    btnPreviousPageGrid.addEventListener('click', function () {
+        messages.moveToPreviousPage();
+        updateNavigateButtonsMessage();
+    });
+    btnNextPageGrid.addEventListener('click', function () {
+        messages.moveToNextPage();
+        updateNavigateButtonsMessage();
+    });
+    btnLastPageGrid.addEventListener('click', function () {
+        messages.moveToLastPage();
+        updateNavigateButtonsMessage();
+    });
+});
 </script>
 
 </body>
