@@ -48,15 +48,20 @@ public class MstCode {
 	@Id
     @GeneratedValue
     @Column(name="CODE_ID")		
-	private int CODE_ID;  
+	public int CODE_ID;  
+	
 	@Column(name="CODE_KIND_CODE")	
-	private String CODE_KIND_CODE;
+	public String CODE_KIND_CODE;
+	
 	@Column(name="CODE_CODE_VALUE")	
-	private String CODE_CODE_VALUE;
+	public String CODE_CODE_VALUE;
+	
 	@Column(name="CODE_TEXT")	
-	private String CODE_TEXT;
+	public String CODE_TEXT;
+	
 	@Column(name="CODE_ISDISPLAY")	
-	private int CODE_ISDISPLAY;
+	public int CODE_ISDISPLAY;
+	
 	@Column(name="CODE_NOTE")	
-	private String CODE_NOTE; 
+	public String CODE_NOTE; 
 }

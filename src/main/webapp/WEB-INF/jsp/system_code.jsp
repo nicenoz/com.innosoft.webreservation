@@ -94,7 +94,7 @@
 
 <!-- Code List -->
 <div class="container"> 
-<section id="customerList">
+<section id="codeList">
 	<div class="row">
 	    <div class="col-lg-12">
 	        <h4>Code List</h4>
@@ -112,13 +112,13 @@
 	        </div>
 	    </div>
 	    <div class="col-lg-8">
-	        <button id="cmdAddProduct" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdProductAdd_OnClick()">Add</button>
+	        <button id="cmdAddCode" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdCodeAdd_OnClick()">Add</button>
 	    </div>
 	</div>
 	<br />
 	<div class="row table-form-custom">
 	    <div class="col-lg-12 table-form-custom">
-	        <div id="CustomerTimeGrid" class="grid table-form-custom"></div>
+	        <div id="codeGrid" class="grid table-form-custom"></div>
 	    </div>
 	</div>
 	
@@ -158,119 +158,175 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    var customerTime;
-    var customerGrid;
+<!-- Code Edit Detail -->
+<div class="modal fade" id="codeEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">Code Edit</h4>
+            </div>
+            <div class="modal-body">
+                <form id="messageForm">
+                    <dl class="dl-horizontal">
+                        <dt>Code</dt>
+                        <dd>
+                            <input class="form-control" id="EDIT_CODE_ID" type="hidden" />
+                            <input class="form-control" id="EDIT_CODE_KIND_CODE" name="EDIT_CODE_KIND_CODE" type="text" required />
+                        </dd>
+                        <dt>Code Value</dt>
+                        <dd>
+                            <input class="form-control" id="EDIT_CODE_VALUE" name="EDIT_CODE_VALUE" type="text" required />
+                        </dd>
+                        <dt>Note</dt>
+                        <dd>
+							<input class="form-control" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" type="text" required /> 
+                        </dd>
+                        <dt>Text</dt>
+                        <dd>
+							<input class="form-control" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" type="text" required /> 
+                        </dd>                        
+                        <dt>Is displayed?</dt>
+                        <dd>
+							<input class="form-control" id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" type="text" required /> 
+                        </dd>                       
+                    </dl>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"  id="cmdCodeEditOk" onclick="cmdCodeEditOk_OnClick()">
+                    Ok
+                </button>
+                <button type="button" class="btn btn-danger" id="cmdCodeEditCancel" onclick="cmdCodeEditCancel_OnClick()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript">
+	// ================
+	// Global variables
+	// ================
+    var codes;
+    var codeGrid;
+    
     var btnFirstPageGrid;
     var btnPreviousPageGrid;
     var btnNextPageGrid;
     var btnLastPageGrid;
     var btnCurrentPageGrid;
+    // ===================
+    // Edit Button Clicked
+    // ===================
+    function cmdCodeEdit_OnClick() {
+        codes.editItem(messages.currentItem);
 
-    function cmdCustomerTimeEdit_OnClick() {
-        customerTime.editItem(customerTime.currentItem);
-
-        $('#CustomerTimeEdit').modal({
+        $('#CodeEdit').modal({
             show: true,
             backdrop: false
         });
 
-        //var CustomerTime = CustomerTimes.currentEditItem;
-        //document.getElementById('CustomerTimeEdit_Id').value = CustomerTime.Id !== null && typeof (CustomerTime.Id) != 'undefined' ? wijmo.Globalize.format(CustomerTime.Id) : '';
-        //document.getElementById('CustomerTimeEdit_CustomerTimeDescription').value = CustomerTime.CustomerTimeDescription ? CustomerTime.CustomerTimeDescription : '';
-
-    }
-    
-    function cmdCustomerTimeAdd_OnClick() {
-        $('#CustomerTimeEdit').modal({
+        var code = codes.currentEditItem;
+        
+        document.getElementById('EDIT_CODE_ID').value = code.CODE_ID !== null && typeof (code.CODE_ID) != 'undefined' ? wijmo.Globalize.format(code.CODE_ID) : 0;
+        document.getElementById('EDIT_CODE_KIND_CODE').value = code.CODE_KIND_CODE ? code.CODE_KIND_CODE : '';
+        document.getElementById('EDIT_CODE_CODE_VALUE').value = code.CODE_CODE_VALUE ? code.CODE_CODE_VALUE : '';
+        document.getElementById('EDIT_CODE_NOTE').value = code.CODE_NOTE ? code.CODE_NOTE : '';
+        document.getElementById('EDIT_CODE_TEXT').value = code.CODE_TEXT ? code.CODE_TEXT : '';
+        document.getElementById('EDIT_CODE_ISDISPLAY').value = code.CODE_ISDISPLAY ? code.CODE_ISDISPLAY : 1;        
+    } 
+    // ==================
+    // Add Button Clicked
+    // ==================   
+    function cmdCodeAdd_OnClick() {
+        $('#codeEdit').modal({
             show: true,
             backdrop: false
         });
-
-        //document.getElementById('CustomerTimeEdit_Id').value = 0;
-        //document.getElementById('CustomerTimeEdit_CustomerTimeDescription').value = "";
-
+        
+        document.getElementById('EDIT_CODE_ID').value = 0;
+        document.getElementById('EDIT_CODE_KIND_CODE').value = '';
+        document.getElementById('EDIT_CODE_CODE_VALUE').value = '';
+        document.getElementById('EDIT_CODE_NOTE').value = '';
+        document.getElementById('EDIT_CODE_TEXT').value = '';
+        document.getElementById('EDIT_CODE_ISDISPLAY').value = 1;          
     }
-    
-    function cmdCustomerTimeDelete_OnClick() {
-        customerTime.editItem(customerTime.currentItem);
+    // =====================
+    // Delete Button Clicked
+    // =====================   
+    function cmdCodeDelete_OnClick() {
+        codes.editItem(codes.currentItem);
+        
+        var id = codes.currentEditItem.CODE_ID;
+        var codeKindCode = codes.currentEditItem.CODE_KIND_CODE;
 
-/*         var Id = CustomerTimes.currentEditItem.Id;
-        var CustomerTimeDescription = CustomerTimes.currentEditItem.CustomerTimeDescription;
-
-        if (confirm("Delete " + CustomerTimeDescription + "?") == true) {
+        if (confirm("Delete " + codeKindCode + "?") == true) {
             $.ajax({
                 type: "DELETE",
-                url: "/api/DeleteCustomerTime/" + Id,
+                url: '${pageContext.request.contextPath}/api/code/delete/' + id,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 statusCode: {
                     200: function () {
-                        toastr.success('Successfully Deleted!');
-                        window.setTimeout(function () { location.reload() }, 3000);
+                        toastr.success('Successfully Deleted.');
+                        window.setTimeout(function () { location.reload() }, 1000);
                     },
                     404: function () {
-                        toastr.error("Not found!");
+                        toastr.error("Not found.");
                     },
                     400: function () {
-                        toastr.error("Bad request");
+                        toastr.error("Bad request.");
                     }
                 }
             });
-        } */
+        }
     }
-    function cmdCustomerTimeEditOkFunction() {
-	    var CustomerTime = new Object();
+    // =================================
+    // Edit Detail Cancel Button Clicked
+    // =================================     
+    function cmdCodeEditCancel_OnClick() {
+    	$('#codeEdit').modal('hide');    	
+    } 
+    // =============================
+    // Edit Detail OK Button Clicked
+    // =============================     
+    function cmdCodeEditOk_OnClick() {
+	    var codeObject = new Object();
 	
-	    CustomerTime.Id = document.getElementById('CustomerTimeEdit_Id').value;
-	    CustomerTime.CustomerTimeDescription = document.getElementById('CustomerTimeEdit_CustomerTimeDescription').value;
+	    codeObject.CODE_ID = parseInt(document.getElementById('EDIT_CODE_ID').value);
+	    codeObject.CODE_KIND_CODE = document.getElementById('EDIT_CODE_KIND_CODE').value;
+	    codeObject.CODE_CODE_VALUE = document.getElementById('EDIT_CODE_CODE_VALUE').value;
+	    codeObject.CODE_NOTE = document.getElementById('EDIT_CODE_NOTE').value;
+	    codeObject.CODE_TEXT = document.getElementById('EDIT_CODE_TEXT').value;
+	    codeObject.CODE_ISDISPLAY = parseInt(document.getElementById('EDIT_CODE_ISDISPLAY').value); 
+
+	    var data = JSON.stringify(codeObject);
 	
-	    var data = JSON.stringify(CustomerTime);
-	
-	    // Add New
-	    if (CustomerTime.Id == 0) {
-	        $.ajax({
-	            type: "POST",
-	            url: "/api/AddCustomerTime",
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            data: data,
-	            success: function (id) {
-	                if (id > 0) {
-	                    toastr.success('Successfully Added!');
-	                    window.setTimeout(function () { location.reload() }, 3000);
-	                } else {
-	                    toastr.error("Not added!");
-	                }
-	            }
-	        });
-	
-	        // Edit
-	    } else {
-	        $.ajax({
-	            type: "PUT",
-	            url: "/api/UpdateCustomerTime/" + CustomerTime.Id,
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            data: data,
-	            statusCode: {
-	                200: function () {
-	                    toastr.success('Successfully Modified!');
-	                    window.setTimeout(function () { location.reload() }, 3000);
-	                },
-	                404: function () {
-	                    toastr.error("Not found!");
-	                },
-	                400: function () {
-	                    toastr.error("Bad request");
-	                }
-	            }
-	        });
-	    }
-    }
-    function getCustomerTimes() {
-        var customerTime = new wijmo.collections.ObservableArray();
+        $.ajax({
+            type: "POST",
+            url: '${pageContext.request.contextPath}/api/code/update',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: function (data) {
+                if (data.CODE_ID > 0) {
+                    toastr.success('Successfully updated.');
+                    window.setTimeout(function () { location.reload() }, 1000);
+                } else {
+                    toastr.error("Not updated.");
+                }
+            }
+        });
+    } 
+    // ==============
+    // Get Codes Data
+    // ==============   
+    function getCodes() {
+        var codes = new wijmo.collections.ObservableArray();
         $('#loading').modal('show');
         $.ajax({
             url: '${pageContext.request.contextPath}/api/code/list',
@@ -282,15 +338,15 @@
                 $('#loading').modal('hide');
                 if (Results.length > 0) {
                     for (i = 0; i < Results.length; i++) {
-                        customerTime.push({
-                            EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCustomerTime' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
-                            DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCustomerTime' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
-                            Id: Results[i]["code_ID"],
-                            KindCode: Results[i]["code_KIND_CODE"],
-                            CodeValue: Results[i]["code_CODE_VALUE"],
-                            CodeText: Results[i]["code_TEXT"],
-                            CodeISDisplay: Results[i]["code_ISDISPLAY"],
-                            CodeNote: Results[i]["code_NOTE"]
+                        codes.push({
+                            EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCode' onclick='cmdCodeEdit_OnClick()'>Edit</button>",
+                            DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCode' onclick='cmdCodeDelete_OnClick()'>Delete</button>",
+                            CODE_ID: Results[i]["CODE_ID"],
+                            CODE_KIND_CODE: Results[i]["CODE_KIND_CODE"],
+                            CODE_CODE_VALUE: Results[i]["CODE_CODE_VALUE"],
+                            CODE_NOTE: Results[i]["CODE_NOTE"],
+                            CODE_TEXT: Results[i]["CODE_TEXT"],
+                            CODE_ISDISPLAY: Results[i]["CODE_ISDISPLAY"]
                         });
                     }
                 } else {
@@ -302,21 +358,24 @@
                 alert(err);
             }
         );
-        return customerTime;
+        return codes;
     }
-    function updateNavigateButtonsCustomerTime() {
-        if (customerTime.pageSize <= 0) {
+    // ==================
+    // Navigation Buttons
+    // ==================   
+     function updateNavigateButtonsCode() {
+        if (codes.pageSize <= 0) {
             document.getElementById('naviagtionPageGrid').style.display = 'none';
             return;
         }
         document.getElementById('naviagtionPageGrid').style.display = 'block';
-        if (customerTime.pageIndex === 0) {
+        if (codes.pageIndex === 0) {
             btnFirstPageGrid.setAttribute('disabled', 'disabled');
             btnPreviousPageGrid.setAttribute('disabled', 'disabled');
             btnNextPageGrid.removeAttribute('disabled');
             btnLastPageGrid.removeAttribute('disabled');
         }
-        else if (customerTime.pageIndex === (CustomerTimes.pageCount - 1)) {
+        else if (codes.pageIndex === (codes.pageCount - 1)) {
             btnFirstPageGrid.removeAttribute('disabled');
             btnPreviousPageGrid.removeAttribute('disabled');
             btnLastPageGrid.setAttribute('disabled', 'disabled');
@@ -328,8 +387,11 @@
             btnNextPageGrid.removeAttribute('disabled');
             btnLastPageGrid.removeAttribute('disabled');
         }
-        btnCurrentPageGrid.innerHTML = (customerTime.pageIndex + 1) + ' / ' + customerTime.pageCount;
-    }
+        btnCurrentPageGrid.innerHTML = (codes.pageIndex + 1) + ' / ' + codes.pageCount;
+    } 
+    // =====================
+    // Detail Edit Validator
+    // =====================     
     function FormValidate() {
         var validator = $('form').validate({
             submitHandler: function (form) {
@@ -339,8 +401,11 @@
         var x = validator.form();
         console.log(x);
         return x;
-    }
-    $.validator.setDefaults({
+    } 
+    // ==============================
+    // Detail Edit Validator Defaults
+    // ==============================    
+     $.validator.setDefaults({
         errorPlacement: function (error, element) {
             $(element).attr({ "title": error.append() });
         },
@@ -352,52 +417,53 @@
             $(element).removeClass("errorHighlight");
             $(element).addClass("textinput");
         }
-    });
+    }); 
+    // ============
+    // On Page Load
+    // ============
     $(document).ready(function () {
 
-        $('#CmdCustomerTimeEditOk').click(function () {
+		// Validation
+        $('#cmdCodeEditOk').click(function () {
             if (FormValidate() == true) {
-                cmdCustomerTimeEditOkFunction();
-                $('#CustomerTimeEdit').modal('hide');
+                cmdCodeEditOkFunction();
+                $('#codeEdit').modal('hide');
             }
             else {
                 toastr.error("Fill the required field!");
             }
         });
 
-        $('#CmdCustomerTimeEditCancel, .close').click(function () {
+        $('#cmdCodeEditCancel, .close').click(function () {
             $("form input").removeClass("errorHighlight");
             $('form')[0].reset();
-            $('#CustomerTimeEdit').modal('hide');
+            $('#codeEdit').modal('hide');
         });
 
         $('.close-btn').hide();
 
-        btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
-        btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
-        btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
-        btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
-        btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
-
-        customerTime = new wijmo.collections.CollectionView(getCustomerTimes());
-
-        customerGrid = new wijmo.grid.FlexGrid('#CustomerTimeGrid');
-
-        customerTime.canFilter = true;
-
+        // Collection View
+        codes = new wijmo.collections.CollectionView(getCodes());
+        codes.canFilter = true;
+        codes.pageSize  = 15;
+        
         var filterText = '';
-
         $('#InputFilter').keyup(function () {
             filterText = this.value.toLowerCase();
-            customerTime.refresh();
+            codes.refresh();
         });
-
-        customerTime.filter = function (item) {
-            return !filterText || (item.CustomerTimeName.toLowerCase().indexOf(filterText) > -1);
+        codes.filter = function (item) {
+            return !filterText || (item.CODE_KIND_CODE.toLowerCase().indexOf(filterText) > -1);
         }
-
-        customerGrid.initialize({
-            columns: [      
+        
+        codes.collectionChanged.addHandler(function (sender, args) {
+            updateNavigateButtonsCode();
+        });
+        
+        // Flex Grid
+        codeGrid = new wijmo.grid.FlexGrid('#codeGrid');
+        codeGrid.initialize({
+            columns: [
                         {
                             "header": "Edit",
                             "binding": "EditId",
@@ -411,71 +477,70 @@
                             "width": 60,
                             "allowSorting": false,
                             "isContentHtml": true
+                        }         ,
+                        {
+                            "header": "Code",
+                            "binding": "CODE_KIND_CODE",
+                            "allowSorting": true,
+                            "width": 100
                         },
                         {
-                            "header": "Kind Code",
-                            "binding": "KindCode",
+                            "header": "Value",
+                            "binding": "CODE_CODE_VALUE",
                             "allowSorting": true,
-                            "width": "1*"
+                            "width": 100
+                        },                        
+                        {
+                            "header": "Note",
+                            "binding": "CODE_NOTE",
+                            "allowSorting": true,
+                            "width": "2*"
                         },
                         {
-                            "header": "Code Value",
-                            "binding": "CodeValue",
+                            "header": "Text",
+                            "binding": "CODE_TEXT",
                             "allowSorting": true,
-                            "width": "1*"
+                            "width": "2*"
                         },
                         {
-                            "header": "Code Text",
-                            "binding": "CodeText",
+                            "header": "Display",
+                            "binding": "CODE_ISDISPLAY",
                             "allowSorting": true,
-                            "width": "1*"
-                        },
-                        {
-                            "header": "Code IS Display",
-                            "binding": "CodeISDisplay",
-                            "allowSorting": true,
-                            "width": "1*"
-                        },
-                        {
-                            "header": "Code Note",
-                            "binding": "CodeNote",
-                            "allowSorting": true,
-                            "width": "1*"
-                        }
+                            "width": 60
+                        }                
             ],
             autoGenerateColumns: false,
-            itemsSource: customerTime,
+            itemsSource: codes,
             isReadOnly: true,
             selectionMode: wijmo.grid.SelectionMode.Row
         });
+        codeGrid.trackChanges = true;
 
-        customerGrid.trackChanges = true;
+        // Navigation button
+        btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
+        btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+        btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
+        btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
+        btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
 
-        customerTime.pageSize = 15;
-
-        customerTime.collectionChanged.addHandler(function (sender, args) {
-            updateNavigateButtonsCustomerTime();
-        });
-
-        updateNavigateButtonsCustomerTime();
+        updateNavigateButtonsCode();
 
         btnFirstPageGrid.addEventListener('click', function () {
-            customerTime.moveToFirstPage();
-            updateNavigateButtonsCustomerTime();
+            codes.moveToFirstPage();
+            updateNavigateButtonsCode();
         });
         btnPreviousPageGrid.addEventListener('click', function () {
-            customerTime.moveToPreviousPage();
-            updateNavigateButtonsCustomerTime();
+            codes.moveToPreviousPage();
+            updateNavigateButtonsCode();
         });
         btnNextPageGrid.addEventListener('click', function () {
-            customerTime.moveToNextPage();
-            updateNavigateButtonsCustomerTime();
+            codes.moveToNextPage();
+            updateNavigateButtonsCode();
         });
         btnLastPageGrid.addEventListener('click', function () {
-            customerTime.moveToLastPage();
-            updateNavigateButtonsCustomerTime();
-        });
-
+            codes.moveToLastPage();
+            updateNavigateButtonsCode();
+        }); 
     });
 </script>
 

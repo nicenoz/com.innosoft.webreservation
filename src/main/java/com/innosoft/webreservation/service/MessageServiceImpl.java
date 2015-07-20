@@ -23,4 +23,12 @@ public class MessageServiceImpl implements MessageService{
 	public MstMessage addMessage(MstMessage message){
 		return messageDao.addMessage(message);
 	}	
+	
+	public MstMessage editMessage(MstMessage message){
+		return messageDao.editMessage(message);
+	}
+	
+	public boolean deleteMessage(int id){
+		return messageDao.deleteMessage(id);
+	}
 }

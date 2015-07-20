@@ -183,12 +183,12 @@
                         <dt>Start Date</dt>
                         <dd>
 							<div id="EDIT_MESG_START_DATE" ></div>
-                            <input class="form-control" id="EDIT_MESG_START_DATE_DATA" type="hidden" />  
+                            <input class="form-control" id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
                         </dd>
                         <dt>End Date</dt>
                         <dd>
 							<div id="EDIT_MESG_END_DATE" ></div>
-                            <input class="form-control" id="EDIT_MESG_END_DATE_DATA" type="hidden" />                            
+                            <input class="form-control" id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
                         </dd>                        
                     </dl>
                 </form>
@@ -236,10 +236,10 @@
         document.getElementById('EDIT_MESG_CODE').value = message.MESG_CODE ? message.MESG_CODE : '';
         document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : '';
         document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
-        document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.EDIT_MESG_END_DATE ? message.EDIT_MESG_END_DATE : '';
+        document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
         
         var splitStartDate = message.MESG_START_DATE.split("-");
-        var splitEndDate = message.EDIT_MESG_END_DATE.split("-");
+        var splitEndDate = message.MESG_END_DATE.split("-");
         
         messageStartDate.dispose();
         messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
@@ -309,14 +309,14 @@
                 dataType: "json",
                 statusCode: {
                     200: function () {
-                        toastr.success('Successfully Deleted!');
-                        window.setTimeout(function () { location.reload() }, 3000);
+                        toastr.success('Successfully Deleted.');
+                        window.setTimeout(function () { location.reload() }, 1000);
                     },
                     404: function () {
-                        toastr.error("Not found!");
+                        toastr.error("Not found.");
                     },
                     400: function () {
-                        toastr.error("Bad request");
+                        toastr.error("Bad request.");
                     }
                 }
             });
@@ -354,10 +354,10 @@
             data: data,
             success: function (data) {
                 if (data.MESG_ID > 0) {
-                    toastr.success('Successfully Added!');
-                    window.setTimeout(function () { location.reload() }, 3000);
+                    toastr.success('Successfully updated.');
+                    window.setTimeout(function () { location.reload() }, 1000);
                 } else {
-                    toastr.error("Not added!");
+                    toastr.error("Not updated.");
                 }
             }
         });

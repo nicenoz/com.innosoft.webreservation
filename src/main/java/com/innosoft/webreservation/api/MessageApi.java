@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-import com.innosoft.webreservation.entity.MstCode;
 import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.service.MessageService;
 
@@ -36,10 +34,25 @@ public class MessageApi {
 				MstMessage newMessage = messageService.addMessage(message);
 				return new ResponseEntity<MstMessage>(newMessage, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<MstMessage>(message, HttpStatus.OK);
+				MstMessage editMessage = messageService.editMessage(message);
+				return new ResponseEntity<MstMessage>(editMessage, HttpStatus.OK);
 			}
 		} catch(Exception e) {
 			return new ResponseEntity<MstMessage>(message, HttpStatus.BAD_REQUEST);
 		}	
 	}	
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteMessage(@PathVariable("id") int id) {
+		try {
+			boolean deleteReturn = messageService.deleteMessage(id);
+			if (deleteReturn==true) {
+				return new ResponseEntity<String>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

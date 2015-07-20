@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,16 +16,22 @@ public class MstCharge {
 	@GeneratedValue
 	@Column(name = "CHRG_ID")
 	public int CHRG_ID;
+	
 	@Column(name = "CHRG_CHARGE_NO")
 	public String CHRG_CHARGE_NO;
+	
 	@Column(name = "CHRG_CUST_ID")
 	public int CHRG_CUST_ID;
+	
 	@Column(name = "CHRG_PRICE")
 	public int CHRG_PRICE;
+	
 	@Column(name = "CHRG_APP_DIVISION")
 	public String CHRG_APP_DIVISION;
+	
 	@Column(name = "CHRG_APP_START_DATE")
 	public Date CHRG_APP_START_DATE;
+	
 	@Column(name = "CHRG_APP_END_DATE")
 	public Date CHRG_APP_END_DATE;
 	
@@ -68,16 +75,18 @@ public class MstCharge {
 		CHRG_APP_DIVISION = cHRG_APP_DIVISION;
 	}
 
-	public Date getCHRG_APP_START_DATE() {
-		return CHRG_APP_START_DATE;
+	public String getCHRG_APP_START_DATE() {
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");		
+		return sd.format(CHRG_APP_START_DATE);		
 	}
 
 	public void setCHRG_APP_START_DATE(Date cHRG_APP_START_DATE) {
 		CHRG_APP_START_DATE = cHRG_APP_START_DATE;
 	}
 
-	public Date getCHRG_APP_END_DATE() {
-		return CHRG_APP_END_DATE;
+	public String getCHRG_APP_END_DATE() {
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");		
+		return sd.format(CHRG_APP_END_DATE);			
 	}
 
 	public void setCHRG_APP_END_DATE(Date cHRG_APP_END_DATE) {

@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,8 +40,9 @@ public class MstCalendar {
 		CLDR_ID = cLDR_ID;
 	}
 
-	public Date getCLDR_DATE() {
-		return CLDR_DATE;
+	public String getCLDR_DATE() {
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");		
+		return sd.format(CLDR_DATE);		
 	}
 
 	public void setCLDR_DATE(Date cLDR_DATE) {

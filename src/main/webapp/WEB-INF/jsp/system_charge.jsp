@@ -198,8 +198,7 @@
 							<dt>Charge No</dt>
 							<dd>
 								<input class="form-control" id="EDIT_CHRG_ID" type="hidden" />
-								<input class="form-control" id="EDIT_CHARGE_NO"
-									name="EDIT_CHARGE_NO" type="text" required />
+								<input class="form-control" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" required />
 							</dd>
 					
 							<dt>Cust ID</dt>
@@ -219,14 +218,14 @@
 							</dd>
 							<dt>Start Date</dt>
 							<dd>
-								<div id="EDIT_CHRG_START_DATE"></div>
-								<input class="form-control" id="EDIT_CHRG_START_DATE_DATA"
+								<div id="EDIT_CHRG_APP_START_DATE"></div>
+								<input class="form-control" id="EDIT_CHRG_APP_START_DATE_DATA"
 									type="hidden" />
 							</dd>
 							<dt>End Date</dt>
 							<dd>
-								<div id="EDIT_CHRG_END_DATE"></div>
-								<input class="form-control" id="EDIT_CHRG_END_DATE_DATA"
+								<div id="EDIT_CHRG_APP_END_DATE"></div>
+								<input class="form-control" id="EDIT_CHRG_APP_END_DATE_DATA"
 									type="hidden" />
 							</dd>
 						</dl>
@@ -271,30 +270,30 @@
 
         var charge = charges.currentEditItem;
         document.getElementById('EDIT_CHRG_ID').value = charge.CHRG_ID !== null && typeof (charge.CHRG_ID) != 'undefined' ? wijmo.Globalize.format(charge.CHRG_ID) : '';
-        document.getElementById('EDIT_CHARGE_NO').value = charge.CHRG_NO ? charge.CHRG_NO : '';
+        document.getElementById('EDIT_CHRG_CHARGE_NO').value = charge.CHRG_CHARGE_NO ? charge.CHRG_CHARGE_NO : '';
         document.getElementById('EDIT_CHRG_CUST_ID').value = charge.CHRG_CUST_ID ? charge.CHRG_CUST_ID : '';
         document.getElementById('EDIT_CHRG_PRICE').value = charge.CHRG_PRICE ? charge.CHRG_PRICE : '';
         document.getElementById('EDIT_CHRG_APP_DIVISION').value = charge.CHRG_APP_DIVISION ? charge.CHRG_APP_DIVISION : '';
-        document.getElementById('EDIT_CHRG_START_DATE_DATA').value = charge.CHRG_START_DATE ? charge.CHRG_START_DATE : '';
-        document.getElementById('EDIT_CHRG_END_DATE_DATA').value = charge.EDIT_CHRG_END_DATE ? charge.EDIT_CHRG_END_DATE : '';
+        document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = charge.CHRG_APP_START_DATE ? charge.CHRG_APP_START_DATE : '';
+        document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.EDIT_CHRG_APP_END_DATE ? charge.EDIT_CHRG_APP_END_DATE : '';
 
-        var splitStartDate = charge.CHRG_START_DATE.split("-");
-        var splitEndDate = charge.EDIT_CHRG_END_DATE.split("-");
+        var splitStartDate = charge.CHRG_APP_START_DATE.split("-");
+        var splitEndDate = charge.EDIT_CHRG_APP_END_DATE.split("-");
         
         chargeStartDate.dispose();
-        chargeStartDate = new wijmo.input.InputDate('#EDIT_CHRG_START_DATE', {
+        chargeStartDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_START_DATE', {
             format: 'MM/dd/yyyy',
             value: new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]),
             onValueChanged: function () {
-                document.getElementById('EDIT_CHRG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+                document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
             }
         });    
         chargeEndDate.dispose();
-        chargeEndDate = new wijmo.input.InputDate('#EDIT_CHRG_END_DATE', {
+        chargeEndDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_END_DATE', {
             format: 'MM/dd/yyyy',
             value: new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]),
             onValueChanged: function () {
-                document.getElementById('EDIT_CHRG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+                document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
             }
 	});
 
@@ -311,32 +310,32 @@
 		var currentDate = new Date();
 
 		document.getElementById('EDIT_CHRG_ID').value = 0;
-		document.getElementById('EDIT_CHARGE_NO').value = '';
+		document.getElementById('EDIT_CHRG_CHARGE_NO').value = '';
 		document.getElementById('EDIT_CHRG_CUST_ID').value = '';
 		document.getElementById('EDIT_CHRG_PRICE').value = '';
 		document.getElementById('EDIT_CHRG_APP_DIVISION').value = '';
-		document.getElementById('EDIT_CHRG_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
-		document.getElementById('EDIT_CHRG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
+		document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
+		document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
 
 		chargeStartDate.dispose();
 		chargeStartDate = new wijmo.input.InputDate(
-				'#EDIT_CHRG_START_DATE',
+				'#EDIT_CHRG_APP_START_DATE',
 				{
 					format : 'MM/dd/yyyy',
 					value : currentDate,
 					onValueChanged : function() {
-						document.getElementById('EDIT_CHRG_START_DATE_DATA').value = this.value
+						document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value
 								.toString("yyyy-MM-dd");
 					}
 				});
 		chargeEndDate.dispose();
 		chargeEndDate = new wijmo.input.InputDate(
-				'#EDIT_CHRG_END_DATE',
+				'#EDIT_CHRG_APP_END_DATE',
 				{
 					format : 'MM/dd/yyyy',
 					value : currentDate,
 					onValueChanged : function() {
-						document.getElementById('EDIT_CHRG_END_DATE_DATA').value = this.value
+						document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value
 								.toString("yyyy-MM-dd");
 					}
 				});
@@ -388,18 +387,16 @@
 		var chargeObject = new Object();
 
 		chargeObject.CHRG_ID = parseInt(document.getElementById('EDIT_CHRG_ID').value);
-		chargeObject.CHARGE_NO = document.getElementById('EDIT_CHARGE_NO').value;
-		chargeObject.CHRG_CUST_ID = document.getElementById('EDIT_CHRG_CUST_ID').value;
-		chargeObject.CHRG_PRICE = document.getElementById('EDIT_CHRG_PRICE').value;
+		chargeObject.CHRG_CHARGE_NO = document.getElementById('EDIT_CHRG_CHARGE_NO').value;
+		chargeObject.CHRG_CUST_ID =  parseInt(document.getElementById('EDIT_CHRG_CUST_ID').value);
+		chargeObject.CHRG_PRICE =  parseInt(document.getElementById('EDIT_CHRG_PRICE').value);
 		chargeObject.CHRG_APP_DIVISION = document.getElementById('EDIT_CHRG_APP_DIVISION').value;
 
-		var splitStartDate = document.getElementById('EDIT_CHRG_START_DATE_DATA').value.split("-");
-		var splitEndDate = document.getElementById('EDIT_CHRG_END_DATE_DATA').value.split("-");
+		var splitStartDate = document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value.split("-");
+		var splitEndDate = document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value.split("-");
 
-		chargeObject.CHRG_START_DATE = new Date(splitStartDate[0],
-				splitStartDate[1] - 1, splitStartDate[2]);
-		chargeObject.CHRG_END_DATE = new Date(splitEndDate[0],
-				splitEndDate[1] - 1, splitEndDate[2]);
+		chargeObject.CHRG_APP_START_DATE = new Date(splitStartDate[0],splitStartDate[1] - 1, splitStartDate[2]);
+		chargeObject.CHRG_APP_END_DATE = new Date(splitEndDate[0],splitEndDate[1] - 1, splitEndDate[2]);
 
 		var data = JSON.stringify(chargeObject);
 
@@ -445,13 +442,13 @@
 												.push({
 													EditId : "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdChargeEdit_OnClick()'>Edit</button>",
 													DeleteId : "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdChargeDelete_OnClick()'>Delete</button>",
-													Id : Results[i]["CHRG_ID"],
-													Chrg_CustID : Results[i]["CHRG_CUST_ID"],
-													Chrg_Charge_No : Results[i]["CHRG_CHARGE_NO"],
-													ChargeName : Results[i]["CHRG_PRICE"],
-													Chrg_AppDivision : Results[i]["CHRG_APP_DIVISION"],
-													Chrg_StartDate : Results[i]["CHRG_APP_START_DATE"],
-													Chrg_EndDate : Results[i]["CHRG_APP_END_DATE"],
+													CHRG_ID : Results[i]["CHRG_ID"],
+													CHRG_CUST_ID : Results[i]["chrg_CUST_ID"],
+													CHRG_CHARGE_NO : Results[i]["chrg_CHARGE_NO"],
+													CHRG_PRICE : Results[i]["chrg_PRICE"],
+													CHRG_APP_DIVISION : Results[i]["chrg_APP_DIVISION"],
+													CHRG_APP_START_DATE : Results[i]["chrg_APP_START_DATE"],
+													CHRG_APP_END_DATE : Results[i]["chrg_APP_END_DATE"],
 												});
 									}
 								} else {
@@ -534,12 +531,12 @@
 
 				// Date Control Initialization
 				chargeStartDate = new wijmo.input.InputDate(
-						'#EDIT_CHRG_START_DATE', {
+						'#EDIT_CHRG_APP_START_DATE', {
 							format : 'MM/dd/yyyy',
 							value : new Date()
 						});
 				chargeEndDate = new wijmo.input.InputDate(
-						'#EDIT_CHRG_END_DATE', {
+						'#EDIT_CHRG_APP_END_DATE', {
 							format : 'MM/dd/yyyy',
 							value : new Date()
 						});
@@ -581,6 +578,7 @@
 				    updateNavigateButtonsMessage();
 				});
 */			
+
 				// Flex Grid
 				chargeGrid = new wijmo.grid.FlexGrid('#ChargeGrid');
 				chargeGrid.initialize({
@@ -597,40 +595,35 @@
 						"allowSorting" : false,
 						"isContentHtml" : true
 					}, {
-						"header" : "Charge ID",
-						"binding" : "Id",
+						"header" : "Charge no.",
+						"binding" : "CHRG_CHARGE_NO",
 						"allowSorting" : true,
-						"width" : "1*"
+						"width" : "6*"
 					}, {
-						"header" : "Cust ID",
-						"binding" : "Chrg_CustID",
+						"header" : "Customer",
+						"binding" : "CHRG_CUST_ID",
 						"allowSorting" : true,
-						"width" : "1*"
-					}, {
-						"header" : "Charge No",
-						"binding" : "Chrg_Charge_No",
+						"width" : "6*"
+					},  {
+						"header" : "Price",
+						"binding" : "CHRG_PRICE",
 						"allowSorting" : true,
-						"width" : "1*"
-					}, {
-						"header" : "Charge Price",
-						"binding" : "ChargeName",
-						"allowSorting" : true,
-						"width" : "1*"
+						"width" : "6*"
 					}, {
 						"header" : "App Division",
-						"binding" : "Chrg_AppDivision",
+						"binding" : "CHRG_APP_DIVISION",
 						"allowSorting" : true,
-						"width" : "1*"
+						"width" : "6*"
 					}, {
 						"header" : "Start Date",
-						"binding" : "Chrg_StartDate",
+						"binding" : "CHRG_APP_START_DATE",
 						"allowSorting" : true,
-						"width" : "1*"
+						"width" : "6*"
 					}, {
 						"header" : "End Date",
-						"binding" : "Chrg_EndDate",
+						"binding" : "CHRG_APP_END_DATE",
 						"allowSorting" : true,
-						"width" : "1*"
+						"width" : "6*"
 					} ],
 					autoGenerateColumns : false,
 					itemsSource : charges,
