@@ -1,17 +1,36 @@
 package com.innosoft.webreservation.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="WR_CALENDAR")
 public class MstCalendar {
 
+	@Id   
+    @GeneratedValue
+    @Column(name="CLDR_ID")	
+	public int CLDR_ID;
+	
+	@Column(name="CLDR_DATE")	
+	public Date CLDR_DATE; 
+	
+	@Column(name="CLDR_DAYCODE")	
+	public String CLDR_DAYCODE;
+
+	@Column(name="CLDR_NOTE")	
+	public String CLDR_NOTE;
+	
+	
+	
 	public int getCLDR_ID() {
 		return CLDR_ID;
 	}
@@ -28,11 +47,11 @@ public class MstCalendar {
 		CLDR_DATE = cLDR_DATE;
 	}
 
-	public int getCLDR_DAYCODE() {
+	public String getCLDR_DAYCODE() {
 		return CLDR_DAYCODE;
 	}
 
-	public void setCLDR_DAYCODE(int cLDR_DAYCODE) {
+	public void setCLDR_DAYCODE(String cLDR_DAYCODE) {
 		CLDR_DAYCODE = cLDR_DAYCODE;
 	}
 
@@ -44,19 +63,4 @@ public class MstCalendar {
 		CLDR_NOTE = cLDR_NOTE;
 	}
 
-	@Id
-    @GeneratedValue
-    @Column(name="CLDR_ID")	
-	private int CLDR_ID;
-	
-	@Column(name="CLDR_DATE")	
-	private Date  CLDR_DATE; 
-	
-	@Column(name="CLDR_DAYCODE")	
-	private int  CLDR_DAYCODE;
-	
-	@Column(name="CLDR_NOTE")	
-	private String CLDR_NOTE;
-
-	
 }

@@ -113,13 +113,13 @@
 	        </div>
 	    </div>
 	    <div class="col-lg-8">
-	        <button id="cmdAddProduct" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdProductAdd_OnClick()">Add</button>
+	        <button id="cmdAddProduct" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdCalendarAdd_OnClick()">Add</button>
 	    </div>
 	</div>
 	<br />
 	<div class="row table-form-custom">
 	    <div class="col-lg-12 table-form-custom">
-	        <div id="CalendarGrid" class="grid table-form-custom"></div>
+	        <div id="calendarGrid" class="grid table-form-custom"></div>
 	    </div>
 	</div>
 	
@@ -159,17 +159,67 @@
     </div>
 </div>
 
+<!-- Message Edit Detail -->
+<div class="modal fade" id="CalendarEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">Calendar Edit</h4>
+            </div>
+            <div class="modal-body">
+                <form id="messageForm">
+                    <dl class="dl-horizontal">
+                        <dt>Calendar Date</dt>
+                        <dd>
+                        	<input class="form-control" id="EDIT_CLDR_ID" type="hidden" />
+                        	<div id="EDIT_CLDR_DATE" ></div>
+                            <input class="form-control" id="EDIT_CLDR_DATE_DATA" type="hidden" />  
+                        </dd>
+                        <dt>Calendar Daycode</dt>
+                        <dd>
+                            <input class="form-control" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
+                        </dd>
+                        <dt>Calendar Note</dt>
+                        <dd>
+                            <input class="form-control" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
+                        </dd>                      
+                    </dl>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-form-custom"  id="CmdCalendarEditOk" onclick="cmdCalendarEditOk_OnClick()">
+                    Ok
+                </button>
+                <button type="button" class="btn btn-danger btn-form-custom" id="CmdCalendarEditCancel" onclick="cmdCalendarEditCancel_OnClick()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
+	// ================
+	// Global variables
+	// ================
     var calendar;
-    var customerGrid;
-
+    var calendarGrid;
+    
+    var calendarDate;
+    
     var btnFirstPageGrid;
     var btnPreviousPageGrid;
     var btnNextPageGrid;
     var btnLastPageGrid;
     var btnCurrentPageGrid;
 
+    // ===================
+    // Edit Button Clicked
+    // ===================
     function cmdCalendarEdit_OnClick() {
         calendar.editItem(calendar.currentItem);
 
@@ -178,33 +228,65 @@
             backdrop: false
         });
 
-        //var Calendar = Calendars.currentEditItem;
-        //document.getElementById('CalendarEdit_Id').value = Calendar.Id !== null && typeof (Calendar.Id) != 'undefined' ? wijmo.Globalize.format(Calendar.Id) : '';
-        //document.getElementById('CalendarEdit_CalendarDescription').value = Calendar.CalendarDescription ? Calendar.CalendarDescription : '';
-
+        var editCalendar = calendar.currentEditItem;
+        document.getElementById('EDIT_CLDR_ID').value = editCalendar.CLDR_ID !== null && typeof (calendar.CLDR_ID) != 'undefined' ? wijmo.Globalize.format(calendar.CLDR_ID) : 0;
+        document.getElementById('EDIT_CLDR_DATE_DATA').value = editCalendar.CLDR_DATE ? calendar.CLDR_DATE : '';
+        document.getElementById('EDIT_CLDR_DAYCODE').value = editCalendar.CLDR_DAYCODE ? calendar.CLDR_DAYCODE : '';
+        document.getElementById('EDIT_CLDR_NOTE').value = editCalendar.CLDR_NOTE ? calendar.CLDR_NOTE : '';
+        
+        var splitDate = calendar.CLDR_DATE.split("-");
+        
+        calendarDate.dispose();
+        calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
+            format: 'MM/dd/yyyy',
+            value: new Date(splitDate[0], splitDate[1] - 1, splitDate[2]),
+            onValueChanged: function () {
+                document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+            }
+        });       
     }
     
+    // ==================
+    // Add Button Clicked
+    // ==================   
     function cmdCalendarAdd_OnClick() {
         $('#CalendarEdit').modal({
             show: true,
             backdrop: false
         });
-
-        //document.getElementById('CalendarEdit_Id').value = 0;
-        //document.getElementById('CalendarEdit_CalendarDescription').value = "";
-
+        
+        var currentDate = new Date();
+        
+        document.getElementById('EDIT_CLDR_ID').value = 0;
+        document.getElementById('EDIT_CLDR_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
+        document.getElementById('EDIT_CLDR_DAYCODE').value = '';
+        document.getElementById('EDIT_CLDR_NOTE').value = '';
+ 
+        
+        calendarDate.dispose();
+        calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
+            format: 'MM/dd/yyyy',
+            value: currentDate,
+            onValueChanged: function() 
+            {
+                document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
+            }
+        });      
     }
     
+    // =====================
+    // Delete Button Clicked
+    // =====================   
     function cmdCalendarDelete_OnClick() {
         calendar.editItem(calendar.currentItem);
+        
+        var id = calendar.currentEditItem.CLDR_ID;
+        var calendarDate = calendar.currentEditItem.CLDR_DATE;
 
-/*         var Id = Calendars.currentEditItem.Id;
-        var CalendarDescription = Calendars.currentEditItem.CalendarDescription;
-
-        if (confirm("Delete " + CalendarDescription + "?") == true) {
+        if (confirm("Delete " + calendarDate + "?") == true) {
             $.ajax({
                 type: "DELETE",
-                url: "/api/DeleteCalendar/" + Id,
+                url: '${pageContext.request.contextPath}/api/calendar/delete/' + id,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 statusCode: {
@@ -220,57 +302,54 @@
                     }
                 }
             });
-        } */
+        }
     }
-    function cmdCalendarEditOkFunction() {
-	    var Calendar = new Object();
-	
-	    Calendar.Id = document.getElementById('CalendarEdit_Id').value;
-	    Calendar.CalendarDescription = document.getElementById('CalendarEdit_CalendarDescription').value;
-	
-	    var data = JSON.stringify(Calendar);
-	
-	    // Add New
-	    if (Calendar.Id == 0) {
-	        $.ajax({
-	            type: "POST",
-	            url: "/api/AddCalendar",
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            data: data,
-	            success: function (id) {
-	                if (id > 0) {
-	                    toastr.success('Successfully Added!');
-	                    window.setTimeout(function () { location.reload() }, 3000);
-	                } else {
-	                    toastr.error("Not added!");
-	                }
-	            }
-	        });
-	
-	        // Edit
-	    } else {
-	        $.ajax({
-	            type: "PUT",
-	            url: "/api/UpdateCalendar/" + Calendar.Id,
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            data: data,
-	            statusCode: {
-	                200: function () {
-	                    toastr.success('Successfully Modified!');
-	                    window.setTimeout(function () { location.reload() }, 3000);
-	                },
-	                404: function () {
-	                    toastr.error("Not found!");
-	                },
-	                400: function () {
-	                    toastr.error("Bad request");
-	                }
-	            }
-	        });
-	    }
+    
+    // =================================
+    // Edit Detail Cancel Button Clicked
+    // =================================     
+    function cmdCalendarEditCancel_OnClick() {
+    	$('#CalendarEdit').modal('hide');    	
     }
+    
+    // =============================
+    // Edit Detail OK Button Clicked
+    // =============================     
+    function cmdCalendarEditOk_OnClick() {
+    	
+	    var calendarObject = new Object();
+	
+	    calendarObject.CLDR_ID = parseInt(document.getElementById('EDIT_CLDR_ID').value);
+	    
+	    var splitDate = document.getElementById('EDIT_CLDR_DATE_DATA').value.split("-");
+	    
+	    calendarObject.CLDR_DATE = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);
+	    calendarObject.CLDR_DAYCODE = document.getElementById('EDIT_CLDR_DAYCODE').value;
+	    calendarObject.CLDR_NOTE = document.getElementById('EDIT_CLDR_NOTE').value;
+
+	    var data = JSON.stringify(calendarObject);
+	
+        $.ajax({
+            type: "POST",
+            url: '${pageContext.request.contextPath}/api/calendar/update',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: function (data) {
+                if (data.CLDR_ID > 0) {
+                    toastr.success('Successfully Added!');
+                    window.setTimeout(function() { location.reload() }, 3000);
+                } else {
+                    toastr.error("Not added!");
+                }
+            }
+        });
+
+    }
+     
+    // =================
+    // Get Calendars Data
+    // =================   
     function getCalendars() {
         var calendar = new wijmo.collections.ObservableArray();
         $('#loading').modal('show');
@@ -288,9 +367,9 @@
                             EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCalendar' onclick='cmdCalendarEdit_OnClick()'>Edit</button>",
                             DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCalendar' onclick='cmdCalendarDelete_OnClick()'>Delete</button>",
                             Id: Results[i]["cldr_ID"],
-                            Date: Results[i]["cldr_DATE"],
-                        	DayCode: Results[i]["cldr_DAYCODE"],
-                            CalendarNote: Results[i]["cldr_NOTE"]
+                            CLDR_DATE: Results[i]["cldr_DATE"],
+                            CLDR_DAYCODE: Results[i]["cldr_DAYCODE"],
+                            CLDR_NOTE: Results[i]["cldr_NOTE"]
                         });
                     }
                 } else {
@@ -304,6 +383,10 @@
         );
         return calendar;
     }
+     
+    // ==================
+    // Navigation Buttons
+    // ==================   
     function updateNavigateButtonsCalendar() {
         if (calendar.pageSize <= 0) {
             document.getElementById('naviagtionPageGrid').style.display = 'none';
@@ -330,6 +413,10 @@
         }
         btnCurrentPageGrid.innerHTML = (calendar.pageIndex + 1) + ' / ' + calendar.pageCount;
     }
+    
+    // =====================
+    // Detail Edit Validator
+    // =====================     
     function FormValidate() {
         var validator = $('form').validate({
             submitHandler: function (form) {
@@ -340,6 +427,10 @@
         console.log(x);
         return x;
     }
+    
+    // ==============================
+    // Detail Edit Validator Defaults
+    // ==============================    
     $.validator.setDefaults({
         errorPlacement: function (error, element) {
             $(element).attr({ "title": error.append() });
@@ -353,8 +444,19 @@
             $(element).addClass("textinput");
         }
     });
+    
+    // ============
+    // On Page Load
+    // ============
     $(document).ready(function () {
-
+    	
+    	// Date Control Initialization
+        calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
+            format: 'MM/dd/yyyy',
+            value: new Date()
+        }); 	
+    	
+		// Validation
         $('#CmdCalendarEditOk').click(function () {
             if (FormValidate() == true) {
                 cmdCalendarEditOkFunction();
@@ -373,30 +475,27 @@
 
         $('.close-btn').hide();
 
-        btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
-        btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
-        btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
-        btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
-        btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
-
+        // Collection View
         calendar = new wijmo.collections.CollectionView(getCalendars());
-
-        customerGrid = new wijmo.grid.FlexGrid('#CalendarGrid');
-
         calendar.canFilter = true;
-
+        calendar.pageSize  = 15;
+        
         var filterText = '';
-
         $('#InputFilter').keyup(function () {
             filterText = this.value.toLowerCase();
             calendar.refresh();
         });
-
         calendar.filter = function (item) {
-            return !filterText || (item.CalendarName.toLowerCase().indexOf(filterText) > -1);
+            return !filterText || (item.CalendarCode.toLowerCase().indexOf(filterText) > -1);
         }
-
-        customerGrid.initialize({
+        
+        calendar.collectionChanged.addHandler(function (sender, args) {
+            updateNavigateButtonsCalendar();
+        });
+        
+        // Flex Grid
+        calendarGrid = new wijmo.grid.FlexGrid('#calendarGrid');
+        calendarGrid.initialize({
             columns: [
                         {
                             "header": "Edit",
@@ -413,37 +512,37 @@
                             "isContentHtml": true
                         },
                         {
-                            "header": "Date",
-                            "binding": "Date",
+                            "header": "Calendar Date",
+                            "binding": "CLDR_DATE",
                             "allowSorting": true,
-                            "width": "1*"
+                            "width": "2*"
                         },
                         {
-                            "header": "Day Code",
-                            "binding": "DayCode",
+                            "header": "Calendar Daycode",
+                            "binding": "CLDR_DAYCODE",
                             "allowSorting": true,
-                            "width": "1*"
+                            "width": "2*"
                         },
                         {
                             "header": "Calendar Note",
-                            "binding": "CalendarNote",
+                            "binding": "CLDR_NOTE",
                             "allowSorting": true,
                             "width": "2*"
-                        }
+                        }              
             ],
             autoGenerateColumns: false,
             itemsSource: calendar,
             isReadOnly: true,
             selectionMode: wijmo.grid.SelectionMode.Row
         });
+        calendarGrid.trackChanges = true;
 
-        customerGrid.trackChanges = true;
-
-        calendar.pageSize = 15;
-
-        calendar.collectionChanged.addHandler(function (sender, args) {
-            updateNavigateButtonsCalendar();
-        });
+        // Navigation button
+        btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
+        btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+        btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
+        btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
+        btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
 
         updateNavigateButtonsCalendar();
 
@@ -463,7 +562,6 @@
             calendar.moveToLastPage();
             updateNavigateButtonsCalendar();
         });
-
     });
 </script>
 
