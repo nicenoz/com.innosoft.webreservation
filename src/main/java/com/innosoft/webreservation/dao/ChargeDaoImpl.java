@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCharge;
-import com.innosoft.webreservation.entity.MstMessage;
 
 @Repository
 @Transactional
@@ -57,5 +56,50 @@ public class ChargeDaoImpl implements ChargeDao {
 		} catch(Exception e) {
 			return charge;	
 		}
+	}
+
+	public MstCharge editCharge(MstCharge charge) {
+		try {
+			Session session = this.sessionFactory.openSession();
+			Transaction tx = null;	
+			
+			tx = session.beginTransaction();
+			MstCharge updateCharge = (MstCharge)session.get(MstCharge.class, charge.CHRG_ID); 
+			
+			updateCharge.setCHRG_CHARGE_NO(charge.CHRG_CHARGE_NO);
+			updateCharge.setCHRG_APP_DIVISION(charge.CHRG_APP_DIVISION);
+			updateCharge.setCHRG_APP_END_DATE(charge.CHRG_APP_END_DATE);
+			updateCharge.setCHRG_APP_START_DATE(charge.CHRG_APP_START_DATE);
+			updateCharge.setCHRG_PRICE(charge.CHRG_PRICE);
+			updateCharge.setCHRG_CUST_ID(charge.CHRG_CUST_ID);
+			
+			session.update(updateCharge); 
+			tx.commit();
+			session.close();
+			
+			return updateCharge;
+		} catch (Exception e) 
+		{
+			return new MstCharge();
+		}	
+	}
+
+	public boolean deleteCharge(int id) {
+	    try {
+			Session session = this.sessionFactory.openSession();
+			Transaction tx = null;	
+			
+	    	tx = session.beginTransaction();
+	    	MstCharge deleteCharge = (MstCharge)session.get(MstCharge.class, id); 
+	    	
+	    	session.delete(deleteCharge); 
+	    	
+	    	tx.commit();
+	    	session.close();
+	    	
+	    	return true;
+	    } catch (Exception e) {
+	    	return false; 
+	    }	
 	}	
 }

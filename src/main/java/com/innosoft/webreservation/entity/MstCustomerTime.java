@@ -13,22 +13,22 @@ public class MstCustomerTime {
 	@Id
     @GeneratedValue
     @Column(name="CTIM_ID")	
-	private int CTIM_ID;
+	public int CTIM_ID;
 	
 	@Column(name="CTIM_CUST_ID")	
-	private int	  CTIM_CUST_ID;
+	public int	  CTIM_CUST_ID;
 	
 	@Column(name="CTIM_DETAILS_NO")	
-	private int	  CTIM_DETAILS_NO; 
+	public int	  CTIM_DETAILS_NO; 
 	
 	@Column(name="CTIM_INTERVAL_OF_TIMES")	
-	private int	  CTIM_INTERVAL_OF_TIMES;
+	public int	  CTIM_INTERVAL_OF_TIMES;
 	
 	@Column(name="CTIM_MAX_UNIT_NO")	
-	private int	  CTIM_MAX_UNIT_NO;
+	public int	  CTIM_MAX_UNIT_NO;
 	
 	@Column(name="CTIM_MAX_PARTS_NO")	
-	private int	  CTIM_MAX_PARTS_NO;
+	public int	  CTIM_MAX_PARTS_NO;
 				
 	
 	public int getCTIM_ID() {

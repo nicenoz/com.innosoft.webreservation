@@ -258,7 +258,7 @@
     var btnLastPageGrid;
     var btnCurrentPageGrid;
     // ===================
-    // Edit Button Clicked
+    // Edit Button Clicked --
     // ===================
     function cmdChargeEdit_OnClick() {
         charges.editItem(charges.currentItem);
@@ -275,10 +275,10 @@
         document.getElementById('EDIT_CHRG_PRICE').value = charge.CHRG_PRICE ? charge.CHRG_PRICE : '';
         document.getElementById('EDIT_CHRG_APP_DIVISION').value = charge.CHRG_APP_DIVISION ? charge.CHRG_APP_DIVISION : '';
         document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = charge.CHRG_APP_START_DATE ? charge.CHRG_APP_START_DATE : '';
-        document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.EDIT_CHRG_APP_END_DATE ? charge.EDIT_CHRG_APP_END_DATE : '';
+        document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.CHRG_APP_END_DATE ? charge.CHRG_APP_END_DATE : '';
 
         var splitStartDate = charge.CHRG_APP_START_DATE.split("-");
-        var splitEndDate = charge.EDIT_CHRG_APP_END_DATE.split("-");
+        var splitEndDate = charge.CHRG_APP_END_DATE.split("-");
         
         chargeStartDate.dispose();
         chargeStartDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_START_DATE', {
@@ -299,7 +299,7 @@
 
 	}
 	// ==================
-	// Add Button Clicked
+	// Add Button Clicked --
 	// ==================   
 	function cmdChargeAdd_OnClick() {
 		$('#ChargeEdit').modal({
@@ -342,7 +342,7 @@
 	}
 
 	// =====================
-	// Delete Button Clicked
+	// Delete Button Clicked --
 	// =====================   
 	function cmdChargeDelete_OnClick() {
 		charges.editItem(charges.currentItem);
@@ -375,13 +375,13 @@
 		}
 	}
 	// =================================
-	// Edit Detail Cancel Button Clicked
+	// Edit Detail Cancel Button Clicked --
 	// =================================     
 	function cmdChargeEditCancel_OnClick() {
 		$('#ChargeEdit').modal('hide');
 	}
 	// =============================
-	// Edit Detail OK Button Clicked
+	// Edit Detail OK Button Clicked --
 	// =============================     
 	function cmdChargeEditOk_OnClick() {
 		var chargeObject = new Object();
@@ -421,7 +421,7 @@
 	}
 
 	// =================
-	// Get Charges Data
+	// Get Charges Data --
 	// =================   
 	function getCharges() {
 		var charges = new wijmo.collections.ObservableArray();
@@ -462,7 +462,7 @@
 	}
 
 	// ==================
-	// Navigation Buttons
+	// Navigation Buttons --
 	// ==================   
 	function updateNavigateButtonsCharge() {
 		if (charges.pageSize <= 0) {
@@ -491,7 +491,7 @@
 	}
 
 	// =====================
-	// Detail Edit Validator
+	// Detail Edit Validator --
 	// =====================     
 	function FormValidate() {
 		var validator = $('form').validate({
@@ -505,7 +505,7 @@
 	}
 
 	// ==============================
-	// Detail Edit Validator Defaults
+	// Detail Edit Validator Defaults --
 	// ==============================    
 	$.validator.setDefaults({
 		errorPlacement : function(error, element) {
@@ -639,7 +639,7 @@
 				btnPreviousPageGrid = document
 						.getElementById('btnMoveToPreviousPageGrid');
 				btnNextPageGrid = document
-						.getElementById('btnMoveToNextPageGrid');
+						.getElementById('btnMove ToNextPageGrid');
 				btnLastPageGrid = document
 						.getElementById('btnMoveToLastPageGrid');
 				btnCurrentPageGrid = document

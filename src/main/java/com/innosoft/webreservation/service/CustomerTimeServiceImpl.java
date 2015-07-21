@@ -7,9 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.innosoft.webreservation.dao.CustomerDao;
 import com.innosoft.webreservation.dao.CustomerTimeDao;
-import com.innosoft.webreservation.entity.MstCustomer;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 
 @Service
@@ -21,6 +19,21 @@ public class CustomerTimeServiceImpl implements CustomerTimeService {
 	
 	public List<MstCustomerTime> listCustomerTime(){
 		return customerTimeDao.listCustomerTime();
+	}
+
+	public MstCustomerTime addCustomerTime(MstCustomerTime time) {
+		// TODO Auto-generated method stub
+		return customerTimeDao.addCustomerTime(time);
+	}
+
+	public MstCustomerTime editCustomerTime(MstCustomerTime time) {
+		// TODO Auto-generated method stub
+		return customerTimeDao.editCustomerTime(time);
+	}
+
+	public boolean deleteCustomerTime(int id) {
+		// TODO Auto-generated method stub
+		return customerTimeDao.deleteCustomerTime(id);
 	}
 	
 }
