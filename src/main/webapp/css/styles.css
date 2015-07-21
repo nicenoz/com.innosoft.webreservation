@@ -310,9 +310,17 @@ dt {
     border-radius: 0;
 }
 
-
-
 .btn-extend-padding {
 	height: 34px;
 }
 
+.panel-custom2 {
+	border-color: #CF4C4C;
+	color: white;
+	border-radius: 0;
+}
+
+.panel-custom3 {
+	background-color: #CF4C4C;
+	border-radius: 0;
+}

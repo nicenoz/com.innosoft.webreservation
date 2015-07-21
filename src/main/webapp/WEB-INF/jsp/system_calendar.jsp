@@ -201,41 +201,41 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
 	// ================
 	// Global variables
 	// ================
-    var calendar;
+    var calendars;
     var calendarGrid;
     
     var calendarDate;
+
     
     var btnFirstPageGrid;
     var btnPreviousPageGrid;
     var btnNextPageGrid;
     var btnLastPageGrid;
     var btnCurrentPageGrid;
-
+    
     // ===================
     // Edit Button Clicked
     // ===================
     function cmdCalendarEdit_OnClick() {
-        calendar.editItem(calendar.currentItem);
+        calendars.editItem(calendars.currentItem);
 
         $('#CalendarEdit').modal({
             show: true,
             backdrop: false
         });
 
-        var editCalendar = calendar.currentEditItem;
-        document.getElementById('EDIT_CLDR_ID').value = editCalendar.CLDR_ID !== null && typeof (calendar.CLDR_ID) != 'undefined' ? wijmo.Globalize.format(calendar.CLDR_ID) : 0;
-        document.getElementById('EDIT_CLDR_DATE_DATA').value = editCalendar.CLDR_DATE ? calendar.CLDR_DATE : '';
-        document.getElementById('EDIT_CLDR_DAYCODE').value = editCalendar.CLDR_DAYCODE ? calendar.CLDR_DAYCODE : '';
-        document.getElementById('EDIT_CLDR_NOTE').value = editCalendar.CLDR_NOTE ? calendar.CLDR_NOTE : '';
-        
+        var calendar = calendars.currentEditItem;
+        document.getElementById('EDIT_CLDR_ID').value = calendar.CLDR_ID !== null && typeof (calendar.CLDR_ID) != 'undefined' ? wijmo.Globalize.format(calendar.CLDR_ID) : 0;
+        document.getElementById('EDIT_CLDR_DATE_DATA').value = calendar.CLDR_DATE ? calendar.CLDR_DATE : '';
+        document.getElementById('EDIT_CLDR_DAYCODE').value = calendar.CLDR_DAYCODE ? calendar.CLDR_DAYCODE : '';
+        document.getElementById('EDIT_CLDR_NOTE').value = calendar.CLDR_NOTE ? calendar.CLDR_NOTE : '';
+     
         var splitDate = calendar.CLDR_DATE.split("-");
-        
+  
         calendarDate.dispose();
         calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
             format: 'MM/dd/yyyy',
@@ -243,7 +243,7 @@
             onValueChanged: function () {
                 document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
             }
-        });       
+        });         
     }
     
     // ==================
@@ -262,28 +262,26 @@
         document.getElementById('EDIT_CLDR_DAYCODE').value = '';
         document.getElementById('EDIT_CLDR_NOTE').value = '';
  
-        
         calendarDate.dispose();
         calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
             format: 'MM/dd/yyyy',
             value: currentDate,
-            onValueChanged: function() 
-            {
+            onValueChanged: function () {
                 document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
             }
-        });      
+        });     
     }
     
     // =====================
     // Delete Button Clicked
     // =====================   
     function cmdCalendarDelete_OnClick() {
-        calendar.editItem(calendar.currentItem);
+        calendars.editItem(calendars.currentItem);
         
-        var id = calendar.currentEditItem.CLDR_ID;
-        var calendarDate = calendar.currentEditItem.CLDR_DATE;
+        var id = calendars.currentEditItem.CLDR_ID;
+        var calendarDayCode = calendars.currentEditItem.CLDR_DAYCODE;
 
-        if (confirm("Delete " + calendarDate + "?") == true) {
+        if (confirm("Delete " + calendarDayCode + "?") == true) {
             $.ajax({
                 type: "DELETE",
                 url: '${pageContext.request.contextPath}/api/calendar/delete/' + id,
@@ -291,41 +289,38 @@
                 dataType: "json",
                 statusCode: {
                     200: function () {
-                        toastr.success('Successfully Deleted!');
-                        window.setTimeout(function () { location.reload() }, 3000);
+                        toastr.success('Successfully Deleted.');
+                        window.setTimeout(function () { location.reload() }, 1000);
                     },
                     404: function () {
-                        toastr.error("Not found!");
+                        toastr.error("Not found.");
                     },
                     400: function () {
-                        toastr.error("Bad request");
+                        toastr.error("Bad request.");
                     }
                 }
             });
         }
     }
-    
     // =================================
     // Edit Detail Cancel Button Clicked
     // =================================     
     function cmdCalendarEditCancel_OnClick() {
     	$('#CalendarEdit').modal('hide');    	
     }
-    
     // =============================
     // Edit Detail OK Button Clicked
     // =============================     
     function cmdCalendarEditOk_OnClick() {
-    	
 	    var calendarObject = new Object();
 	
 	    calendarObject.CLDR_ID = parseInt(document.getElementById('EDIT_CLDR_ID').value);
-	    
-	    var splitDate = document.getElementById('EDIT_CLDR_DATE_DATA').value.split("-");
-	    
-	    calendarObject.CLDR_DATE = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);
 	    calendarObject.CLDR_DAYCODE = document.getElementById('EDIT_CLDR_DAYCODE').value;
 	    calendarObject.CLDR_NOTE = document.getElementById('EDIT_CLDR_NOTE').value;
+	    
+	    var splitDate = document.getElementById('EDIT_CLDR_DATE_DATA').value.split("-");
+
+	    calendarObject.CLDR_DATE = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);
 
 	    var data = JSON.stringify(calendarObject);
 	
@@ -337,21 +332,21 @@
             data: data,
             success: function (data) {
                 if (data.CLDR_ID > 0) {
-                    toastr.success('Successfully Added!');
-                    window.setTimeout(function() { location.reload() }, 3000);
+                    toastr.success('Successfully updated.');
+                    window.setTimeout(function () { location.reload() }, 1000);
                 } else {
-                    toastr.error("Not added!");
+                    toastr.error("Not updated.");
                 }
             }
         });
 
     }
-     
+    
     // =================
     // Get Calendars Data
     // =================   
     function getCalendars() {
-        var calendar = new wijmo.collections.ObservableArray();
+        var calendars = new wijmo.collections.ObservableArray();
         $('#loading').modal('show');
         $.ajax({
             url: '${pageContext.request.contextPath}/api/calendar/list',
@@ -363,13 +358,13 @@
                 $('#loading').modal('hide');
                 if (Results.length > 0) {
                     for (i = 0; i < Results.length; i++) {
-                        calendar.push({
+                        calendars.push({
                             EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCalendar' onclick='cmdCalendarEdit_OnClick()'>Edit</button>",
                             DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCalendar' onclick='cmdCalendarDelete_OnClick()'>Delete</button>",
-                            Id: Results[i]["cldr_ID"],
+                            CLDR_ID: Results[i]["cldr_ID"],
                             CLDR_DATE: Results[i]["cldr_DATE"],
                             CLDR_DAYCODE: Results[i]["cldr_DAYCODE"],
-                            CLDR_NOTE: Results[i]["cldr_NOTE"]
+                            CLDR_NOTE: Results[i]["cldr_NOTE"],
                         });
                     }
                 } else {
@@ -381,25 +376,24 @@
                 alert(err);
             }
         );
-        return calendar;
+        return calendars;
     }
-     
     // ==================
     // Navigation Buttons
     // ==================   
     function updateNavigateButtonsCalendar() {
-        if (calendar.pageSize <= 0) {
+        if (calendars.pageSize <= 0) {
             document.getElementById('naviagtionPageGrid').style.display = 'none';
             return;
         }
         document.getElementById('naviagtionPageGrid').style.display = 'block';
-        if (calendar.pageIndex === 0) {
+        if (calendars.pageIndex === 0) {
             btnFirstPageGrid.setAttribute('disabled', 'disabled');
             btnPreviousPageGrid.setAttribute('disabled', 'disabled');
             btnNextPageGrid.removeAttribute('disabled');
             btnLastPageGrid.removeAttribute('disabled');
         }
-        else if (calendar.pageIndex === (Calendars.pageCount - 1)) {
+        else if (calendars.pageIndex === (Calendars.pageCount - 1)) {
             btnFirstPageGrid.removeAttribute('disabled');
             btnPreviousPageGrid.removeAttribute('disabled');
             btnLastPageGrid.setAttribute('disabled', 'disabled');
@@ -411,7 +405,7 @@
             btnNextPageGrid.removeAttribute('disabled');
             btnLastPageGrid.removeAttribute('disabled');
         }
-        btnCurrentPageGrid.innerHTML = (calendar.pageIndex + 1) + ' / ' + calendar.pageCount;
+        btnCurrentPageGrid.innerHTML = (calendars.pageIndex + 1) + ' / ' + calendars.pageCount;
     }
     
     // =====================
@@ -450,11 +444,11 @@
     // ============
     $(document).ready(function () {
     	
-    	// Date Control Initialization
+    	// Date Control Initialization  	
         calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
             format: 'MM/dd/yyyy',
             value: new Date()
-        }); 	
+        });     	
     	
 		// Validation
         $('#CmdCalendarEditOk').click(function () {
@@ -476,20 +470,20 @@
         $('.close-btn').hide();
 
         // Collection View
-        calendar = new wijmo.collections.CollectionView(getCalendars());
-        calendar.canFilter = true;
-        calendar.pageSize  = 15;
+        calendars = new wijmo.collections.CollectionView(getCalendars());
+        calendars.canFilter = true;
+        calendars.pageSize  = 15;
         
         var filterText = '';
         $('#InputFilter').keyup(function () {
             filterText = this.value.toLowerCase();
-            calendar.refresh();
+            calendars.refresh();
         });
-        calendar.filter = function (item) {
+        calendars.filter = function (item) {
             return !filterText || (item.CalendarCode.toLowerCase().indexOf(filterText) > -1);
         }
         
-        calendar.collectionChanged.addHandler(function (sender, args) {
+        calendars.collectionChanged.addHandler(function (sender, args) {
             updateNavigateButtonsCalendar();
         });
         
@@ -528,10 +522,10 @@
                             "binding": "CLDR_NOTE",
                             "allowSorting": true,
                             "width": "2*"
-                        }              
+                        }                   
             ],
             autoGenerateColumns: false,
-            itemsSource: calendar,
+            itemsSource: calendars,
             isReadOnly: true,
             selectionMode: wijmo.grid.SelectionMode.Row
         });
@@ -547,23 +541,22 @@
         updateNavigateButtonsCalendar();
 
         btnFirstPageGrid.addEventListener('click', function () {
-            calendar.moveToFirstPage();
+            calendars.moveToFirstPage();
             updateNavigateButtonsCalendar();
         });
         btnPreviousPageGrid.addEventListener('click', function () {
-            calendar.moveToPreviousPage();
+            calendars.moveToPreviousPage();
             updateNavigateButtonsCalendar();
         });
         btnNextPageGrid.addEventListener('click', function () {
-            calendar.moveToNextPage();
+            calendars.moveToNextPage();
             updateNavigateButtonsCalendar();
         });
         btnLastPageGrid.addEventListener('click', function () {
-            calendar.moveToLastPage();
+            calendars.moveToLastPage();
             updateNavigateButtonsCalendar();
         });
     });
 </script>
-
 </body>
 </html>

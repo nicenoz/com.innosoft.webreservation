@@ -68,5 +68,47 @@ public class CalendarDaoImpl implements CalendarDao {
 			
 			return calendar;	
 		}
-	}	
+	}
+	
+	public MstCalendar editCalendar(MstCalendar calendar) {
+		try {
+			Session session = this.sessionFactory.openSession();
+			Transaction tx = null;	
+			
+			tx = session.beginTransaction();
+			MstCalendar updatecalendar = (MstCalendar)session.get(MstCalendar.class, calendar.CLDR_ID); 
+			
+			updatecalendar.setCLDR_DATE(calendar.CLDR_DATE);
+			updatecalendar.setCLDR_DAYCODE(calendar.CLDR_DAYCODE);
+			updatecalendar.setCLDR_NOTE(calendar.CLDR_NOTE);
+			
+			session.update(updatecalendar); 
+			tx.commit();
+			session.close();
+			
+			return updatecalendar;
+		} catch (Exception e) 
+		{
+			return new MstCalendar();
+		}		
+	}
+	
+	public boolean deleteCalendar(int id) {
+	    try {
+			Session session = this.sessionFactory.openSession();
+			Transaction tx = null;	
+			
+	    	tx = session.beginTransaction();
+	    	MstCalendar deleteCalendar = (MstCalendar)session.get(MstCalendar.class, id); 
+	    	
+	    	session.delete(deleteCalendar); 
+	    	
+	    	tx.commit();
+	    	session.close();
+	    	
+	    	return true;
+	    } catch (Exception e) {
+	    	return false; 
+	    }	
+	}
 }
