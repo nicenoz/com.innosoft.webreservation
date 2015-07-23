@@ -8,6 +8,29 @@
 	<name>webreservation Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+	
+		<!-- Email (Spring Update) -->  				
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.1.6.RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.6.RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+			<scope>compile</scope>
+		</dependency>
+			
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -92,14 +115,6 @@
 			<version>4.3.8.Final</version>
 		</dependency>
 
-		<!-- MySQL JDBC driver -->
-		<!-- http://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-		<!-- <dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.34</version>
-		</dependency> -->
-
 		<!-- Oracle JDBC driver -->
 		<dependency>
 			<groupId>com.oracle</groupId>
@@ -107,13 +122,6 @@
 			<version>11.2.0.3</version>
 		</dependency>
 		
-		<!-- SQLServer JDBC driver (JTDS) -->
-		<!-- http://mvnrepository.com/artifact/net.sourceforge.jtds/jtds -->
-<!-- 		<dependency>
-			<groupId>net.sourceforge.jtds</groupId>
-			<artifactId>jtds</artifactId>
-			<version>1.3.1</version>
-		</dependency> -->
 
 		<!-- Spring Security 3.2.5 -->  
 		<dependency>  
@@ -161,7 +169,7 @@
 		    <artifactId>jackson-mapper-asl</artifactId>
 		    <version>1.9.13</version>
 		</dependency>
-				
+						
 	</dependencies>
 	<build>
 		<finalName>webreservation</finalName>

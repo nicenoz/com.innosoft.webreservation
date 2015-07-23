@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class SysEmail {
-
 	public String getEMAIL_EMAIL() {
 		return EMAIL_EMAIL;
 	}
@@ -26,6 +25,4 @@ public class SysEmail {
 	public String EMAIL_EMAIL;
 	public String EMAIL_SUBJECT;
 	public String EMAIL_MESSAGE;
-	
-
 }

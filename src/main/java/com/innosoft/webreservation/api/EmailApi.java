@@ -14,22 +14,20 @@ import com.innosoft.webreservation.service.EmailService;
 @Controller
 @RequestMapping("api/email")
 public class EmailApi {
-		
-		@Autowired
-		private EmailService emailService;
-				
-		@RequestMapping(value = "/send", method = RequestMethod.POST)		
-		public ResponseEntity<String> sendMail(@RequestBody SysEmail email) {
-			try {
-				boolean sendMail = emailService.sendMail(email);
-				if (sendMail==true) {
-					return new ResponseEntity<String>(HttpStatus.OK);
-				} else {
-					return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-				}
-			}catch(Exception e) {
-				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	@Autowired
+	private EmailService emailService;
+			
+	@RequestMapping(value = "/send", method = RequestMethod.POST)		
+	public ResponseEntity<String> sendMail(@RequestBody SysEmail email) {
+		try {
+			boolean sendMail = emailService.sendMail(email);
+			if (sendMail==true) {
+				return new ResponseEntity<String>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 			}
+		}catch(Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-		
+	}	
 }
