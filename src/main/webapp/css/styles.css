@@ -100,28 +100,46 @@ dt {
     }
 }
 
-.footer-bottom-indent {
-	padding-bottom: 150px;
-}
 
-.marginButton {
-    margin-top: -11px;
-}
-
+/* Body styles */
 .bodytopindent {
 	padding-top: 65px;
 }
 
-.panel-custom {
+.footer-bottom-indent {
+	padding-bottom: 150px;
+}
+
+
+/* Data table custom */
+.table-form-custom {
 	border-radius: 0 !important;
+}
+
+
+/* Modal Custom Styles */
+.modal-custom {
+	border-radius: 0 !important;
+}
+
+.modal-custom-input {
+	border-radius: 0 !important;
+}
+
+.modal-form-custom {
+	padding-right: 30px;
+}
+
+.modal-footer-custom {
+	padding-right: 45px;
 }
 
 .btn-form-custom {
 	border-radius: 0 !important;
 }
 
-.table-form-custom {
-	border-radius: 0 !important;
+.btn-form-custom-2 {
+	width: 100px;
 }
 
 .input-form-custom {
@@ -129,11 +147,15 @@ dt {
 	max-width: 350px;
 }
 
+
+/* Error message Login */
 .error {
 	color: red;
 	font-size: 12px;
 }
 
+
+/* Jumbotron Styles Customize */
 .jumbotron-padding {
   	padding: 10px;
   	padding-bottom: 30px;
@@ -141,6 +163,8 @@ dt {
   	background-color: #E0E0D1;
 }
 		
+
+/* Panel Styles inside the Jumbotron Customize */
 .panel-green {
     border-color: #005C1F;
     background-color: #005C1F;
@@ -148,7 +172,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-green-footer {
     color : #005C1F;
     border-radius: 0;
@@ -161,7 +184,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-yellow-footer {
     color: #A1A10F;
     border-radius: 0;
@@ -174,12 +196,10 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-red-footer {
     color: #990000;
     border-radius: 0;
 }
-
 
 .panel-violet {
     border-color: #400056;
@@ -188,7 +208,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-violet-footer {
     color: #400056;
     border-radius: 0;
@@ -201,7 +220,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-brown-footer {
     color: #996633;
     border-radius: 0;
@@ -214,7 +232,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-pink-footer {
     color: #801A66;
     border-radius: 0;
@@ -228,7 +245,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-gray-footer {
     color: #363632;
     border-radius: 0;
@@ -242,20 +258,15 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-orange-footer {
     color: #FF6C47;
     border-radius: 0;
 }
 
-
-
-
 .panel-prim {
 	box-shadow: 7px 7px 10px 1px grey;
 	border-radius: 0;
 }
-
 
 .panel-dark-green {
     border-color: #003300;
@@ -264,12 +275,10 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-dark-green-footer {
     color: #003300;
     border-radius: 0;
 }
-
 
 .panel-brownish {
     border-color: #663300;
@@ -278,7 +287,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-brownish-footer {
     color: #663300;
     border-radius: 0;
@@ -291,7 +299,6 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-dark-brown-footer {
     color: #993333;
     border-radius: 0;
@@ -304,14 +311,13 @@ dt {
     box-shadow: 7px 7px 10px 1px grey;
     border-radius: 0;
 }
-
 .panel-dark-blue-footer {
     color: #003366;
     border-radius: 0;
 }
 
-.btn-extend-padding {
-	height: 34px;
+.panel-custom {
+	border-radius: 0 !important;
 }
 
 .panel-custom2 {
@@ -324,3 +330,76 @@ dt {
 	background-color: #CF4C4C;
 	border-radius: 0;
 }
+
+
+/* Search button  */
+.btn-extend-padding {
+	height: 34px;
+}
+
+
+/* Menu caret changes */
+.caret-up {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid rgba(0, 0, 0, 0);
+    border-right: 4px solid rgba(0, 0, 0, 0);
+    border-bottom: 4px solid;
+    
+    display: inline-block;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+/* Footer Styles */
+.footer-margin {
+	margin-bottom: 8px;
+}
+
+.footer-details-style {
+	font-size: 13px;
+	font-family: Arial;
+	color: #AAAFAF;
+	margin: 0 !important;
+}
+
+.footer-data-style {
+	color: white;
+	margin: 0 !important;
+}
+
+.footer-title-style {
+	font-size: 13px;
+	font-family: Arial;
+	margin: 0 !important;
+}
+
+.footer-title-style {
+	font-size: 17px;
+	font-family: Arial;
+	color: #AAAFAF;
+	margin: 0 !important;
+}
+
+.footer-column-style {
+	padding-top: 6px;
+}
+
+/* Software page Styles */
+.software-button-style-custom {
+	border-radius: 0 !important;
+	float: right;
+	margin-left: 10px;
+	margin-top: 2px;
+	height: 35px;
+}
+.software-button-style-custom {
+	border-radius: 0 !important;
+	height: 35px;
+}
+
+.software-column-custom {
+	padding-top: 18px;
+}
+
+

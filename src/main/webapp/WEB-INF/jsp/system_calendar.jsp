@@ -1,147 +1,57 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
- 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	
-	<title>System - Customer</title>
-
-	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/css/toastr.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/font-awesome/css/font-awesome.min.css' />" rel="stylesheet"></link>
-	
-	<script src="<c:url value='/js/jquery.js' />"></script>
-	<script src="<c:url value='/lib/bootstrap/js/bootstrap.js' />"></script>
-	<script src="<c:url value='/js/jquery.validate.js' />"></script>
-	<script src="<c:url value='/js/toastr.js' />"></script>
-	
-	<script src="<c:url value='/js/date.js' />"></script>
-	
-	<script src="<c:url value='/wijmo/controls/wijmo.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/wijmo/controls/wijmo.input.min.js' />"></script>
-	<script src="<c:url value='/wijmo/controls/wijmo.grid.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/wijmo/controls/wijmo.chart.min.js' />"></script>
-	
-	<link href="<c:url value='/wijmo/styles/wijmo.min.css' />" rel="stylesheet" />
-</head>
-<body class="bodytopindent">
-
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
-    <div class="container topnav">
-        <!-- Brand and toggle get grouped for better mobile display -->
-       <div class="navbar-header">
-           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-           </button>
-           <a class="navbar-brand topnav" href="${pageContext.request.contextPath}/">Web Reservation</a>
-        </div>
-         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Schedule <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-				            <li><a href="/webreservation/software/"><b>Schedule</b></a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/software/email/">Email</a></li>
-				            <li><a href="/webreservation/software/charging/">Charging</a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/software/userPassword/">Password</a></li>     
-				         </ul>
-                    </li>
-   
-                    <li class="dropdown">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">User <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-				            <li><a href="/webreservation/user/"><b>User Dashboard</b></a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/user/user/">User Information</a></li>
-				            <li><a href="/webreservation/user/activity">Activity</a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/user/userReport/">User Report</a></li>
-				            <li><a href="/webreservation/user/reservationReport/">Reservation Report</a></li>
-				            <li><a href="/webreservation/user/chargingReport/">Charging Report</a></li>    
-				         </ul>
-                     </li>     
-                         		
-        			<li class="dropdown active">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-				            <li><a href="/webreservation/system/"><b>System Dashboard</b></a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
-				            <li><a href="/webreservation/system/time/">Time</a></li>
-				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
-				            <li><a href="/webreservation/system/customer/">Customer</a></li>
-				            <li><a href="/webreservation/system/message/">Message</a></li>
-				            <li><a href="/webreservation/system/charge/">Charge</a></li>
-				            <li><a href="/webreservation/system/code/">Code</a></li>      
-				         </ul>
-                    </li>		                    
-                </ul>
-            </div>   
-    </div>
-</nav>
+<!-- Header -->
+<%@include file="include_secure_header.jsp"%>
+<title>System - Calendar</title>
 
 <!-- Calendar List -->
 <div class="container"> 
-<section id="customerList">
-	<div class="row">
-	    <div class="col-lg-12">
-	        <h4>Calendar List</h4>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-lg-4">
-	        <div class="input-group">
-	            <span class="input-group-btn">
-	                <button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
-	                <i class="fa fa-search"></i>
-	                </button>
-	            </span>
-	            <input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
-	        </div>
-	    </div>
-	    <div class="col-lg-8">
-	        <button id="cmdCalendarAdd" type="submit" class="btn btn-primary pull-right btn-form-custom" onclick="cmdCalendarAdd_OnClick()">Add</button>
-	    </div>
-	</div>
-	<br />
-	<div class="row table-form-custom">
-	    <div class="col-lg-12 table-form-custom">
-	        <div id="calendarGrid" class="grid table-form-custom"></div>
-	    </div>
-	</div>
-	
-	<br />
-	
-	<div class="row">
-	    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
-	            <span class="glyphicon glyphicon-fast-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
-	            <span class="glyphicon glyphicon-step-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
-	            <span class="glyphicon glyphicon-step-forward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
-	            <span class="glyphicon glyphicon-fast-forward"></span>
-	        </button>
-	    </div>
-	</div>
-</section>
+	<section id="customerList">
+		<div class="row">
+		    <div class="col-lg-12">
+		        <h4>Calendar List</h4>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="col-lg-4">
+		        <div class="input-group">
+		            <span class="input-group-btn">
+		                <button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
+		                	<i class="fa fa-search"></i>
+		                </button>
+		            </span>
+		            <input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
+		        </div>
+		    </div>
+		    <div class="col-lg-8">
+		        <button id="cmdCalendarAdd" type="submit" class="btn btn-primary pull-right btn-form-custom btn-form-custom-2" onclick="cmdCalendarAdd_OnClick()">Add</button>
+		    </div>
+		</div>
+		<br />
+		<div class="row table-form-custom">
+		    <div class="col-lg-12 table-form-custom">
+		        <div id="calendarGrid" class="grid table-form-custom"></div>
+		    </div>
+		</div>
+		
+		<br />
+		
+		<div class="row">
+		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
+		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
+		            <span class="glyphicon glyphicon-fast-backward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
+		            <span class="glyphicon glyphicon-step-backward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
+		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
+		            <span class="glyphicon glyphicon-step-forward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
+		            <span class="glyphicon glyphicon-fast-forward"></span>
+		        </button>
+		    </div>
+		</div>
+	</section>
 </div>
 
 <!-- Loading -->
@@ -158,10 +68,10 @@
     </div>
 </div>
 
-<!-- Message Edit Detail -->
+<!-- Calendar Edit Detail -->
 <div class="modal fade" id="CalendarEdit">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content  modal-custom">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true">
                     &times;
@@ -169,30 +79,30 @@
                 <h4 class="modal-title">Calendar Edit</h4>
             </div>
             <div class="modal-body">
-                <form id="messageForm">
+                <form id="messageForm" class="modal-form-custom">
                     <dl class="dl-horizontal">
                         <dt>Calendar Date</dt>
                         <dd>
                         	<input class="form-control" id="EDIT_CLDR_ID" type="hidden" />
-                        	<div id="EDIT_CLDR_DATE" ></div>
+                        	<div id="EDIT_CLDR_DATE" class="form-control modal-custom-input"></div>
                             <input class="form-control" id="EDIT_CLDR_DATE_DATA" type="hidden" />  
                         </dd>
                         <dt>Calendar Daycode</dt>
                         <dd>
-                            <input class="form-control" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
+                            <input class="form-control modal-custom-input" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
                         </dd>
                         <dt>Calendar Note</dt>
                         <dd>
-                            <input class="form-control" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
+                            <input class="form-control modal-custom-input" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
                         </dd>                      
                     </dl>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-form-custom"  id="CmdCalendarEditOk" onclick="cmdCalendarEditOk_OnClick()">
+            <div class="modal-footer modal-footer-custom">
+                <button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2"  id="CmdCalendarEditOk" onclick="cmdCalendarEditOk_OnClick()">
                     Ok
                 </button>
-                <button type="button" class="btn btn-danger btn-form-custom" id="CmdCalendarEditCancel" onclick="cmdCalendarEditCancel_OnClick()">
+                <button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="CmdCalendarEditCancel" onclick="cmdCalendarEditCancel_OnClick()">
                     Cancel
                 </button>
             </div>
@@ -214,7 +124,7 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
-    
+	
 // ===================
 // Edit Button Clicked
 // ===================
@@ -339,9 +249,8 @@ function cmdCalendarEditOk_OnClick() {
             }
         }
     });
-
-}
-    
+}	
+	
 // ==================
 // Get Calendars Data
 // ==================   
@@ -559,5 +468,6 @@ $(document).ready(function () {
     });
 });
 </script>
-</body>
-</html>
+
+<!-- footer -->
+<%@include file="include_secure_footer.jsp"%>
