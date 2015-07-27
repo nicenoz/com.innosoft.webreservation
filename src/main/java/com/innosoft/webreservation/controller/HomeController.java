@@ -25,4 +25,9 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("home_about");
 		return model;
 	}	
+	@RequestMapping("/register")
+	public ModelAndView registration() {
+		ModelAndView model = new ModelAndView("register");
+		return model;
+	}	
 }

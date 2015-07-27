@@ -110,6 +110,9 @@ dt {
 	padding-bottom: 150px;
 }
 
+.footer-custom {
+	padding-bottom: 0 !important;
+}
 
 /* Data table custom */
 .table-form-custom {
@@ -152,6 +155,7 @@ dt {
 .error {
 	color: red;
 	font-size: 12px;
+	padding-bottom: 15px;
 }
 
 
@@ -402,4 +406,54 @@ dt {
 	padding-top: 18px;
 }
 
+/* Email */
+.panel-body-email-custom {
+	border-color: #005C1F;
+	margin-bottom: 230px;
+	border-radius: 0 !important; 
+}
+.panel-email-custom {
+	background-color: #006600;
+	color: white;
+	text-align: left;
+	border-radius: 0 !important;
+}
 
+.send-email-btn-custom {
+	width: 150px;
+	float: right;
+}
+
+.email-input-custom {
+	border-radius: 0 !important;
+}
+
+.email-message-custom {
+	resize: none;
+}
+
+/* Registration  */
+.registration-panel-custom {
+	background-color: #754719;
+	color: white;
+	border-radius: 0 !important;
+}
+.registration-panel-custom-border {
+	border-color: #754719;
+	border-radius: 0 !important;
+}
+.registration-buttom-custom {
+	background-color: #754719;
+	color: white;
+	border-radius: 0 !important;
+}
+input:hover.registration-buttom-custom, input:active.registration-buttom-custom {
+	background-color: #694016;
+	color: white;
+	border-radius: 0 !important;
+}
+
+/* Confirm Password Style */
+.confirm-pass-custom {
+	color: blue;
+}

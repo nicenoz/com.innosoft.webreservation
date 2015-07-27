@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="navbar-inverse navbar-fixed-bottom">
+<footer class="navbar-inverse navbar-fixed-bottom footer-custom">
     <div class="container">
         <div class="row footer-margin">
          	<div data-toggle="collapse" data-target=".navbar-ex1-collapse"></div>
