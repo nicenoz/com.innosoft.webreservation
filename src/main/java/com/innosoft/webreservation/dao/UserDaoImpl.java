@@ -6,10 +6,12 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 
 @Repository
@@ -39,4 +41,25 @@ public class UserDaoImpl implements UserDao {
         else
             return new MstSecurityUser();    		
 	}
+	
+	public MstSecurityUser addUser(MstSecurityUser user) {
+		try {
+			Session session = this.sessionFactory.openSession();
+			Transaction tx = null;	
+			
+			tx = session.beginTransaction();
+			MstSecurityUser newUser = new MstSecurityUser();
+
+			newUser.setUSER_LOGIN(user.USER_LOGIN);
+			newUser.setUSER_PASSWORD(user.USER_PASSWORD);
+			
+			session.save(newUser);
+			tx.commit();
+			session.close();
+			
+			return newUser;			
+		} catch(Exception e) {
+			return user;	
+		}
+	}	
 }

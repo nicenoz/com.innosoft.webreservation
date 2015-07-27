@@ -39,13 +39,13 @@ public class MstSecurityUser {
 	@Id
     @GeneratedValue
     @Column(name="USER_ID")	
-	private int USER_ID; 
+	public int USER_ID; 
 	
 	@Column(name="USER_LOGIN")
-	private String USER_LOGIN;  
+	public String USER_LOGIN;  
 	
 	@Column(name="USER_PASSWORD")
-	private String USER_PASSWORD;	
+	public String USER_PASSWORD;	
 	
 	public Set<MstSecurityUserRole> getROLES() {
 		return ROLES;

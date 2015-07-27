@@ -30,4 +30,9 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("register");
 		return model;
 	}	
+	@RequestMapping("/member")
+	public ModelAndView member() {
+		ModelAndView model = new ModelAndView("member");
+		return model;
+	}	
 }
