@@ -17,7 +17,7 @@
 	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/toastr.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
-	<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+	<link href="<c:url value='http://jqueryvalidation.org/files/demo/site-demos.css' />" rel="stylesheet" />
 	
 	<!-- Scripts -->
 	<script src="<c:url value='/js/jquery.js'/>"></script>
@@ -73,18 +73,18 @@
 </nav>
 
 <div class="container"> 
-		<form method="" action="" role="form" id="registrationForm">
+		<form method="" action="" role="form" id="registerMemberForm">
 		    <div class="container">
 		         <div class="row">
 		            <div class="col-md-4 col-md-offset-4">
 		                <div class="login-panel panel panel-primary panel-custom">
 		                    <div class="panel-heading panel-custom">
-		                        <h3 class="panel-title">Register</h3>
+		                        <h3 class="panel-title">Register as Member</h3>
 		                    </div>
 		                    <div class="panel-body">
 		                      	<fieldset>
 									<br />
-		                           	<input type="email" name="REG_EMAIL_ADDRESS" id="REG_EMAIL_ADDRESS" class="form-control input-form-custom"  size="30" maxlength="30" placeholder="Email Address"/>
+		                           	<input type="text" name="REG_MEMBER_ID" id="REG_MEMBER_ID" class="form-control input-form-custom"  size="30" maxlength="30" placeholder="Member ID"/>
 		                           	<br />
 		                          	<input type="password" name="REG_PASSWORD" id="REG_PASSWORD" class="form-control input-form-custom" size="30" maxlength="30" placeholder="Password" />
 		                           	<br />
@@ -142,7 +142,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-$( "#registrationForm" ).validate({
+$( "#registerMemberForm" ).validate({
   rules: {
 		  REG_PASSWORD: "required",
 		  REG_CONFIRM_PASSWORD: {

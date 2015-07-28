@@ -74,9 +74,6 @@
 		                    </div>
 		                    <div class="panel-body">
 		                        <fieldset>
-		                        	<p>
-										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>
-									</p>
 		                           	<input type="text" name="j_username" class="form-control input-form-custom" id="j_username" size="30" maxlength="40" placeholder="Email Address"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
 		                            <br />
 		                            <input type="password" name="j_password" class="form-control input-form-custom" id="j_password" size="30" maxlength="32" placeholder="Password"/>
@@ -89,8 +86,11 @@
 		                            <br />
 		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block btn-form-custom" />
 		                            <a href="/webreservation/register" class="btn btn-lg btn-primary btn-block btn-form-custom" />Register</a>
+		                            <br/>
+		                            <p>
+										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>
+									</p>
 		                        </fieldset>
-		                        <br/>
 		                    </div>
 		                </div>
 		            </div>

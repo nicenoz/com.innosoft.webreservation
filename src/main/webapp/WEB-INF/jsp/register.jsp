@@ -17,7 +17,7 @@
 	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/toastr.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
-	<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+	<link href="<c:url value='http://jqueryvalidation.org/files/demo/site-demos.css' />" rel="stylesheet" />
 	
 	<!-- Scripts -->
 	<script src="<c:url value='/js/jquery.js'/>"></script>

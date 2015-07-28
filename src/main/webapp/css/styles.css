@@ -389,23 +389,6 @@ dt {
 	padding-top: 6px;
 }
 
-/* Software page Styles */
-.software-button-style-custom {
-	border-radius: 0 !important;
-	float: right;
-	margin-left: 10px;
-	margin-top: 2px;
-	height: 35px;
-}
-.software-button-style-custom {
-	border-radius: 0 !important;
-	height: 35px;
-}
-
-.software-column-custom {
-	padding-top: 18px;
-}
-
 /* Email */
 .panel-body-email-custom {
 	border-color: #005C1F;
@@ -438,22 +421,39 @@ dt {
 	color: white;
 	border-radius: 0 !important;
 }
+
 .registration-panel-custom-border {
 	border-color: #754719;
 	border-radius: 0 !important;
 }
+
 .registration-buttom-custom {
 	background-color: #754719;
 	color: white;
 	border-radius: 0 !important;
 }
+
 input:hover.registration-buttom-custom, input:active.registration-buttom-custom {
 	background-color: #694016;
 	color: white;
 	border-radius: 0 !important;
 }
 
-/* Confirm Password Style */
-.confirm-pass-custom {
-	color: blue;
+/* Calendar Grid Style */
+.calendar-input-custom {
+	border-radius: 0 !important;
+	margin-bottom: 10px;
 }
+
+.calendar-btn-custom {
+	border-radius: 0 !important;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.calendar-grid-custom {
+	border-radius: 0 !important;
+}
+
+
+
