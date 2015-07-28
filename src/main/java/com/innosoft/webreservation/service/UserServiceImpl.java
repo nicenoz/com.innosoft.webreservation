@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +19,18 @@ public class UserServiceImpl implements UserService {
 	
 	public MstSecurityUser getUser(String login) {
 		return userDao.getUser(login);
+	}
+
+	public MstSecurityUser addUser(MstSecurityUser user) {
+		return userDao.addUser(user);
+	}
+
+	public MstSecurityUser editUser(MstSecurityUser user) {
+		return userDao.editUser(user);
+	}
+
+	public List<MstSecurityUser> listUser() {
+		// TODO Auto-generated method stub
+		return userDao.listUser();
 	}
 }
