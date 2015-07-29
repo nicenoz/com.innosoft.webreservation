@@ -294,7 +294,15 @@ function getCustomers() {
                         CUST_ADDRESS1: Results[i]["CUST_ADDRESS1"],
                         CUST_ADDRESS2: Results[i]["CUST_ADDRESS2"],
                         CUST_ADDRESS3: Results[i]["CUST_ADDRESS3"],
-                        CUST_ISDELETED: Results[i]["CUST_ISDELETED"]
+                        CUST_ISDELETED: Results[i]["CUST_ISDELETED"],
+                        
+                        CREATED_DATE: Results[i]["CREATED_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+                        ISDELETED: Results[i]["ISDELETED"],
+                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
                 }
             } else {

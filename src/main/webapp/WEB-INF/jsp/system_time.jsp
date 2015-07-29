@@ -282,6 +282,14 @@ function getCustomerTimes() {
 								CTIM_INTERVAL_OF_TIMES : Results[i]["ctim_INTERVAL_OF_TIMES"],
 								CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
 								CTIM_MAX_PARTS_NO : Results[i]["ctim_MAX_PARTS_NO"],
+								
+								CREATED_DATE: Results[i]["CREATED_DATE"],
+		                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+		                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+		                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+		                        ISDELETED: Results[i]["ISDELETED"],
+		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
 							});
 						}
 					} else {

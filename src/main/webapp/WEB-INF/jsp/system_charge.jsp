@@ -329,6 +329,14 @@ function getCharges() {
 										CHRG_APP_DIVISION : Results[i]["chrg_APP_DIVISION"],
 										CHRG_APP_START_DATE : Results[i]["chrg_APP_START_DATE"],
 										CHRG_APP_END_DATE : Results[i]["chrg_APP_END_DATE"],
+										
+										CREATED_DATE: Results[i]["CREATED_DATE"],
+				                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+				                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+				                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+				                        ISDELETED: Results[i]["ISDELETED"],
+				                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+				                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
 									});
 						}
 					} else {

@@ -47,7 +47,13 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 			newCustomerTime.setCTIM_INTERVAL_OF_TIMES(time.CTIM_INTERVAL_OF_TIMES);
 			newCustomerTime.setCTIM_MAX_PARTS_NO(time.CTIM_MAX_PARTS_NO);
 			newCustomerTime.setCTIM_MAX_UNIT_NO(time.CTIM_MAX_UNIT_NO);
-						
+			
+			newCustomerTime.setCREATED_BY_USER_ID(time.CREATED_BY_USER_ID);
+			newCustomerTime.setCREATED_DATE(time.CREATED_DATE);
+			newCustomerTime.setUPDATED_BY_USER_ID(time.UPDATED_BY_USER_ID);
+			newCustomerTime.setUPDATED_DATE(time.UPDATED_DATE);
+			newCustomerTime.setISDELETED(time.ISDELETED);
+			
 			session.save(newCustomerTime);
 			tx.commit();
 			session.close();
@@ -71,6 +77,9 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 			updateCustomerTime.setCTIM_INTERVAL_OF_TIMES(time.CTIM_INTERVAL_OF_TIMES);
 			updateCustomerTime.setCTIM_MAX_PARTS_NO(time.CTIM_MAX_PARTS_NO);
 			updateCustomerTime.setCTIM_MAX_UNIT_NO(time.CTIM_MAX_UNIT_NO);
+			
+			updateCustomerTime.setUPDATED_BY_USER_ID(time.UPDATED_BY_USER_ID);
+			updateCustomerTime.setUPDATED_DATE(time.UPDATED_DATE);
 			
 			session.update(updateCustomerTime); 
 			tx.commit();

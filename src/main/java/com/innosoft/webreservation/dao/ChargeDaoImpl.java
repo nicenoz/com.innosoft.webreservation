@@ -48,6 +48,12 @@ public class ChargeDaoImpl implements ChargeDao {
 			newCharge.setCHRG_APP_START_DATE(charge.CHRG_APP_START_DATE);
 			newCharge.setCHRG_APP_END_DATE(charge.CHRG_APP_END_DATE);
 			
+			newCharge.setCREATED_BY_USER_ID(charge.CREATED_BY_USER_ID);
+			newCharge.setCREATED_DATE(charge.CREATED_DATE);
+			newCharge.setUPDATED_BY_USER_ID(charge.UPDATED_BY_USER_ID);
+			newCharge.setUPDATED_DATE(charge.UPDATED_DATE);
+			newCharge.setISDELETED(charge.ISDELETED);
+			
 			session.save(newCharge);
 			tx.commit();
 			session.close();
@@ -72,6 +78,9 @@ public class ChargeDaoImpl implements ChargeDao {
 			updateCharge.setCHRG_APP_START_DATE(charge.CHRG_APP_START_DATE);
 			updateCharge.setCHRG_PRICE(charge.CHRG_PRICE);
 			updateCharge.setCHRG_CUST_ID(charge.CHRG_CUST_ID);
+			
+			updateCharge.setUPDATED_BY_USER_ID(charge.UPDATED_BY_USER_ID);
+			updateCharge.setUPDATED_DATE(charge.UPDATED_DATE);
 			
 			session.update(updateCharge); 
 			tx.commit();

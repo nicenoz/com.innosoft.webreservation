@@ -52,13 +52,15 @@ public class CalendarDaoImpl implements CalendarDao {
 			newCalendar.setCLDR_DAYCODE(calendar.CLDR_DAYCODE);
 			newCalendar.setCLDR_NOTE(calendar.CLDR_NOTE);
 			
-			System.out.println("3");
+			newCalendar.setCREATED_BY_USER_ID(calendar.CREATED_BY_USER_ID);
+			newCalendar.setCREATED_DATE(calendar.CREATED_DATE);
+			newCalendar.setUPDATED_BY_USER_ID(calendar.UPDATED_BY_USER_ID);
+			newCalendar.setUPDATED_DATE(calendar.UPDATED_DATE);
+			newCalendar.setISDELETED(calendar.ISDELETED);
 			
 			session.save(newCalendar);
 			tx.commit();
 			session.close();
-			
-			System.out.println("4");
 			
 			return newCalendar;			
 			
@@ -81,6 +83,9 @@ public class CalendarDaoImpl implements CalendarDao {
 			updatecalendar.setCLDR_DATE(calendar.CLDR_DATE);
 			updatecalendar.setCLDR_DAYCODE(calendar.CLDR_DAYCODE);
 			updatecalendar.setCLDR_NOTE(calendar.CLDR_NOTE);
+			
+			updatecalendar.setUPDATED_BY_USER_ID(calendar.UPDATED_BY_USER_ID);
+			updatecalendar.setUPDATED_DATE(calendar.UPDATED_DATE);
 			
 			session.update(updatecalendar); 
 			tx.commit();

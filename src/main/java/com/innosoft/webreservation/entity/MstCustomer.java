@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,66 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="WR_CUSTOMER")
 public class MstCustomer {
-	public int getCUST_ID() {
-		return CUST_ID;
-	}
-	public void setCUST_ID(int cUST_ID) {
-		CUST_ID = cUST_ID;
-	}
-	public String getCUST_CUSTOMER_NO() {
-		return CUST_CUSTOMER_NO;
-	}
-	public void setCUST_CUSTOMER_NO(String cUST_CUSTOMER_NO) {
-		CUST_CUSTOMER_NO = cUST_CUSTOMER_NO;
-	}
-	public String getCUST_NAME() {
-		return CUST_NAME;
-	}
-	public void setCUST_NAME(String cUST_NAME) {
-		CUST_NAME = cUST_NAME;
-	}
-	public String getCUST_PHONENO() {
-		return CUST_PHONENO;
-	}
-	public void setCUST_PHONENO(String cUST_PHONENO) {
-		CUST_PHONENO = cUST_PHONENO;
-	}
-	public String getCUST_EMAIL() {
-		return CUST_EMAIL;
-	}
-	public void setCUST_EMAIL(String cUST_EMAIL) {
-		CUST_EMAIL = cUST_EMAIL;
-	}
-	public String getCUST_ZIPCODE() {
-		return CUST_ZIPCODE;
-	}
-	public void setCUST_ZIPCODE(String cUST_ZIPCODE) {
-		CUST_ZIPCODE = cUST_ZIPCODE;
-	}
-	public String getCUST_ADDRESS1() {
-		return CUST_ADDRESS1;
-	}
-	public void setCUST_ADDRESS1(String cUST_ADDRESS1) {
-		CUST_ADDRESS1 = cUST_ADDRESS1;
-	}
-	public String getCUST_ADDRESS2() {
-		return CUST_ADDRESS2;
-	}
-	public void setCUST_ADDRESS2(String cUST_ADDRESS2) {
-		CUST_ADDRESS2 = cUST_ADDRESS2;
-	}
-	public String getCUST_ADDRESS3() {
-		return CUST_ADDRESS3;
-	}
-	public void setCUST_ADDRESS3(String cUST_ADDRESS3) {
-		CUST_ADDRESS3 = cUST_ADDRESS3;
-	}
-	public int getCUST_ISDELETED() {
-		return CUST_ISDELETED;
-	}
-	public void setCUST_ISDELETED(int cUST_ISDELETED) {
-		CUST_ISDELETED = cUST_ISDELETED;
-	}
 	
 	@Id
     @GeneratedValue
@@ -101,4 +43,162 @@ public class MstCustomer {
 	
 	@Column(name="CUST_ISDELETED")		
 	public int CUST_ISDELETED;
+	
+	@Column(name="CREATED_DATE")
+	public Date CREATED_DATE;
+	
+	@Column(name="CREATED_BY_USER_ID")
+	public int CREATED_BY_USER_ID;
+	
+	@Column(name="UPDATED_DATE")
+	public Date UPDATED_DATE;
+	
+	@Column(name="UPDATED_BY_USER_ID")
+	public int UPDATED_BY_USER_ID;
+	
+	@Column(name="ISDELETED")
+	public int ISDELETED;
+	
+	@Column(name="ISDELETED_DATE",nullable = true)
+	public Date ISDELETED_DATE;
+	
+	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
+	public Integer ISDELETED_BY_USER_ID;
+	
+	
+	public int getCUST_ID() {
+		return CUST_ID;
+	}
+
+	public void setCUST_ID(int cUST_ID) {
+		CUST_ID = cUST_ID;
+	}
+
+	public String getCUST_CUSTOMER_NO() {
+		return CUST_CUSTOMER_NO;
+	}
+
+	public void setCUST_CUSTOMER_NO(String cUST_CUSTOMER_NO) {
+		CUST_CUSTOMER_NO = cUST_CUSTOMER_NO;
+	}
+
+	public String getCUST_NAME() {
+		return CUST_NAME;
+	}
+
+	public void setCUST_NAME(String cUST_NAME) {
+		CUST_NAME = cUST_NAME;
+	}
+
+	public String getCUST_PHONENO() {
+		return CUST_PHONENO;
+	}
+
+	public void setCUST_PHONENO(String cUST_PHONENO) {
+		CUST_PHONENO = cUST_PHONENO;
+	}
+
+	public String getCUST_EMAIL() {
+		return CUST_EMAIL;
+	}
+
+	public void setCUST_EMAIL(String cUST_EMAIL) {
+		CUST_EMAIL = cUST_EMAIL;
+	}
+
+	public String getCUST_ZIPCODE() {
+		return CUST_ZIPCODE;
+	}
+
+	public void setCUST_ZIPCODE(String cUST_ZIPCODE) {
+		CUST_ZIPCODE = cUST_ZIPCODE;
+	}
+
+	public String getCUST_ADDRESS1() {
+		return CUST_ADDRESS1;
+	}
+
+	public void setCUST_ADDRESS1(String cUST_ADDRESS1) {
+		CUST_ADDRESS1 = cUST_ADDRESS1;
+	}
+
+	public String getCUST_ADDRESS2() {
+		return CUST_ADDRESS2;
+	}
+
+	public void setCUST_ADDRESS2(String cUST_ADDRESS2) {
+		CUST_ADDRESS2 = cUST_ADDRESS2;
+	}
+
+	public String getCUST_ADDRESS3() {
+		return CUST_ADDRESS3;
+	}
+
+	public void setCUST_ADDRESS3(String cUST_ADDRESS3) {
+		CUST_ADDRESS3 = cUST_ADDRESS3;
+	}
+
+	public int getCUST_ISDELETED() {
+		return CUST_ISDELETED;
+	}
+
+	public void setCUST_ISDELETED(int cUST_ISDELETED) {
+		CUST_ISDELETED = cUST_ISDELETED;
+	}
+
+	public Date getCREATED_DATE() {
+		return CREATED_DATE;
+	}
+
+	public void setCREATED_DATE(Date cREATED_DATE) {
+		CREATED_DATE = cREATED_DATE;
+	}
+
+	public int getCREATED_BY_USER_ID() {
+		return CREATED_BY_USER_ID;
+	}
+
+	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
+	}
+
+	public Date getUPDATED_DATE() {
+		return UPDATED_DATE;
+	}
+
+	public void setUPDATED_DATE(Date uPDATED_DATE) {
+		UPDATED_DATE = uPDATED_DATE;
+	}
+
+	public int getUPDATED_BY_USER_ID() {
+		return UPDATED_BY_USER_ID;
+	}
+
+	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
+	}
+
+	public int getISDELETED() {
+		return ISDELETED;
+	}
+
+	public void setISDELETED(int iSDELETED) {
+		ISDELETED = iSDELETED;
+	}
+
+	public Date getISDELETED_DATE() {
+		return ISDELETED_DATE;
+	}
+
+	public void setISDELETED_DATE(Date iSDELETED_DATE) {
+		ISDELETED_DATE = iSDELETED_DATE;
+	}
+
+	public Integer getISDELETED_BY_USER_ID() {
+		return ISDELETED_BY_USER_ID;
+	}
+
+	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
+		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
+	}
 }

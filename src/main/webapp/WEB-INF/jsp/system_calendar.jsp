@@ -274,6 +274,14 @@ function getCalendars() {
                         CLDR_DATE: Results[i]["cldr_DATE"],
                         CLDR_DAYCODE: Results[i]["cldr_DAYCODE"],
                         CLDR_NOTE: Results[i]["cldr_NOTE"],
+                        
+                        CREATED_DATE: Results[i]["CREATED_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+                        ISDELETED: Results[i]["ISDELETED"],
+                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
                 }
             } else {

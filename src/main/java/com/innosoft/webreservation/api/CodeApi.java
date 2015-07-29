@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.innosoft.webreservation.entity.MstCode;
 import com.innosoft.webreservation.service.CodeService;
-
+import com.innosoft.webreservation.service.SecurityService;
 
 @Controller
 @RequestMapping("api/code")
 public class CodeApi {
 	@Autowired
 	private CodeService codeService;
+	@Autowired
+	private SecurityService securityService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCode> listCode() {
@@ -32,16 +33,17 @@ public class CodeApi {
 	public ResponseEntity<MstCode> updateCode(@RequestBody MstCode code) {
 		try {
 			if(code.getCODE_ID()==0) {
+				code = (MstCode)securityService.stampCreated(code, "Code");
 				MstCode newCode = codeService.addCode(code);
 				return new ResponseEntity<MstCode>(newCode, HttpStatus.OK);
 			} else {
+				code = (MstCode)securityService.stampUpdated(code, "Code");
 				MstCode editCode = codeService.editCode(code);
 				return new ResponseEntity<MstCode>(editCode, HttpStatus.OK);
 			}
 		} catch(Exception e) {
 			return new ResponseEntity<MstCode>(code, HttpStatus.BAD_REQUEST);
 		}
-		
 	}	
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)

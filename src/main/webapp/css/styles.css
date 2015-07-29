@@ -375,13 +375,7 @@ dt {
 .footer-title-style {
 	font-size: 13px;
 	font-family: Arial;
-	margin: 0 !important;
-}
-
-.footer-title-style {
-	font-size: 17px;
-	font-family: Arial;
-	color: #AAAFAF;
+	color: white;
 	margin: 0 !important;
 }
 

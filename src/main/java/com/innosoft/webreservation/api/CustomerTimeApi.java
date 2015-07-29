@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.service.CustomerTimeService;
+import com.innosoft.webreservation.service.SecurityService;
 
 
 @Controller
 @RequestMapping("api/customerTime")
 public class CustomerTimeApi {
-	
 	@Autowired
 	private CustomerTimeService customerTimeService;
+	@Autowired
+	private SecurityService securityService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerTime> listCustomerTime() {
@@ -34,9 +34,11 @@ public class CustomerTimeApi {
 	public ResponseEntity<MstCustomerTime> updateCharge(@RequestBody MstCustomerTime time) {
 		try {
 			if(time.getCTIM_ID() == 0) {
+				time = (MstCustomerTime)securityService.stampCreated(time, "Time");
 				MstCustomerTime newCustomerTime = customerTimeService.addCustomerTime(time);
 				return new ResponseEntity<MstCustomerTime>(newCustomerTime, HttpStatus.OK);
 			} else {
+				time = (MstCustomerTime)securityService.stampUpdated(time, "Time");
 				MstCustomerTime editCustomerTime = customerTimeService.editCustomerTime(time);
 				return new ResponseEntity<MstCustomerTime>(editCustomerTime, HttpStatus.OK);
 			}

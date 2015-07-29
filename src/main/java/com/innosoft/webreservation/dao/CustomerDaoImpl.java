@@ -56,7 +56,13 @@ public class CustomerDaoImpl implements CustomerDao {
 			newCustomer.setCUST_ADDRESS1(customer.CUST_ADDRESS1);	
 			newCustomer.setCUST_ADDRESS2(customer.CUST_ADDRESS2);	
 			newCustomer.setCUST_ADDRESS3(customer.CUST_ADDRESS3);	
-			newCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);		
+			newCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);	
+			
+			newCustomer.setCREATED_BY_USER_ID(customer.CREATED_BY_USER_ID);
+			newCustomer.setCREATED_DATE(customer.CREATED_DATE);
+			newCustomer.setUPDATED_BY_USER_ID(customer.UPDATED_BY_USER_ID);
+			newCustomer.setUPDATED_DATE(customer.UPDATED_DATE);
+			newCustomer.setISDELETED(customer.ISDELETED);
 
 			session.save(newCustomer);
 			tx.commit();
@@ -84,7 +90,10 @@ public class CustomerDaoImpl implements CustomerDao {
 			updateCustomer.setCUST_ADDRESS1(customer.CUST_ADDRESS1);	
 			updateCustomer.setCUST_ADDRESS2(customer.CUST_ADDRESS2);	
 			updateCustomer.setCUST_ADDRESS3(customer.CUST_ADDRESS3);	
-			updateCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);		
+			updateCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);	
+			
+			updateCustomer.setUPDATED_BY_USER_ID(customer.UPDATED_BY_USER_ID);
+			updateCustomer.setUPDATED_DATE(customer.UPDATED_DATE);
 
 			session.update(updateCustomer); 
 			tx.commit();

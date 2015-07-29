@@ -47,6 +47,12 @@ public class CodeDaoImpl implements CodeDao {
 			newCode.setCODE_TEXT(code.getCODE_TEXT());
 			newCode.setCODE_ISDISPLAY(code.getCODE_ISDISPLAY());
 			
+			newCode.setCREATED_BY_USER_ID(code.CREATED_BY_USER_ID);
+			newCode.setCREATED_DATE(code.CREATED_DATE);
+			newCode.setUPDATED_BY_USER_ID(code.UPDATED_BY_USER_ID);
+			newCode.setUPDATED_DATE(code.UPDATED_DATE);
+			newCode.setISDELETED(code.ISDELETED);
+			
 			session.save(newCode);
 			tx.commit();
 			session.close();
@@ -70,6 +76,9 @@ public class CodeDaoImpl implements CodeDao {
 			updateCode.setCODE_NOTE(code.getCODE_NOTE());
 			updateCode.setCODE_TEXT(code.getCODE_TEXT());
 			updateCode.setCODE_ISDISPLAY(code.getCODE_ISDISPLAY());
+			
+			updateCode.setUPDATED_BY_USER_ID(code.UPDATED_BY_USER_ID);
+			updateCode.setUPDATED_DATE(code.UPDATED_DATE);
 			
 			session.update(updateCode); 
 			tx.commit();

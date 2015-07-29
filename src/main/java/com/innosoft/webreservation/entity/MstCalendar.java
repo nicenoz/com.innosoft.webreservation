@@ -30,6 +30,27 @@ public class MstCalendar {
 	@Column(name="CLDR_NOTE")	
 	public String CLDR_NOTE;
 	
+	@Column(name="CREATED_DATE")
+	public Date CREATED_DATE;
+	
+	@Column(name="CREATED_BY_USER_ID")
+	public int CREATED_BY_USER_ID;
+	
+	@Column(name="UPDATED_DATE")
+	public Date UPDATED_DATE;
+	
+	@Column(name="UPDATED_BY_USER_ID")
+	public int UPDATED_BY_USER_ID;
+	
+	@Column(name="ISDELETED")
+	public int ISDELETED;
+	
+	@Column(name="ISDELETED_DATE",nullable = true)
+	public Date ISDELETED_DATE;
+	
+	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
+	public Integer ISDELETED_BY_USER_ID;
+	
 	
 	
 	public int getCLDR_ID() {
@@ -40,9 +61,8 @@ public class MstCalendar {
 		CLDR_ID = cLDR_ID;
 	}
 
-	public String getCLDR_DATE() {
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");		
-		return sd.format(CLDR_DATE);		
+	public Date getCLDR_DATE() {
+		return CLDR_DATE;
 	}
 
 	public void setCLDR_DATE(Date cLDR_DATE) {
@@ -65,4 +85,59 @@ public class MstCalendar {
 		CLDR_NOTE = cLDR_NOTE;
 	}
 
+	public Date getCREATED_DATE() {
+		return CREATED_DATE;
+	}
+
+	public void setCREATED_DATE(Date cREATED_DATE) {
+		CREATED_DATE = cREATED_DATE;
+	}
+
+	public int getCREATED_BY_USER_ID() {
+		return CREATED_BY_USER_ID;
+	}
+
+	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
+	}
+
+	public Date getUPDATED_DATE() {
+		return UPDATED_DATE;
+	}
+
+	public void setUPDATED_DATE(Date uPDATED_DATE) {
+		UPDATED_DATE = uPDATED_DATE;
+	}
+
+	public int getUPDATED_BY_USER_ID() {
+		return UPDATED_BY_USER_ID;
+	}
+
+	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
+	}
+
+	public int getISDELETED() {
+		return ISDELETED;
+	}
+
+	public void setISDELETED(int iSDELETED) {
+		ISDELETED = iSDELETED;
+	}
+
+	public Date getISDELETED_DATE() {
+		return ISDELETED_DATE;
+	}
+
+	public void setISDELETED_DATE(Date iSDELETED_DATE) {
+		ISDELETED_DATE = iSDELETED_DATE;
+	}
+
+	public Integer getISDELETED_BY_USER_ID() {
+		return ISDELETED_BY_USER_ID;
+	}
+
+	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
+		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
+	}
 }

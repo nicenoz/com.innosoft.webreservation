@@ -262,7 +262,15 @@ function getCodes() {
                         CODE_CODE_VALUE: Results[i]["CODE_CODE_VALUE"],
                         CODE_NOTE: Results[i]["CODE_NOTE"],
                         CODE_TEXT: Results[i]["CODE_TEXT"],
-                        CODE_ISDISPLAY: Results[i]["CODE_ISDISPLAY"]
+                        CODE_ISDISPLAY: Results[i]["CODE_ISDISPLAY"],
+                        
+                        CREATED_DATE: Results[i]["CREATED_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+                        ISDELETED: Results[i]["ISDELETED"],
+                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
                 }
             } else {

@@ -310,7 +310,15 @@ function getMessages() {
                         MESG_LEVEL: Results[i]["mesg_LEVEL"],
                         MESG_NOTE: Results[i]["mesg_NOTE"],
                         MESG_START_DATE: Results[i]["mesg_START_DATE"],
-                        MESG_END_DATE: Results[i]["mesg_END_DATE"]
+                        MESG_END_DATE: Results[i]["mesg_END_DATE"],
+                        
+                        CREATED_DATE: Results[i]["CREATED_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+                        ISDELETED: Results[i]["ISDELETED"],
+                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
                 }
             } else {

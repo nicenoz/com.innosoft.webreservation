@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.innosoft.webreservation.entity.MstCustomer;
 import com.innosoft.webreservation.service.CustomerService;
+import com.innosoft.webreservation.service.SecurityService;
 
 @Controller
 @RequestMapping("api/customer")
 public class CustomerApi {
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private SecurityService securityService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomer> listCustomer() {
@@ -31,9 +33,11 @@ public class CustomerApi {
 	public ResponseEntity<MstCustomer> updateCustomer(@RequestBody MstCustomer customer) {
 		try {
 			if(customer.getCUST_ID()==0) {
+				customer = (MstCustomer)securityService.stampCreated(customer, "Customer");
 				MstCustomer newCustomer = customerService.addCustomer(customer);
 				return new ResponseEntity<MstCustomer>(newCustomer, HttpStatus.OK);
 			} else {
+				customer = (MstCustomer)securityService.stampUpdated(customer, "Customer");
 				MstCustomer editCustomer = customerService.editCustomer(customer);
 				return new ResponseEntity<MstCustomer>(editCustomer, HttpStatus.OK);
 			}
