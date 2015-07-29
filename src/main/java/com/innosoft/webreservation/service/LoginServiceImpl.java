@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
  
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +20,6 @@ import com.innosoft.webreservation.entity.MstSecurityUser;
 @Service("loginServiceImpl")
 @Transactional(readOnly = true)
 public class LoginServiceImpl implements UserDetailsService {
-	
 	@Autowired
 	private UserDao userDao;
 	
@@ -76,4 +74,5 @@ public class LoginServiceImpl implements UserDetailsService {
         }
         return authorities;
     }
+
 }

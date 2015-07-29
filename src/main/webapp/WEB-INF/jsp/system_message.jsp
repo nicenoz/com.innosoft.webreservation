@@ -81,15 +81,19 @@
             <div class="modal-body">
                 <form id="messageForm" class="modal-form-custom">
                     <dl class="dl-horizontal">
-                        <dt>Message Code</dt>
+                        <dt>Code</dt>
                         <dd>
                             <input class="form-control modal-custom-input" id="EDIT_MESG_ID" type="hidden" />
                             <input class="form-control modal-custom-input" id="EDIT_MESG_CODE" name="EDIT_MESG_CODE" type="text" required />
                         </dd>
-                        <dt>Message Level</dt>
+                        <dt>Level</dt>
                         <dd>
                             <input class="form-control modal-custom-input" id="EDIT_MESG_LEVEL" name="EDIT_MESG_LEVEL" type="text" required />
                         </dd>
+                        <dt>Note</dt>
+                        <dd>
+                            <input class="form-control modal-custom-input" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" type="text" required />
+                        </dd>                        
                         <dt>Start Date</dt>
                         <dd>
 							<div id="EDIT_MESG_START_DATE" class="form-control modal-custom-input"></div>
@@ -147,6 +151,7 @@ function cmdMessageEdit_OnClick() {
     document.getElementById('EDIT_MESG_ID').value = message.MESG_ID !== null && typeof (message.MESG_ID) != 'undefined' ? wijmo.Globalize.format(message.MESG_ID) : 0;
     document.getElementById('EDIT_MESG_CODE').value = message.MESG_CODE ? message.MESG_CODE : '';
     document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : '';
+    document.getElementById('EDIT_MESG_NOTE').value = message.MESG_NOTE ? message.MESG_NOTE : '';
     document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
     document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
     
@@ -185,6 +190,7 @@ function cmdMessageAdd_OnClick() {
     document.getElementById('EDIT_MESG_ID').value = 0;
     document.getElementById('EDIT_MESG_CODE').value = '';
     document.getElementById('EDIT_MESG_LEVEL').value = '';
+    document.getElementById('EDIT_MESG_NOTE').value = '';
     document.getElementById('EDIT_MESG_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
     document.getElementById('EDIT_MESG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");  
     
@@ -253,6 +259,7 @@ function cmdMessageEditOk_OnClick() {
 	messageObject.MESG_ID = parseInt(document.getElementById('EDIT_MESG_ID').value);
 	messageObject.MESG_CODE = document.getElementById('EDIT_MESG_CODE').value;
 	messageObject.MESG_LEVEL = document.getElementById('EDIT_MESG_LEVEL').value;
+	messageObject.MESG_NOTE = document.getElementById('EDIT_MESG_NOTE').value;
 		 
 	var splitStartDate = document.getElementById('EDIT_MESG_START_DATE_DATA').value.split("-");
 	var splitEndDate = document.getElementById('EDIT_MESG_END_DATE_DATA').value.split("-");
@@ -301,6 +308,7 @@ function getMessages() {
                         MESG_ID: Results[i]["mesg_ID"],
                         MESG_CODE: Results[i]["mesg_CODE"],
                         MESG_LEVEL: Results[i]["mesg_LEVEL"],
+                        MESG_NOTE: Results[i]["mesg_NOTE"],
                         MESG_START_DATE: Results[i]["mesg_START_DATE"],
                         MESG_END_DATE: Results[i]["mesg_END_DATE"]
                     });
@@ -449,25 +457,31 @@ $(document).ready(function () {
                         "header": "Code",
                         "binding": "MESG_CODE",
                         "allowSorting": true,
-                        "width": "6*"
+                        "width": "7*"
                     },
                     {
                         "header": "Level",
                         "binding": "MESG_LEVEL",
                         "allowSorting": true,
-                        "width": "6*"
+                        "width": "7*"
                     },
+                    {
+                        "header": "Note",
+                        "binding": "MESG_NOTE",
+                        "allowSorting": true,
+                        "width": "7*"
+                    },                    
                     {
                         "header": "Start Date",
                         "binding": "MESG_START_DATE",
                         "allowSorting": true,
-                        "width": "6*"
+                        "width": "7*"
                     },
                     {
                         "header": "End Date",
                         "binding": "MESG_END_DATE",
                         "allowSorting": true,
-                        "width": "6*"
+                        "width": "7*"
                     }                         
         ],
         autoGenerateColumns: false,

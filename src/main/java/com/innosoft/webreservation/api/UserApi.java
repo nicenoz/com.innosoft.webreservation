@@ -1,7 +1,5 @@
 package com.innosoft.webreservation.api;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +33,7 @@ public class UserApi {
 				
 				SysEmail se = new SysEmail();
 				se.setEMAIL_EMAIL(user.USER_LOGIN);
-				se.setEMAIL_MESSAGE("localhost:8082/webreservation/login/"+newUser.getUSER_ID());
+				se.setEMAIL_MESSAGE("http://localhost:8082/webreservation/login/"+newUser.getUSER_ID());
 				se.setEMAIL_SUBJECT("Web Reservation Membership");
 
 				boolean sendMail = emailService.sendMail(se);

@@ -45,6 +45,13 @@ public class MessageDaoImpl implements MessageDao {
 			newMessage.setMESG_LEVEL(message.MESG_LEVEL);
 			newMessage.setMESG_START_DATE(message.MESG_START_DATE);
 			newMessage.setMESG_END_DATE(message.MESG_END_DATE);
+			newMessage.setMESG_NOTE(message.MESG_NOTE);
+			
+			newMessage.setCREATED_BY_USER_ID(message.CREATED_BY_USER_ID);
+			newMessage.setCREATED_DATE(message.CREATED_DATE);
+			newMessage.setUPDATED_BY_USER_ID(message.UPDATED_BY_USER_ID);
+			newMessage.setUPDATED_DATE(message.UPDATED_DATE);
+			newMessage.setISDELETED(message.ISDELETED);
 			
 			session.save(newMessage);
 			tx.commit();
@@ -68,6 +75,9 @@ public class MessageDaoImpl implements MessageDao {
 			updateMessage.setMESG_LEVEL(message.MESG_LEVEL);
 			updateMessage.setMESG_START_DATE(message.MESG_START_DATE);
 			updateMessage.setMESG_END_DATE(message.MESG_END_DATE);
+			
+			updateMessage.setUPDATED_BY_USER_ID(message.UPDATED_BY_USER_ID);
+			updateMessage.setUPDATED_DATE(message.UPDATED_DATE);
 			
 			session.update(updateMessage); 
 			tx.commit();

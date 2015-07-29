@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCode;
-import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.service.CodeService;
 
 

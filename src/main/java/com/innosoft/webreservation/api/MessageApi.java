@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.service.MessageService;
+import com.innosoft.webreservation.service.SecurityService;
 
 @Controller
 @RequestMapping("api/message")
 public class MessageApi {
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private SecurityService securityService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstMessage> listMessage() {
@@ -30,10 +33,12 @@ public class MessageApi {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstMessage> updateMessage(@RequestBody MstMessage message) {
 		try {
-			if(message.getMESG_ID()==0) {
+			if(message.getMESG_ID()==0) {			
+				message = (MstMessage)securityService.stampCreated(message, "Message");
 				MstMessage newMessage = messageService.addMessage(message);
 				return new ResponseEntity<MstMessage>(newMessage, HttpStatus.OK);
 			} else {
+				message = (MstMessage)securityService.stampUpdated(message, "Message");
 				MstMessage editMessage = messageService.editMessage(message);
 				return new ResponseEntity<MstMessage>(editMessage, HttpStatus.OK);
 			}
