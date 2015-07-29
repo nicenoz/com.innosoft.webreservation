@@ -21,6 +21,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUser(login);
 	}
 
+	public MstSecurityUser getUser(int id) {
+		return userDao.getUser(id);
+	}
+	
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		return userDao.addUser(user);
 	}

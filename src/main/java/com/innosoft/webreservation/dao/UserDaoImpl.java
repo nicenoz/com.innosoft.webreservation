@@ -48,6 +48,19 @@ public class UserDaoImpl implements UserDao {
 		else
 			return new MstSecurityUser();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public MstSecurityUser getUser(int id) {
+		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
+		Session session = this.getSessionFactory().getCurrentSession();
+		Query query = session.createQuery("from MstSecurityUser u where u.USER_ID = :id");
+		query.setParameter("id", id);
+		userList = query.list();
+		if (userList.size() > 0)
+			return userList.get(0);
+		else
+			return new MstSecurityUser();
+	}	
 
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		try {

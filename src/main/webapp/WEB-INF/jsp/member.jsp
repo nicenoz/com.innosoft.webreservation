@@ -83,14 +83,11 @@
 		                    </div>
 		                    <div class="panel-body">
 		                      	<fieldset>
+		                      		<input type="email" name="REG_EMAIL_ADDRESS" id="REG_EMAIL_ADDRESS" class="form-control input-form-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
 									<br />
 		                           	<input type="text" name="REG_MEMBER_ID" id="REG_MEMBER_ID" class="form-control input-form-custom"  size="30" maxlength="30" placeholder="Member ID"/>
 		                           	<br />
-		                          	<input type="password" name="REG_PASSWORD" id="REG_PASSWORD" class="form-control input-form-custom" size="30" maxlength="30" placeholder="Password" />
-		                           	<br />
-		                           	<input type="password" name="REG_CONFIRM_PASSWORD" id="REG_CONFIRM_PASSWORD" class="form-control input-form-custom" size="30" maxlength="30" placeholder="Confirm Password" onkeyup="checkPass()"/>
-		                          	<br />
-		                           	<button type="button" id="CmdRegister" class="btn btn-lg btn-primary btn-block btn-form-custom" onclick="cmdRegister_OnClick()">
+		                           	<button type="button" id="" class="btn btn-lg btn-primary btn-block btn-form-custom" onclick="">
 		                           		Submit
 		                           	</button>
 		                       	</fieldset>
@@ -130,28 +127,6 @@
         </div>
     </div>
 </footer>
-		
-
-<script>
-
-//==================
-// Password Validation
-//==================  	
-jQuery.validator.setDefaults({
-  debug: true,
-  success: "valid"
-});
-
-$( "#registerMemberForm" ).validate({
-  rules: {
-		  REG_PASSWORD: "required",
-		  REG_CONFIRM_PASSWORD: {
-	      equalTo: "#REG_PASSWORD" 
-      }
-  }
-});
-
-</script>
 
 </body>
 </html>
