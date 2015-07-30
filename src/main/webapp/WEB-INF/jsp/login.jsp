@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
@@ -85,7 +85,7 @@
 		                            </div>
 		                            <br />
 		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block btn-form-custom" />
-		                            <a href="/webreservation/register" class="btn btn-lg btn-primary btn-block btn-form-custom" />Register</a>
+		                            <a href="/webreservation/register" class="btn btn-lg btn-primary btn-block btn-form-custom">Register</a>
 		                            <br/>
 		                            <p>
 										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>

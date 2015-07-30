@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="WR_SECURITY_USER")
 public class MstSecurityUser {
-	public int getUSER_ID() {
+	public Integer getUSER_ID() {
 		return USER_ID;
 	}
 
@@ -39,7 +39,7 @@ public class MstSecurityUser {
 	@Id
     @GeneratedValue
     @Column(name="USER_ID")	
-	public int USER_ID; 
+	public Integer USER_ID; 
 	
 	@Column(name="USER_LOGIN")
 	public String USER_LOGIN;  

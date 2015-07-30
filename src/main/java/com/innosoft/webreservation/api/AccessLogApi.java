@@ -11,45 +11,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.innosoft.webreservation.entity.MstCharge;
-import com.innosoft.webreservation.service.ChargeService;
-import com.innosoft.webreservation.service.SecurityService;
+import com.innosoft.webreservation.entity.TrnAccessLog;
+import com.innosoft.webreservation.service.AccessLogService;
 
 @Controller
-@RequestMapping("api/charge")
-public class ChargeApi {
+@RequestMapping("api/accessLog")
+public class AccessLogApi {
 	@Autowired
-	private ChargeService chargeService;
-	@Autowired
-	private SecurityService securityService;
-
+	private AccessLogService accessLogService;
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<MstCharge> listCharge() {
-		List<MstCharge> list = chargeService.listCharge();
+	public @ResponseBody List<TrnAccessLog> listAccessLog() {
+		List<TrnAccessLog> list = accessLogService.listAccessLog();
 		return list;
 	}
-
+	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<MstCharge> updateCharge(@RequestBody MstCharge charge) {
+	public ResponseEntity<TrnAccessLog> updateCharge(@RequestBody TrnAccessLog accessLog) {
 		try {
-			if(charge.getCHRG_ID() == 0) {
-				charge = (MstCharge)securityService.stampCreated(charge, "Charge");
-				MstCharge newCharge = chargeService.addCharge(charge);
-				return new ResponseEntity<MstCharge>(newCharge, HttpStatus.OK);
+			if(accessLog.getALOG_ID() == 0) {
+				TrnAccessLog newAccessLog = accessLogService.addAccessLog(accessLog);
+				return new ResponseEntity<TrnAccessLog>(newAccessLog, HttpStatus.OK);
 			} else {
-				charge = (MstCharge)securityService.stampUpdated(charge, "Charge");
-				MstCharge editCharge = chargeService.editCharge(charge);
-				return new ResponseEntity<MstCharge>(editCharge, HttpStatus.OK);
+				TrnAccessLog editAccessLog = accessLogService.editAccessLog(accessLog);
+				return new ResponseEntity<TrnAccessLog>(editAccessLog, HttpStatus.OK);
 			}
 		} catch(Exception e) {
-			return new ResponseEntity<MstCharge>(charge, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<TrnAccessLog>(accessLog, HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteCharge(@PathVariable("id") int id) {
+	public ResponseEntity<String> deleteAccessLog(@PathVariable("id") int id) {
 		try {
-			boolean deleteReturn = chargeService.deleteCharge(id);
+			boolean deleteReturn = accessLogService.deleteAccessLog(id);
 			if (deleteReturn == true) {
 				return new ResponseEntity<String>(HttpStatus.OK);
 			} else {
@@ -58,5 +53,5 @@ public class ChargeApi {
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-	}
+	}	
 }

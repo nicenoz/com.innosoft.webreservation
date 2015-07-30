@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="WR_SECURITY_ROLE")
 public class MstSecurityRole {
 	
-    public int getROLE_ID() {
+    public Integer getROLE_ID() {
 		return ROLE_ID;
 	}
 
@@ -32,7 +32,7 @@ public class MstSecurityRole {
 	@Id
     @GeneratedValue
     @Column(name="ROLE_ID")
-	private int ROLE_ID;
+	private Integer ROLE_ID;
 	
 	@Column(name="ROLE_ROLE")  
 	private String ROLE_ROLE;

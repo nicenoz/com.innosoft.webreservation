@@ -15,7 +15,7 @@ public class MstCode {
 	@Id
     @GeneratedValue
     @Column(name="CODE_ID")		
-	public int CODE_ID;  
+	public Integer CODE_ID;  
 	
 	@Column(name="CODE_KIND_CODE")	
 	public String CODE_KIND_CODE;
@@ -27,7 +27,7 @@ public class MstCode {
 	public String CODE_TEXT;
 	
 	@Column(name="CODE_ISDISPLAY")	
-	public int CODE_ISDISPLAY;
+	public Integer CODE_ISDISPLAY;
 	
 	@Column(name="CODE_NOTE")	
 	public String CODE_NOTE; 
@@ -36,16 +36,16 @@ public class MstCode {
 	public Date CREATED_DATE;
 	
 	@Column(name="CREATED_BY_USER_ID")
-	public int CREATED_BY_USER_ID;
+	public Integer CREATED_BY_USER_ID;
 	
 	@Column(name="UPDATED_DATE")
 	public Date UPDATED_DATE;
 	
 	@Column(name="UPDATED_BY_USER_ID")
-	public int UPDATED_BY_USER_ID;
+	public Integer UPDATED_BY_USER_ID;
 	
 	@Column(name="ISDELETED")
-	public int ISDELETED;
+	public Integer ISDELETED;
 	
 	@Column(name="ISDELETED_DATE",nullable = true)
 	public Date ISDELETED_DATE;
@@ -54,11 +54,11 @@ public class MstCode {
 	public Integer ISDELETED_BY_USER_ID;	
 	
 	
-	public int getCODE_ID() {
+	public Integer getCODE_ID() {
 		return CODE_ID;
 	}
 
-	public void setCODE_ID(int cODE_ID) {
+	public void setCODE_ID(Integer cODE_ID) {
 		CODE_ID = cODE_ID;
 	}
 
@@ -86,11 +86,11 @@ public class MstCode {
 		CODE_TEXT = cODE_TEXT;
 	}
 
-	public int getCODE_ISDISPLAY() {
+	public Integer getCODE_ISDISPLAY() {
 		return CODE_ISDISPLAY;
 	}
 
-	public void setCODE_ISDISPLAY(int cODE_ISDISPLAY) {
+	public void setCODE_ISDISPLAY(Integer cODE_ISDISPLAY) {
 		CODE_ISDISPLAY = cODE_ISDISPLAY;
 	}
 
@@ -110,11 +110,11 @@ public class MstCode {
 		CREATED_DATE = cREATED_DATE;
 	}
 
-	public int getCREATED_BY_USER_ID() {
+	public Integer getCREATED_BY_USER_ID() {
 		return CREATED_BY_USER_ID;
 	}
 
-	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
@@ -126,19 +126,19 @@ public class MstCode {
 		UPDATED_DATE = uPDATED_DATE;
 	}
 
-	public int getUPDATED_BY_USER_ID() {
+	public Integer getUPDATED_BY_USER_ID() {
 		return UPDATED_BY_USER_ID;
 	}
 
-	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+	public void setUPDATED_BY_USER_ID(Integer uPDATED_BY_USER_ID) {
 		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
 	}
 
-	public int getISDELETED() {
+	public Integer getISDELETED() {
 		return ISDELETED;
 	}
 
-	public void setISDELETED(int iSDELETED) {
+	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
 
@@ -157,4 +157,5 @@ public class MstCode {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
+	
 }

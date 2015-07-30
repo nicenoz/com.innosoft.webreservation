@@ -8,24 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="WR_CALENDAR")
-public class MstCalendar {
-
-	@Id   
-    @GeneratedValue
-    @Column(name="CLDR_ID")	
-	public Integer CLDR_ID;
+@Table(name = "WR_CHARGE_COUNT")
+public class TrnChargeCount {
 	
-	@Column(name="CLDR_DATE")	
-	public Date CLDR_DATE; 
+	@Id
+	@GeneratedValue
+	@Column(name = "CUNT_ID")
+	public Integer CUNT_ID;
 	
-	@Column(name="CLDR_DAYCODE")	
-	public String CLDR_DAYCODE;
-
-	@Column(name="CLDR_NOTE")	
-	public String CLDR_NOTE;
+	@Column(name = "CUNT_TIME_STAMP")
+	public Date CUNT_TIME_STAMP;
+	
+	@Column(name = "CUNT_CUST_ID")
+	public Integer CUNT_CUST_ID;
+	
+	@Column(name = "CUNT_MEBR_ID")
+	public Integer CUNT_MEBR_ID;
+	
+	@Column(name = "CUNT_EMAIL_ADDRESS")
+	public String CUNT_EMAIL_ADDRESS;
 	
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;
@@ -49,36 +51,45 @@ public class MstCalendar {
 	public Integer ISDELETED_BY_USER_ID;
 	
 	
-	public Integer getCLDR_ID() {
-		return CLDR_ID;
+	
+	public Integer getCUNT_ID() {
+		return CUNT_ID;
 	}
 
-	public void setCLDR_ID(Integer cLDR_ID) {
-		CLDR_ID = cLDR_ID;
+	public void setCUNT_ID(Integer cUNT_ID) {
+		CUNT_ID = cUNT_ID;
 	}
 
-	public Date getCLDR_DATE() {
-		return CLDR_DATE;
+	public Date getCUNT_TIME_STAMP() {
+		return CUNT_TIME_STAMP;
 	}
 
-	public void setCLDR_DATE(Date cLDR_DATE) {
-		CLDR_DATE = cLDR_DATE;
+	public void setCUNT_TIME_STAMP(Date cUNT_TIME_STAMP) {
+		CUNT_TIME_STAMP = cUNT_TIME_STAMP;
 	}
 
-	public String getCLDR_DAYCODE() {
-		return CLDR_DAYCODE;
+	public Integer getCUNT_CUST_ID() {
+		return CUNT_CUST_ID;
 	}
 
-	public void setCLDR_DAYCODE(String cLDR_DAYCODE) {
-		CLDR_DAYCODE = cLDR_DAYCODE;
+	public void setCUNT_CUST_ID(Integer cUNT_CUST_ID) {
+		CUNT_CUST_ID = cUNT_CUST_ID;
 	}
 
-	public String getCLDR_NOTE() {
-		return CLDR_NOTE;
+	public Integer getCUNT_MEBR_ID() {
+		return CUNT_MEBR_ID;
 	}
 
-	public void setCLDR_NOTE(String cLDR_NOTE) {
-		CLDR_NOTE = cLDR_NOTE;
+	public void setCUNT_MEBR_ID(Integer cUNT_MEBR_ID) {
+		CUNT_MEBR_ID = cUNT_MEBR_ID;
+	}
+
+	public String getCUNT_EMAIL_ADDRESS() {
+		return CUNT_EMAIL_ADDRESS;
+	}
+
+	public void setCUNT_EMAIL_ADDRESS(String cUNT_EMAIL_ADDRESS) {
+		CUNT_EMAIL_ADDRESS = cUNT_EMAIL_ADDRESS;
 	}
 
 	public Date getCREATED_DATE() {

@@ -14,9 +14,12 @@ import com.innosoft.webreservation.entity.MstCalendar;
 import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstCode;
 import com.innosoft.webreservation.entity.MstCustomer;
+import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.entity.MstSecurityUser;
+import com.innosoft.webreservation.entity.TrnChargeCount;
+import com.innosoft.webreservation.entity.TrnReservation;
 
 @Service
 @Transactional
@@ -57,6 +60,14 @@ public class SecurityServiceImpl implements SecurityService{
 			charge.setUPDATED_DATE(new Date());    
 			charge.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			charge.setISDELETED(0);
+    	} else if(objectType=="ChargeCount") {
+    		TrnChargeCount chargeCount = (TrnChargeCount)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			chargeCount.setCREATED_DATE(new Date());
+			chargeCount.setCREATED_BY_USER_ID(currentUser.getUSER_ID());
+			chargeCount.setUPDATED_DATE(new Date());    
+			chargeCount.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			chargeCount.setISDELETED(0);
     	} else if(objectType=="Code") {
     		MstCode code = (MstCode)object;
 			MstSecurityUser currentUser = this.getCurrentUser();
@@ -74,7 +85,13 @@ public class SecurityServiceImpl implements SecurityService{
 			customer.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			customer.setISDELETED(0);
     	} else if(objectType=="CustomerMember") {
-    		
+    		MstCustomerMember customerMember = (MstCustomerMember)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			customerMember.setCREATED_DATE(new Date());
+			customerMember.setCREATED_BY_USER_ID(currentUser.getUSER_ID());
+			customerMember.setUPDATED_DATE(new Date());    
+			customerMember.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			customerMember.setISDELETED(0);
     	} else if(objectType=="CustomerTime") {
     		MstCustomerTime time = (MstCustomerTime)object;
 			MstSecurityUser currentUser = this.getCurrentUser();
@@ -84,7 +101,13 @@ public class SecurityServiceImpl implements SecurityService{
 			time.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			time.setISDELETED(0);
     	} else if(objectType=="Reservation") {
-    		
+    		TrnReservation reservation = (TrnReservation)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			reservation.setCREATED_DATE(new Date());
+			reservation.setCREATED_BY_USER_ID(currentUser.getUSER_ID());
+			reservation.setUPDATED_DATE(new Date());    
+			reservation.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			reservation.setISDELETED(0);
     	}
     	return object;
     }
@@ -110,6 +133,12 @@ public class SecurityServiceImpl implements SecurityService{
 			charge.setUPDATED_DATE(new Date());    
 			charge.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			charge.setISDELETED(0);
+    	} else if(objectType=="ChargeCount") {
+    		TrnChargeCount chargeCount = (TrnChargeCount)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			chargeCount.setUPDATED_DATE(new Date());    
+			chargeCount.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			chargeCount.setISDELETED(0);
     	} else if(objectType=="Code") {
     		MstCode code = (MstCode)object;
 			MstSecurityUser currentUser = this.getCurrentUser();
@@ -123,7 +152,11 @@ public class SecurityServiceImpl implements SecurityService{
 			customer.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			customer.setISDELETED(0);
     	} else if(objectType=="CustomerMember") {
-    		
+    		MstCustomerMember customerMember = (MstCustomerMember)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			customerMember.setUPDATED_DATE(new Date());    
+			customerMember.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			customerMember.setISDELETED(0);
     	} else if(objectType=="CustomerTime") {
     		MstCustomerTime time = (MstCustomerTime)object;
 			MstSecurityUser currentUser = this.getCurrentUser();
@@ -131,8 +164,12 @@ public class SecurityServiceImpl implements SecurityService{
 			time.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
 			time.setISDELETED(0);
     	} else if(objectType=="Reservation") {
-    		
-    	}    	
+    		TrnReservation reservation = (TrnReservation)object;
+			MstSecurityUser currentUser = this.getCurrentUser();
+			reservation.setUPDATED_DATE(new Date());    
+			reservation.setUPDATED_BY_USER_ID(currentUser.getUSER_ID());
+			reservation.setISDELETED(0);
+    	} 
     	return object;
     }
 }

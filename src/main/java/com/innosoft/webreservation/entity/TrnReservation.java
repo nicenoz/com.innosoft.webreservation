@@ -8,24 +8,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="WR_CALENDAR")
-public class MstCalendar {
+@Table(name="WR_RESERVATION")
+public class TrnReservation {
 
-	@Id   
+	@Id
     @GeneratedValue
-    @Column(name="CLDR_ID")	
-	public Integer CLDR_ID;
+    @Column(name="RESV_ID")	
+	public Integer RESV_ID;
 	
-	@Column(name="CLDR_DATE")	
-	public Date CLDR_DATE; 
+	@Column(name="RESV_CUST_ID")	
+	public Integer RESV_CUST_ID;
 	
-	@Column(name="CLDR_DAYCODE")	
-	public String CLDR_DAYCODE;
-
-	@Column(name="CLDR_NOTE")	
-	public String CLDR_NOTE;
+	@Column(name="RESV_MEBR_ID")	
+	public Integer RESV_MEBR_ID;
+	
+	@Column(name="RESV_UNIT_NO")	
+	public Integer RESV_UNIT_NO;
+	
+	@Column(name="RESV_PARTS_NAME")	
+	public String RESV_PARTS_NAME;
+	
+	@Column(name="RESV_START_TIME_ID")	
+	public Integer RESV_START_TIME_ID;
+	
+	@Column(name="RESV_END_TIME_ID")	
+	public Integer RESV_END_TIME_ID;	
 	
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;
@@ -46,39 +54,63 @@ public class MstCalendar {
 	public Date ISDELETED_DATE;
 	
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
-	public Integer ISDELETED_BY_USER_ID;
+	public Integer ISDELETED_BY_USER_ID;	
+
 	
-	
-	public Integer getCLDR_ID() {
-		return CLDR_ID;
+	public Integer getRESV_ID() {
+		return RESV_ID;
 	}
 
-	public void setCLDR_ID(Integer cLDR_ID) {
-		CLDR_ID = cLDR_ID;
+	public void setRESV_ID(Integer rESV_ID) {
+		RESV_ID = rESV_ID;
 	}
 
-	public Date getCLDR_DATE() {
-		return CLDR_DATE;
+	public Integer getRESV_CUST_ID() {
+		return RESV_CUST_ID;
 	}
 
-	public void setCLDR_DATE(Date cLDR_DATE) {
-		CLDR_DATE = cLDR_DATE;
+	public void setRESV_CUST_ID(Integer rESV_CUST_ID) {
+		RESV_CUST_ID = rESV_CUST_ID;
 	}
 
-	public String getCLDR_DAYCODE() {
-		return CLDR_DAYCODE;
+	public Integer getRESV_MEBR_ID() {
+		return RESV_MEBR_ID;
 	}
 
-	public void setCLDR_DAYCODE(String cLDR_DAYCODE) {
-		CLDR_DAYCODE = cLDR_DAYCODE;
+	public void setRESV_MEBR_ID(Integer rESV_MEBR_ID) {
+		RESV_MEBR_ID = rESV_MEBR_ID;
 	}
 
-	public String getCLDR_NOTE() {
-		return CLDR_NOTE;
+	public Integer getRESV_UNIT_NO() {
+		return RESV_UNIT_NO;
 	}
 
-	public void setCLDR_NOTE(String cLDR_NOTE) {
-		CLDR_NOTE = cLDR_NOTE;
+	public void setRESV_UNIT_NO(Integer rESV_UNIT_NO) {
+		RESV_UNIT_NO = rESV_UNIT_NO;
+	}
+
+	public String getRESV_PARTS_NAME() {
+		return RESV_PARTS_NAME;
+	}
+
+	public void setRESV_PARTS_NAME(String rESV_PARTS_NAME) {
+		RESV_PARTS_NAME = rESV_PARTS_NAME;
+	}
+
+	public Integer getRESV_START_TIME_ID() {
+		return RESV_START_TIME_ID;
+	}
+
+	public void setRESV_START_TIME_ID(Integer rESV_START_TIME_ID) {
+		RESV_START_TIME_ID = rESV_START_TIME_ID;
+	}
+
+	public Integer getRESV_END_TIME_ID() {
+		return RESV_END_TIME_ID;
+	}
+
+	public void setRESV_END_TIME_ID(Integer rESV_END_TIME_ID) {
+		RESV_END_TIME_ID = rESV_END_TIME_ID;
 	}
 
 	public Date getCREATED_DATE() {

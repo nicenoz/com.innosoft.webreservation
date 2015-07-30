@@ -12,45 +12,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.innosoft.webreservation.entity.MstCustomerMember;
-import com.innosoft.webreservation.service.CustomerMemberService;
+import com.innosoft.webreservation.entity.TrnReservation;
+import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SecurityService;
 
 @Controller
-@RequestMapping("api/customerMember")
-public class CustomerMemberApi {
+@RequestMapping("api/reservation")
+public class ReservationApi {
 	@Autowired
-	private CustomerMemberService customerMemberService;
+	private ReservationService reservationService;
 	@Autowired
 	private SecurityService securityService;
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<MstCustomerMember> listCustomerMember() {
-		List<MstCustomerMember> list = customerMemberService.listCustomerMember();
+	public @ResponseBody List<TrnReservation> listReservation() {
+		List<TrnReservation> list = reservationService.listReservation();
 		return list;
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<MstCustomerMember> updateCharge(@RequestBody MstCustomerMember member) {
+	public ResponseEntity<TrnReservation> updateReservation(@RequestBody TrnReservation reservation) {
 		try {
-			if(member.getMEBR_ID() == 0) {
-				member = (MstCustomerMember)securityService.stampCreated(member, "Member");
-				MstCustomerMember newCustomerMember = customerMemberService.addCustomerMember(member);
-				return new ResponseEntity<MstCustomerMember>(newCustomerMember, HttpStatus.OK);
+			if(reservation.getRESV_ID() == 0) {
+				reservation = (TrnReservation)securityService.stampCreated(reservation, "Reservation");
+				TrnReservation newReservation = reservationService.addReservation(reservation);
+				return new ResponseEntity<TrnReservation>(newReservation, HttpStatus.OK);
 			} else {
-				member = (MstCustomerMember)securityService.stampUpdated(member, "Member");
-				MstCustomerMember editCustomerMember = customerMemberService.editCustomerMember(member);
-				return new ResponseEntity<MstCustomerMember>(editCustomerMember, HttpStatus.OK);
+				reservation = (TrnReservation)securityService.stampUpdated(reservation, "Reservation");
+				TrnReservation editReservation = reservationService.editReservation(reservation);
+				return new ResponseEntity<TrnReservation>(editReservation, HttpStatus.OK);
 			}
 		} catch(Exception e) {
-			return new ResponseEntity<MstCustomerMember>(member, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteCharge(@PathVariable("id") int id) {
+	public ResponseEntity<String> deleteReservation(@PathVariable("id") int id) {
 		try {
-			boolean deleteReturn = customerMemberService.deleteCustomerMember(id);
+			boolean deleteReturn = reservationService.deleteReservation(id);
 			if (deleteReturn == true) {
 				return new ResponseEntity<String>(HttpStatus.OK);
 			} else {
@@ -59,5 +59,5 @@ public class CustomerMemberApi {
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-	}	
+	}
 }

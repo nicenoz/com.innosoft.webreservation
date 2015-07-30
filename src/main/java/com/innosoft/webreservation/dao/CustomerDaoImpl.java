@@ -2,8 +2,6 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
-import javax.persistence.Column;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomer;
-import com.innosoft.webreservation.entity.MstMessage;
 
 @Repository
 @Transactional

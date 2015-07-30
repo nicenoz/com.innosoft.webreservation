@@ -15,16 +15,16 @@ public class MstCharge {
 	@Id
 	@GeneratedValue
 	@Column(name = "CHRG_ID")
-	public int CHRG_ID;
+	public Integer CHRG_ID;
 	
 	@Column(name = "CHRG_CHARGE_NO")
 	public String CHRG_CHARGE_NO;
 	
 	@Column(name = "CHRG_CUST_ID")
-	public int CHRG_CUST_ID;
+	public Integer CHRG_CUST_ID;
 	
 	@Column(name = "CHRG_PRICE")
-	public int CHRG_PRICE;
+	public Integer CHRG_PRICE;
 	
 	@Column(name = "CHRG_APP_DIVISION")
 	public String CHRG_APP_DIVISION;
@@ -39,16 +39,16 @@ public class MstCharge {
 	public Date CREATED_DATE;
 	
 	@Column(name="CREATED_BY_USER_ID")
-	public int CREATED_BY_USER_ID;
+	public Integer CREATED_BY_USER_ID;
 	
 	@Column(name="UPDATED_DATE")
 	public Date UPDATED_DATE;
 	
 	@Column(name="UPDATED_BY_USER_ID")
-	public int UPDATED_BY_USER_ID;
+	public Integer UPDATED_BY_USER_ID;
 	
 	@Column(name="ISDELETED")
-	public int ISDELETED;
+	public Integer ISDELETED;
 	
 	@Column(name="ISDELETED_DATE",nullable = true)
 	public Date ISDELETED_DATE;
@@ -57,11 +57,11 @@ public class MstCharge {
 	public Integer ISDELETED_BY_USER_ID;
 	
 	
-	public int getCHRG_ID() {
+	public Integer getCHRG_ID() {
 		return CHRG_ID;
 	}
 
-	public void setCHRG_ID(int cHRG_ID) {
+	public void setCHRG_ID(Integer cHRG_ID) {
 		CHRG_ID = cHRG_ID;
 	}
 
@@ -73,19 +73,19 @@ public class MstCharge {
 		CHRG_CHARGE_NO = cHRG_CHARGE_NO;
 	}
 
-	public int getCHRG_CUST_ID() {
+	public Integer getCHRG_CUST_ID() {
 		return CHRG_CUST_ID;
 	}
 
-	public void setCHRG_CUST_ID(int cHRG_CUST_ID) {
+	public void setCHRG_CUST_ID(Integer cHRG_CUST_ID) {
 		CHRG_CUST_ID = cHRG_CUST_ID;
 	}
 
-	public int getCHRG_PRICE() {
+	public Integer getCHRG_PRICE() {
 		return CHRG_PRICE;
 	}
 
-	public void setCHRG_PRICE(int cHRG_PRICE) {
+	public void setCHRG_PRICE(Integer cHRG_PRICE) {
 		CHRG_PRICE = cHRG_PRICE;
 	}
 
@@ -121,11 +121,11 @@ public class MstCharge {
 		CREATED_DATE = cREATED_DATE;
 	}
 
-	public int getCREATED_BY_USER_ID() {
+	public Integer getCREATED_BY_USER_ID() {
 		return CREATED_BY_USER_ID;
 	}
 
-	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
@@ -137,19 +137,19 @@ public class MstCharge {
 		UPDATED_DATE = uPDATED_DATE;
 	}
 
-	public int getUPDATED_BY_USER_ID() {
+	public Integer getUPDATED_BY_USER_ID() {
 		return UPDATED_BY_USER_ID;
 	}
 
-	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+	public void setUPDATED_BY_USER_ID(Integer uPDATED_BY_USER_ID) {
 		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
 	}
 
-	public int getISDELETED() {
+	public Integer getISDELETED() {
 		return ISDELETED;
 	}
 
-	public void setISDELETED(int iSDELETED) {
+	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
 
@@ -168,4 +168,5 @@ public class MstCharge {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
+	
 }

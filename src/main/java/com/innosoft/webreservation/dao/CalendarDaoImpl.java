@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendar;
-import com.innosoft.webreservation.entity.MstMessage;
 
 @Repository
 @Transactional

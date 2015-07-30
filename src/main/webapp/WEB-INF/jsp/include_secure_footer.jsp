@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!-- Footer -->
 <footer class="navbar-inverse navbar-fixed-bottom footer-custom">
     <div class="container">

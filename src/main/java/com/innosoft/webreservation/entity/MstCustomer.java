@@ -15,7 +15,7 @@ public class MstCustomer {
 	@Id
     @GeneratedValue
     @Column(name="CUST_ID")	
-	public int CUST_ID;
+	public Integer CUST_ID;
 	
 	@Column(name="CUST_CUSTOMER_NO")	
 	public String CUST_CUSTOMER_NO;
@@ -42,22 +42,22 @@ public class MstCustomer {
 	public String CUST_ADDRESS3;
 	
 	@Column(name="CUST_ISDELETED")		
-	public int CUST_ISDELETED;
+	public Integer CUST_ISDELETED;
 	
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;
 	
 	@Column(name="CREATED_BY_USER_ID")
-	public int CREATED_BY_USER_ID;
+	public Integer CREATED_BY_USER_ID;
 	
 	@Column(name="UPDATED_DATE")
 	public Date UPDATED_DATE;
 	
 	@Column(name="UPDATED_BY_USER_ID")
-	public int UPDATED_BY_USER_ID;
+	public Integer UPDATED_BY_USER_ID;
 	
 	@Column(name="ISDELETED")
-	public int ISDELETED;
+	public Integer ISDELETED;
 	
 	@Column(name="ISDELETED_DATE",nullable = true)
 	public Date ISDELETED_DATE;
@@ -66,11 +66,11 @@ public class MstCustomer {
 	public Integer ISDELETED_BY_USER_ID;
 	
 	
-	public int getCUST_ID() {
+	public Integer getCUST_ID() {
 		return CUST_ID;
 	}
 
-	public void setCUST_ID(int cUST_ID) {
+	public void setCUST_ID(Integer cUST_ID) {
 		CUST_ID = cUST_ID;
 	}
 
@@ -138,11 +138,11 @@ public class MstCustomer {
 		CUST_ADDRESS3 = cUST_ADDRESS3;
 	}
 
-	public int getCUST_ISDELETED() {
+	public Integer getCUST_ISDELETED() {
 		return CUST_ISDELETED;
 	}
 
-	public void setCUST_ISDELETED(int cUST_ISDELETED) {
+	public void setCUST_ISDELETED(Integer cUST_ISDELETED) {
 		CUST_ISDELETED = cUST_ISDELETED;
 	}
 
@@ -154,11 +154,11 @@ public class MstCustomer {
 		CREATED_DATE = cREATED_DATE;
 	}
 
-	public int getCREATED_BY_USER_ID() {
+	public Integer getCREATED_BY_USER_ID() {
 		return CREATED_BY_USER_ID;
 	}
 
-	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
@@ -170,19 +170,19 @@ public class MstCustomer {
 		UPDATED_DATE = uPDATED_DATE;
 	}
 
-	public int getUPDATED_BY_USER_ID() {
+	public Integer getUPDATED_BY_USER_ID() {
 		return UPDATED_BY_USER_ID;
 	}
 
-	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+	public void setUPDATED_BY_USER_ID(Integer uPDATED_BY_USER_ID) {
 		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
 	}
 
-	public int getISDELETED() {
+	public Integer getISDELETED() {
 		return ISDELETED;
 	}
 
-	public void setISDELETED(int iSDELETED) {
+	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
 
@@ -201,4 +201,5 @@ public class MstCustomer {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
+
 }

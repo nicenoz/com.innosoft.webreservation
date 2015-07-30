@@ -15,37 +15,37 @@ public class MstCustomerTime {
 	@Id
     @GeneratedValue
     @Column(name="CTIM_ID")	
-	public int CTIM_ID;
+	public Integer CTIM_ID;
 	
 	@Column(name="CTIM_CUST_ID")	
-	public int	  CTIM_CUST_ID;
+	public Integer	  CTIM_CUST_ID;
 	
 	@Column(name="CTIM_DETAILS_NO")	
-	public int	  CTIM_DETAILS_NO; 
+	public Integer	  CTIM_DETAILS_NO; 
 	
 	@Column(name="CTIM_INTERVAL_OF_TIMES")	
-	public int	  CTIM_INTERVAL_OF_TIMES;
+	public Integer	  CTIM_INTERVAL_OF_TIMES;
 	
 	@Column(name="CTIM_MAX_UNIT_NO")	
-	public int	  CTIM_MAX_UNIT_NO;
+	public Integer	  CTIM_MAX_UNIT_NO;
 	
 	@Column(name="CTIM_MAX_PARTS_NO")	
-	public int	  CTIM_MAX_PARTS_NO;
+	public Integer	  CTIM_MAX_PARTS_NO;
 				
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;
 	
 	@Column(name="CREATED_BY_USER_ID")
-	public int CREATED_BY_USER_ID;
+	public Integer CREATED_BY_USER_ID;
 	
 	@Column(name="UPDATED_DATE")
 	public Date UPDATED_DATE;
 	
 	@Column(name="UPDATED_BY_USER_ID")
-	public int UPDATED_BY_USER_ID;
+	public Integer UPDATED_BY_USER_ID;
 	
 	@Column(name="ISDELETED")
-	public int ISDELETED;
+	public Integer ISDELETED;
 	
 	@Column(name="ISDELETED_DATE",nullable = true)
 	public Date ISDELETED_DATE;
@@ -53,52 +53,51 @@ public class MstCustomerTime {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 	
-	
-	public int getCTIM_ID() {
+	public Integer getCTIM_ID() {
 		return CTIM_ID;
 	}
 
-	public void setCTIM_ID(int cTIM_ID) {
+	public void setCTIM_ID(Integer cTIM_ID) {
 		CTIM_ID = cTIM_ID;
 	}
 
-	public int getCTIM_CUST_ID() {
+	public Integer getCTIM_CUST_ID() {
 		return CTIM_CUST_ID;
 	}
 
-	public void setCTIM_CUST_ID(int cTIM_CUST_ID) {
+	public void setCTIM_CUST_ID(Integer cTIM_CUST_ID) {
 		CTIM_CUST_ID = cTIM_CUST_ID;
 	}
 
-	public int getCTIM_DETAILS_NO() {
+	public Integer getCTIM_DETAILS_NO() {
 		return CTIM_DETAILS_NO;
 	}
 
-	public void setCTIM_DETAILS_NO(int cTIM_DETAILS_NO) {
+	public void setCTIM_DETAILS_NO(Integer cTIM_DETAILS_NO) {
 		CTIM_DETAILS_NO = cTIM_DETAILS_NO;
 	}
 
-	public int getCTIM_INTERVAL_OF_TIMES() {
+	public Integer getCTIM_INTERVAL_OF_TIMES() {
 		return CTIM_INTERVAL_OF_TIMES;
 	}
 
-	public void setCTIM_INTERVAL_OF_TIMES(int cTIM_INTERVAL_OF_TIMES) {
+	public void setCTIM_INTERVAL_OF_TIMES(Integer cTIM_INTERVAL_OF_TIMES) {
 		CTIM_INTERVAL_OF_TIMES = cTIM_INTERVAL_OF_TIMES;
 	}
 
-	public int getCTIM_MAX_UNIT_NO() {
+	public Integer getCTIM_MAX_UNIT_NO() {
 		return CTIM_MAX_UNIT_NO;
 	}
 
-	public void setCTIM_MAX_UNIT_NO(int cTIM_MAX_UNIT_NO) {
+	public void setCTIM_MAX_UNIT_NO(Integer cTIM_MAX_UNIT_NO) {
 		CTIM_MAX_UNIT_NO = cTIM_MAX_UNIT_NO;
 	}
 
-	public int getCTIM_MAX_PARTS_NO() {
+	public Integer getCTIM_MAX_PARTS_NO() {
 		return CTIM_MAX_PARTS_NO;
 	}
 
-	public void setCTIM_MAX_PARTS_NO(int cTIM_MAX_PARTS_NO) {
+	public void setCTIM_MAX_PARTS_NO(Integer cTIM_MAX_PARTS_NO) {
 		CTIM_MAX_PARTS_NO = cTIM_MAX_PARTS_NO;
 	}
 
@@ -110,11 +109,11 @@ public class MstCustomerTime {
 		CREATED_DATE = cREATED_DATE;
 	}
 
-	public int getCREATED_BY_USER_ID() {
+	public Integer getCREATED_BY_USER_ID() {
 		return CREATED_BY_USER_ID;
 	}
 
-	public void setCREATED_BY_USER_ID(int cREATED_BY_USER_ID) {
+	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
@@ -126,19 +125,19 @@ public class MstCustomerTime {
 		UPDATED_DATE = uPDATED_DATE;
 	}
 
-	public int getUPDATED_BY_USER_ID() {
+	public Integer getUPDATED_BY_USER_ID() {
 		return UPDATED_BY_USER_ID;
 	}
 
-	public void setUPDATED_BY_USER_ID(int uPDATED_BY_USER_ID) {
+	public void setUPDATED_BY_USER_ID(Integer uPDATED_BY_USER_ID) {
 		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
 	}
 
-	public int getISDELETED() {
+	public Integer getISDELETED() {
 		return ISDELETED;
 	}
 
-	public void setISDELETED(int iSDELETED) {
+	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
 
@@ -156,5 +155,6 @@ public class MstCustomerTime {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}	
+	}
+	
 }
