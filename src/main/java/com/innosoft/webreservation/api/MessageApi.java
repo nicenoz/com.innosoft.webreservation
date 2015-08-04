@@ -26,7 +26,7 @@ public class MessageApi {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstMessage> listMessage() {
-		List<MstMessage> list = messageService.listMessage();
+		List<MstMessage> list = messageService.listMessage(); 
 		return list;
 	}
 	
@@ -34,15 +34,16 @@ public class MessageApi {
 	public ResponseEntity<MstMessage> updateMessage(@RequestBody MstMessage message) {
 		try {
 			if(message.getMESG_ID()==0) {			
-				message = (MstMessage)securityService.stampCreated(message, "Message");
+				message = (MstMessage)securityService.stampCreated(message, "MstMessage");
 				MstMessage newMessage = messageService.addMessage(message);
 				return new ResponseEntity<MstMessage>(newMessage, HttpStatus.OK);
 			} else {
-				message = (MstMessage)securityService.stampUpdated(message, "Message");
+				message = (MstMessage)securityService.stampUpdated(message, "MstMessage");
 				MstMessage editMessage = messageService.editMessage(message);
 				return new ResponseEntity<MstMessage>(editMessage, HttpStatus.OK);
 			}
 		} catch(Exception e) {
+			System.out.print(e);
 			return new ResponseEntity<MstMessage>(message, HttpStatus.BAD_REQUEST);
 		}	
 	}	

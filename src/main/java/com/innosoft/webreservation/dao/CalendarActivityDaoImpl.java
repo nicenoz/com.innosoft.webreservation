@@ -14,7 +14,7 @@ import com.innosoft.webreservation.entity.MstCalendarActivity;
 
 @Repository
 @Transactional
-public class CalendarActivityDaoImpl {
+public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 
