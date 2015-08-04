@@ -34,11 +34,11 @@ public class ReservationApi {
 	public ResponseEntity<TrnReservation> updateReservation(@RequestBody TrnReservation reservation) {
 		try {
 			if(reservation.getRESV_ID() == 0) {
-				reservation = (TrnReservation)securityService.stampCreated(reservation, "Reservation");
+				reservation = (TrnReservation)securityService.stampCreated(reservation);
 				TrnReservation newReservation = reservationService.addReservation(reservation);
 				return new ResponseEntity<TrnReservation>(newReservation, HttpStatus.OK);
 			} else {
-				reservation = (TrnReservation)securityService.stampUpdated(reservation, "Reservation");
+				reservation = (TrnReservation)securityService.stampUpdated(reservation);
 				TrnReservation editReservation = reservationService.editReservation(reservation);
 				return new ResponseEntity<TrnReservation>(editReservation, HttpStatus.OK);
 			}

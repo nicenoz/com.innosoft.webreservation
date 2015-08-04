@@ -33,11 +33,11 @@ public class CustomerTimeApi {
 	public ResponseEntity<MstCustomerTime> updateCharge(@RequestBody MstCustomerTime time) {
 		try {
 			if(time.getCTIM_ID() == 0) {
-				time = (MstCustomerTime)securityService.stampCreated(time, "Time");
+				time = (MstCustomerTime)securityService.stampCreated(time);
 				MstCustomerTime newCustomerTime = customerTimeService.addCustomerTime(time);
 				return new ResponseEntity<MstCustomerTime>(newCustomerTime, HttpStatus.OK);
 			} else {
-				time = (MstCustomerTime)securityService.stampUpdated(time, "Time");
+				time = (MstCustomerTime)securityService.stampUpdated(time);
 				MstCustomerTime editCustomerTime = customerTimeService.editCustomerTime(time);
 				return new ResponseEntity<MstCustomerTime>(editCustomerTime, HttpStatus.OK);
 			}

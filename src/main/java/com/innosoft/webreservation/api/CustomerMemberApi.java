@@ -34,11 +34,11 @@ public class CustomerMemberApi {
 	public ResponseEntity<MstCustomerMember> updateCharge(@RequestBody MstCustomerMember member) {
 		try {
 			if(member.getMEBR_ID() == 0) {
-				member = (MstCustomerMember)securityService.stampCreated(member, "Member");
+				member = (MstCustomerMember)securityService.stampCreated(member);
 				MstCustomerMember newCustomerMember = customerMemberService.addCustomerMember(member);
 				return new ResponseEntity<MstCustomerMember>(newCustomerMember, HttpStatus.OK);
 			} else {
-				member = (MstCustomerMember)securityService.stampUpdated(member, "Member");
+				member = (MstCustomerMember)securityService.stampUpdated(member);
 				MstCustomerMember editCustomerMember = customerMemberService.editCustomerMember(member);
 				return new ResponseEntity<MstCustomerMember>(editCustomerMember, HttpStatus.OK);
 			}

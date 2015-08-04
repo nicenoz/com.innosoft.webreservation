@@ -33,11 +33,11 @@ public class CustomerApi {
 	public ResponseEntity<MstCustomer> updateCustomer(@RequestBody MstCustomer customer) {
 		try {
 			if(customer.getCUST_ID()==0) {
-				customer = (MstCustomer)securityService.stampCreated(customer, "Customer");
+				customer = (MstCustomer)securityService.stampCreated(customer);
 				MstCustomer newCustomer = customerService.addCustomer(customer);
 				return new ResponseEntity<MstCustomer>(newCustomer, HttpStatus.OK);
 			} else {
-				customer = (MstCustomer)securityService.stampUpdated(customer, "Customer");
+				customer = (MstCustomer)securityService.stampUpdated(customer);
 				MstCustomer editCustomer = customerService.editCustomer(customer);
 				return new ResponseEntity<MstCustomer>(editCustomer, HttpStatus.OK);
 			}

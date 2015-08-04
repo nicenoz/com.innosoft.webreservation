@@ -34,11 +34,11 @@ public class MessageApi {
 	public ResponseEntity<MstMessage> updateMessage(@RequestBody MstMessage message) {
 		try {
 			if(message.getMESG_ID()==0) {			
-				message = (MstMessage)securityService.stampCreated(message, "MstMessage");
+				message = (MstMessage)securityService.stampCreated(message);
 				MstMessage newMessage = messageService.addMessage(message);
 				return new ResponseEntity<MstMessage>(newMessage, HttpStatus.OK);
 			} else {
-				message = (MstMessage)securityService.stampUpdated(message, "MstMessage");
+				message = (MstMessage)securityService.stampUpdated(message);
 				MstMessage editMessage = messageService.editMessage(message);
 				return new ResponseEntity<MstMessage>(editMessage, HttpStatus.OK);
 			}

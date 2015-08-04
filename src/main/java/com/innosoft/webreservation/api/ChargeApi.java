@@ -33,11 +33,11 @@ public class ChargeApi {
 	public ResponseEntity<MstCharge> updateCharge(@RequestBody MstCharge charge) {
 		try {
 			if(charge.getCHRG_ID() == 0) {
-				charge = (MstCharge)securityService.stampCreated(charge, "Charge");
+				charge = (MstCharge)securityService.stampCreated(charge);
 				MstCharge newCharge = chargeService.addCharge(charge);
 				return new ResponseEntity<MstCharge>(newCharge, HttpStatus.OK);
 			} else {
-				charge = (MstCharge)securityService.stampUpdated(charge, "Charge");
+				charge = (MstCharge)securityService.stampUpdated(charge);
 				MstCharge editCharge = chargeService.editCharge(charge);
 				return new ResponseEntity<MstCharge>(editCharge, HttpStatus.OK);
 			}

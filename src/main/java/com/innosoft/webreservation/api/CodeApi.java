@@ -33,11 +33,11 @@ public class CodeApi {
 	public ResponseEntity<MstCode> updateCode(@RequestBody MstCode code) {
 		try {
 			if(code.getCODE_ID()==0) {
-				code = (MstCode)securityService.stampCreated(code, "Code");
+				code = (MstCode)securityService.stampCreated(code);
 				MstCode newCode = codeService.addCode(code);
 				return new ResponseEntity<MstCode>(newCode, HttpStatus.OK);
 			} else {
-				code = (MstCode)securityService.stampUpdated(code, "Code");
+				code = (MstCode)securityService.stampUpdated(code);
 				MstCode editCode = codeService.editCode(code);
 				return new ResponseEntity<MstCode>(editCode, HttpStatus.OK);
 			}

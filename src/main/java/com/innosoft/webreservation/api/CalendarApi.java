@@ -34,11 +34,11 @@ public class CalendarApi {
 	public ResponseEntity<MstCalendar> updateMessage(@RequestBody MstCalendar calendar) {
 		try {
 			if(calendar.getCLDR_ID()==0) {
-				calendar = (MstCalendar)securityService.stampCreated(calendar, "Calendar");
+				calendar = (MstCalendar)securityService.stampCreated(calendar);
 				MstCalendar newCalendar = calendarService.addCalendar(calendar);
 				return new ResponseEntity<MstCalendar>(newCalendar, HttpStatus.OK);
 			} else {
-				calendar = (MstCalendar)securityService.stampUpdated(calendar, "Calendar");
+				calendar = (MstCalendar)securityService.stampUpdated(calendar);
 				MstCalendar editCalendar = calendarService.editCalendar(calendar);
 				return new ResponseEntity<MstCalendar>(editCalendar, HttpStatus.OK);
 			}

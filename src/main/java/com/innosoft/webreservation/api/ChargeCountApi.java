@@ -34,11 +34,11 @@ public class ChargeCountApi {
 	public ResponseEntity<TrnChargeCount> updateCode(@RequestBody TrnChargeCount chargeCount) {
 		try {
 			if(chargeCount.getCUNT_ID()==0) {
-				chargeCount = (TrnChargeCount)securityService.stampCreated(chargeCount, "ChargeCount");
+				chargeCount = (TrnChargeCount)securityService.stampCreated(chargeCount);
 				TrnChargeCount newChargeCount = chargeCountService.addChargeCount(chargeCount);
 				return new ResponseEntity<TrnChargeCount>(newChargeCount, HttpStatus.OK);
 			} else {
-				chargeCount = (TrnChargeCount)securityService.stampUpdated(chargeCount, "ChargeCount");
+				chargeCount = (TrnChargeCount)securityService.stampUpdated(chargeCount);
 				TrnChargeCount editChargeCount = chargeCountService.editChargeCount(chargeCount);
 				return new ResponseEntity<TrnChargeCount>(editChargeCount, HttpStatus.OK);
 			}
