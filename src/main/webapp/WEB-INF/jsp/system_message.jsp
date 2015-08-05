@@ -52,6 +52,14 @@
 	    </div>
 	</div>
 </section>
+
+
+<br/>
+<br/>
+<br/>
+
+
+
 </div>
 
 <!-- Loading -->
@@ -154,7 +162,7 @@ function cmdMessageEdit_OnClick() {
     document.getElementById('EDIT_MESG_NOTE').value = message.MESG_NOTE ? message.MESG_NOTE : '';
     document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
     document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
-    
+     
     var splitStartDate = message.MESG_START_DATE.split("-");
     var splitEndDate = message.MESG_END_DATE.split("-");
     
@@ -312,11 +320,11 @@ function getMessages() {
                         MESG_START_DATE: Results[i]["mesg_START_DATE"],
                         MESG_END_DATE: Results[i]["mesg_END_DATE"],
                         
-                        CREATED_DATE: Results[i]["CREATED_DATE"],
-                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                        ISDELETED: Results[i]["ISDELETED"],
+                        CREATED_DATE: Results[i]["created_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["updated_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+                        ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
@@ -361,6 +369,17 @@ function updateNavigateButtonsMessage() {
         btnLastPageGrid.removeAttribute('disabled');
     }
     btnCurrentPageGrid.innerHTML = (messages.pageIndex + 1) + ' / ' + messages.pageCount;
+}
+
+//===================
+//FlexGrid Selection
+//=================== 
+function updateDetails() {
+	var item = messages.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
 // =====================
@@ -442,6 +461,10 @@ $(document).ready(function () {
     messages.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsMessage();
     });
+   
+    messages.currentChanged.addHandler(function (sender, args) {
+    	updateDetails();
+    });
     
     // Flex Grid
     messageGrid = new wijmo.grid.FlexGrid('#messageGrid');
@@ -498,7 +521,7 @@ $(document).ready(function () {
         selectionMode: wijmo.grid.SelectionMode.Row
     });
     messageGrid.trackChanges = true;
-
+    
     // Navigation button
     btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
     btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');

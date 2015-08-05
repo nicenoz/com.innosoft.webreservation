@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -47,7 +48,7 @@ public class MstCalendar {
 	
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
-	
+
 	
 	public Integer getCLDR_ID() {
 		return CLDR_ID;
@@ -57,8 +58,9 @@ public class MstCalendar {
 		CLDR_ID = cLDR_ID;
 	}
 
-	public Date getCLDR_DATE() {
-		return CLDR_DATE;
+	public String getCLDR_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CLDR_DATE);
 	}
 
 	public void setCLDR_DATE(Date cLDR_DATE) {
@@ -81,8 +83,9 @@ public class MstCalendar {
 		CLDR_NOTE = cLDR_NOTE;
 	}
 
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CREATED_DATE);
 	}
 
 	public void setCREATED_DATE(Date cREATED_DATE) {
@@ -97,8 +100,9 @@ public class MstCalendar {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(UPDATED_DATE);
 	}
 
 	public void setUPDATED_DATE(Date uPDATED_DATE) {
@@ -136,5 +140,4 @@ public class MstCalendar {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
-
 }

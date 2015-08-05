@@ -283,11 +283,11 @@ function getCustomerTimes() {
 								CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
 								CTIM_MAX_PARTS_NO : Results[i]["ctim_MAX_PARTS_NO"],
 								
-								CREATED_DATE: Results[i]["CREATED_DATE"],
-		                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-		                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-		                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-		                        ISDELETED: Results[i]["ISDELETED"],
+								CREATED_DATE: Results[i]["created_DATE"],
+		                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+		                        UPDATED_DATE: Results[i]["updated_DATE"],
+		                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+		                        ISDELETED: Results[i]["isdeleted"],
 		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
 		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
 							});
@@ -331,6 +331,16 @@ function updateNavigateButtonsCustomerTime() {
 			+ customerTimes.pageCount;
 }
 
+//===================
+//FlexGrid Selection
+//=================== 
+function updateDetails() {
+	var item = customerTimes.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
+}
 
 // =====================
 // Detail Edit Validator
@@ -401,6 +411,10 @@ $(document).ready(function(){
 	}
 	customerTimes.collectionChanged.addHandler(function (sender, args) {
 	    updateNavigateButtonsCustomerTime();
+	});
+	
+	customerTimes.currentChanged.addHandler(function (sender, args) {
+	    updateDetails();
 	});
 
 	// Flex Grid

@@ -82,8 +82,9 @@ public class MstMessage {
 	public void setMESG_NOTE(String mESG_NOTE) {
 		MESG_NOTE = mESG_NOTE;
 	}
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CREATED_DATE);
 	}
 	public void setCREATED_DATE(Date cREATED_DATE) {
 		CREATED_DATE = cREATED_DATE;
@@ -94,8 +95,9 @@ public class MstMessage {
 	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(UPDATED_DATE);
 	}
 	public void setUPDATED_DATE(Date uPDATED_DATE) {
 		UPDATED_DATE = uPDATED_DATE;

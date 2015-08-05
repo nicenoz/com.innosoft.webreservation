@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -101,8 +102,9 @@ public class MstCustomerTime {
 		CTIM_MAX_PARTS_NO = cTIM_MAX_PARTS_NO;
 	}
 
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CREATED_DATE);
 	}
 
 	public void setCREATED_DATE(Date cREATED_DATE) {
@@ -117,8 +119,9 @@ public class MstCustomerTime {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(UPDATED_DATE);
 	}
 
 	public void setUPDATED_DATE(Date uPDATED_DATE) {

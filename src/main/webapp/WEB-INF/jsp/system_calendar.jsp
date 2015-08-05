@@ -275,11 +275,11 @@ function getCalendars() {
                         CLDR_DAYCODE: Results[i]["cldr_DAYCODE"],
                         CLDR_NOTE: Results[i]["cldr_NOTE"],
                         
-                        CREATED_DATE: Results[i]["CREATED_DATE"],
-                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                        ISDELETED: Results[i]["ISDELETED"],
+                        CREATED_DATE: Results[i]["created_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["updated_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+                        ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
@@ -324,6 +324,17 @@ function updateNavigateButtonsCalendar() {
         btnLastPageGrid.removeAttribute('disabled');
     }
     btnCurrentPageGrid.innerHTML = (calendars.pageIndex + 1) + ' / ' + calendars.pageCount;
+}
+
+//===================
+//FlexGrid Selection
+//=================== 
+function updateDetails() {
+	var item = calendars.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
     
 // =====================
@@ -403,6 +414,10 @@ $(document).ready(function () {
         
     calendars.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsCalendar();
+    });
+    
+    calendars.currentChanged.addHandler(function (sender, args) {
+    	updateDetails();
     });
     
     // Flex Grid

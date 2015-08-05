@@ -330,11 +330,11 @@ function getCharges() {
 										CHRG_APP_START_DATE : Results[i]["chrg_APP_START_DATE"],
 										CHRG_APP_END_DATE : Results[i]["chrg_APP_END_DATE"],
 										
-										CREATED_DATE: Results[i]["CREATED_DATE"],
-				                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-				                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-				                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-				                        ISDELETED: Results[i]["ISDELETED"],
+										CREATED_DATE: Results[i]["created_DATE"],
+				                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+				                        UPDATED_DATE: Results[i]["updated_DATE"],
+				                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+				                        ISDELETED: Results[i]["isdeleted"],
 				                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
 				                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
 									});
@@ -376,6 +376,17 @@ function updateNavigateButtonsCharge() {
 	}
 	btnCurrentPageGrid.innerHTML = (charges.pageIndex + 1) + ' / '
 			+ charges.pageCount;
+}
+
+//===================
+//FlexGrid Selection
+//=================== 
+function updateDetails() {
+	var item = charges.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
 // =====================
@@ -457,9 +468,14 @@ $(document).ready(function(){
 	charges.filter = function (item) {
 	    return !filterText || (item.CHRG_CHARGE_NO.toLowerCase().indexOf(filterText) > -1);
 	}
+	
 	/* charges.collectionChanged.addHandler(function (sender, args) {
 		updateNavigateButtonsCharge();
 	}); */
+	
+	charges.currentChanged.addHandler(function (sender, args) {
+	    updateDetails();
+	});
 
 	// Flex Grid
 	chargeGrid = new wijmo.grid.FlexGrid('#ChargeGrid');

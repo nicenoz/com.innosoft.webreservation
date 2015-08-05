@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -97,24 +98,27 @@ public class MstCharge {
 		CHRG_APP_DIVISION = cHRG_APP_DIVISION;
 	}
 
-	public Date getCHRG_APP_START_DATE() {
-		return CHRG_APP_START_DATE;
+	public String getCHRG_APP_START_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CHRG_APP_START_DATE);
 	}
 
 	public void setCHRG_APP_START_DATE(Date cHRG_APP_START_DATE) {
 		CHRG_APP_START_DATE = cHRG_APP_START_DATE;
 	}
 
-	public Date getCHRG_APP_END_DATE() {
-		return CHRG_APP_END_DATE;
+	public String getCHRG_APP_END_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CHRG_APP_END_DATE);
 	}
 
 	public void setCHRG_APP_END_DATE(Date cHRG_APP_END_DATE) {
 		CHRG_APP_END_DATE = cHRG_APP_END_DATE;
 	}
 
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CREATED_DATE);
 	}
 
 	public void setCREATED_DATE(Date cREATED_DATE) {
@@ -129,8 +133,9 @@ public class MstCharge {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(UPDATED_DATE);
 	}
 
 	public void setUPDATED_DATE(Date uPDATED_DATE) {

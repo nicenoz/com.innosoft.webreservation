@@ -296,11 +296,11 @@ function getCustomers() {
                         CUST_ADDRESS3: Results[i]["CUST_ADDRESS3"],
                         CUST_ISDELETED: Results[i]["CUST_ISDELETED"],
                         
-                        CREATED_DATE: Results[i]["CREATED_DATE"],
-                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                        ISDELETED: Results[i]["ISDELETED"],
+                        CREATED_DATE: Results[i]["created_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["updated_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+                        ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                     });
@@ -345,6 +345,17 @@ function updateNavigateButtonsCustomer() {
         btnLastPageGrid.removeAttribute('disabled');
     }
     btnCurrentPageGrid.innerHTML = (customers.pageIndex + 1) + ' / ' + customers.pageCount;
+}
+
+//===================
+//FlexGrid Selection
+//=================== 
+function updateDetails() {
+	var item = customers.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
 // =====================
@@ -419,6 +430,10 @@ $(document).ready(function () {
     customers.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsCustomer();
     });
+    
+    customers.currentChanged.addHandler(function (sender, args) {
+	    updateDetails();
+	});
            
     // Flex Grid
     customerGrid = new wijmo.grid.FlexGrid('#customerGrid');
