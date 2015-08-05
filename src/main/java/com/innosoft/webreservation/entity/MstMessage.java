@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -56,16 +57,18 @@ public class MstMessage {
 		MESG_LEVEL = mESG_LEVEL;
 	}
 
-	public Date getMESG_START_DATE() {
-		return MESG_START_DATE;
+	public String getMESG_START_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(MESG_START_DATE);
 	}
 
 	public void setMESG_START_DATE(Date mESG_START_DATE) {
 		MESG_START_DATE = mESG_START_DATE;
 	}
 
-	public Date getMESG_END_DATE() {
-		return MESG_END_DATE;
+	public String getMESG_END_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");	
+		return sf.format(MESG_END_DATE);
 	}
 
 	public void setMESG_END_DATE(Date mESG_END_DATE) {
