@@ -6,7 +6,7 @@
 
 <!-- Charge List -->
 <div class="container">
-	<section id="chargeList">
+	<section id="memberList">
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Member List</h4>
@@ -93,8 +93,8 @@
 							</dd>
 							<dt>Birth Date</dt>
 							<dd>
-                        			<div id="EDIT_MEBR_DATE_OF_BIRTH_DATA" class="form-control modal-custom-input" ></div>
-                            		<input class="form-control" id="EDIT_MEBR_DATE_OF_BIRTH" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" />  
+                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH_DATA" class="form-control modal-custom-input"></div>
+                          		  <input class="form-control modal-custom-input" id="EDIT_MEBR_DATE_OF_BIRTH" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
 							</dd>
 							<dt>Zip Code</dt>
 							<dd>
@@ -191,8 +191,9 @@
 		document.getElementById('EDIT_MEBR_FIELD4').value = customerMember.MEBR_FIELD4 ? customerMember.MEBR_FIELD4 : '';
 		document.getElementById('EDIT_MEBR_FIELD5').value = customerMember.MEBR_FIELD5 ? customerMember.MEBR_FIELD5 : '';
 	
-	    var splitDate = customerMembers.MEBR_DATE_OF_BIRTH.split("-");
-
+ 		
+        var splitDate = customerMember.MEBR_DATE_OF_BIRTH.split("-"); 
+    
 	    customerMembersDate.dispose();
 	    customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH_DATA', {
 	        format: 'MM/dd/yyyy',
@@ -201,7 +202,6 @@
 	            document.getElementById('EDIT_MEBR_DATE_OF_BIRTH').value = this.value.toString("yyyy-MM-dd");
 	        }
 	    }); 
-	
 	}
 	// =================================
 	// Edit Detail Cancel Button Clicked 
@@ -347,8 +347,75 @@
 		return customerMembers;
 	}
 
+	
+	// ==================
+	// Navigation Buttons
+	// ==================   
+	function updateNavigateButtonsCustomerMember() {
+	    if (customerMembers.pageSize <= 0) {
+	        document.getElementById('naviagtionPageGrid').style.display = 'none';
+	        return;
+	    }
+	    document.getElementById('naviagtionPageGrid').style.display = 'block';
+	    if (customerMembers.pageIndex === 0) {
+	        btnFirstPageGrid.setAttribute('disabled', 'disabled');
+	        btnPreviousPageGrid.setAttribute('disabled', 'disabled');
+	        btnNextPageGrid.removeAttribute('disabled');
+	        btnLastPageGrid.removeAttribute('disabled');
+	    }
+	    else if (customerMembers.pageIndex === (customerMembers.pageCount - 1)) {
+	        btnFirstPageGrid.removeAttribute('disabled');
+	        btnPreviousPageGrid.removeAttribute('disabled');
+	        btnLastPageGrid.setAttribute('disabled', 'disabled');
+	        btnNextPageGrid.setAttribute('disabled', 'disabled');
+	    }
+	    else {
+	        btnFirstPageGrid.removeAttribute('disabled');
+	        btnPreviousPageGrid.removeAttribute('disabled');
+	        btnNextPageGrid.removeAttribute('disabled');
+	        btnLastPageGrid.removeAttribute('disabled');
+	    }
+	    btnCurrentPageGrid.innerHTML = (customerMembers.pageIndex + 1) + ' / ' + customerMembers.pageCount;
+	}
+
+	// =====================
+	// Detail Edit Validator
+	// =====================     
+	function FormValidate() {
+	    var validator = $('form').validate({
+	        submitHandler: function (form) {
+	            form.submit();
+	        }
+	    });
+	    var x = validator.form();
+	    console.log(x);
+	    return x;
+	}
+
+	// ==============================
+	// Detail Edit Validator Defaults
+	// ==============================    
+	$.validator.setDefaults({
+	    errorPlacement: function (error, element) {
+	        $(element).attr({ "title": error.append() });
+	    },
+	    highlight: function (element) {
+	        $(element).removeClass("textinput");
+	        $(element).addClass("errorHighlight");
+	    },
+	    unhighlight: function (element) {
+	        $(element).removeClass("errorHighlight");
+	        $(element).addClass("textinput");
+	    }
+	});
+	
 	$(document).ready(function() {
 
+						customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH_DATA', {
+					        format: 'MM/dd/yyyy',
+					        value: new Date()
+					    }); 
+		
 						// Validation
 						$('#CmdCustomerMemberEditOk').click(function() {
 							if (FormValidate() == true) {
@@ -459,7 +526,7 @@
 							selectionMode : wijmo.grid.SelectionMode.Row
 						});
 						
-						customerGrid.trackChanges = true;
+						customerMemberGrid.trackChanges = true;
 
 						// Navigation button
 						btnFirstPageGrid = document.getElementById('btnMoveToFirstPageGrid');
@@ -468,30 +535,30 @@
 						btnLastPageGrid = document.getElementById('btnMoveToLastPageGrid');
 						btnCurrentPageGrid = document.getElementById('btnCurrentPageGrid');
 
-						updateNavigateButtonsCustomer();
+						updateNavigateButtonsCustomerMember();
 
 						btnFirstPageGrid.addEventListener('click', function() {
-							customers.moveToFirstPage();
+							customerMembers.moveToFirstPage();
 							updateNavigateButtonsCustomer();
 						});
 						btnPreviousPageGrid.addEventListener('click',
 								function() {
-									customers.moveToPreviousPage();
+							customerMembers.moveToPreviousPage();
 									updateNavigateButtonsCustomer();
 								});
 						btnNextPageGrid.addEventListener('click', function() {
-							customers.moveToNextPage();
+							customerMembers.moveToNextPage();
 							updateNavigateButtonsCustomer();
 						});
 						btnLastPageGrid.addEventListener('click', function() {
-							customers.moveToLastPage();
+							customerMembers.moveToLastPage();
 							updateNavigateButtonsCustomer();
 						});
 
-						// Scroll settings
+				/* 		// Scroll settings
 						$('.scroll').slimscroll({
 							height : '450px'
-						});
+						}); */
 					});
 </script>
 
