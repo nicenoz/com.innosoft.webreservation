@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -135,4 +137,16 @@ public class MstMessage {
 	
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;	
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MESG_CREATED_BY_USER;
+
+	public MstSecurityUser getCREATED_BY_USER() {
+		return MESG_CREATED_BY_USER;
+	}
+
+	public void setCREATED_BY_USER(MstSecurityUser cREATED_BY_USER) {
+		MESG_CREATED_BY_USER = cREATED_BY_USER;
+	}
 }

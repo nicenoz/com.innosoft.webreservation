@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -140,4 +142,17 @@ public class MstCalendar {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
+	
+	public MstSecurityUser getCLDR_CREATED_BY_USER() {
+		return CLDR_CREATED_BY_USER;
+	}
+
+	public void setCLDR_CREATED_BY_USER(MstSecurityUser cLDR_CREATED_BY_USER) {
+		CLDR_CREATED_BY_USER = cLDR_CREATED_BY_USER;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CLDR_CREATED_BY_USER;
+
 }

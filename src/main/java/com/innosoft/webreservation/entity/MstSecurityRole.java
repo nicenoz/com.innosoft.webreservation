@@ -1,12 +1,9 @@
 package com.innosoft.webreservation.entity;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,17 +33,6 @@ public class MstSecurityRole {
 	
 	@Column(name="ROLE_ROLE")  
 	private String ROLE_ROLE;
-  
 
-	public Set<MstSecurityUserRole> getUSERS() {
-		return USERS;
-	}
-
-	public void setUSERS(Set<MstSecurityUserRole> uSERS) {
-		USERS = uSERS;
-	}
-
-	@OneToMany(mappedBy="ROLE")
-	private Set<MstSecurityUserRole> USERS;
 
 }

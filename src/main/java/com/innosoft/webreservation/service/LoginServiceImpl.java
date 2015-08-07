@@ -43,7 +43,7 @@ public class LoginServiceImpl implements UserDetailsService {
 	                accountNonExpired, 
 	                credentialsNonExpired, 
 	                accountNonLocked,
-	                getAuthorities(domainUser.getROLES().iterator().next().getROLE_ID())
+	                getAuthorities(1)
 	        );
         }
     }

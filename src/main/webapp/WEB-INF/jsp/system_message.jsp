@@ -319,14 +319,14 @@ function getMessages() {
                         MESG_NOTE: Results[i]["mesg_NOTE"],
                         MESG_START_DATE: Results[i]["mesg_START_DATE"],
                         MESG_END_DATE: Results[i]["mesg_END_DATE"],
-                        
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
                         UPDATED_DATE: Results[i]["updated_DATE"],
                         UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
+                        MESG_CREATED_BY_USER: Results[i]["MESG_CREATED_BY_USER"]
                     });
                 }
             } else {
@@ -376,7 +376,7 @@ function updateNavigateButtonsMessage() {
 //=================== 
 function updateDetails() {
 	var item = messages.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.MESG_CREATED_BY_USER.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
 	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;

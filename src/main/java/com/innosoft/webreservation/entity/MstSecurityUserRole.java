@@ -41,25 +41,4 @@ public class MstSecurityUserRole {
 	
 	@Column(name="ROLE_ID")
 	private Integer ROLE_ID;	
-	
-	public MstSecurityUser getUSER() {
-		return USER;
-	}
-	public void setUSER(MstSecurityUser uSER) {
-		USER = uSER;
-	}
-	public MstSecurityUser getROLE() {
-		return ROLE;
-	}
-	public void setROLE(MstSecurityUser rOLE) {
-		ROLE = rOLE;
-	}
-
-	@ManyToOne
-	@JoinColumn(name="USER_ID", insertable = false, updatable = false)
-	private MstSecurityUser USER;
-	
-	@ManyToOne
-	@JoinColumn(name="ROLE_ID", insertable = false, updatable = false)
-	private MstSecurityUser ROLE;	
 }

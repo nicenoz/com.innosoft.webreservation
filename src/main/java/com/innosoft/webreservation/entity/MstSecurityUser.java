@@ -1,9 +1,12 @@
 package com.innosoft.webreservation.entity;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -47,14 +50,9 @@ public class MstSecurityUser {
 	@Column(name="USER_PASSWORD")
 	public String USER_PASSWORD;	
 	
-	public Set<MstSecurityUserRole> getROLES() {
-		return ROLES;
-	}
-
-	public void setROLES(Set<MstSecurityUserRole> rOLES) {
-		ROLES = rOLES;
-	}
-
-	@OneToMany(mappedBy="USER")
-	private Set<MstSecurityUserRole> ROLES;
+	@OneToMany(mappedBy="MESG_CREATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstMessage> MESG_CREATED_BY_USER = new LinkedHashSet<MstMessage>();
+	
+	@OneToMany(mappedBy="CLDR_CREATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCalendar> CLDR_CREATED_BY_USER = new LinkedHashSet<MstCalendar>();	
 }
