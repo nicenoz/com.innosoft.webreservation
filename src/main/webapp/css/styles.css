@@ -22,14 +22,6 @@
     text-align:center;
 }
 
-dd {
-    margin-bottom: 8px;
-}
-
-dt {
-    margin-top: 5px;
-}
-
 .scroll{
     max-height: 450px;
     overflow-y: hidden;
@@ -57,29 +49,29 @@ dt {
 }
 
 .box-ledger {
-  width: 68%;
-  display: inline-block;
-  margin: 5px 0;
-  border-radius: 5px;
+	 width: 68%;
+	 display: inline-block;
+	 margin: 5px 0;
+	 border-radius: 5px;
 }
 
 .text-ledger {
-    padding: 10px 0;
-    text-align:center;
+	 padding: 10px 0;
+	 text-align:center;
 }
 
 .fieldLabel-ledger {
-      width: 30%;
-      display: inline-block;
-      margin: 5px 0px;
-      border-radius: 5px;
+	width: 30%;
+	display: inline-block;
+	margin: 5px 0px;
+	border-radius: 5px;
 }
 
 .user-fieldLabel-ledger {
-      width: 15%;
-      display: inline-block;
-      margin: 5px 0px;
-      border-radius: 5px;
+	width: 15%;
+	display: inline-block;
+	margin: 5px 0px;
+	border-radius: 5px;
 }
 
 .header {
@@ -100,6 +92,15 @@ dt {
     }
 }
 
+/* Modal Data inputs */
+dd {
+    margin-bottom: 8px;
+}
+
+dt {
+    margin-top: 8px;
+}
+
 
 /* Body styles */
 .bodytopindent {
@@ -110,46 +111,10 @@ dt {
 	padding-bottom: 150px;
 }
 
-.footer-custom {
-	padding-bottom: 0 !important;
-}
-
-/* Data table custom */
-.table-form-custom {
+/* Border customize */
+.border-custom {
 	border-radius: 0 !important;
 }
-
-
-/* Modal Custom Styles */
-.modal-custom {
-	border-radius: 0 !important;
-}
-
-.modal-custom-input {
-	border-radius: 0 !important;
-}
-
-.modal-form-custom {
-	padding-right: 30px;
-}
-
-.modal-footer-custom {
-	padding-right: 45px;
-}
-
-.btn-form-custom {
-	border-radius: 0 !important;
-}
-
-.btn-form-custom-2 {
-	width: 100px;
-}
-
-.input-form-custom {
-	border-radius: 0 !important;
-	max-width: 350px;
-}
-
 
 /* Error message Login */
 .error {
@@ -174,11 +139,11 @@ dt {
     background-color: #005C1F;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-green-footer {
     color : #005C1F;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-yellow {
@@ -186,11 +151,11 @@ dt {
     background-color: #A1A10F;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-yellow-footer {
     color: #A1A10F;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-red {
@@ -198,11 +163,11 @@ dt {
     background-color: #990000;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-red-footer {
     color: #990000;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-violet {
@@ -210,11 +175,11 @@ dt {
     background-color: #400056;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-violet-footer {
     color: #400056;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-brown {
@@ -222,11 +187,11 @@ dt {
     background-color: #996633;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-brown-footer {
     color: #996633;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-pink {
@@ -234,24 +199,23 @@ dt {
     background-color: #801A66;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-pink-footer {
     color: #801A66;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
-
 
 .panel-gray {
     border-color: #363632;
     background-color: #363632;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-gray-footer {
     color: #363632;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 
@@ -260,16 +224,16 @@ dt {
     background-color: #FF6C47;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-orange-footer {
     color: #FF6C47;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-prim {
 	box-shadow: 7px 7px 10px 1px grey;
-	border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-dark-green {
@@ -277,11 +241,11 @@ dt {
     background-color: #003300;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-dark-green-footer {
     color: #003300;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-brownish {
@@ -289,11 +253,11 @@ dt {
     background-color: #663300;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-brownish-footer {
     color: #663300;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-dark-brown {
@@ -301,11 +265,11 @@ dt {
     background-color: #993333;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-dark-brown-footer {
     color: #993333;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 
 .panel-dark-blue {
@@ -313,34 +277,12 @@ dt {
     background-color: #003366;
     color: #ffffff;
     box-shadow: 7px 7px 10px 1px grey;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
 .panel-dark-blue-footer {
     color: #003366;
-    border-radius: 0;
+  	border-radius: 0 !important;
 }
-
-.panel-custom {
-	border-radius: 0 !important;
-}
-
-.panel-custom2 {
-	border-color: #CF4C4C;
-	color: white;
-	border-radius: 0;
-}
-
-.panel-custom3 {
-	background-color: #CF4C4C;
-	border-radius: 0;
-}
-
-
-/* Search button  */
-.btn-extend-padding {
-	height: 34px;
-}
-
 
 /* Menu caret changes */
 .caret-up {
@@ -383,71 +325,18 @@ dt {
 	padding-top: 6px;
 }
 
-/* Email */
-.panel-body-email-custom {
-	border-color: #005C1F;
-	margin-bottom: 230px;
-	border-radius: 0 !important; 
+
+/* Panel Customize for forms */
+.panel-body-border {
+	border-color: #c0c0c0;
+	border-radius: 0 !important;	
 }
-.panel-email-custom {
-	background-color: #006600;
-	color: white;
+.panel-title-custom {
 	text-align: left;
-	border-radius: 0 !important;
 }
 
-.send-email-btn-custom {
-	width: 150px;
-	float: right;
-}
-
-.email-input-custom {
-	border-radius: 0 !important;
-}
-
-.email-message-custom {
+.message-not-resizable {
 	resize: none;
 }
-
-/* Registration  */
-.registration-panel-custom {
-	background-color: #754719;
-	color: white;
-	border-radius: 0 !important;
-}
-
-.registration-panel-custom-border {
-	border-color: #754719;
-	border-radius: 0 !important;
-}
-
-.registration-buttom-custom {
-	background-color: #754719;
-	color: white;
-	border-radius: 0 !important;
-}
-
-input:hover.registration-buttom-custom, input:active.registration-buttom-custom {
-	background-color: #694016;
-	color: white;
-	border-radius: 0 !important;
-}
-
-/* Calendar Grid Style */
-.calendar-input-custom {
-	border-radius: 0 !important;
-	margin-bottom: 10px;
-}
-
-.calendar-btn-custom {
-	border-radius: 0 !important;
-	margin-left: 10px;
-	margin-bottom: 10px;
-}
-
-.calendar-grid-custom {
-	border-radius: 0 !important;
-}
-
 
 

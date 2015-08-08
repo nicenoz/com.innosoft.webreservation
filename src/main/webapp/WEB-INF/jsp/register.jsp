@@ -15,13 +15,16 @@
 <meta name="author" content="" />
 
 <!-- CSS Links -->
+<link href="<c:url value='/css/alertify.core.css' />" rel="stylesheet"/>
+<link href="<c:url value='/css/alertify.default.css' />" rel="stylesheet"/>
 <link href="<c:url value='/css/landing-page.css' />" rel="stylesheet" />
 <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet" />
 <link href="<c:url value='/css/toastr.css' />" rel="stylesheet" />
 <link href="<c:url value='/css/styles.css' />" rel="stylesheet" />
 <link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css" />
 
-	<!-- Scripts -->
+<!-- Scripts -->
+<script src="<c:url value='/js/alertify.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.js'/>"></script>
 <script src="<c:url value='/js/jquery.validate.min.js'/>"></script>
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
@@ -32,9 +35,8 @@
 </head>
 <body class="bodytopindent">
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top topnav"
-		role="navigation">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation">
 	<div class="container topnav">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -68,34 +70,37 @@
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container --> </nav>
-
-	<div class="container">
-		<form method="post" action="" id="registrationForm">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
-						<div class="login-panel panel panel-primary panel-custom">
-							<div class="panel-heading panel-custom">
-								<h3 class="panel-title">Register</h3>
-							</div>
-							<div class="panel-body">
-								<fieldset>
-									<br /> <input type="email" name="REG_EMAIL_ADDRESS"	id="REG_EMAIL_ADDRESS" class="form-control input-form-custom" size="30" maxlength="30" placeholder="Email Address" /> <br />
-									<input type="password" name="REG_PASSWORD" id="REG_PASSWORD" class="form-control input-form-custom" size="30" maxlength="30" placeholder="Password" /> <br /> 
-									<input type="password" name="REG_CONFIRM_PASSWORD"	id="REG_CONFIRM_PASSWORD" class="form-control input-form-custom" size="30" 	maxlength="30" placeholder="Confirm Password" /> <br /> 
-									<input type="button" class="btn btn-lg btn-primary btn-block btn-form-custom" onclick="cmdRegisterSendEmailOk_OnClick()" value="Submit" />
-								</fieldset>
-								<br />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	
+	<div class="container"> 
+		<form action="" role="form">
+		    <div class="container">
+		        <div class="row">
+		            <div class="col-md-4 col-md-offset-4">
+		                <div class="login-panel panel panel-body-border">
+		                    <div class="panel-heading">
+		                        <h3 class="panel-title "><b>Register</b></h3>
+		                    </div>
+		                    <div class="panel-body">
+		                        <fieldset>
+		                           	<input type="email" name="REG_EMAIL_ADDRESS"	id="REG_EMAIL_ADDRESS" class="form-control border-custom" size="30" maxlength="30" placeholder="Email Address" /> 
+		                            <br />
+		                            <input type="password" name="REG_PASSWORD" id="REG_PASSWORD" class="form-control border-custom" size="30" maxlength="30" placeholder="Password" />
+		                            <br />
+		                            <input type="password" name="REG_CONFIRM_PASSWORD"	id="REG_CONFIRM_PASSWORD" class="form-control border-custom" size="30" 	maxlength="30" placeholder="Confirm Password" />
+		                            <br />
+		                            <input type="button" class="btn btn-lg btn-primary btn-block border-custom" onclick="cmdRegisterSendEmailOk_OnClick()" value="Submit" />
+		                        </fieldset>
+		                        <br>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 		</form>
 	</div>
 
-	<!-- Footer -->
-	<footer class="navbar-inverse navbar-fixed-bottom">
+<!-- Footer -->
+<footer class="navbar-inverse navbar-fixed-bottom">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -117,59 +122,59 @@
 			</div>
 		</div>
 	</div>
-	</footer>
+</footer>
 
 
-	<script type="text/javascript">
-		//==================
-		// Password Validation
-		//==================  	
-		jQuery.validator.setDefaults({
-			debug : true,
-			success : "valid"
-		});
+<script type="text/javascript">
+// ===================
+// Password Validation
+// ===================  	
+jQuery.validator.setDefaults({
+	debug : true,
+	success : "valid"
+});
 
-		$("#registrationForm").validate({
-			rules : {
-				REG_PASSWORD : "required",
-				REG_CONFIRM_PASSWORD : {
-					equalTo : "#REG_PASSWORD"
-				}
-			}
-		});
-
-		//=============================
-		//Edit Detail OK Button Clicked 
-		//=============================     
-		function cmdRegisterSendEmailOk_OnClick() {
-			var userObject = new Object();
-
-			userObject.USER_LOGIN = document.getElementById('REG_EMAIL_ADDRESS').value;
-			userObject.USER_PASSWORD = document.getElementById('REG_PASSWORD').value;
-
-			var data = JSON.stringify(userObject);
-
-			$.ajax({
-				type : "POST",
-				url : '${pageContext.request.contextPath}/api/user/update',
-				contentType : "application/json; charset=utf-8",
-				dataType : "json",
-				data : data,
-				statusCode : {
-					200 : function() {
-						alert("Succesfully send");
-					},
-					404 : function() {
-						alert("Email Already Exist");
-					},
-					400 : function() {
-						alert("Bad Request");
-					}
-				}
-			});
-
+$("#registrationForm").validate({
+	rules : {
+		REG_PASSWORD : "required",
+		REG_CONFIRM_PASSWORD : {
+			equalTo : "#REG_PASSWORD"
 		}
-	</script>
+	}
+});
+
+// ==========
+// Email Send
+// ==========    
+function cmdRegisterSendEmailOk_OnClick() {
+	var userObject = new Object();
+
+	userObject.USER_LOGIN = document.getElementById('REG_EMAIL_ADDRESS').value;
+	userObject.USER_PASSWORD = document.getElementById('REG_PASSWORD').value;
+
+	var data = JSON.stringify(userObject);
+
+	$.ajax({
+		type : "POST",
+		url : '${pageContext.request.contextPath}/api/user/update',
+		contentType : "application/json; charset=utf-8",
+		dataType : "json",
+		data : data,
+		statusCode : {
+			200 : function() {
+				alertify.alert("Succesfully send");
+			},
+			404 : function() {
+				alertify.alert("Email Already Exist");
+			},
+			400 : function() {
+				alertify.alert("Bad Request");
+			}
+		}
+	});
+
+}
+</script>
 
 </body>
 </html>

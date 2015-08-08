@@ -73,31 +73,31 @@
 </nav>
 
 <div class="container"> 
-		<form action="" role="form" id="registerMemberForm">
-		    <div class="container">
-		         <div class="row">
-		            <div class="col-md-4 col-md-offset-4">
-		                <div class="login-panel panel panel-primary panel-custom">
-		                    <div class="panel-heading panel-custom">
-		                        <h3 class="panel-title">Register as Member</h3>
-		                    </div>
-		                    <div class="panel-body">
-		                      	<fieldset>
-		                      		<input type="email" name="REG_EMAIL_ADDRESS" id="REG_EMAIL_ADDRESS" class="form-control input-form-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
-									<br />
-		                           	<input type="text" name="REG_MEMBER_ID" id="REG_MEMBER_ID" class="form-control input-form-custom"  size="30" maxlength="30" placeholder="Member ID"/>
-		                           	<br />
-		                           	<button type="button" id="" class="btn btn-lg btn-primary btn-block btn-form-custom" onclick="">
+	<form action="" role="form">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-4 col-md-offset-4">
+	                <div class="login-panel panel panel-body-border">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title ">Change Password</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        <fieldset>
+	                           	<input type="email" name="REG_EMAIL_ADDRESS" id="REG_EMAIL_ADDRESS" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
+	                            <br />
+	                            <input type="text" name="REG_MEMBER_ID" id="REG_MEMBER_ID" class="form-control border-custom"  size="30" maxlength="30" placeholder="Member ID"/>
+	                            <br />
+	                            <button type="button" id="" class="btn btn-lg btn-primary btn-block border-custom" onclick="">
 		                           		Submit
-		                           	</button>
-		                       	</fieldset>
-		                       	<br/>
-				            </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</form>
+		                        </button>
+	                        </fieldset>
+	                        <br>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</form>
 </div>
 
 <!-- Footer -->

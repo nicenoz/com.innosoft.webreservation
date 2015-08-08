@@ -13,6 +13,8 @@
     <meta name="author" content=""/>
 	
 	<!-- CSS Links -->
+	<link href="<c:url value='/css/alertify.core.css' />" rel="stylesheet"/>
+	<link href="<c:url value='/css/alertify.default.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/landing-page.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/toastr.css' />" rel="stylesheet"/>
@@ -21,6 +23,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
 	
 	<!-- Scripts -->
+	<script src="<c:url value='/js/alertify.min.js'/>"></script>
 	<script src="<c:url value='/js/jquery.js'/>"></script>
 	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/js/jquery.validate.js' />"></script>

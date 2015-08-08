@@ -14,21 +14,21 @@
 	    <div class="col-lg-4">
 	        <div class="input-group">
 	            <span class="input-group-btn">
-	                <button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
+	                <button class="btn btn-default border-custom" type="button" readonly>
 	                <i class="fa fa-search"></i>
 	                </button>
 	            </span>
-	            <input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
+	            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Message Code">
 	        </div>
 	    </div>
 	    <div class="col-lg-8">
-	        <button id="cmdAddMessage" type="submit" class="btn btn-primary pull-right btn-form-custom btn-form-custom-2" onclick="cmdMessageAdd_OnClick()">Add</button>
+	        <button id="cmdAddMessage" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMessageAdd_OnClick()">Add</button>
 	    </div>
 	</div>
 	<br />
-	<div class="row table-form-custom">
-	    <div class="col-lg-12 table-form-custom">
-	        <div id="messageGrid" class="grid table-form-custom"></div>
+	<div class="row">
+	    <div class="col-lg-12">
+	        <div id="messageGrid" class="grid border-custom"></div>
 	    </div>
 	</div>
 	
@@ -36,17 +36,17 @@
 	
 	<div class="row">
 	    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
+	        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 	            <span class="glyphicon glyphicon-fast-backward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
+	        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 	            <span class="glyphicon glyphicon-step-backward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
+	        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
+	        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 	            <span class="glyphicon glyphicon-step-forward"></span>
 	        </button>
-	        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
+	        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 	            <span class="glyphicon glyphicon-fast-forward"></span>
 	        </button>
 	    </div>
@@ -65,7 +65,7 @@
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
     <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <h4 class="modal-title">Loading...</h4>
             </div>
@@ -79,7 +79,7 @@
 <!-- Message Edit Detail -->
 <div class="modal fade" id="MessageEdit">
     <div class="modal-dialog">
-        <div class="modal-content modal-custom">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true">
                     &times;
@@ -87,39 +87,39 @@
                 <h4 class="modal-title">Message Edit</h4>
             </div>
             <div class="modal-body">
-                <form id="messageForm" class="modal-form-custom">
+                <form id="messageForm">
                     <dl class="dl-horizontal">
-                        <dt>Code</dt>
+                        <dt>Code: </dt>
                         <dd>
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_ID" type="hidden" />
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_CODE" name="EDIT_MESG_CODE" type="text" required />
+                            <input id="EDIT_MESG_ID" type="hidden" />
+                            <input class="form-control border-custom" id="EDIT_MESG_CODE" name="EDIT_MESG_CODE" type="text" required />
                         </dd>
-                        <dt>Level</dt>
+                        <dt>Level: </dt>
                         <dd>
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_LEVEL" name="EDIT_MESG_LEVEL" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_MESG_LEVEL" name="EDIT_MESG_LEVEL" type="text" required />
                         </dd>
-                        <dt>Note</dt>
+                        <dt>Note: </dt>
                         <dd>
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" type="text" required />
                         </dd>                        
-                        <dt>Start Date</dt>
+                        <dt>Start Date: </dt>
                         <dd>
-							<div id="EDIT_MESG_START_DATE" class="form-control modal-custom-input"></div>
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
+							<div id="EDIT_MESG_START_DATE" class="form-control border-custom"></div>
+                            <input id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
                         </dd>
-                        <dt>End Date</dt>
+                        <dt>End Date: </dt>
                         <dd>
-							<div id="EDIT_MESG_END_DATE" class="form-control modal-custom-input"></div>
-                            <input class="form-control modal-custom-input" id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
+							<div id="EDIT_MESG_END_DATE" class="form-control border-custom"></div>
+                            <input id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
                         </dd>                        
                     </dl>
                 </form>
             </div>
-            <div class="modal-footer modal-footer-custom">
-                <button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2"  id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary border-custom"  id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">
                     Ok
                 </button>
-                <button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">
+                <button type="button" class="btn btn-danger border-custom" id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">
                     Cancel
                 </button>
             </div>
@@ -229,26 +229,29 @@ function cmdMessageDelete_OnClick() {
     var id = messages.currentEditItem.MESG_ID;
     var messageCode = messages.currentEditItem.MESG_CODE;
 
-    if (confirm("Delete " + messageCode + "?") == true) {
-        $.ajax({
-            type: "DELETE",
-            url: '${pageContext.request.contextPath}/api/message/delete/' + id,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            statusCode: {
-                200: function () {
-                    toastr.success('Successfully Deleted.');
-                    window.setTimeout(function () { location.reload() }, 1000);
-                },
-                404: function () {
-                    toastr.error("Not found.");
-                },
-                400: function () {
-                    toastr.error("Bad request.");
+ 	// confirm dialog
+    alertify.confirm("Are you sure you want to delete Message Code " + messageCode + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+        if (e) {
+        	$.ajax({
+                type: "DELETE",
+                url: '${pageContext.request.contextPath}/api/message/delete/' + id,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                statusCode: {
+                    200: function () {
+                        log.success('Successfully Deleted.');
+                        window.setTimeout(function () { location.reload() }, 1000);
+                    },
+                    404: function () {
+                        log.error("Not found.");
+                    },
+                    400: function () {
+                        log.error("Bad request.");
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
+    });
 }
 
 // =================================
@@ -311,8 +314,8 @@ function getMessages() {
             if (Results.length > 0) {
                 for (i = 0; i < Results.length; i++) {
                     messages.push({
-                        EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditMessage' onclick='cmdMessageEdit_OnClick()'>Edit</button>",
-                        DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdMessageDelete_OnClick()'>Delete</button>",
+                        EditId: "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditMessage' onclick='cmdMessageEdit_OnClick()'>Edit</button>",
+                        DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdMessageDelete_OnClick()'>Delete</button>",
                         MESG_ID: Results[i]["mesg_ID"],
                         MESG_CODE: Results[i]["mesg_CODE"],
                         MESG_LEVEL: Results[i]["mesg_LEVEL"],
@@ -457,7 +460,7 @@ $(document).ready(function () {
         messages.refresh();
     });
     messages.filter = function (item) {
-        return !filterText || (item.MessageCode.toLowerCase().indexOf(filterText) > -1);
+        return !filterText || (item.MESG_CODE.toLowerCase().indexOf(filterText) > -1);
     }
     messages.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsMessage();

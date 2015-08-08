@@ -10,19 +10,19 @@
 				    <div class="row">
 				    	<div class="col-md-3"></div>
 					    <div class="col-md-6">
-					        <div class="login-panel panel panel-body-email-custom">
-			                   <div class="panel-heading panel-email-custom">
-			                       <h3 class="panel-title ">Email</h3>
+					        <div class="panel panel-body-border">
+			                   <div class="panel-heading">
+			                       <h3 class="panel-title panel-title-custom"><b>Email</b></h3>
 			                   </div>
 			                   <div class="panel-body">
 			                      	<fieldset>
-										<input type="email" name="edit_email" class="form-control email-input-custom" id="edit_email" size="40" maxlength="40" placeholder="To:"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
+										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" size="40" maxlength="40" placeholder="To:"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
 			                           	<br />
-			                           	<input type="text" name="edit_subject" class="form-control email-input-custom" id="edit_subject" size="40" maxlength="32" placeholder="Subject:"/>
+			                           	<input type="text" name="edit_subject" class="form-control border-custom" id="edit_subject" size="40" maxlength="32" placeholder="Subject:"/>
 			                           	<br />
-			                          	<textarea cols="50" rows="10" class="form-control email-message-custom email-input-custom" name="edit_message" id="edit_message" placeholder="Message ..."></textarea>
+			                          	<textarea cols="50" rows="10" class="form-control border-custom message-not-resizable" name="edit_message" id="edit_message" placeholder="Message ..."></textarea>
 			                          	<br />
-			                           	<input type="button" value="Send E-mail" onclick="cmdCalendarEditOk_OnClick()" class="btn btn-lg btn-success send-email-btn-custom" />
+			                           	<input type="button" value="Send E-mail" onclick="cmdCalendarEditOk_OnClick()" class="btn btn-lg btn-success border-custom pull-right" />
 			                       	</fieldset>
 			                       	<br/>
 			                   </div>
@@ -72,4 +72,4 @@
 	</script>
 
 <!-- footer -->
-<%@include file="include_secure_footer.jsp"%>
+<%@include file="include_secure_copyright_footer.jsp"%>

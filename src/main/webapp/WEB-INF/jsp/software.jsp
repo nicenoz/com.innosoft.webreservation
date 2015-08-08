@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <select id="ScheduleMonth" class="form-control calendar-input-custom">
+                <select id="ScheduleMonth" class="form-control border-custom">
                     <option value="0">January</option>
                     <option value="1">February</option>
                     <option value="2">March</option>
@@ -24,7 +24,7 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <select id="ScheduleYear" class="form-control calendar-input-custom">
+                <select id="ScheduleYear" class="form-control border-custom">
                     <option value="2015">2015</option>
                     <option value="2016">2016</option>
                     <option value="2016">2017</option>
@@ -33,17 +33,16 @@
                 </select>
             </div>
             <div class="col-lg-2">
-                <button id="CmdGetSchedule" type="submit" class="btn btn-primary calendar-btn-custom btn-block pull-right" onclick="CmdGetSchedule_OnClick()">Get Schedule</button>
+                <button id="CmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="CmdGetSchedule_OnClick()">Get Schedule</button>
             </div>
             <div class="col-lg-6">
-	        	<button id="cmdAddMessage" type="submit" class="btn btn-primary calendar-btn-custom pull-right" onclick="cmdScheduleAdd_OnClick()">Add</button>
-		        <button id="cmdAddMessage" type="submit" class="btn btn-primary calendar-btn-custom pull-right" onclick="cmdScheduleAdd_OnClick()">Create Schedule</button>
+		        <button id="cmdAddMessage" type="submit" class="btn btn-primary border-custom pull-right" onclick="cmdScheduleAdd_OnClick()">Create Schedule</button>
 	    	</div>
         </div>
         <div class="row">
             <p class="lead">
              	<div class="col-lg-12">
-                	<div id="CalendarGrid" class="grid calendar-grid-custom"></div>
+                	<div id="CalendarGrid" class="grid border-custom"></div>
                 </div>
             </p>
         </div>        
@@ -55,7 +54,7 @@
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
     <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <h4 class="modal-title">Loading...</h4>
             </div>
@@ -69,7 +68,7 @@
 <!-- Message Edit Detail -->
 <div class="modal fade" id="ScheduleEdit">
     <div class="modal-dialog">
-        <div class="modal-content modal-custom">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true">
                     &times;
@@ -84,10 +83,10 @@
                 </form>
             </div>
             <div class="modal-footer modal-footer-custom">
-                <button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2"  id="cmdMessageEditOk" onclick="cmdScheduleAdd_OnClick()">
+                <button type="button" class="btn btn-primary border-custom"  id="cmdMessageEditOk" onclick="cmdScheduleAdd_OnClick()">
                     Ok
                 </button>
-                <button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="cmdMessageEditCancel" onclick="cmdScheduleEditCancel_OnClick()">
+                <button type="button" class="btn btn-danger border-custom" id="cmdMessageEditCancel" onclick="cmdScheduleEditCancel_OnClick()">
                     Cancel
                 </button>
             </div>
@@ -464,4 +463,4 @@ $(document).ready(function () {
 </script>
 
 <!-- footer -->
-<%@include file="include_secure_footer.jsp"%>
+<%@include file="include_secure_copyright_footer.jsp"%>

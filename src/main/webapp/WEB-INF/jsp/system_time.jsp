@@ -14,52 +14,37 @@
 		<div class="col-lg-4">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<button class="btn btn-default btn-extend-padding btn-form-custom"
-						type="button" readonly>
+					<button class="btn btn-default border-custom" type="button" readonly>
 						<i class="fa fa-search"></i>
 					</button>
-				</span> <input type="text" class="form-control input-form-custom"
-					id="InputFilter" placeholder="Search...">
+				</span>
+				 <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Customer ID">
 			</div>
 		</div>
 		<div class="col-lg-8">
-			<button id="cmdCustomerTimeAdd" type="submit"
-				class="btn btn-primary pull-right btn-form-custom btn-form-custom-2"
-				onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
+			<button id="cmdCustomerTimeAdd" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
 		</div>
 	</div>
 	<br />
-	<div class="row table-form-custom">
-		<div class="col-lg-12 table-form-custom">
-			<div id="CustomerTimeGrid" class="grid table-form-custom"></div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="CustomerTimeGrid" class="grid border-custom"></div>
 		</div>
 	</div>
-
 	<br />
-
 	<div class="row">
 		<div class="btn-group col-md-7" id="naviagtionPageGrid">
-			<button type="button"
-				class="btn btn-default btn-extend-padding btn-form-custom"
-				id="btnMoveToFirstPageGrid">
+			<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 				<span class="glyphicon glyphicon-fast-backward"></span>
 			</button>
-			<button type="button"
-				class="btn btn-default btn-extend-padding btn-form-custom"
-				id="btnMoveToPreviousPageGrid">
+			<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 				<span class="glyphicon glyphicon-step-backward"></span>
 			</button>
-			<button type="button"
-				class="btn btn-default btn-extend-padding btn-form-custom" disabled
-				style="width: 100px" id="btnCurrentPageGrid"></button>
-			<button type="button"
-				class="btn btn-default btn-extend-padding btn-form-custom"
-				id="btnMoveToNextPageGrid">
+			<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+			<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 				<span class="glyphicon glyphicon-step-forward"></span>
 			</button>
-			<button type="button"
-				class="btn btn-default btn-extend-padding btn-form-custom"
-				id="btnMoveToLastPageGrid">
+			<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 				<span class="glyphicon glyphicon-fast-forward"></span>
 			</button>
 		</div>
@@ -71,7 +56,7 @@
 <div class="modal fade" id="loading" tabindex="-1" role="dialog"
 	aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
-		<div class="modal-content">
+		<div class="modal-content border-custom">
 			<div class="modal-header">
 				<h4 class="modal-title">Loading...</h4>
 			</div>
@@ -85,45 +70,45 @@
 <!-- Time Edit Detail -->
 <div class="modal fade" id="CustomerTimeEdit">
 	<div class="modal-dialog">
-		<div class="modal-content modal-custom">
+		<div class="modal-content border-custom">
 			<div class="modal-header">
 				<button type="button" class="close" aria-hidden="true">
 					&times;</button>
 				<h4 class="modal-title">Customer Time Edit</h4>
 			</div>
 			<div class="modal-body">
-				<form id="chargeForm"  class="modal-form-custom">
+				<form id="chargeForm">
 					<dl class="dl-horizontal">
 			
-						<dt>Customer ID</dt>
+						<dt>Customer ID: </dt>
 						<dd>
-							<input class="form-control" id="EDIT_CTIM_ID" type="hidden" />
-							<input class="form-control modal-custom-input" id="EDIT_CTIM_CUST_ID" name="EDIT_CTIM_CUST_ID" type="text" required />
+							<input id="EDIT_CTIM_ID" type="hidden" />
+							<input class="form-control border-custom" id="EDIT_CTIM_CUST_ID" name="EDIT_CTIM_CUST_ID" type="text" required />
 						</dd>
 				
-						<dt>Details No</dt>
+						<dt>Details No: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CTIM_DETAILS_NO"	name="EDIT_CTIM_DETAILS_NO" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CTIM_DETAILS_NO"	name="EDIT_CTIM_DETAILS_NO" type="text" required />
 						</dd>
-						<dt>Interval of Times</dt>
+						<dt>Interval of Times: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CTIM_INTERVAL_OF_TIMES" name="EDIT_CTIM_INTERVAL_OF_TIMES" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CTIM_INTERVAL_OF_TIMES" name="EDIT_CTIM_INTERVAL_OF_TIMES" type="text" required />
 						</dd>
-						<dt>Max Unit No</dt>
+						<dt>Max Unit No: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CTIM_MAX_UNIT_NO"	name="EDIT_CTIM_MAX_UNIT_NO" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CTIM_MAX_UNIT_NO"	name="EDIT_CTIM_MAX_UNIT_NO" type="text" required />
 						</dd>
-						<dt>Max Parts No</dt>
+						<dt>Max Parts No: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CTIM_MAX_PARTS_NO"  name="EDIT_CTIM_MAX_PARTS_NO" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CTIM_MAX_PARTS_NO"  name="EDIT_CTIM_MAX_PARTS_NO" type="text" required />
 						</dd>
 
 					</dl>
 				</form>
 			</div>
-			<div class="modal-footer modal-footer-custom">
-				<button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2" id="cmdCustomerTimeEditOk" onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
-				<button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="cmdCustomerTimeEditCancel" onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary border-custom" id="cmdCustomerTimeEditOk" onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdCustomerTimeEditCancel" onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -146,7 +131,6 @@ var btnCurrentPageGrid;
 // Edit Button Clicked
 // ===================
 function cmdCustomerTimeEdit_OnClick() {
-
 	customerTimes.editItem(customerTimes.currentItem);
 
     $('#CustomerTimeEdit').modal({
@@ -154,8 +138,7 @@ function cmdCustomerTimeEdit_OnClick() {
         backdrop: false
     });
 
-    var customerTime = customerTimes.currentEditItem;
-    
+    var customerTime = customerTimes.currentEditItem;   
     document.getElementById('EDIT_CTIM_ID').value = customerTime.CTIM_ID !== null && typeof (customerTime.CTIM_ID) != 'undefined' ? wijmo.Globalize.format(customerTime.CTIM_ID) : '';
     document.getElementById('EDIT_CTIM_CUST_ID').value = customerTime.CTIM_CUST_ID ? customerTime.CTIM_CUST_ID : '';
     document.getElementById('EDIT_CTIM_DETAILS_NO').value = customerTime.CTIM_DETAILS_NO ? customerTime.CTIM_DETAILS_NO : '';
@@ -184,14 +167,16 @@ function cmdCustomerTimeAdd_OnClick() {
 // =====================
 // Delete Button Clicked
 // =====================   
-function cmdCustomerTimeDelete_OnClick() {
-	
+function cmdCustomerTimeDelete_OnClick() {	
 	customerTimes.editItem(customerTimes.currentItem);
 	
 	var id = customerTimes.currentEditItem.CTIM_ID;
 	var detailNo = customerTimes.currentEditItem.CTIM_DETAILS_NO;
 
-	if (confirm("Delete " + detailNo + "?") == true) {
+	
+	
+	alertify.confirm("Are you sure you want to delete Details No. " + detailNo + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+	if (e) {
 		$.ajax({
 			type : "DELETE",
 			url : '${pageContext.request.contextPath}/api/customerTime/delete/' + id,
@@ -212,7 +197,8 @@ function cmdCustomerTimeDelete_OnClick() {
 				}
 			}
 		});
-	}
+		}
+	});
 }
 
 // =================================
@@ -227,16 +213,14 @@ function cmdCustomerTimeEditCancel_OnClick() {
 // =============================   
 function cmdCustomerTimeEditOk_OnClick() {
 	var chargeObject = new Object();
-
-	chargeObject.CTIM_ID                =  parseInt(document.getElementById('EDIT_CTIM_ID').value);
-	chargeObject.CTIM_CUST_ID           =  parseInt(document.getElementById('EDIT_CTIM_CUST_ID').value);
-	chargeObject.CTIM_DETAILS_NO        =  parseInt(document.getElementById('EDIT_CTIM_DETAILS_NO').value);
+	chargeObject.CTIM_ID =  parseInt(document.getElementById('EDIT_CTIM_ID').value);
+	chargeObject.CTIM_CUST_ID =  parseInt(document.getElementById('EDIT_CTIM_CUST_ID').value);
+	chargeObject.CTIM_DETAILS_NO =  parseInt(document.getElementById('EDIT_CTIM_DETAILS_NO').value);
 	chargeObject.CTIM_INTERVAL_OF_TIMES =  parseInt(document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value);
-	chargeObject.CTIM_MAX_UNIT_NO       =  parseInt(document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value);
-	chargeObject.CTIM_MAX_PARTS_NO      =  parseInt(document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value);
+	chargeObject.CTIM_MAX_UNIT_NO =  parseInt(document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value);
+	chargeObject.CTIM_MAX_PARTS_NO =  parseInt(document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value);
 	
 	var data = JSON.stringify(chargeObject);
-
 	$.ajax({
 		type : "POST",
 		url : '${pageContext.request.contextPath}/api/customerTime/update',
@@ -274,8 +258,8 @@ function getCustomerTimes() {
 					if (Results.length > 0) {
 						for (i = 0; i < Results.length; i++) {
 							customerTimes.push({
-								EditId : "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
-								DeleteId : "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
+								EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
+								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
 								CTIM_ID : Results[i]["ctim_ID"],
 								CTIM_CUST_ID : Results[i]["ctim_CUST_ID"],
 								CTIM_DETAILS_NO : Results[i]["ctim_DETAILS_NO"],
@@ -289,7 +273,9 @@ function getCustomerTimes() {
 		                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
 		                        ISDELETED: Results[i]["isdeleted"],
 		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
+		                        CTIM_CREATED_BY_USER: Results[i]["CTIM_CREATED_BY_USER"],
+		                        CTIM_UPDATED_BY_USER: Results[i]["CTIM_UPDATED_BY_USER"]
 							});
 						}
 					} else {
@@ -336,9 +322,9 @@ function updateNavigateButtonsCustomerTime() {
 //=================== 
 function updateDetails() {
 	var item = customerTimes.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CTIM_CREATED_BY_USER.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CTIM_UPDATED_BY_USER.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
@@ -407,8 +393,8 @@ $(document).ready(function(){
 	    customerTimes.refresh();
 	});
 	customerTimes.filter = function (item) {
-	    return !filterText || (item.ChargeName.toLowerCase().indexOf(filterText) > -1);
-	}
+        return !filterText || (item.CTIM_CUST_ID.toLowerCase().indexOf(filterText) > -1);
+    }
 	customerTimes.collectionChanged.addHandler(function (sender, args) {
 	    updateNavigateButtonsCustomerTime();
 	});
@@ -420,49 +406,58 @@ $(document).ready(function(){
 	// Flex Grid
 	customerGrid = new wijmo.grid.FlexGrid('#CustomerTimeGrid');
 	customerGrid.initialize({
-		columns : [ {
-			"header" : "Edit",
-			"binding" : "EditId",
-			"width" : 60,
-			"allowSorting" : false,
-			"isContentHtml" : true
-		}, {
-			"header" : "Delete",
-			"binding" : "DeleteId",
-			"width" : 60,
-			"allowSorting" : false,
-			"isContentHtml" : true
-		}, {
-			"header" : "Time Id.",
-			"binding" : "CTIM_ID",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Customer Id",
-			"binding" : "CTIM_CUST_ID",
-			"allowSorting" : true,
-			"width" : "6*"
-		},  {
-			"header" : "Details No",
-			"binding" : "CTIM_DETAILS_NO",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Interval of Times",
-			"binding" : "CTIM_INTERVAL_OF_TIMES",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Max Unit No",
-			"binding" : "CTIM_MAX_UNIT_NO",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Max Part No",
-			"binding" : "CTIM_MAX_PARTS_NO",
-			"allowSorting" : true,
-			"width" : "6*"
-		} ],
+		columns : [ 
+		            {
+						"header" : "Edit",
+						"binding" : "EditId",
+						"width" : 60,
+						"allowSorting" : false,
+						"isContentHtml" : true
+					}, 
+					{
+						"header" : "Delete",
+						"binding" : "DeleteId",
+						"width" : 60,
+						"allowSorting" : false,
+						"isContentHtml" : true
+					},
+					{
+						"header" : "Time Id.",
+						"binding" : "CTIM_ID",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Customer Id",
+						"binding" : "CTIM_CUST_ID",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Details No",
+						"binding" : "CTIM_DETAILS_NO",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Interval of Times",
+						"binding" : "CTIM_INTERVAL_OF_TIMES",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Max Unit No",
+						"binding" : "CTIM_MAX_UNIT_NO",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Max Part No",
+						"binding" : "CTIM_MAX_PARTS_NO",
+						"allowSorting" : true,
+						"width" : "6*"
+					} 	
+			],
 		autoGenerateColumns : false,
 		itemsSource : customerTimes,
 		isReadOnly : true,
