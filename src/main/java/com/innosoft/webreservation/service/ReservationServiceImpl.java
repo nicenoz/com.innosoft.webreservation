@@ -20,6 +20,10 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.listReservation();
 	}
 	
+	public List<TrnReservation> reportReservation(String from, String to) {
+		return reservationDao.reportReservation(from, to);
+	}
+	
 	public TrnReservation addReservation(TrnReservation reservation){
 		return reservationDao.addReservation(reservation);
 	}	
@@ -31,5 +35,7 @@ public class ReservationServiceImpl implements ReservationService{
 	public boolean deleteReservation(int id){
 		return reservationDao.deleteReservation(id);
 	}
+
+
 
 }

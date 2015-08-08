@@ -27,4 +27,8 @@ public class CustomerMemberServiceImpl implements CustomerMemberService {
 	public boolean deleteCustomerMember(int id){
 		return customerMemberDao.deleteCustomerMember(id);
 	}
+	
+	public List<MstCustomerMember> reportCustomerMember(String from, String to) {
+		return customerMemberDao.reportCustomerMember(from, to);
+	}
 }

@@ -2,8 +2,10 @@ package com.innosoft.webreservation.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -224,10 +226,6 @@ public class MstCustomerMember {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)	
 	public Integer ISDELETED_BY_USER_ID;
 	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser MEBR_CREATED_BY_USER;
-
 	public MstSecurityUser getMEBR_CREATED_BY_USER() {
 		return MEBR_CREATED_BY_USER;
 	}
@@ -235,10 +233,15 @@ public class MstCustomerMember {
 		MEBR_CREATED_BY_USER = mEBR_CREATED_BY_USER;
 	}
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
 	public MstSecurityUser MEBR_UPDATED_BY_USER;
 
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_CREATED_BY_USER;
+	
 	public MstSecurityUser getMEBR_UPDATED_BY_USER() {
 		return MEBR_UPDATED_BY_USER;
 	}

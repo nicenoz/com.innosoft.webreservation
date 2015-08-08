@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.SecurityService;
+
 
 @Controller
 @RequestMapping("api/customerMember")
@@ -27,6 +29,12 @@ public class CustomerMemberApi {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerMember> listCustomerMember() {
 		List<MstCustomerMember> list = customerMemberService.listCustomerMember();
+		return list;
+	}
+	
+	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"from", "to"})
+	public @ResponseBody List<MstCustomerMember> reportCustomerMember(@RequestParam(value="from") String from, @RequestParam(value="to") String to) {
+		List<MstCustomerMember> list = customerMemberService.reportCustomerMember(from, to);
 		return list;
 	}
 	
@@ -59,5 +67,7 @@ public class CustomerMemberApi {
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
-	}	
+	}
+	
+	
 }
