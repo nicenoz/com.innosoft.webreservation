@@ -37,5 +37,17 @@
 	<bean id="customerTimeDao" class="com.innosoft.webreservation.dao.CustomerTimeDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
-					
+	
+	<bean id="customerMemberDao" class="com.innosoft.webreservation.dao.CustomerMemberDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+	<bean id="calendarActivityDao" class="com.innosoft.webreservation.dao.CalendarActivityDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+	<bean id="accessLogDao"	class="com.innosoft.webreservation.dao.AccessLogDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
 </beans>

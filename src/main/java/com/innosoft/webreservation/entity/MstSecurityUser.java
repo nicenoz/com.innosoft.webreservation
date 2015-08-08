@@ -82,7 +82,7 @@ public class MstSecurityUser {
 	@OneToMany(mappedBy="RESV_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<TrnReservation> RESV_CREATED_BY_USER = new LinkedHashSet<TrnReservation>();
 	
-	@OneToMany(mappedBy="RESV_CREATED_BY_USER",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="SLOG_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<TrnSendLog> SLOG_CREATED_BY_USER = new LinkedHashSet<TrnSendLog>();
 	
 }

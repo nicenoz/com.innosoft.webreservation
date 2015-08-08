@@ -46,7 +46,12 @@
 				<value>com.innosoft.webreservation.entity.MstMessage</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityUser</value>
 				<value>com.innosoft.webreservation.entity.MstSecurityRole</value>
-				<value>com.innosoft.webreservation.entity.MstSecurityUserRole</value>				
+				<value>com.innosoft.webreservation.entity.TrnAccessLog</value>
+				<value>com.innosoft.webreservation.entity.TrnChargeCount</value>			
+				<value>com.innosoft.webreservation.entity.TrnReservation</value>			
+				<value>com.innosoft.webreservation.entity.TrnSendLog</value>
+				<value>com.innosoft.webreservation.entity.MstCalendarActivity</value>	
+				<value>com.innosoft.webreservation.entity.MstCustomerMember</value>							
 			</list>
 		</property>
 
