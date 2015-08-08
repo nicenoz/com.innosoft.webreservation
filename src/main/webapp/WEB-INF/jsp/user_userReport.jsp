@@ -15,32 +15,32 @@
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
 			<div class="input-group">
-			  <span class="input-group-addon" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="modal-custom-input"></div>
+			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
+			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom"></div>
 			</div>
 			</div>
 			
 			<div class="col-lg-3">
 			<div class="input-group">
-			  <span class="input-group-addon" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="modal-custom-input"></div>
+			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
+			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom"></div>
 			</div>
 			</div>
 			
 					
 			<div class="col-lg-6b tn-toolbar pull-right">
 				<div class='btn-group'">
-					<button id="cmdSaveReport" style="margin-right: 5px; display:none;" type="submit" class="btn btn-success btn-form-custom btn-form-custom-2" onclick="cmdSaveReport_OnClick()">Save</button>
-					<button id="cmdGenerateReport" style="margin-left: 5px; margin-right: 20px;" type="submit" class="btn btn-primary btn-form-custom btn-form-custom-2" onclick="cmdGenerateReport_OnClick()">Generate</button>
+					<button id="cmdSaveReport" style="margin-right: 5px; display:none;" type="submit" class="btn btn-success border-custom" onclick="cmdSaveReport_OnClick()">Save</button>
+					<button id="cmdGenerateReport" style="margin-left: 5px; margin-right: 20px;" type="submit" class="btn btn-primary border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
 				</div>
 			</div>
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row table-form-custom">
-			<div class="col-lg-12 table-form-custom">
-				<div id="reportGrid" class="grid table-form-custom"></div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="reportGrid" class="grid border-custom"></div>
 			</div>
 		</div>
 
@@ -49,17 +49,17 @@
 		<!-- Table Navigation -->
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -72,7 +72,7 @@
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
-		<div class="modal-content">
+		<div class="modal-content border-custom">
 			<div class="modal-header">
 				<h4 class="modal-title">Loading...</h4>
 			</div>
@@ -190,7 +190,7 @@ function getReport() {
              }
          } else {
              document.getElementById("cmdSaveReport").style.display='none';
-             alert("No data.");
+             alertfiy.alert("No data.");
          }
      }
  }).fail(

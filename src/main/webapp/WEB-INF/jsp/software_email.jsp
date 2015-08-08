@@ -57,13 +57,13 @@
 						data : data,
 						statusCode : {
 							200 : function() {
-								alert("Succesfully send");
+								alertify.alert("Succesfully send");
 							},
 							404 : function() {
-								alert("Not found");
+								alertify.alert("Not found");
 							},
 							400 : function() {
-								alert("Bad Request");
+								alertify.alert("Bad Request");
 							}
 						}
 					});

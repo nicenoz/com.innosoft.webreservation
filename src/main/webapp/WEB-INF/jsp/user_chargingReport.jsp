@@ -15,31 +15,31 @@
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
 			<div class="input-group">
-			  <span class="input-group-addon" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="modal-custom-input"></div>
+			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
+			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom"></div>
 			  <input class="form-control" id="SEARCH_REPORT_FROM_DATE_DATA" type="hidden" />
 			</div>
 			</div>
 			
 			<div class="col-lg-3">
 			<div class="input-group">
-			  <span class="input-group-addon" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="modal-custom-input"></div>
+			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
+			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom"></div>
 				<input class="form-control" id="SEARCH_REPORT_TO_DATE_DATA" type="hidden" />
 			</div>
 			</div>
 			
 					
 			<div class="col-lg-6">
-				<button id="cmdAddReport" type="submit" class="btn btn-primary pull-right btn-form-custom btn-form-custom-2" onclick="cmdChargeAdd_OnClick()">Add</button>
+				<button id="cmdAddReport" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdChargeAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row table-form-custom">
-			<div class="col-lg-12 table-form-custom">
-				<div id="ReportGrid" class="grid table-form-custom"></div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="ReportGrid" class="grid border-custom"></div>
 			</div>
 		</div>
 
@@ -48,17 +48,17 @@
 		<!-- Table Navigation -->
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>

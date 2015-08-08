@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.TrnReservation;
 import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SecurityService;
