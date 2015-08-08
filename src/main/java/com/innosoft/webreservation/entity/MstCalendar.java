@@ -143,6 +143,14 @@ public class MstCalendar {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CLDR_CREATED_BY_USER;
+	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CLDR_UPDATED_BY_USER;	
+	
 	public MstSecurityUser getCLDR_CREATED_BY_USER() {
 		return CLDR_CREATED_BY_USER;
 	}
@@ -151,8 +159,12 @@ public class MstCalendar {
 		CLDR_CREATED_BY_USER = cLDR_CREATED_BY_USER;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CLDR_CREATED_BY_USER;
+	public MstSecurityUser getCLDR_UPDATED_BY_USER() {
+		return CLDR_UPDATED_BY_USER;
+	}
+
+	public void setCLDR_UPDATED_BY_USER(MstSecurityUser cLDR_UPDATED_BY_USER) {
+		CLDR_UPDATED_BY_USER = cLDR_UPDATED_BY_USER;
+	}	
 
 }

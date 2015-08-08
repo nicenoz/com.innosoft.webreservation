@@ -72,7 +72,7 @@ public class TrnSendLog {
 		SLOG_PURPOSE_DIVISION = sLOG_PURPOSE_DIVISION;
 	}
 	
-	@ManyToOne
+/*	@ManyToOne
 	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
 	public MstSecurityUser SLOG_CREATED_BY_USER;
 
@@ -82,6 +82,6 @@ public class TrnSendLog {
 
 	public void setSLOG_CREATED_BY_USER(MstSecurityUser sLOG_CREATED_BY_USER) {
 		SLOG_CREATED_BY_USER = sLOG_CREATED_BY_USER;
-	}
+	}*/
 
 }

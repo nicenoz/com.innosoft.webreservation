@@ -219,4 +219,15 @@ public class MstCustomer {
 		CUST_CREATED_BY_USER = cUST_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUST_UPDATED_BY_USER;
+
+	public MstSecurityUser getCUST_UPDATED_BY_USER() {
+		return CUST_UPDATED_BY_USER;
+	}
+
+	public void setCUST_UPDATED_BY_USER(MstSecurityUser cUST_UPDATED_BY_USER) {
+		CUST_UPDATED_BY_USER = cUST_UPDATED_BY_USER;
+	}	
 }

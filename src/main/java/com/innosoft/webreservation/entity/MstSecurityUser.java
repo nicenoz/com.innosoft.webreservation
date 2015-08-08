@@ -49,6 +49,8 @@ public class MstSecurityUser {
 	@Column(name="USER_PASSWORD")
 	public String USER_PASSWORD;	
 	
+	// Created By:
+	
 	@OneToMany(mappedBy="MESG_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<MstMessage> MESG_CREATED_BY_USER = new LinkedHashSet<MstMessage>();
 	
@@ -73,16 +75,43 @@ public class MstSecurityUser {
 	@OneToMany(mappedBy="CTIM_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<MstCustomerTime> CTIM_CREATED_BY_USER = new LinkedHashSet<MstCustomerTime>();
 	
-	@OneToMany(mappedBy="ALOG_CREATED_BY_USER",fetch=FetchType.EAGER)
-	private Collection<TrnAccessLog> ALOG_CREATED_BY_USER = new LinkedHashSet<TrnAccessLog>();
-	
 	@OneToMany(mappedBy="CUNT_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<TrnChargeCount> CUNT_CREATED_BY_USER = new LinkedHashSet<TrnChargeCount>();
 	
 	@OneToMany(mappedBy="RESV_CREATED_BY_USER",fetch=FetchType.EAGER)
 	private Collection<TrnReservation> RESV_CREATED_BY_USER = new LinkedHashSet<TrnReservation>();
 	
-	@OneToMany(mappedBy="SLOG_CREATED_BY_USER",fetch=FetchType.EAGER)
-	private Collection<TrnSendLog> SLOG_CREATED_BY_USER = new LinkedHashSet<TrnSendLog>();
+	// Updated By:
+	
+	@OneToMany(mappedBy="MESG_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstMessage> MESG_UPDATED_BY_USER = new LinkedHashSet<MstMessage>();
+	
+	@OneToMany(mappedBy="CLDR_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCalendar> CLDR_UPDATED_BY_USER = new LinkedHashSet<MstCalendar>();	
+	
+	@OneToMany(mappedBy="CACT_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCalendarActivity> CACT_UPDATED_BY_USER = new LinkedHashSet<MstCalendarActivity>();
+	
+	@OneToMany(mappedBy="CHRG_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCharge> CHRG_UPDATED_BY_USER = new LinkedHashSet<MstCharge>();
+	
+	@OneToMany(mappedBy="CODE_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCode> CODE_UPDATED_BY_USER = new LinkedHashSet<MstCode>();
+	
+	@OneToMany(mappedBy="CUST_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCustomer> CUST_UPDATED_BY_USER = new LinkedHashSet<MstCustomer>();
+	
+	@OneToMany(mappedBy="MEBR_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCustomerMember> MEBR_UPDATED_BY_USER = new LinkedHashSet<MstCustomerMember>();
+	
+	@OneToMany(mappedBy="CTIM_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<MstCustomerTime> CTIM_UPDATED_BY_USER = new LinkedHashSet<MstCustomerTime>();
+	
+	@OneToMany(mappedBy="CUNT_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<TrnChargeCount> CUNT_UPDATED_BY_USER = new LinkedHashSet<TrnChargeCount>();
+	
+	@OneToMany(mappedBy="RESV_UPDATED_BY_USER",fetch=FetchType.EAGER)
+	private Collection<TrnReservation> RESV_UPDATED_BY_USER = new LinkedHashSet<TrnReservation>();
+	
 	
 }

@@ -183,5 +183,17 @@ public class TrnReservation {
 		RESV_CREATED_BY_USER = rESV_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser RESV_UPDATED_BY_USER;
+
+	public MstSecurityUser getRESV_UPDATED_BY_USER() {
+		return RESV_UPDATED_BY_USER;
+	}
+
+	public void setRESV_UPDATED_BY_USER(MstSecurityUser rESV_UPDATED_BY_USER) {
+		RESV_UPDATED_BY_USER = rESV_UPDATED_BY_USER;
+	}	
+	
 
 }

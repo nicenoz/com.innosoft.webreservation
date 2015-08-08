@@ -162,5 +162,16 @@ public class TrnChargeCount {
 		CUNT_CREATED_BY_USER = cUNT_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUNT_UPDATED_BY_USER;
+
+	public MstSecurityUser getCUNT_UPDATED_BY_USER() {
+		return CUNT_UPDATED_BY_USER;
+	}
+
+	public void setCUNT_UPDATED_BY_USER(MstSecurityUser cUNT_UPDATED_BY_USER) {
+		CUNT_UPDATED_BY_USER = cUNT_UPDATED_BY_USER;
+	}	
 
 }

@@ -174,4 +174,16 @@ public class MstCustomerTime {
 		CTIM_CREATED_BY_USER = cTIM_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CTIM_UPDATED_BY_USER;
+
+	public MstSecurityUser getCTIM_UPDATED_BY_USER() {
+		return CTIM_UPDATED_BY_USER;
+	}
+
+	public void setCTIM_UPDATED_BY_USER(MstSecurityUser cTIM_UPDATED_BY_USER) {
+		CTIM_UPDATED_BY_USER = cTIM_UPDATED_BY_USER;
+	}	
+	
 }

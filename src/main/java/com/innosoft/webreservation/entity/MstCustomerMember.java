@@ -235,4 +235,14 @@ public class MstCustomerMember {
 		MEBR_CREATED_BY_USER = mEBR_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_UPDATED_BY_USER;
+
+	public MstSecurityUser getMEBR_UPDATED_BY_USER() {
+		return MEBR_UPDATED_BY_USER;
+	}
+	public void setMEBR_UPDATED_BY_USER(MstSecurityUser mEBR_UPDATED_BY_USER) {
+		MEBR_UPDATED_BY_USER = mEBR_UPDATED_BY_USER;
+	}	
 }

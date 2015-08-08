@@ -84,7 +84,7 @@ public class TrnAccessLog {
 		ALOG_ACCESS_DATE = aLOG_ACCESS_DATE;
 	}
 	
-	@ManyToOne
+/*	@ManyToOne
 	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
 	public MstSecurityUser ALOG_CREATED_BY_USER;
 
@@ -95,6 +95,6 @@ public class TrnAccessLog {
 
 	public void setALOG_CREATED_BY_USER(MstSecurityUser aLOG_CREATED_BY_USER) {
 		ALOG_CREATED_BY_USER = aLOG_CREATED_BY_USER;
-	}
+	}*/
 	
 }

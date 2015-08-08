@@ -176,4 +176,17 @@ public class MstCode {
 		CODE_CREATED_BY_USER = cODE_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CODE_UPDATED_BY_USER;
+
+
+	public MstSecurityUser getCODE_UPDATED_BY_USER() {
+		return CODE_UPDATED_BY_USER;
+	}
+
+	public void setCODE_UPDATED_BY_USER(MstSecurityUser cODE_UPDATED_BY_USER) {
+		CODE_UPDATED_BY_USER = cODE_UPDATED_BY_USER;
+	}	
+	
 }

@@ -164,5 +164,15 @@ public class MstCalendarActivity {
 		CACT_CREATED_BY_USER = cACT_CREATED_BY_USER;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CACT_UPDATED_BY_USER;
+
+	public MstSecurityUser getCACT_UPDATED_BY_USER() {
+		return CACT_UPDATED_BY_USER;
+	}
+	public void setCACT_UPDATED_BY_USER(MstSecurityUser cACT_UPDATED_BY_USER) {
+		CACT_UPDATED_BY_USER = cACT_UPDATED_BY_USER;
+	}	
 
 }

@@ -149,4 +149,16 @@ public class MstMessage {
 	public void setCREATED_BY_USER(MstSecurityUser cREATED_BY_USER) {
 		MESG_CREATED_BY_USER = cREATED_BY_USER;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MESG_UPDATED_BY_USER;
+
+	public MstSecurityUser getUPDATED_BY_USER() {
+		return MESG_UPDATED_BY_USER;
+	}
+
+	public void setUPDATED_BY_USER(MstSecurityUser cREATED_BY_USER) {
+		MESG_UPDATED_BY_USER = cREATED_BY_USER;
+	}	
 }

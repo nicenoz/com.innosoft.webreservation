@@ -189,4 +189,16 @@ public class MstCharge {
 		CHRG_CREATED_BY_USER = cHRG_CREATED_BY_USER;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CHRG_UPDATED_BY_USER;
+
+	public MstSecurityUser getCHRG_UPDATED_BY_USER() {
+		return CHRG_UPDATED_BY_USER;
+	}
+
+	public void setCHRG_UPDATED_BY_USER(MstSecurityUser cHRG_UPDATED_BY_USER) {
+		CHRG_UPDATED_BY_USER = cHRG_UPDATED_BY_USER;
+	}	
+	
 }
