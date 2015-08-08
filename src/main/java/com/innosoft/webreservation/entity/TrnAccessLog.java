@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -80,6 +82,19 @@ public class TrnAccessLog {
 
 	public void setALOG_ACCESS_DATE(Date aLOG_ACCESS_DATE) {
 		ALOG_ACCESS_DATE = aLOG_ACCESS_DATE;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser ALOG_CREATED_BY_USER;
+
+
+	public MstSecurityUser getALOG_CREATED_BY_USER() {
+		return ALOG_CREATED_BY_USER;
+	}
+
+	public void setALOG_CREATED_BY_USER(MstSecurityUser aLOG_CREATED_BY_USER) {
+		ALOG_CREATED_BY_USER = aLOG_CREATED_BY_USER;
 	}
 	
 }

@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -172,6 +174,19 @@ public class MstCharge {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CHRG_CREATED_BY_USER;
+
+
+	public MstSecurityUser getCHRG_CREATED_BY_USER() {
+		return CHRG_CREATED_BY_USER;
+	}
+
+	public void setCHRG_CREATED_BY_USER(MstSecurityUser cHRG_CREATED_BY_USER) {
+		CHRG_CREATED_BY_USER = cHRG_CREATED_BY_USER;
 	}
 	
 }

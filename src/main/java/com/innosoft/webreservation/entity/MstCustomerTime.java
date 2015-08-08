@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -158,6 +160,18 @@ public class MstCustomerTime {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CTIM_CREATED_BY_USER;
+
+	public MstSecurityUser getCTIM_CREATED_BY_USER() {
+		return CTIM_CREATED_BY_USER;
+	}
+
+	public void setCTIM_CREATED_BY_USER(MstSecurityUser cTIM_CREATED_BY_USER) {
+		CTIM_CREATED_BY_USER = cTIM_CREATED_BY_USER;
 	}
 	
 }

@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -150,4 +152,17 @@ public class MstCalendarActivity {
 	public Date ISDELETED_DATE;
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)	
 	public Integer ISDELETED_BY_USER_ID;
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CACT_CREATED_BY_USER;
+
+	public MstSecurityUser getCACT_CREATED_BY_USER() {
+		return CACT_CREATED_BY_USER;
+	}
+	public void setCACT_CREATED_BY_USER(MstSecurityUser cACT_CREATED_BY_USER) {
+		CACT_CREATED_BY_USER = cACT_CREATED_BY_USER;
+	}
+
+
 }

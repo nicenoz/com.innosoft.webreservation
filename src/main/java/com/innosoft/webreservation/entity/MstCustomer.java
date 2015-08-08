@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -205,4 +207,16 @@ public class MstCustomer {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUST_CREATED_BY_USER;
+
+	public MstSecurityUser getCUST_CREATED_BY_USER() {
+		return CUST_CREATED_BY_USER;
+	}
+
+	public void setCUST_CREATED_BY_USER(MstSecurityUser cUST_CREATED_BY_USER) {
+		CUST_CREATED_BY_USER = cUST_CREATED_BY_USER;
+	}
+	
 }

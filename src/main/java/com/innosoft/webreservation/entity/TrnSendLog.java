@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -68,6 +70,18 @@ public class TrnSendLog {
 
 	public void setSLOG_PURPOSE_DIVISION(String sLOG_PURPOSE_DIVISION) {
 		SLOG_PURPOSE_DIVISION = sLOG_PURPOSE_DIVISION;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser SLOG_CREATED_BY_USER;
+
+	public MstSecurityUser getSLOG_CREATED_BY_USER() {
+		return SLOG_CREATED_BY_USER;
+	}
+
+	public void setSLOG_CREATED_BY_USER(MstSecurityUser sLOG_CREATED_BY_USER) {
+		SLOG_CREATED_BY_USER = sLOG_CREATED_BY_USER;
 	}
 
 }

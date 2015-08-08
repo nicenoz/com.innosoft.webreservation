@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -221,4 +223,16 @@ public class MstCustomerMember {
 	public Date ISDELETED_DATE;
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)	
 	public Integer ISDELETED_BY_USER_ID;
+	
+	@ManyToOne
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_CREATED_BY_USER;
+
+	public MstSecurityUser getMEBR_CREATED_BY_USER() {
+		return MEBR_CREATED_BY_USER;
+	}
+	public void setMEBR_CREATED_BY_USER(MstSecurityUser mEBR_CREATED_BY_USER) {
+		MEBR_CREATED_BY_USER = mEBR_CREATED_BY_USER;
+	}
+	
 }
