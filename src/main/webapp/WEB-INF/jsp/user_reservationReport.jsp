@@ -7,7 +7,7 @@
 	<section id="list">
 		<div class="row">
 			<div class="col-lg-12">
-				<h4>User Report</h4>
+				<h4>Reservation Report</h4>
 			</div>
 		</div>
 		<div class="row">
@@ -16,14 +16,14 @@
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom"></div>
+			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
 			
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom"></div>
+			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
 	

@@ -16,19 +16,18 @@
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom"></div>
+			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
 			  <input class="form-control" id="SEARCH_REPORT_FROM_DATE_DATA" type="hidden" />
 			</div>
 			</div>
 			
 			<div class="col-lg-3">
 			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom"></div>
+			  <span class="input-group-addon border-custom" id="sizing-addon3">To</span>
+			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
 				<input class="form-control" id="SEARCH_REPORT_TO_DATE_DATA" type="hidden" />
 			</div>
 			</div>
-			
 					
 			<div class="col-lg-6">
 				<button id="cmdAddReport" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdChargeAdd_OnClick()">Add</button>

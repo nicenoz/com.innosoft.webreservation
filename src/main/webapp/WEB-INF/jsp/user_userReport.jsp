@@ -16,23 +16,20 @@
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom"></div>
+			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
 			
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom"></div>
+			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
 			
-					
-			<div class="col-lg-6b tn-toolbar pull-right">
-				<div class='btn-group'">
-					<button id="cmdSaveReport" style="margin-right: 5px; display:none;" type="submit" class="btn btn-success border-custom" onclick="cmdSaveReport_OnClick()">Save</button>
-					<button id="cmdGenerateReport" style="margin-left: 5px; margin-right: 20px;" type="submit" class="btn btn-primary border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				</div>
+			<div class="col-lg-6">
+				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom hidden modal fade" onclick="cmdSaveReport_OnClick()">Save</button>
+				<button id="cmdGenerateReport" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
 			</div>
 		</div>
 		<br />
