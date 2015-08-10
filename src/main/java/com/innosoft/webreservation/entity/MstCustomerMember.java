@@ -1,6 +1,8 @@
 package com.innosoft.webreservation.entity;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="WR_CUSTOMER_MEMBER")
@@ -248,4 +254,8 @@ public class MstCustomerMember {
 	public void setMEBR_UPDATED_BY_USER(MstSecurityUser mEBR_UPDATED_BY_USER) {
 		MEBR_UPDATED_BY_USER = mEBR_UPDATED_BY_USER;
 	}	
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="RESV_MEMBER")
+	private Collection<TrnReservation> RESV_MEMBER = new LinkedHashSet<TrnReservation>();
 }

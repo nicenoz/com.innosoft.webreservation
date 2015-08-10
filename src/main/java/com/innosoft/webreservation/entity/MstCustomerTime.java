@@ -21,19 +21,19 @@ public class MstCustomerTime {
 	public Integer CTIM_ID;
 	
 	@Column(name="CTIM_CUST_ID")	
-	public Integer	  CTIM_CUST_ID;
+	public Integer CTIM_CUST_ID;
 	
 	@Column(name="CTIM_DETAILS_NO")	
-	public Integer	  CTIM_DETAILS_NO; 
+	public Integer CTIM_DETAILS_NO; 
 	
 	@Column(name="CTIM_INTERVAL_OF_TIMES")	
-	public Integer	  CTIM_INTERVAL_OF_TIMES;
+	public Integer CTIM_INTERVAL_OF_TIMES;
 	
 	@Column(name="CTIM_MAX_UNIT_NO")	
-	public Integer	  CTIM_MAX_UNIT_NO;
+	public Integer CTIM_MAX_UNIT_NO;
 	
 	@Column(name="CTIM_MAX_PARTS_NO")	
-	public Integer	  CTIM_MAX_PARTS_NO;
+	public Integer CTIM_MAX_PARTS_NO;
 				
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;

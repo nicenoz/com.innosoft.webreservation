@@ -164,7 +164,7 @@ function getReport() {
          if (Results.length > 0) {
              for (i = 0; i < Results.length; i++) {
                  reports.push({
-                	 RESV_MEMBERNAME: Results[i]["resv_MEBR_ID"] + ", " + Results[i]["resv_MEBR_ID"],
+                	 RESV_MEMBERNAME: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
                      RESV_PARTSNAME: Results[i]["resv_PARTS_NAME"],
                      RESV_STARTTIME: Results[i]["resv_START_TIME_ID"],
                      RESV_ENDTIME: Results[i]["resv_END_TIME_ID"],

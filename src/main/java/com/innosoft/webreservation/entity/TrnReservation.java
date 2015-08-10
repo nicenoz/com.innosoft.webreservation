@@ -193,7 +193,20 @@ public class TrnReservation {
 
 	public void setRESV_UPDATED_BY_USER(MstSecurityUser rESV_UPDATED_BY_USER) {
 		RESV_UPDATED_BY_USER = rESV_UPDATED_BY_USER;
-	}	
+	}
+	
+	
+	@ManyToOne
+	@JoinColumn(name="RESV_MEBR_ID", insertable=false, updatable=false)
+	public MstCustomerMember RESV_MEMBER;
+	
+	public MstCustomerMember getRESV_MEMBER() {
+		return RESV_MEMBER;
+	}
+
+	public void setCUST_CREATED_BY_USER(MstCustomerMember rESV_MEMBER) {
+		RESV_MEMBER = rESV_MEMBER;
+	}
 	
 
 }
