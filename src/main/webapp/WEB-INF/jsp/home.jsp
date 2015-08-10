@@ -29,7 +29,7 @@
                 <div class="clearfix"></div>
                 <h2 class="section-heading">Web Reservation</h2>
                 <p class="lead">A Web Reservation System - Innosoft trial software manufacture.</p>
-                <a href="software/" class="btn btn-primary btn-lg btn-form-custom"><span class="network-name">Launch Software</span></a>
+                <a href="software/" class="btn btn-primary btn-lg border-custom"><span class="network-name">Launch Software</span></a>
             </div>
             <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                 <img class="img-responsive" src="<c:url value='/img/ipad.png'/>" alt="">

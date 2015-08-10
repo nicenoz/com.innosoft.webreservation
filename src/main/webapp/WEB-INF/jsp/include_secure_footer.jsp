@@ -20,10 +20,10 @@
           		<p class="footer-details-style">Current Customer: <span class="footer-data-style"> Firstname Familyname </span></p>
             </div>
             <div class="col-sm-6">
-          		<p class="footer-details-style">Created by: <span class="footer-data-style" id="EDIT_CREATED_BY" name="EDIT_CREATED_BY"></span></p>
-          		<p class="footer-details-style">Create Date: <span class="footer-data-style" id="EDIT_CREATE_DATE" name="EDIT_CREATED_DATE"> </span></p>
-          		<p class="footer-details-style">Updated by:  <span class="footer-data-style" id="EDIT_UPDATED_BY" name="EDIT_UPDATED_BY"> </span></p>
-          		<p class="footer-details-style">Update Date: <span class="footer-data-style" id="EDIT_UPDATE_DATE" name="EDIT_UPDATE_DATE"> </span></p>
+          		<p class="footer-details-style">Created by: <span class="footer-data-style" id="EDIT_CREATED_BY"></span></p>
+          		<p class="footer-details-style">Create Date: <span class="footer-data-style" id="EDIT_CREATE_DATE"></span></p>
+          		<p class="footer-details-style">Updated by:  <span class="footer-data-style" id="EDIT_UPDATED_BY"></span></p>
+          		<p class="footer-details-style">Update Date: <span class="footer-data-style" id="EDIT_UPDATE_DATE"></span></p>
             </div>
         </div>     
     </div>

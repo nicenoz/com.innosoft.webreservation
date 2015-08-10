@@ -4,60 +4,58 @@
 
 <!-- Charge List -->
 <div class="container">
-	<section id="chargeList">
+	<section id="chargeList">	
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Charge List</h4>
 			</div>
-		</div>
+		</div>		
 		<div class="row">
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
 					</span> 
-					<input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
+					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Charge No.">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddCharge" type="submit" class="btn btn-primary pull-right btn-form-custom btn-form-custom-2" onclick="cmdChargeAdd_OnClick()">Add</button>
+				<button id="cmdAddCharge" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdChargeAdd_OnClick()">Add</button>
 			</div>
-		</div>
-		<br />
-		<div class="row table-form-custom">
-			<div class="col-lg-12 table-form-custom">
-				<div id="ChargeGrid" class="grid table-form-custom"></div>
-			</div>
-		</div>
-
-		<br />
-	
+		</div>		
+		<br />		
 		<div class="row">
-			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
-					<span class="glyphicon glyphicon-fast-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
-					<span class="glyphicon glyphicon-step-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
-					<span class="glyphicon glyphicon-step-forward"></span>
-				</button>
-				<button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
-					<span class="glyphicon glyphicon-fast-forward"></span>
-				</button>
+			<div class="col-lg-12">
+				<div id="ChargeGrid" class="grid border-custom"></div>
 			</div>
 		</div>
+		<br />	
+		<div class="row">
+		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
+		            <span class="glyphicon glyphicon-fast-backward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
+		            <span class="glyphicon glyphicon-step-backward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
+		            <span class="glyphicon glyphicon-step-forward"></span>
+		        </button>
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
+		            <span class="glyphicon glyphicon-fast-forward"></span>
+		        </button>
+		    </div>
+		</div>	
 	</section>
 </div>
 
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
-		<div class="modal-content">
+		<div class="modal-content border-custom">
 			<div class="modal-header">
 				<h4 class="modal-title">Loading...</h4>
 			</div>
@@ -71,54 +69,54 @@
 <!-- Charge Edit Detail -->
 <div class="modal fade" id="ChargeEdit">
 	<div class="modal-dialog">
-		<div class="modal-content modal-custom">
+		<div class="modal-content border-custom">	
 			<div class="modal-header">
 				<button type="button" class="close" aria-hidden="true">
 					&times;</button>
 				<h4 class="modal-title">Charge Edit</h4>
-			</div>
+			</div>		
 			<div class="modal-body">
-				<form id="chargeForm" class="modal-form-custom">
+				<form id="chargeForm">
 					<dl class="dl-horizontal">
-						<dt>Charge No</dt>
+						<dt>Charge No: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CHRG_ID" type="hidden" />
-							<input class="form-control modal-custom-input" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" required />
+							<input id="EDIT_CHRG_ID" type="hidden" />
+							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" required />
 						</dd>
 				
-						<dt>Cust ID</dt>
+						<dt>Customer ID: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CHRG_CUST_ID" name="EDIT_CHRG_CUST_ID" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CHRG_CUST_ID" name="EDIT_CHRG_CUST_ID" type="text" required />
 						</dd>
-						<dt>Charge Price</dt>
+						<dt>Charge Price: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CHRG_PRICE" name="EDIT_CHRG_PRICE" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CHRG_PRICE" name="EDIT_CHRG_PRICE" type="text" required />
 						</dd>
-						<dt>App Division</dt>
+						<dt>App Division: </dt>
 						<dd>
-							<input class="form-control modal-custom-input" id="EDIT_CHRG_APP_DIVISION" name="EDIT_CHRG_APP_DIVISION" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CHRG_APP_DIVISION" name="EDIT_CHRG_APP_DIVISION" type="text" required />
 						</dd>
-						<dt>Start Date</dt>
+						<dt>Start Date: </dt>
 						<dd>
-							<div id="EDIT_CHRG_APP_START_DATE" class="form-control modal-custom-input"></div>
-							<input class="form-control" id="EDIT_CHRG_APP_START_DATE_DATA" type="hidden" />
+							<div id="EDIT_CHRG_APP_START_DATE" class="form-control border-custom"></div>
+							<input id="EDIT_CHRG_APP_START_DATE_DATA" type="hidden" />
 						</dd>
-						<dt>End Date</dt>
+						<dt>End Date: </dt>
 						<dd>
-							<div id="EDIT_CHRG_APP_END_DATE" class="form-control modal-custom-input"></div>
-							<input class="form-control" id="EDIT_CHRG_APP_END_DATE_DATA" type="hidden" />
+							<div id="EDIT_CHRG_APP_END_DATE" class="form-control border-custom"></div>
+							<input id="EDIT_CHRG_APP_END_DATE_DATA" type="hidden" />
 						</dd>
 					</dl>
 				</form>
-			</div>
-			<div class="modal-footer modal-footer-custom">
-				<button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2" id="cmdChargeEditOk" onclick="cmdChargeEditOk_OnClick()">
+			</div>	
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary border-custom" id="cmdChargeEditOk" onclick="cmdChargeEditOk_OnClick()">
 					Ok
 				</button>
-				<button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="cmdChargeEditCancel" onclick="cmdChargeEditCancel_OnClick()">
+				<button type="button" class="btn btn-danger border-custom" id="cmdChargeEditCancel" onclick="cmdChargeEditCancel_OnClick()">
 					Cancel
 				</button>
-			</div>
+			</div>	
 		</div>
 	</div>
 </div>
@@ -142,7 +140,7 @@ var btnCurrentPageGrid;
 // ===================
 // Edit Button Clicked
 // ===================
-function cmdChargeEdit_OnClick() {
+function cmdChargeEdit_OnClick() {	
     charges.editItem(charges.currentItem);
 
     $('#ChargeEdit').modal({
@@ -150,7 +148,7 @@ function cmdChargeEdit_OnClick() {
         backdrop: false
     });
 
-    var charge = charges.currentEditItem;
+    var charge = charges.currentEditItem;   
     document.getElementById('EDIT_CHRG_ID').value = charge.CHRG_ID !== null && typeof (charge.CHRG_ID) != 'undefined' ? wijmo.Globalize.format(charge.CHRG_ID) : '';
     document.getElementById('EDIT_CHRG_CHARGE_NO').value = charge.CHRG_CHARGE_NO ? charge.CHRG_CHARGE_NO : '';
     document.getElementById('EDIT_CHRG_CUST_ID').value = charge.CHRG_CUST_ID ? charge.CHRG_CUST_ID : '';
@@ -178,20 +176,19 @@ function cmdChargeEdit_OnClick() {
         onValueChanged: function () {
             document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }
- 	});
+ 	});  
  }
     
 // ==================
 // Add Button Clicked
 // ==================   
-function cmdChargeAdd_OnClick() {
+function cmdChargeAdd_OnClick() {	
 	$('#ChargeEdit').modal({
 		show : true,
 		backdrop : false
 	});
 
 	var currentDate = new Date();
-
 	document.getElementById('EDIT_CHRG_ID').value = 0;
 	document.getElementById('EDIT_CHRG_CHARGE_NO').value = '';
 	document.getElementById('EDIT_CHRG_CUST_ID').value = '';
@@ -205,8 +202,7 @@ function cmdChargeAdd_OnClick() {
 				format : 'MM/dd/yyyy',
 				value : currentDate,
 				onValueChanged : function() {
-					document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value
-							.toString("yyyy-MM-dd");
+					document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
 				}
 			});
 	
@@ -215,22 +211,22 @@ function cmdChargeAdd_OnClick() {
 				format : 'MM/dd/yyyy',
 				value : currentDate,
 				onValueChanged : function() {
-					document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value
-							.toString("yyyy-MM-dd");
+					document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
 				}
-			});
+			});	
 }
 
 // =====================
 // Delete Button Clicked 
 // =====================   
-function cmdChargeDelete_OnClick() {
+function cmdChargeDelete_OnClick() {	
 	charges.editItem(charges.currentItem);
-
+	
 	var id = charges.currentEditItem.CHRG_ID;
-	var chargeCode = charges.currentEditItem.CHRG_CODE;
-
-	if (confirm("Delete " + chargeCode + "?") == true) {
+	var chargeNo = charges.currentEditItem.CHRG_CHARGE_NO;
+	
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> Are you sure you want to delete Charge No. " + chargeNo + "?", function (e) {
+	if (e) {
 		$.ajax({
 			type : "DELETE",
 			url : '${pageContext.request.contextPath}/api/charge/delete/'
@@ -251,23 +247,23 @@ function cmdChargeDelete_OnClick() {
 					toastr.error("Bad request");
 				}
 			}
-		});
-	}
+			});
+		}	  
+	});
 }
-	
+
 // =================================
 // Edit Detail Cancel Button Clicked 
 // =================================     
-function cmdChargeEditCancel_OnClick() {
-	$('#ChargeEdit').modal('hide');
+function cmdChargeEditCancel_OnClick() {	
+	$('#ChargeEdit').modal('hide');	
 }
 	
 // =============================
 // Edit Detail OK Button Clicked 
 // =============================     
-function cmdChargeEditOk_OnClick() {
+function cmdChargeEditOk_OnClick() {	
 	var chargeObject = new Object();
-
 	chargeObject.CHRG_ID = parseInt(document.getElementById('EDIT_CHRG_ID').value);
 	chargeObject.CHRG_CHARGE_NO = document.getElementById('EDIT_CHRG_CHARGE_NO').value;
 	chargeObject.CHRG_CUST_ID =  parseInt(document.getElementById('EDIT_CHRG_CUST_ID').value);
@@ -299,14 +295,13 @@ function cmdChargeEditOk_OnClick() {
 			}
 		}
 	});
-
 }
 
 // ================
 // Get Charges Data 
 // ================   
-function getCharges() {
-	var charges = new wijmo.collections.ObservableArray();
+function getCharges() {	
+	var charges = new wijmo.collections.ObservableArray();	
 	$('#loading').modal('show');
 	$.ajax({
 				url : '${pageContext.request.contextPath}/api/charge/list',
@@ -320,8 +315,8 @@ function getCharges() {
 						for (i = 0; i < Results.length; i++) {
 							charges
 									.push({
-										EditId : "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdChargeEdit_OnClick()'>Edit</button>",
-										DeleteId : "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdChargeDelete_OnClick()'>Delete</button>",
+										EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdChargeEdit_OnClick()'>Edit</button>",
+										DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdChargeDelete_OnClick()'>Delete</button>",
 										CHRG_ID : Results[i]["chrg_ID"],
 										CHRG_CUST_ID : Results[i]["chrg_CUST_ID"],
 										CHRG_CHARGE_NO : Results[i]["chrg_CHARGE_NO"],
@@ -336,7 +331,9 @@ function getCharges() {
 				                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
 				                        ISDELETED: Results[i]["isdeleted"],
 				                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-				                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+				                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
+				                        CHRG_CREATED_BY_USER: Results[i]["CHRG_CREATED_BY_USER"],
+				                        CHRG_UPDATED_BY_USER: Results[i]["CHRG_UPDATED_BY_USER"]
 									});
 						}
 					} else {
@@ -346,53 +343,56 @@ function getCharges() {
 			}).fail(function(xhr, textStatus, err) {
 				alert(err);
 			});
-	return charges;
+	
+	return charges;	
 }
 
-// ==================
-// Navigation Buttons 
-// ==================   
-function updateNavigateButtonsCharge() {
+//==================
+//Navigation Buttons
+//==================   
+function updateNavigateButtonsCode() {	
 	if (charges.pageSize <= 0) {
-		document.getElementById('naviagtionPageGrid').style.display = 'none';
-		return;
+	    document.getElementById('naviagtionPageGrid').style.display = 'none';
+	    return;
 	}
 	document.getElementById('naviagtionPageGrid').style.display = 'block';
 	if (charges.pageIndex === 0) {
-		btnFirstPageGrid.setAttribute('disabled', 'disabled');
-		btnPreviousPageGrid.setAttribute('disabled', 'disabled');
-		btnNextPageGrid.removeAttribute('disabled');
-		btnLastPageGrid.removeAttribute('disabled');
-	} else if (charges.pageIndex === (charges.pageCount - 1)) {
-		btnFirstPageGrid.removeAttribute('disabled');
-		btnPreviousPageGrid.removeAttribute('disabled');
-		btnLastPageGrid.setAttribute('disabled', 'disabled');
-		btnNextPageGrid.setAttribute('disabled', 'disabled');
-	} else {
-		btnFirstPageGrid.removeAttribute('disabled');
-		btnPreviousPageGrid.removeAttribute('disabled');
-		btnNextPageGrid.removeAttribute('disabled');
-		btnLastPageGrid.removeAttribute('disabled');
+	    btnFirstPageGrid.setAttribute('disabled', 'disabled');
+	    btnPreviousPageGrid.setAttribute('disabled', 'disabled');
+	    btnNextPageGrid.removeAttribute('disabled');
+	    btnLastPageGrid.removeAttribute('disabled');
 	}
-	btnCurrentPageGrid.innerHTML = (charges.pageIndex + 1) + ' / '
-			+ charges.pageCount;
-}
+	else if (charges.pageIndex === (charges.pageCount - 1)) {
+	    btnFirstPageGrid.removeAttribute('disabled');
+	    btnPreviousPageGrid.removeAttribute('disabled');
+	    btnLastPageGrid.setAttribute('disabled', 'disabled');
+	    btnNextPageGrid.setAttribute('disabled', 'disabled');
+	}
+	else {
+	    btnFirstPageGrid.removeAttribute('disabled');
+	    btnPreviousPageGrid.removeAttribute('disabled');
+	    btnNextPageGrid.removeAttribute('disabled');
+	    btnLastPageGrid.removeAttribute('disabled');
+	}
+	btnCurrentPageGrid.innerHTML = (charges.pageIndex + 1) + ' / ' + charges.pageCount;
+} 
 
 //===================
 //FlexGrid Selection
 //=================== 
-function updateDetails() {
+function updateDetails() {	
 	var item = charges.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CREATED_BY_USER_ID;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CHRG_CREATED_BY_USER.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.UPDATED_BY_USER_ID;
-	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CHRG_UPDATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;	
 }
 
 // =====================
 // Detail Edit Validator
 // =====================     
 function FormValidate() {
+	
 	var validator = $('form').validate({
 		submitHandler : function(form) {
 			form.submit();
@@ -401,6 +401,7 @@ function FormValidate() {
 	var x = validator.form();
 	console.log(x);
 	return x;
+	
 }
 
 // ==============================
@@ -453,6 +454,7 @@ $(document).ready(function(){
 		$('form')[0].reset();
 		$('#ChargeEdit').modal('hide');
 	});
+	
 	$('.close-btn').hide();
 
 	// Collection View
@@ -461,6 +463,7 @@ $(document).ready(function(){
 	charges.pageSize = 15;
 
     var filterText = '';
+    
 	$('#InputFilter').keyup(function () {
 	    filterText = this.value.toLowerCase();
 	    charges.refresh();
@@ -480,49 +483,58 @@ $(document).ready(function(){
 	// Flex Grid
 	chargeGrid = new wijmo.grid.FlexGrid('#ChargeGrid');
 	chargeGrid.initialize({
-		columns : [ {
-			"header" : "Edit",
-			"binding" : "EditId",
-			"width" : 60,
-			"allowSorting" : false,
-			"isContentHtml" : true
-		}, {
-			"header" : "Delete",
-			"binding" : "DeleteId",
-			"width" : 60,
-			"allowSorting" : false,
-			"isContentHtml" : true
-		}, {
-			"header" : "Charge no.",
-			"binding" : "CHRG_CHARGE_NO",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Customer",
-			"binding" : "CHRG_CUST_ID",
-			"allowSorting" : true,
-			"width" : "6*"
-		},  {
-			"header" : "Price",
-			"binding" : "CHRG_PRICE",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "App Division",
-			"binding" : "CHRG_APP_DIVISION",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "Start Date",
-			"binding" : "CHRG_APP_START_DATE",
-			"allowSorting" : true,
-			"width" : "6*"
-		}, {
-			"header" : "End Date",
-			"binding" : "CHRG_APP_END_DATE",
-			"allowSorting" : true,
-			"width" : "6*"
-		} ],
+		columns : [
+	           		{
+						"header" : "Edit",
+						"binding" : "EditId",
+						"width" : 60,
+						"allowSorting" : false,
+						"isContentHtml" : true
+					},
+					{
+						"header" : "Delete",
+						"binding" : "DeleteId",
+						"width" : 60,
+						"allowSorting" : false,
+						"isContentHtml" : true
+					},
+					{
+						"header" : "Charge No",
+						"binding" : "CHRG_CHARGE_NO",
+						"allowSorting" : true,
+						"width" : "6*"
+					},
+					{
+						"header" : "Customer ID",
+						"binding" : "CHRG_CUST_ID",
+						"allowSorting" : true,
+						"width" : "6*"
+					},
+					{
+						"header" : "Price",
+						"binding" : "CHRG_PRICE",
+						"allowSorting" : true,
+						"width" : "6*"
+					},
+					{
+						"header" : "App Division",
+						"binding" : "CHRG_APP_DIVISION",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "Start Date",
+						"binding" : "CHRG_APP_START_DATE",
+						"allowSorting" : true,
+						"width" : "6*"
+					}, 
+					{
+						"header" : "End Date",
+						"binding" : "CHRG_APP_END_DATE",
+						"allowSorting" : true,
+						"width" : "6*"
+					}
+			],
 		autoGenerateColumns : false,
 		itemsSource : charges,
 		isReadOnly : true,
@@ -532,16 +544,11 @@ $(document).ready(function(){
 	chargeGrid.trackChanges = true;
 
 	// Navigation button
-	btnFirstPageGrid = document
-			.getElementById('btnMoveToFirstPageGrid');
-	btnPreviousPageGrid = document
-			.getElementById('btnMoveToPreviousPageGrid');
-	btnNextPageGrid = document
-			.getElementById('btnMove ToNextPageGrid');
-	btnLastPageGrid = document
-			.getElementById('btnMoveToLastPageGrid');
-	btnCurrentPageGrid = document
-			.getElementById('btnCurrentPageGrid');
+	btnFirstPageGrid = document.getElementById('btnMoveToFirstPageGrid');
+	btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+	btnNextPageGrid = document.getElementById('btnMove ToNextPageGrid');
+	btnLastPageGrid = document.getElementById('btnMoveToLastPageGrid');
+	btnCurrentPageGrid = document.getElementById('btnCurrentPageGrid');
 
 	updateNavigateButtonsCharge();
 

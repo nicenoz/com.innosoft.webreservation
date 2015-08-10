@@ -14,39 +14,37 @@
 		    <div class="col-lg-4">
 		        <div class="input-group">
 		            <span class="input-group-btn">
-		                <button class="btn btn-default btn-extend-padding btn-form-custom" type="button" readonly>
+		                <button class="btn btn-default border-custom" type="button" readonly>
 		                	<i class="fa fa-search"></i>
 		                </button>
 		            </span>
-		            <input type="text" class="form-control input-form-custom" id="InputFilter" placeholder="Search...">
+		            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Calendar Daycode">
 		        </div>
 		    </div>
 		    <div class="col-lg-8">
-		        <button id="cmdCalendarAdd" type="submit" class="btn btn-primary pull-right btn-form-custom btn-form-custom-2" onclick="cmdCalendarAdd_OnClick()">Add</button>
+		        <button id="cmdCalendarAdd" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCalendarAdd_OnClick()">Add</button>
 		    </div>
 		</div>
 		<br />
-		<div class="row table-form-custom">
-		    <div class="col-lg-12 table-form-custom">
-		        <div id="calendarGrid" class="grid table-form-custom"></div>
+		<div class="row">
+		    <div class="col-lg-12">
+		        <div id="calendarGrid" class="grid border-custom"></div>
 		    </div>
-		</div>
-		
-		<br />
-		
+		</div>	
+		<br />	
 		<div class="row">
 		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToFirstPageGrid">
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 		            <span class="glyphicon glyphicon-fast-backward"></span>
 		        </button>
-		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToPreviousPageGrid">
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 		            <span class="glyphicon glyphicon-step-backward"></span>
 		        </button>
-		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToNextPageGrid">
+		        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 		            <span class="glyphicon glyphicon-step-forward"></span>
 		        </button>
-		        <button type="button" class="btn btn-default btn-extend-padding btn-form-custom" id="btnMoveToLastPageGrid">
+		        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 		            <span class="glyphicon glyphicon-fast-forward"></span>
 		        </button>
 		    </div>
@@ -57,7 +55,7 @@
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
     <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <h4 class="modal-title">Loading...</h4>
             </div>
@@ -71,7 +69,7 @@
 <!-- Calendar Edit Detail -->
 <div class="modal fade" id="CalendarEdit">
     <div class="modal-dialog">
-        <div class="modal-content  modal-custom">
+        <div class="modal-content border-custom">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true">
                     &times;
@@ -79,30 +77,30 @@
                 <h4 class="modal-title">Calendar Edit</h4>
             </div>
             <div class="modal-body">
-                <form id="messageForm" class="modal-form-custom">
+                <form id="messageForm">
                     <dl class="dl-horizontal">
-                        <dt>Calendar Date</dt>
+                        <dt>Calendar Date: </dt>
                         <dd>
-                        	<input class="form-control" id="EDIT_CLDR_ID" type="hidden" />
-                        	<div id="EDIT_CLDR_DATE" class="form-control modal-custom-input"></div>
-                            <input class="form-control" id="EDIT_CLDR_DATE_DATA" type="hidden" />  
+                        	<input id="EDIT_CLDR_ID" type="hidden" />
+                        	<div class="form-control border-custom" id="EDIT_CLDR_DATE"></div>
+                            <input id="EDIT_CLDR_DATE_DATA" type="hidden" />  
                         </dd>
-                        <dt>Calendar Daycode</dt>
+                        <dt>Calendar Daycode: </dt>
                         <dd>
-                            <input class="form-control modal-custom-input" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
                         </dd>
-                        <dt>Calendar Note</dt>
+                        <dt>Calendar Note: </dt>
                         <dd>
-                            <input class="form-control modal-custom-input" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
                         </dd>                      
                     </dl>
                 </form>
             </div>
-            <div class="modal-footer modal-footer-custom">
-                <button type="button" class="btn btn-primary btn-form-custom btn-form-custom-2"  id="CmdCalendarEditOk" onclick="cmdCalendarEditOk_OnClick()">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary border-custom"  id="CmdCalendarEditOk" onclick="cmdCalendarEditOk_OnClick()">
                     Ok
                 </button>
-                <button type="button" class="btn btn-danger btn-form-custom btn-form-custom-2" id="CmdCalendarEditCancel" onclick="cmdCalendarEditCancel_OnClick()">
+                <button type="button" class="btn btn-danger border-custom" id="CmdCalendarEditCancel" onclick="cmdCalendarEditCancel_OnClick()">
                     Cancel
                 </button>
             </div>
@@ -188,8 +186,9 @@ function cmdCalendarDelete_OnClick() {
     
     var id = calendars.currentEditItem.CLDR_ID;
     var calendarDayCode = calendars.currentEditItem.CLDR_DAYCODE;
-
-    if (confirm("Delete " + calendarDayCode + "?") == true) {
+	
+    alertify.confirm("Are you sure you want to delete Calendar Day Code " + calendarDayCode + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+    if (e) {
         $.ajax({
             type: "DELETE",
             url: '${pageContext.request.contextPath}/api/calendar/delete/' + id,
@@ -208,7 +207,8 @@ function cmdCalendarDelete_OnClick() {
                 }
             }
         });
-    }
+    	}
+    });
 }
     
 // =================================
@@ -268,20 +268,22 @@ function getCalendars() {
             if (Results.length > 0) {
                 for (i = 0; i < Results.length; i++) {
                     calendars.push({
-                        EditId: "<button class='btn btn-primary btn-xs btn-form-custom' data-toggle='modal' id='cmdEditCalendar' onclick='cmdCalendarEdit_OnClick()'>Edit</button>",
-                        DeleteId: "<button class='btn btn-danger btn-xs btn-form-custom' data-toggle='modal' id='cmdDeleteCalendar' onclick='cmdCalendarDelete_OnClick()'>Delete</button>",
+                        EditId: "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCalendar' onclick='cmdCalendarEdit_OnClick()'>Edit</button>",
+                        DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCalendar' onclick='cmdCalendarDelete_OnClick()'>Delete</button>",
                         CLDR_ID: Results[i]["cldr_ID"],
                         CLDR_DATE: Results[i]["cldr_DATE"],
                         CLDR_DAYCODE: Results[i]["cldr_DAYCODE"],
                         CLDR_NOTE: Results[i]["cldr_NOTE"],
                         
-                        CREATED_DATE: Results[i]["CREATED_DATE"],
-                        CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                        UPDATED_DATE: Results[i]["UPDATED_DATE"],
-                        UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                        ISDELETED: Results[i]["ISDELETED"],
+                        CREATED_DATE: Results[i]["created_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["updated_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+                        ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
+                        CLDR_CREATED_BY_USER: Results[i]["CLDR_CREATED_BY_USER"],
+                        CLDR_UPDATED_BY_USER: Results[i]["CLDR_UPDATED_BY_USER"]
                     });
                 }
             } else {
@@ -324,6 +326,19 @@ function updateNavigateButtonsCalendar() {
         btnLastPageGrid.removeAttribute('disabled');
     }
     btnCurrentPageGrid.innerHTML = (calendars.pageIndex + 1) + ' / ' + calendars.pageCount;
+
+}
+
+// ===================
+// FlexGrid Selection
+// =================== 
+function updateDetails() {
+	var item = calendars.currentItem;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CLDR_CREATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CLDR_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
+
 }
     
 // =====================
@@ -398,12 +413,16 @@ $(document).ready(function () {
         calendars.refresh();
     });
     calendars.filter = function (item) {
-        return !filterText || (item.CalendarCode.toLowerCase().indexOf(filterText) > -1);
+        return !filterText || (item.CLDR_DAYCODE.toLowerCase().indexOf(filterText) > -1);
     }
         
     calendars.collectionChanged.addHandler(function (sender, args) {
         updateNavigateButtonsCalendar();
     });
+    
+    calendars.currentChanged.addHandler(function (sender, args) {
+	    updateDetails();
+	});
     
     // Flex Grid
     calendarGrid = new wijmo.grid.FlexGrid('#calendarGrid');

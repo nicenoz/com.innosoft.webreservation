@@ -1,0 +1,52 @@
+/**
+ * Default Look and Feel
+ */
+.alertify,
+.alertify-log {
+	font-family: sans-serif;
+}
+.alertify {
+	background: #FFF;
+	box-shadow: 0px 5px 15px 0px;
+	border-radius: 0 !important;
+	text-align: left;
+}
+.alertify-text {
+	border: 1px solid #CCC;
+	padding: 10px;
+	border-radius: 4px;
+}
+.alertify-button {
+	border-radius: 0 !important;
+	font-weight: bold;
+	padding: 6px 15px;
+	text-decoration: none;
+	color: #fff;
+ 	background-color: #d9534f;
+	border-color: #d43f3a;
+	float: right;
+	margin-bottom: 15px;
+	
+}
+.alertify-button:hover {
+	outline: none;
+	background-image: -webkit-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
+	background-image:    -moz-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
+	background-image:     -ms-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
+	background-image:      -o-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
+	background-image:         linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
+}
+
+.alertify-button-ok,
+.alertify-button-ok:hover {
+	color: #fff;
+  	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+
+.alertify-button-cancel,
+.alertify-button-cancel:hover {
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+}
