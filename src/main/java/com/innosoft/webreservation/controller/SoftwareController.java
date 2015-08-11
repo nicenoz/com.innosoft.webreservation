@@ -14,6 +14,12 @@ public class SoftwareController {
 		return model;
 	}
 	
+	@RequestMapping("/alpha")
+	public ModelAndView alpha() {
+		ModelAndView model = new ModelAndView("alpha");
+		return model;
+	}
+	
 	@RequestMapping("/charging")
 	public String charging(Model model) {
 		return "software_charging";

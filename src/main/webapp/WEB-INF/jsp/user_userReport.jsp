@@ -27,9 +27,10 @@
 			</div>
 			</div>
 			
-			<div class="col-lg-6">
-				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom hidden modal fade" onclick="cmdSaveReport_OnClick()">Save</button>
-				<button id="cmdGenerateReport" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
+			<div class="col-lg-6 btn-group">
+				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
+				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
+				
 			</div>
 		</div>
 		<br />
@@ -97,6 +98,7 @@ var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
 
+var ScreenerSaveData;
 
 function cmdGenerateReport(){
 	// Collection View
@@ -106,6 +108,7 @@ function cmdGenerateReport(){
     
     reportGrid.dispose();
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.allowMerging = "Cells"
 	reportGrid.initialize({
 		columns : [{
 			"header" : "Last Name",
@@ -150,6 +153,10 @@ function cmdGenerateReport_OnClick(){
 	cmdGenerateReport();
 }
 
+function cmdSaveReport_OnClick(){
+	CmdSaveXLS_OnClick();
+}
+
 //==================
 //   Get Report
 //==================   
@@ -164,6 +171,7 @@ function getReport() {
      data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
     	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")},
      success: function (Results) {
+    	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
              document.getElementById("cmdSaveReport").style.display='block';
@@ -187,12 +195,12 @@ function getReport() {
              }
          } else {
              document.getElementById("cmdSaveReport").style.display='none';
-             alertfiy.alert("No data.");
+        	 alertify.alert("No data.");
          }
      }
  }).fail(
      function (xhr, textStatus, err) {
-         alert(err);
+    	 alertify.alert(err);
      }
  );
  return reports;
@@ -258,6 +266,7 @@ $(document).ready(function(){
 	
 	// Flex Grid
 	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.allowMerging = "Cells"
 	reportGrid.initialize({
 		columns : [{
 			"header" : "Last Name",
@@ -295,6 +304,85 @@ $(document).ready(function(){
 	reportGrid.trackChanges = true;
 	
 });
+
+
+
+//----------------------
+
+
+function CmdSaveXLS_OnClick() {
+    var CSV = '';
+    var screener = [];
+
+    for (i = 0; i < ScreenerSaveData.length; i++) {
+        screener.push({
+            LastName: ScreenerSaveData[i]["mebr_LAST_NAME"],
+            FirstName: ScreenerSaveData[i]["mebr_FIRST_NAME"],
+            Email: ScreenerSaveData[i]["mebr_EMAIL_ADDRESS"],
+            ContactNumber: ScreenerSaveData[i]["mebr_TEL_NO"],
+            DateOfBirth: ScreenerSaveData[i]["mebr_DATE_OF_BIRTH"],
+            ZipCode: ScreenerSaveData[i]["mebr_ZIP_CODE"],
+            Address1: ScreenerSaveData[i]["mebr_ADDRESS1"],
+            Address2: ScreenerSaveData[i]["mebr_ADDRESS2"],
+            Address3: ScreenerSaveData[i]["mebr_ADDRESS3"],
+            Point: ScreenerSaveData[i]["mebr_POINT"],
+            
+        });
+    }
+
+    CSV += 'Screener Data' + '\r\n\n';
+
+    var screenerLabelRow = '';
+    for (var s in screener[0]) {
+        screenerLabelRow += s + ',';
+    }
+    screenerLabelRow = screenerLabelRow.slice(0, -1);
+    CSV += screenerLabelRow + '\r\n';
+
+    for (var i = 0; i < screener.length; i++) {
+        var screenerRow = '';
+        for (var s in screener[i]) {
+            screenerRow += '"' + screener[i][s] + '",';
+        }
+        screenerRow.slice(0, screenerRow.length - 1);
+        CSV += screenerRow + '\r\n';
+    }
+
+    if (CSV == '') {
+        alert("No data");
+        return;
+    }
+
+    // Create filename
+    var fileName = 'CustomerMemberReportFrom' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
+    'to' + reportSearchDateTo.value.toString("dd-MMM-yyyy") + '.CSV';
+    // Download via <a> link
+
+    var link = document.createElement("a");
+
+    if (link.download !== undefined) {
+        var blob = new Blob([CSV], { type: 'text/csv;charset=utf-8;' });
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", fileName);
+        link.style = "visibility:hidden";
+    }
+
+    if (navigator.msSaveBlob) {
+        link.addEventListener("click", function (event) {
+            var blob = new Blob([CSV], {
+                "type": "text/csv;charset=utf-8;"
+            });
+            navigator.msSaveBlob(blob, fileName);
+        }, false);
+    }
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+}
+
 
 </script>
 <!-- footer -->

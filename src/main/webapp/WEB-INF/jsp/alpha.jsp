@@ -7,11 +7,29 @@
 	<section id="list">
 		<div class="row">
 			<div class="col-lg-12">
-				<h4>Reservation Report</h4>
+				<h4>Welcome to Salon de Rose Group of Companies blabla</h4>
 			</div>
 		</div>
+		<div class="row" style="margin-bottom:15px;margin-top:10px;">
+		<!-- ADD THIS DYNAMICALLY -->
+			<div class="col-lg-3">
+	                <select id="CustomerList" class="form-control border-custom">
+	                    <option value="0">Salon de Rose SM</option>
+	                    <option value="1">Salon de Rose Colon</option>
+	                    <option value="2">Salon de Rose Mandaue</option>
+	                    <option value="3">Salon de Rose Ayala</option>
+	                    <option value="4">Kilid Kilid Salon</option>
+	                    <option value="5">Mama Salon</option>
+	                    <option value="6">Pet Salon</option>
+	                    <option value="7">Pagwapa Salon</option>
+	                    <option value="8">Salon Pas</option>
+	                    <option value="9">Salon Salon</option>
+	                    <option value="10">Salon Carenderia</option>
+	                    <option value="11">Salon de Lebron</option>
+	                </select>
+	        </div>
+        </div>
 		<div class="row">
-
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
 			<div class="input-group">
@@ -28,9 +46,7 @@
 			</div>
 			
 			<div class="col-lg-6 btn-group">
-				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
-				
+				<button id="cmdCreateReservation" type="submit" class="btn btn-success  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Create Reservation</button>	
 			</div>
 		</div>
 		<br />
@@ -38,28 +54,7 @@
 		<!-- Table -->
 		<div class="row">
 			<div class="col-lg-12">
-				<div id="reportGrid" class="grid border-custom"></div>
-			</div>
-		</div>
-
-		<br />
-	
-		<!-- Table Navigation -->
-		<div class="row">
-			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-					<span class="glyphicon glyphicon-fast-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-					<span class="glyphicon glyphicon-step-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-					<span class="glyphicon glyphicon-step-forward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-					<span class="glyphicon glyphicon-fast-forward"></span>
-				</button>
+				<wj-flex-grid id="reportGrid" control="flex" allow-merging="Cells"></wj-flex-grid>
 			</div>
 		</div>
 	</section>
@@ -106,39 +101,72 @@ function cmdGenerateReport(){
     reports.canFilter = true;
     reports.pageSize  = 15;
     
+    var timeDiff = Math.abs(new Date(reportSearchDateFrom.value.toString("MM/dd/yyyy")) - new Date(reportSearchDateTo.value.toString("MM/dd/yyyy")));
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+ 
     reportGrid.dispose();
+    var gridColumns = [];
+    gridColumns.push({
+    	"header" : "Time",
+		"binding" : "RESV_MEMBERNAME",
+		"allowSorting" : true,
+		"allowMerging" : true,
+		"width" : 200
+    });
+    
+    gridColumns.push({
+    	"header" : "Parts name",
+		"binding" : "RESV_PARTSNAME",
+		"allowSorting" : true,
+		"width" : 200
+    });
+    
+    gridColumns.push({
+    	"header" : reportSearchDateFrom.value.toString("dd MMM yyyy"),
+		"binding" : "RESV_ENDTIME" + i,
+		"allowSorting" : true,
+		"width" : "*"
+    });
+
+  	var headerDate = new Date(reportSearchDateFrom.value.toString("MM/dd/yyyy"));
+  	
+	if(diffDays <= 6){
+		for (var i = 1; i <= diffDays; i++) {
+			headerDate.setDate(headerDate.getDate() + 1);
+	    	gridColumns.push({
+	        	"header" : headerDate.toString("dd MMM yyyy"),
+	    		"binding" : "RESV_ENDTIME" + i,
+	    		"allowSorting" : true,
+	    		"width" : "*"
+	        });
+	    }
+    }else{
+	    for (var i = 1; i <= diffDays; i++) {
+	    	headerDate.setDate(headerDate.getDate() + 1);
+	    	gridColumns.push({
+	        	"header" : headerDate.toString("dd MMM yyyy"),
+	        	"binding" : "RESV_ENDTIME" + i,
+	    		"allowSorting" : true,
+	        });
+	    }
+    }
+
+    
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.frozenColumns = 2;
 	reportGrid.initialize({
-		columns : [{
-			"header" : "Member name",
-			"binding" : "RESV_MEMBERNAME",
-			"allowSorting" : true,
-			"width" : "2*"
-		},  {
-			"header" : "Parts name",
-			"binding" : "RESV_PARTSNAME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "Start time",
-			"binding" : "RESV_STARTTIME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "End time",
-			"binding" : "RESV_ENDTIME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}],
-		
+		columns : gridColumns,
 		autoGenerateColumns : false,
 		itemsSource : reports,
 		isReadOnly : true,
-		selectionMode : wijmo.grid.SelectionMode.Row
+		selectionMode : wijmo.grid.SelectionMode.Row,
+		allowMerging : "All"
 	});
-
+	
 	reportGrid.trackChanges = true;
 }
+
+
 
 //==================
 //Generate Button Clicked
@@ -147,9 +175,6 @@ function cmdGenerateReport_OnClick(){
 	cmdGenerateReport();
 }
 
-function cmdSaveReport_OnClick(){
-	CmdSaveXLS_OnClick();
-}
 
 //==================
 //   Get Report
@@ -158,17 +183,16 @@ function getReport() {
  var reports = new wijmo.collections.ObservableArray();
  $('#loading').modal('show');
  $.ajax({
-     url: '${pageContext.request.contextPath}/api/reservation/report',
+     url: '${pageContext.request.contextPath}/api/reservation/list',
      cache: false,
      type: 'GET',
      contentType: 'application/json; charset=utf-8',
-     data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
-    	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")},
+/*      data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
+    	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")}, */
      success: function (Results) {
     	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
-             document.getElementById("cmdSaveReport").style.display='block';
              for (i = 0; i < Results.length; i++) {
                  reports.push({
                 	 RESV_MEMBERNAME: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
@@ -187,7 +211,6 @@ function getReport() {
              	 
              }
          } else {
-             document.getElementById("cmdSaveReport").style.display='none';
              alertify.alert("No data.");
          }
      }
@@ -239,7 +262,7 @@ $(document).ready(function(){
 	// Date Control Initialization
 	reportSearchDateFrom = new wijmo.input.InputDate(
 			'#SEARCH_REPORT_FROM_DATE', {
-				format : 'MM/dd/yyyy',
+				format : 'dd MMMM yyyy',
 				value : new Date(),
 				max: new Date(),
 		        onValueChanged: function () {
@@ -249,7 +272,7 @@ $(document).ready(function(){
 	
 	reportSearchDateTo = new wijmo.input.InputDate(
 			'#SEARCH_REPORT_TO_DATE', {
-				format : 'MM/dd/yyyy',
+				format : 'dd MMMM yyyy',
 				value : new Date(),
 				min: new Date(),
 				onValueChanged: function () {
@@ -259,25 +282,21 @@ $(document).ready(function(){
 	
 	// Flex Grid
 	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.frozenColumns = 2;
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Member name",
+			"header" : "Time",
 			"binding" : "RESV_MEMBERNAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : 200
 		},  {
 			"header" : "Parts name",
 			"binding" : "RESV_PARTSNAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : 200
 		}, {
-			"header" : "Start time",
+			"header" : reportSearchDateFrom.value.toString("dd MMM yyyy"),
 			"binding" : "RESV_STARTTIME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "End time",
-			"binding" : "RESV_ENDTIME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -291,86 +310,6 @@ $(document).ready(function(){
 	reportGrid.trackChanges = true;
 	
 });
-
-
-
-//----------------------
-
-
-function CmdSaveXLS_OnClick() {
-    var CSV = '';
-    var screener = [];
-
-    for (i = 0; i < ScreenerSaveData.length; i++) {
-        screener.push({            
-            MemberName: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
-            PartsName: Results[i]["resv_PARTS_NAME"],
-            StartTime: Results[i]["resv_START_TIME_ID"],
-            EndTime: Results[i]["resv_END_TIME_ID"],
-            
-            CREATED_DATE: Results[i]["CREATED_DATE"],
-            CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-            UPDATED_DATE: Results[i]["UPDATED_DATE"],
-            UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-            ISDELETED: Results[i]["ISDELETED"],
-            ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-            ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
-            
-        });
-    }
-
-    CSV += 'Screener Data' + '\r\n\n';
-
-    var screenerLabelRow = '';
-    for (var s in screener[0]) {
-        screenerLabelRow += s + ',';
-    }
-    screenerLabelRow = screenerLabelRow.slice(0, -1);
-    CSV += screenerLabelRow + '\r\n';
-
-    for (var i = 0; i < screener.length; i++) {
-        var screenerRow = '';
-        for (var s in screener[i]) {
-            screenerRow += '"' + screener[i][s] + '",';
-        }
-        screenerRow.slice(0, screenerRow.length - 1);
-        CSV += screenerRow + '\r\n';
-    }
-
-    if (CSV == '') {
-        alert("No data");
-        return;
-    }
-
-    // Create filename
-    var fileName = 'ReservationReportFrom' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
-    'to' + reportSearchDateTo.value.toString("dd-MMM-yyyy") + '.CSV';
-    // Download via <a> link
-
-    var link = document.createElement("a");
-
-    if (link.download !== undefined) {
-        var blob = new Blob([CSV], { type: 'text/csv;charset=utf-8;' });
-        var url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", fileName);
-        link.style = "visibility:hidden";
-    }
-
-    if (navigator.msSaveBlob) {
-        link.addEventListener("click", function (event) {
-            var blob = new Blob([CSV], {
-                "type": "text/csv;charset=utf-8;"
-            });
-            navigator.msSaveBlob(blob, fileName);
-        }, false);
-    }
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-}
 
 
 </script>
