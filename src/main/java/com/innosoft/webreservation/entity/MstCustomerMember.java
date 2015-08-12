@@ -256,6 +256,6 @@ public class MstCustomerMember {
 	}	
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="RESV_MEMBER")
-	private Collection<TrnReservation> RESV_MEMBER = new LinkedHashSet<TrnReservation>();
+	@OneToMany(mappedBy="RESV_MEBR")
+	private Collection<TrnReservation> RESV_MEBR = new LinkedHashSet<TrnReservation>();
 }

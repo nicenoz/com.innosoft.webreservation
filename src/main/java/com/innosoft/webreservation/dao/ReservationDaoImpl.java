@@ -41,6 +41,16 @@ public class ReservationDaoImpl implements ReservationDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<TrnReservation> scheduleReservation(int customerId, int calendarActivityId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(TrnReservation.class);
+		criteria.add(Restrictions.eq("RESV_CUST_ID", customerId));
+		criteria.add(Restrictions.eq("RESV_CACT_ID", calendarActivityId));
+		List<TrnReservation> list = criteria.list();	
+		return list;		
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<TrnReservation> reportReservation(String from, String to) {
 		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.ENGLISH);
 		Session session = this.sessionFactory.getCurrentSession();
@@ -53,8 +63,6 @@ public class ReservationDaoImpl implements ReservationDao {
 			e.printStackTrace();
 		} 
 		List<TrnReservation> list = criteria.list();	
-//		Session session = this.sessionFactory.getCurrentSession();
-//		List<TrnReservation> list = session.createQuery("from TrnReservation where CREATED_DATE between '"+from +"' and '" + to + "'").list();
 		return list;
 	}
 	
@@ -69,7 +77,7 @@ public class ReservationDaoImpl implements ReservationDao {
 			newReservation.setRESV_CUST_ID(reservation.RESV_CUST_ID);
 			newReservation.setRESV_MEBR_ID(reservation.RESV_MEBR_ID);
 			newReservation.setRESV_UNIT_NO(reservation.RESV_UNIT_NO);
-			newReservation.setRESV_PARTS_NAME(reservation.RESV_PARTS_NAME);
+			newReservation.setRESV_PARTS_NO(reservation.RESV_PARTS_NO);
 			newReservation.setRESV_START_TIME_ID(reservation.RESV_START_TIME_ID);
 			newReservation.setRESV_END_TIME_ID(reservation.RESV_END_TIME_ID);
 			
@@ -100,7 +108,7 @@ public class ReservationDaoImpl implements ReservationDao {
 			updateReservation.setRESV_CUST_ID(reservation.RESV_CUST_ID);
 			updateReservation.setRESV_MEBR_ID(reservation.RESV_MEBR_ID);
 			updateReservation.setRESV_UNIT_NO(reservation.RESV_UNIT_NO);
-			updateReservation.setRESV_PARTS_NAME(reservation.RESV_PARTS_NAME);
+			updateReservation.setRESV_PARTS_NO(reservation.RESV_PARTS_NO);
 			updateReservation.setRESV_START_TIME_ID(reservation.RESV_START_TIME_ID);
 			updateReservation.setRESV_END_TIME_ID(reservation.RESV_END_TIME_ID);
 			

@@ -1,7 +1,9 @@
 package com.innosoft.webreservation.entity;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 @Entity
@@ -51,6 +57,10 @@ public class MstCalendar {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="CACT_CLDR")
+	private Collection<MstCalendarActivity> CACT_CLDR = new LinkedHashSet<MstCalendarActivity>();
+	
 	
 	public Integer getCLDR_ID() {
 		return CLDR_ID;

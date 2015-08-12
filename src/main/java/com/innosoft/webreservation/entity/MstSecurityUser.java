@@ -52,7 +52,6 @@ public class MstSecurityUser {
 	@Column(name="USER_PASSWORD")
 	public String USER_PASSWORD;	
 	
-	// Created By:
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="MESG_CREATED_BY_USER")
 	private Collection<MstMessage> MESG_CREATED_BY_USER = new LinkedHashSet<MstMessage>();

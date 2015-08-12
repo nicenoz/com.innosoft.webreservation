@@ -8,48 +8,30 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <select id="ScheduleMonth" class="form-control border-custom">
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                </select>
+	            <div id="cboCustomer" class="full-width"></div>
+	            <input class="form-control" id="customerId" type="hidden"/>
             </div>
             <div class="col-lg-2">
-                <select id="ScheduleYear" class="form-control border-custom">
-                    <option value="2015">2015</option>
-                    <option value="2016">2016</option>
-                    <option value="2016">2017</option>
-                    <option value="2016">2018</option>
-                    <option value="2016">2019</option>
-                </select>
+	            <div id="cboCalendarActivityStart" class="full-width"></div>
+	            <input class="form-control" id="calendarActivityStartId" type="hidden"/>
             </div>
             <div class="col-lg-2">
-                <button id="CmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="CmdGetSchedule_OnClick()">Get Schedule</button>
+	            <div id="cboCalendarActivityEnd" class="full-width"></div>
+	            <input class="form-control" id="calendarActivityEndId" type="hidden"/>
+            </div>            
+            <div class="col-lg-2">
+                <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="cmdGetSchedule_OnClick()">Get Schedule</button>
             </div>
-            <div class="col-lg-6">
-		        <button id="cmdAddMessage" type="submit" class="btn btn-primary border-custom pull-right" onclick="cmdScheduleAdd_OnClick()">Create Schedule</button>
-	    	</div>
         </div>
+        <br />
         <div class="row">
-            <p class="lead">
-             	<div class="col-lg-12">
-                	<div id="CalendarGrid" class="grid border-custom"></div>
-                </div>
-            </p>
+	    	<div class="col-lg-12">
+	        	<div id="scheduleGrid" class="grid border-custom" style="height:70vh"></div>
+	        </div>
         </div>        
     </div>
 </section>
 </div>
-
 
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
@@ -65,400 +47,235 @@
     </div>
 </div>
 
-<!-- Message Edit Detail -->
-<div class="modal fade" id="ScheduleEdit">
-    <div class="modal-dialog">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title">Schedule Edit</h4>
-            </div>
-            <div class="modal-body">
-                <form id="messageForm" class="modal-form-custom">
-                    <dl class="dl-horizontal">
-                            modal body goes here...
-                    </dl>
-                </form>
-            </div>
-            <div class="modal-footer modal-footer-custom">
-                <button type="button" class="btn btn-primary border-custom"  id="cmdMessageEditOk" onclick="cmdScheduleAdd_OnClick()">
-                    Ok
-                </button>
-                <button type="button" class="btn btn-danger border-custom" id="cmdMessageEditCancel" onclick="cmdScheduleEditCancel_OnClick()">
-                    Cancel
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script type="text/javascript">
-
 //===========================
-//Calendar - Global Variables
+//Schedule - Global Variables
 //===========================	
-var CalendarData;
-var CalendarGrid;
-var ScheduleData = [];
-var ScheduleURL = "";
+var cboCustomer;
+var cboCalendarActivityStart;
+var cboCalendarActivityEnd;
+var scheduleGrid;
 
-// ==================
-// Add Button Clicked
-// ==================   
-function cmdScheduleAdd_OnClick() {
-    $('#ScheduleEdit').modal({
-        show: true,
-        backdrop: false
-    });   
-}
+var customerCollection;
+var calendarActivityCollection;
+var scheduleCollection;
 
-// =================================
-// Edit Detail Cancel Button Clicked
-// =================================     
-function cmdScheduleEditCancel_OnClick() {
-	$('#ScheduleEdit').modal('hide');    	
-}
+var calendarActivityList;
 
-//=================================
-// Getting the Calendar Date
-//=================================   
-function GetCalendarDate(Month, Year) {
-    var Sun = "", Mon = "", Tue = "", Wed = "", Thu = "", Fri = "", Sat = "";
-    var data = new wijmo.collections.ObservableArray();
-
-    // Get the start day, e.g., Monday=1, Tuesday=2, etc.
-    var firstDay = new Date(Year, Month, 1);
-    var startingDay = firstDay.getDay();
-
-    // Get the month length
-    var cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var monthLength = cal_days_in_month[Month];
-    if (Month == 1) { //FEB
-        if ((Year % 4 == 0 && Year % 100 != 0) || Year % 400 == 0) {
-            monthLength = 29;
-        }
-    }
-
-    var day = 1;
-    for (var i = 0; i < 9; i++) {
-        for (var j = 0; j <= 6; j++) {
-            if ((day <= monthLength) && (i > 0 || j >= startingDay)) {
-                var dayDate = Year.toString() + "-" + (Month + 1).toString() + "-" + day.toString();
-                switch (j) {
-                    case 0:
-                        Sun = day.toString() + "<br />" + GetScheduleData(dayDate);   
-                        break;
-                    case 1:
-                        Mon = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                    case 2:
-                        Tue = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                    case 3:
-                        Wed = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                    case 4:
-                        Thu = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                    case 5:
-                        Fri = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                    case 6:
-                        Sat = day.toString() + "<br />" + GetScheduleData(dayDate);
-                        break;
-                }
-                day++;
-            }
-        }
-
-        if (day > monthLength) {
-            data.push({
-                Sunday: Sun,
-                Monday: Mon,
-                Tuesday: Tue,
-                Wednesday: Wed,
-                Thursday: Thu,
-                Friday: Fri,
-                Saturday: Sat
-            });
-            break;
-            
-        } else {
-            data.push({
-                Sunday: Sun,
-                Monday: Mon,
-                Tuesday: Tue,
-                Wednesday: Wed,
-                Thursday: Thu,
-                Friday: Fri,
-                Saturday: Sat
-            });
-            Sun = ""; Mon = ""; Tue = ""; Wed = ""; Thu = ""; Fri = ""; Sat = "";
-        }
-    }
-    return data;
-}
-
-//=================================
-// Calendar Grid
-//=================================   
-function MakeCalendarGrid(Month, Year) {
-    CalendarData = new wijmo.collections.CollectionView(GetCalendarDate(Month, Year));
-    CalendarData.pageSize = 6;
-
-    CalendarGrid.dispose();
-    CalendarGrid = new wijmo.grid.FlexGrid('#CalendarGrid');
-    CalendarGrid.initialize({
-        columns: [
-                    {
-                        "header": "Sunday",
-                        "binding": "Sunday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    },
-                    {
-                        "header": "Monday",
-                        "binding": "Monday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    },
-                    {
-                        "header": "Tuesday",
-                        "binding": "Tuesday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    },
-                    {
-                        "header": "Wednesday",
-                        "binding": "Wednesday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    },
-                    {
-                        "header": "Thursday",
-                        "binding": "Thursday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true
-                    },
-                    {
-                        "header": "Friday",
-                        "binding": "Friday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    },
-                    {
-                        "header": "Saturday",
-                        "binding": "Saturday",
-                        "width": "7*",
-                        "allowSorting": false,
-                        "isContentHtml": true,
-                        "wordWrap": true
-                    }
-        ],
-        autoGenerateColumns: false,
-        itemsSource: CalendarData,
-        isReadOnly: true,
-        selectionMode: wijmo.grid.SelectionMode.Cell
-    });
-    CalendarGrid.trackChanges = true;
-    CalendarGrid.itemFormatter = function (panel, r, c, cell) {
-        if (panel.cellType == wijmo.grid.CellType.Cell) {
-            var flex = panel.grid;
-            flex.rows[r].height = 80;
-        }
-    };
-}
-
-//==============
-// Schedule Data 
-//============== 
-function GetScheduleData(dayDate) {
-    var schedules = "";
-    for (var i = 0; i < ScheduleData.length; i++) {
-        var webinarDate = new Date(ScheduleData[i]["EventDate"]);
-        if (parseDate(dayDate).equals(webinarDate) == true) {
-            if (ScheduleData[i]["IsRestricted"] == true) {
-                schedules = schedules + "<a href='#' onclick='OpenWeb99Link(\"" + ScheduleData[i]["URL"] + "\");return false;'>" + ScheduleData[i]["EventDescription"] + "</a><br />";
-            } else {
-                schedules = schedules + "<a href='" + ScheduleData[i]["URL"] + "'>" + ScheduleData[i]["EventDescription"] + "</a><br />";
-            } 
-        }
-    }
-    return schedules;
-}
-
-/* 
-function OpenWeb99Link(URL) {
-    var username = '';
-    if (username.length > 0) {
-        ScheduleURL = URL;
-        userCheck(username);
-    } else {
-        window.location.href = "/account/login";
-    } 
-} */
-
-/* function parseDate(input) {
-    var parts = input.split('-');
-    return new Date(parts[0], parts[1] - 1, parts[2]);
-} */
-
-
-//====================
-// Get Schedule Button 
-//==================== 
-function CmdGetSchedule_OnClick() {
-    var m = parseInt($("#ScheduleMonth").val());
-    var y = parseInt($("#ScheduleYear").val());
-
-    MakeCalendarGrid(m, y);
-}
-
-/* function userEdit(username) {
-    $('#loading').modal({
-        show: true,
-        backdrop: false
-    });
-
+// ======
+// Events
+// ======   
+function cmdGetSchedule_OnClick() {
+	var customerId = document.getElementById('customerId').value;
+    var customerTime = new wijmo.collections.ObservableArray();
     $.ajax({
-        url: '/api/GetUser/' + username,
+        url: '${pageContext.request.contextPath}/api/customerTime/listByCustomer',
+        cache: false,
         type: 'GET',
-        data: {},
         contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (Results) {
-            $('#loading').modal('hide');
-
-            $('#UserEdit').modal({
-                show: true,
-                backdrop: false
-            });
-
-            if (Results.length > 0) {
-                document.getElementById('UserEdit_Id').value = Results[0].Id !== null && typeof (Results[0].Id) != 'undefined' ? wijmo.Globalize.format(Results[0].Id) : '';
-                document.getElementById('UserEdit_UserName').value = Results[0].UserName ? Results[0].UserName : '';
-                document.getElementById('UserEdit_FirstName').value = Results[0].FirstName ? Results[0].FirstName : '';
-                document.getElementById('UserEdit_LastName').value = Results[0].LastName ? Results[0].LastName : '';
-                document.getElementById('UserEdit_EmailAddress').value = Results[0].EmailAddress ? Results[0].EmailAddress : '';
-                document.getElementById('UserEdit_PhoneNumber').value = Results[0].PhoneNumber ? Results[0].PhoneNumber : '';
+        data: {"customerId":customerId},
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
+                    	customerTime.push({
+                            time: results[i]["CTIM_DETAILS_NO"].toString(),
+                            parts: p + 1,
+                            noOfParts: results[i]["CTIM_MAX_PARTS_NO"]
+                        });                		
+                	}
+                }
+                scheduleCollection = new wijmo.collections.CollectionView(customerTime);
+                scheduleCollection.canFilter = true;   
+                
+                scheduleGrid.dispose();
+                
+                var gridColumns = [];
+                gridColumns.push({
+                	"header" : "Time",
+            		"binding" : "time",
+            		"allowSorting" : false,
+            		"allowMerging" : true,
+            		"width" : 200
+                });   
+                gridColumns.push({
+                	"header" : "Parts",
+            		"binding" : "parts",
+            		"allowSorting" : false,
+            		"allowMerging" : false,
+            		"width" : 200
+                });    
+                
+                var startDateIndex = cboCalendarActivityStart.selectedIndex;
+                var endDateIndex = cboCalendarActivityEnd.selectedIndex;
+                
+                for (var i = startDateIndex; i <= endDateIndex; i++) {
+        	    	gridColumns.push({
+        	        	"header" : calendarActivityList[i],
+        	    		"allowSorting" : true,
+        	    		"width" : 100
+        	        });	
+        	    }                
+                
+                scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
+                scheduleGrid.frozenColumns = 2;
+                scheduleGrid.initialize({
+            		columns : gridColumns,
+            		autoGenerateColumns : false,
+            		itemsSource : scheduleCollection,
+            		isReadOnly : true,
+            		selectionMode : wijmo.grid.SelectionMode.Row,
+            		allowMerging : "All"
+            	});
+                scheduleGrid.trackChanges = true;                
             }
         }
-
     }).fail(
         function (xhr, textStatus, err) {
             alert(err);
-            $('#UserEdit').modal('hide');
-        });
-} */
-
-/* 
-function userEditOk() {
-    if (confirm("Save Information?") == true) {
-        var User = new Object();
-
-        User.Id = document.getElementById('UserEdit_Id').value;
-        User.UserName = document.getElementById('UserEdit_UserName').value;
-        User.FirstName = document.getElementById('UserEdit_FirstName').value;
-        User.LastName = document.getElementById('UserEdit_LastName').value;
-        User.EmailAddress = document.getElementById('UserEdit_EmailAddress').value;
-        User.PhoneNumber = document.getElementById('UserEdit_PhoneNumber').value;
-
-        var data = JSON.stringify(User);
-
-        $.ajax({
-            type: "PUT",
-            url: "/api/UpdateUser/" + User.Id,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: data,
-            statusCode: {
-                200: function () {
-                    var username = '';
-                    $('#UserEdit').modal('hide');
-                    userCheck(username);
-                    window.location.href = ScheduleURL;
-                },
-                404: function () {
-                    alert("Not found");
-                },
-                400: function () {
-                    alert("Bad request");
-                }
-            }
-        });
-        $('#UserEdit').modal('hide');
-    }
-} */
-
-/* function userEditCancel() {
-    $('#UserEdit').modal('hide');
-}
- */
- 
- 
-function userCheck(username) {
-    $.ajax({
-        url: '/api/GetUser/' + username,
-        type: 'GET',
-        data: {},
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (Results) {
-            if (Results.length > 0) {
-                if (Results[0].FirstName == "NA" || Results[0].FirstName == "" ||
-                    Results[0].LastName == "NA" || Results[0].LastName == "" ||
-                    Results[0].EmailAddress == "NA" || Results[0].EmailAddress == "" ||
-                    Results[0].PhoneNumber == "NA" || Results[0].PhoneNumber == "") {
-                    alert("To remove this prompt, you must fill in all user information.");
-                    userEdit(username);
-                } else {
-                    window.location.href = ScheduleURL;
-                }
-            }
         }
-
-    });
+    );	
 }
 
-$(document).ready(function () {
-    CalendarGrid = new wijmo.grid.FlexGrid('#CalendarGrid');
+//=================
+// Getting the Data
+//=================   
+function getReservation(customerId, calendarActivityStartId, calendarActivityEndId) {
 
-    var d = new Date();
-    var m = d.getMonth();
-    var y = d.getFullYear();
-
-    $("#ScheduleMonth").val(m);
-    $("#ScheduleYear").val(y);
-
+}
+function getCustomers() {
+    var customers = new wijmo.collections.ObservableArray();
     $.ajax({
-        url: '/api/LatestEvent',
+        url: '${pageContext.request.contextPath}/api/customer/list',
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         data: {},
-        success: function (Results) {
-            while (ScheduleData.length > 0) ScheduleData.pop();
-            ScheduleData = Results;
-            MakeCalendarGrid(m, y);
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	customers.push({
+                        id: results[i]["CUST_ID"],
+                        customerName: results[i]["CUST_NAME"]
+                    });
+                }
+                createCboCustomer(customers);
+            }
         }
     }).fail(
-        function (xhr, textStatus, err) {  }
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
     );
-});
+}
+function getCalendarActivities(customerId) {
+    var calendarActivities = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/calendarActivity/list',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"customerId":customerId},
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	calendarActivities.push({
+                        id: results[i]["CACT_ID"],
+                        dayCode: results[i]["CACT_CLDR"]["CLDR_DAYCODE"],
+                        reservation: results[i]["CACT_CLDR"]["CLDR_DAYCODE"],
+                    });
+                }
+                createCboCalendarActivity(calendarActivities);
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );	
+}
 
+//==============
+// Schedule Grid
+//==============  
+function makeScheduledGrid(Month, Year) {
+}
+
+//========
+//Comboxes
+//======== 
+function createCboCustomer(customers) {
+	customerCollection = new wijmo.collections.CollectionView(customers);
+    
+    var customerList = new Array();
+    for (var i = 0; i < customerCollection.items.length; i++) {
+    	customerList.push(customerCollection.items[i].customerName);
+    }
+	
+    cboCustomer.dispose();
+	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
+        itemsSource: customerList,
+        onSelectedIndexChanged: function () {
+            $("#customerId").val(customerCollection.items[this.selectedIndex].id);
+            getCalendarActivities(customerCollection.items[this.selectedIndex].id)
+        }
+    });	
+}
+function createCboCalendarActivity(calendarActivities) {
+	calendarActivityCollection = new wijmo.collections.CollectionView(calendarActivities);
+    
+    calendarActivityList = new Array();
+    for (var i = 0; i < calendarActivityCollection.items.length; i++) {
+    	calendarActivityList.push(calendarActivityCollection.items[i].dayCode);
+    }
+	
+    cboCalendarActivityStart.dispose();
+    cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
+        itemsSource: calendarActivityList,
+        onSelectedIndexChanged: function () {
+            $("#calendarActivityStartId").val(calendarActivityCollection.items[this.selectedIndex].id);
+        }
+    });		
+    
+    cboCalendarActivityEnd.dispose();
+    cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
+        itemsSource: calendarActivityList,
+        onSelectedIndexChanged: function () {
+            $("#calendarActivityEndId").val(calendarActivityCollection.items[this.selectedIndex].id);
+        }
+    });	    
+}
+
+//=========
+//Page Load
+//========= 
+$(document).ready(function () {
+	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer');
+	cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart');
+	cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd');
+	getCustomers();
+	
+	scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
+	scheduleGrid.frozenColumns = 2;
+	scheduleGrid.initialize({
+		columns : [{
+			"header" : "Time",
+			"binding" : "time",
+			"allowSorting" : true,
+			"width" : 200
+		},  {
+			"header" : "Parts",
+			"binding" : "parts",
+			"allowSorting" : true,
+			"width" : 200
+		}],
+		autoGenerateColumns : false,
+		itemsSource : reports,
+		isReadOnly : true,
+		selectionMode : wijmo.grid.SelectionMode.Row
+	});
+	scheduleGrid.trackChanges = true;	
+});
 
 </script>
 

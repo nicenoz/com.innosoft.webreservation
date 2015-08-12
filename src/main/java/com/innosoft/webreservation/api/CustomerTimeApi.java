@@ -1,6 +1,7 @@
 package com.innosoft.webreservation.api;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.service.CustomerTimeService;
 import com.innosoft.webreservation.service.SecurityService;
@@ -28,6 +32,12 @@ public class CustomerTimeApi {
 		List<MstCustomerTime> list = customerTimeService.listCustomerTime();
 		return list;
 	}
+	
+	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
+	public @ResponseBody List<MstCustomerTime> listCustomerTimeByCustomer(@RequestParam(value="customerId") int customerId) {
+		List<MstCustomerTime> list = customerTimeService.listCustomerTimeByCustomer(customerId);
+		return list;
+	}	
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCustomerTime> updateCharge(@RequestBody MstCustomerTime time) {

@@ -6,6 +6,7 @@ import com.innosoft.webreservation.entity.MstCustomerTime;
 
 public interface CustomerTimeService {
 	public List<MstCustomerTime> listCustomerTime();
+	public List<MstCustomerTime> listCustomerTimeByCustomer(int customerId);
 	public MstCustomerTime addCustomerTime(MstCustomerTime message);
 	public MstCustomerTime editCustomerTime(MstCustomerTime message);
 	public boolean deleteCustomerTime(int id);
