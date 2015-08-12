@@ -1,13 +1,13 @@
 <!-- Header -->
 <%@include file="include_secure_header.jsp"%>
-<title>User - Charging Report</title>
+<title>User - User Report</title>
 
 <!-- User List -->
 <div class="container">
 	<section id="list">
 		<div class="row">
 			<div class="col-lg-12">
-				<h4>Charging Report</h4>
+				<h4>User Report</h4>
 			</div>
 		</div>
 		<div class="row">
@@ -108,6 +108,7 @@ function cmdGenerateReport(){
     
     reportGrid.dispose();
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.allowMerging = "Cells"
 	reportGrid.initialize({
 		columns : [{
 			"header" : "Last Name",
@@ -265,6 +266,7 @@ $(document).ready(function(){
 	
 	// Flex Grid
 	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+	reportGrid.allowMerging = "Cells"
 	reportGrid.initialize({
 		columns : [{
 			"header" : "Last Name",

@@ -1,10 +1,16 @@
 package com.innosoft.webreservation.dao;
 
 import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,19 +42,19 @@ public class ReservationDaoImpl implements ReservationDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> reportReservation(String from, String to) {
-//		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.ENGLISH);
-//		Session session = this.sessionFactory.getCurrentSession();
-//		Criteria criteria = session.createCriteria(TrnReservation.class);
-//
-//		try {
-//			criteria.add(Restrictions.between("CREATED_DATE", format.parse(from + " 00:00:00"), 
-//					format.parse(to + " 23:59:59")));
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		} 
-//		List<MstCustomerMember> list = criteria.list();	
+		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.ENGLISH);
 		Session session = this.sessionFactory.getCurrentSession();
-		List<TrnReservation> list = session.createQuery("from TrnReservation where CREATED_DATE between '"+from +"' and '" + to + "'").list();
+		Criteria criteria = session.createCriteria(TrnReservation.class);
+
+		try {
+			criteria.add(Restrictions.between("CREATED_DATE", format.parse(from + " 00:00:00"), 
+					format.parse(to + " 23:59:59")));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		List<TrnReservation> list = criteria.list();	
+//		Session session = this.sessionFactory.getCurrentSession();
+//		List<TrnReservation> list = session.createQuery("from TrnReservation where CREATED_DATE between '"+from +"' and '" + to + "'").list();
 		return list;
 	}
 	
