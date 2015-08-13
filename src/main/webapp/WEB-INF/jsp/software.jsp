@@ -96,7 +96,7 @@ function cmdGetSchedule_OnClick() {
             		"binding" : "time",
             		"allowSorting" : false,
             		"allowMerging" : true,
-            		"width" : 200
+            		"width" : 100
                 });   
                 gridColumns.push({
                 	"header" : "Parts",
@@ -181,8 +181,8 @@ function getCalendarActivities(customerId) {
                 for (i = 0; i < results.length; i++) {
                 	calendarActivities.push({
                         id: results[i]["CACT_ID"],
-                        dayCode: results[i]["CACT_CLDR"]["CLDR_DAYCODE"],
-                        reservation: results[i]["CACT_CLDR"]["CLDR_DAYCODE"],
+                        dayCode: results[i]["CACT_CLDR_FK"]["CLDR_DAYCODE"],
+                        reservation: results[i]["RESV_CACT"]
                     });
                 }
                 createCboCalendarActivity(calendarActivities);
@@ -256,25 +256,6 @@ $(document).ready(function () {
 	getCustomers();
 	
 	scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
-	scheduleGrid.frozenColumns = 2;
-	scheduleGrid.initialize({
-		columns : [{
-			"header" : "Time",
-			"binding" : "time",
-			"allowSorting" : true,
-			"width" : 200
-		},  {
-			"header" : "Parts",
-			"binding" : "parts",
-			"allowSorting" : true,
-			"width" : 200
-		}],
-		autoGenerateColumns : false,
-		itemsSource : reports,
-		isReadOnly : true,
-		selectionMode : wijmo.grid.SelectionMode.Row
-	});
-	scheduleGrid.trackChanges = true;	
 });
 
 </script>

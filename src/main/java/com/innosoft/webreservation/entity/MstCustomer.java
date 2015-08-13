@@ -2,19 +2,21 @@ package com.innosoft.webreservation.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="WR_CUSTOMER")
 public class MstCustomer {
-	
 	@Id
     @GeneratedValue
     @Column(name="CUST_ID")	
@@ -68,6 +70,19 @@ public class MstCustomer {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUST_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUST_UPDATED_BY_USER_FK;		
+
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
 	
 	public Integer getCUST_ID() {
 		return CUST_ID;

@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,11 +18,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-
 @Entity
 @Table(name="WR_CALENDAR")
 public class MstCalendar {
-
 	@Id   
     @GeneratedValue
     @Column(name="CLDR_ID")	
@@ -57,10 +56,19 @@ public class MstCalendar {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="CACT_CLDR")
-	private Collection<MstCalendarActivity> CACT_CLDR = new LinkedHashSet<MstCalendarActivity>();
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CLDR_CREATED_BY_USER_FK;	
 	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CLDR_UPDATED_BY_USER_FK;	
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */
 	
 	public Integer getCLDR_ID() {
 		return CLDR_ID;
@@ -151,30 +159,6 @@ public class MstCalendar {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CLDR_CREATED_BY_USER;
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CLDR_UPDATED_BY_USER;	
-	
-	public MstSecurityUser getCLDR_CREATED_BY_USER() {
-		return CLDR_CREATED_BY_USER;
-	}
-
-	public void setCLDR_CREATED_BY_USER(MstSecurityUser cLDR_CREATED_BY_USER) {
-		CLDR_CREATED_BY_USER = cLDR_CREATED_BY_USER;
-	}
-
-	public MstSecurityUser getCLDR_UPDATED_BY_USER() {
-		return CLDR_UPDATED_BY_USER;
-	}
-
-	public void setCLDR_UPDATED_BY_USER(MstSecurityUser cLDR_UPDATED_BY_USER) {
-		CLDR_UPDATED_BY_USER = cLDR_UPDATED_BY_USER;
 	}	
 
 }

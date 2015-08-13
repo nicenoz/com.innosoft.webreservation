@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="WR_MESSAGE")
 public class MstMessage {
-	
 	@Id
     @GeneratedValue
     @Column(name="MESG_ID")	
@@ -34,6 +34,41 @@ public class MstMessage {
 	
 	@Column(name="MESG_NOTE")
 	public String MESG_NOTE;		
+	
+	@Column(name="CREATED_DATE")
+	public Date CREATED_DATE;
+	
+	@Column(name="CREATED_BY_USER_ID")
+	public Integer CREATED_BY_USER_ID;
+	
+	@Column(name="UPDATED_DATE")
+	public Date UPDATED_DATE;
+	
+	@Column(name="UPDATED_BY_USER_ID")
+	public Integer UPDATED_BY_USER_ID;
+	
+	@Column(name="ISDELETED")
+	public Integer ISDELETED;
+	
+	@Column(name="ISDELETED_DATE",nullable = true)
+	public Date ISDELETED_DATE;
+	
+	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
+	public Integer ISDELETED_BY_USER_ID;
+	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MESG_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MESG_UPDATED_BY_USER_FK;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */		
 	
 	public Integer getMESG_ID() {
 		return MESG_ID;
@@ -116,49 +151,4 @@ public class MstMessage {
 	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
-	
-	@Column(name="CREATED_DATE")
-	public Date CREATED_DATE;
-	
-	@Column(name="CREATED_BY_USER_ID")
-	public Integer CREATED_BY_USER_ID;
-	
-	@Column(name="UPDATED_DATE")
-	public Date UPDATED_DATE;
-	
-	@Column(name="UPDATED_BY_USER_ID")
-	public Integer UPDATED_BY_USER_ID;
-	
-	@Column(name="ISDELETED")
-	public Integer ISDELETED;
-	
-	@Column(name="ISDELETED_DATE",nullable = true)
-	public Date ISDELETED_DATE;
-	
-	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
-	public Integer ISDELETED_BY_USER_ID;	
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser MESG_CREATED_BY_USER;
-
-	public MstSecurityUser getCREATED_BY_USER() {
-		return MESG_CREATED_BY_USER;
-	}
-
-	public void setCREATED_BY_USER(MstSecurityUser cREATED_BY_USER) {
-		MESG_CREATED_BY_USER = cREATED_BY_USER;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser MESG_UPDATED_BY_USER;
-
-	public MstSecurityUser getUPDATED_BY_USER() {
-		return MESG_UPDATED_BY_USER;
-	}
-
-	public void setUPDATED_BY_USER(MstSecurityUser cREATED_BY_USER) {
-		MESG_UPDATED_BY_USER = cREATED_BY_USER;
-	}	
 }

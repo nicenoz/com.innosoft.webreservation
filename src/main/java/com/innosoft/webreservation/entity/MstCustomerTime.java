@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -62,14 +63,24 @@ public class MstCustomerTime {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="CACT_START_TIME")
-	private Collection<MstCalendarActivity> CACT_START_TIME = new LinkedHashSet<MstCalendarActivity>();
+	/* FK -> MstCustomer */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CTIM_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer CTIM_CUST_FK;	
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="CACT_END_TIME")
-	private Collection<MstCalendarActivity> CACT_END_TIME = new LinkedHashSet<MstCalendarActivity>();
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CTIM_CREATED_BY_USER_FK;	
 	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CTIM_UPDATED_BY_USER_FK;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
 	
 	public Integer getCTIM_ID() {
 		return CTIM_ID;
@@ -175,30 +186,5 @@ public class MstCustomerTime {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CTIM_CREATED_BY_USER;
-
-	public MstSecurityUser getCTIM_CREATED_BY_USER() {
-		return CTIM_CREATED_BY_USER;
-	}
-
-	public void setCTIM_CREATED_BY_USER(MstSecurityUser cTIM_CREATED_BY_USER) {
-		CTIM_CREATED_BY_USER = cTIM_CREATED_BY_USER;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CTIM_UPDATED_BY_USER;
-
-	public MstSecurityUser getCTIM_UPDATED_BY_USER() {
-		return CTIM_UPDATED_BY_USER;
-	}
-
-	public void setCTIM_UPDATED_BY_USER(MstSecurityUser cTIM_UPDATED_BY_USER) {
-		CTIM_UPDATED_BY_USER = cTIM_UPDATED_BY_USER;
 	}	
-	
 }
