@@ -303,8 +303,8 @@ function getCustomers() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        CUST_CREATED_BY_USER: Results[i]["CUST_CREATED_BY_USER"],
-                        CUST_UPDATED_BY_USER: Results[i]["CUST_UPDATED_BY_USER"]
+                        CUST_CREATED_BY_USER_FK: Results[i]["CUST_CREATED_BY_USER_FK"],
+                        CUST_UPDATED_BY_USER_FK: Results[i]["CUST_UPDATED_BY_USER_FK"]
                     });
                 }
             } else {
@@ -354,9 +354,9 @@ function updateNavigateButtonsCustomer() {
 //=================== 
 function updateDetails() {
 	var item = customers.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CUST_CREATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CUST_CREATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CUST_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CUST_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 

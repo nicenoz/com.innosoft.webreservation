@@ -84,9 +84,10 @@
 							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" required />
 						</dd>
 				
-						<dt>Customer ID: </dt>
+						<dt>Customer: </dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CHRG_CUST_ID" name="EDIT_CHRG_CUST_ID" type="text" required />
+							<div id="cbo_EDIT_CHRG_CUST_ID"  class="form-control border-custom"></div>				
+							<input id="EDIT_CHRG_CUST_ID" name="EDIT_CHRG_CUST_ID" type="hidden" required />
 						</dd>
 						<dt>Charge Price: </dt>
 						<dd>
@@ -136,7 +137,56 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
-    
+
+//===================
+//Get Customer
+//===================
+function getCustomers() {
+var customers = new wijmo.collections.ObservableArray();
+$.ajax({
+   url: '${pageContext.request.contextPath}/api/customer/list',
+   cache: false,
+   type: 'GET',
+   contentType: 'application/json; charset=utf-8',
+   data: {},
+   success: function (results) {
+       if (results.length > 0) {
+           for (i = 0; i < results.length; i++) {
+           	customers.push({
+                   id: results[i]["CUST_ID"],
+                   customerName: results[i]["CUST_NAME"]
+               });
+           }
+           createCboCustomer(customers);
+       }
+   }
+}).fail(
+   function (xhr, textStatus, err) {
+       alert(err);
+   }
+);
+}
+
+//===================
+//Combo Box
+//===================
+function createCboCustomer(customers) {
+	customerCollection = new wijmo.collections.CollectionView(customers);
+
+var customerList = new Array();
+for (var i = 0; i < customerCollection.items.length; i++) {
+	customerList.push(customerCollection.items[i].customerName);
+}
+	
+cboCustomer.dispose();
+cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CHRG_CUST_ID', {
+   itemsSource: customerList,
+   onSelectedIndexChanged: function () {
+       $("#EDIT_CHRG_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+   }
+});	
+}
+
 // ===================
 // Edit Button Clicked
 // ===================
@@ -318,7 +368,7 @@ function getCharges() {
 										EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdChargeEdit_OnClick()'>Edit</button>",
 										DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdChargeDelete_OnClick()'>Delete</button>",
 										CHRG_ID : Results[i]["chrg_ID"],
-										CHRG_CUST_ID : Results[i]["chrg_CUST_ID"],
+										CHRG_CUST_FK : Results[i].CHRG_CUST_FK.CUST_NAME,
 										CHRG_CHARGE_NO : Results[i]["chrg_CHARGE_NO"],
 										CHRG_PRICE : Results[i]["chrg_PRICE"],
 										CHRG_APP_DIVISION : Results[i]["chrg_APP_DIVISION"],
@@ -332,8 +382,8 @@ function getCharges() {
 				                        ISDELETED: Results[i]["isdeleted"],
 				                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
 				                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-				                        CHRG_CREATED_BY_USER: Results[i]["CHRG_CREATED_BY_USER"],
-				                        CHRG_UPDATED_BY_USER: Results[i]["CHRG_UPDATED_BY_USER"]
+				                        CHRG_CREATED_BY_USER_FK: Results[i]["CHRG_CREATED_BY_USER_FK"],
+				                        CHRG_UPDATED_BY_USER_FK: Results[i]["CHRG_UPDATED_BY_USER_FK"]
 									});
 						}
 					} else {
@@ -382,9 +432,9 @@ function updateNavigateButtonsCode() {
 //=================== 
 function updateDetails() {	
 	var item = charges.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CHRG_CREATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CHRG_CREATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CHRG_UPDATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CHRG_UPDATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;	
 }
 
@@ -480,6 +530,9 @@ $(document).ready(function(){
 	    updateDetails();
 	});
 
+	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CHRG_CUST_ID');
+	getCustomers();
+	
 	// Flex Grid
 	chargeGrid = new wijmo.grid.FlexGrid('#ChargeGrid');
 	chargeGrid.initialize({
@@ -505,8 +558,8 @@ $(document).ready(function(){
 						"width" : "6*"
 					},
 					{
-						"header" : "Customer ID",
-						"binding" : "CHRG_CUST_ID",
+						"header" : "Customer",
+						"binding" : "CHRG_CUST_FK",
 						"allowSorting" : true,
 						"width" : "6*"
 					},

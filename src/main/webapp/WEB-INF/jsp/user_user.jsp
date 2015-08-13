@@ -66,18 +66,19 @@
 				<div class="modal-body">
 					<form id="memberForm">
 						<dl class="dl-horizontal">
-							<dt>Tel No: </dt>
+							<dt>Customer: </dt>
 							<dd>
 								<input id="EDIT_MEBR_ID" type="hidden" />
-								<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
+	            				<div id="cbo_EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
+								<input id="EDIT_MEBR_CUST_ID" name="EDIT_MEBR_CUST_ID" type="hidden" required />
 							</dd>
-							<dt>Customer Id: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_CUST_ID" name="EDIT_MEBR_CUST_ID" type="text" required />
-							</dd>
-							<dt>Member Id: </dt>
+							<dt>Member No: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
+							</dd>
+							<dt>Tel No: </dt>
+							<dd>
+								<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
 							</dd>
 							<dt>Email Address: </dt>
 							<dd>
@@ -96,10 +97,6 @@
                        		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH_DATA" class="form-control border-custom"></div>
                           		  <input id="EDIT_MEBR_DATE_OF_BIRTH" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
 							</dd>
-							<dt>Zip Code: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
-							</dd>
 							<dt>Address1: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text"  />
@@ -112,7 +109,11 @@
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text"  />
 							</dd>
-							<dt>Points: </dt>
+							<dt>Zip Code: </dt>
+							<dd>
+								<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
+							</dd>
+							<dt>Point: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" type="text" required />
 							</dd>
@@ -162,6 +163,56 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+// ===================
+// Get Customer
+// ===================
+function getCustomers() {
+    var customers = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/customer/list',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {},
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	customers.push({
+                        id: results[i]["CUST_ID"],
+                        customerName: results[i]["CUST_NAME"]
+                    });
+                }
+                createCboCustomer(customers);
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );
+}
+
+// ===================
+// Combo Box
+// ===================
+function createCboCustomer(customers) {
+	customerCollection = new wijmo.collections.CollectionView(customers);
+    
+    var customerList = new Array();
+    for (var i = 0; i < customerCollection.items.length; i++) {
+    	customerList.push(customerCollection.items[i].customerName);
+    }
+	
+    cboCustomer.dispose();
+	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_MEBR_CUST_ID', {
+        itemsSource: customerList,
+        onSelectedIndexChanged: function () {
+            $("#EDIT_MEBR_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+            getCalendarActivities(customerCollection.items[this.selectedIndex].id)
+        }
+    });	
+}
 
 // ===================
 // Edit Button Clicked
@@ -315,7 +366,7 @@ function getCustomerMembers() {
 								EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCustomer' onclick='cmdCustomerMemberEdit_OnClick()'>Edit</button>",
 								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerMemberDelete_OnClick()'>Delete</button>",
 								MEBR_ID : Results[i]["mebr_ID"],
-								MEBR_CUST_ID : Results[i]["mebr_CUST_ID"],
+								MEBR_CUST_FK : Results[i].MEBR_CUST_FK.CUST_NAME,
 								MEBR_TEL_NO : Results[i]["mebr_TEL_NO"], 
 								MEBR_CUSTOMER_MEMBER_NO : Results[i]["mebr_CUSTOMER_MEMBER_NO"],
 								MEBR_EMAIL_ADDRESS : Results[i]["mebr_EMAIL_ADDRESS"],
@@ -340,8 +391,8 @@ function getCustomerMembers() {
 		                        ISDELETED: Results[i]["isdeleted"],
 		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
 		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-								MEBR_CREATED_BY_USER: Results[i]["MEBR_CREATED_BY_USER"],
-								MEBR_UPDATED_BY_USER: Results[i]["MEBR_UPDATED_BY_USER"]
+								MEBR_CREATED_BY_USER_FK: Results[i]["MEBR_CREATED_BY_USER_FK"],
+								MEBR_UPDATED_BY_USER_FK: Results[i]["MEBR_UPDATED_BY_USER_FK"]
 							});
 						}
 				
@@ -387,13 +438,13 @@ function updateNavigateButtonsCustomerMember() {
 }
 
 //===================
-//FlexGrid Selection
+// FlexGrid Selection
 //===================
 function updateDetails() {	
 	var item = customerMembers.currentItem;	
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.MEBR_CREATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.MEBR_CREATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.MEBR_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.MEBR_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
@@ -428,6 +479,11 @@ $.validator.setDefaults({
     }
 });
 
+
+
+//=========
+//Page Load
+//========= 
 $(document).ready(function() {
 
 		customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH_DATA', {
@@ -476,6 +532,9 @@ $(document).ready(function() {
 		customerMembers.currentChanged.addHandler(function (sender, args) {
 			    updateDetails();
 		});
+		
+		cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_MEBR_CUST_ID');
+		getCustomers(); 
 		 
 		// Flex Grid
 		customerMemberGrid = new wijmo.grid.FlexGrid('#customerMemberGrid');
@@ -527,7 +586,7 @@ $(document).ready(function() {
 					}, 
 					{
 						"header" : "Name",
-						"binding" : "MEBR_CUST_ID",
+						"binding" : "MEBR_CUST_FK",
 						"allowSorting" : true,
 						"width" : "2*"
 					},

@@ -1,9 +1,9 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!-- Footer -->
-<footer class="navbar-inverse navbar-fixed-bottom footer-custom">
+<footer class="navbar-inverse navbar-fixed-bottom footer-style">
     <div class="container">
-        <div class="row footer-margin">
+        <div class="row">
          	<div data-toggle="collapse" data-target=".navbar-ex1-collapse"></div>
           	<div class="col-sm-6">
           		<p class="footer-title-style">Web Reservation</p>

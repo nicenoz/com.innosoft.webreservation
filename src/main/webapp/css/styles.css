@@ -298,6 +298,13 @@ dt {
 }
 
 /* Footer Styles */
+.footer-style {
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .footer-margin {
 	margin-bottom: 8px;
 }
