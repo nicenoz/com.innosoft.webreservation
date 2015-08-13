@@ -1,10 +1,8 @@
 package com.innosoft.webreservation.entity;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,12 +13,114 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 @Entity
 @Table(name="WR_CUSTOMER_MEMBER")
 public class MstCustomerMember {
+	
+	@Id
+    @GeneratedValue
+    @Column(name="MEBR_ID")		
+	public Integer MEBR_ID; 
+	
+	@Column(name="MEBR_CUST_ID")	
+	public Integer MEBR_CUST_ID;
+	
+	@Column(name="MEBR_CUSTOMER_MEMBER_NO")	
+	public String MEBR_CUSTOMER_MEMBER_NO;
+	
+	@Column(name="MEBR_USER_ID")	
+	public Integer MEBR_USER_ID;
+	
+	@Column(name="MEBR_TEL_NO")	
+	public String MEBR_TEL_NO;
+	
+	@Column(name="MEBR_EMAIL_ADDRESS")	
+	public String MEBR_EMAIL_ADDRESS;
+	
+	@Column(name="MEBR_FIRST_NAME")	
+	public String MEBR_FIRST_NAME;
+	
+	@Column(name="MEBR_LAST_NAME")	
+	public String MEBR_LAST_NAME;
+	
+	@Column(name="MEBR_DATE_OF_BIRTH")	
+	public Date MEBR_DATE_OF_BIRTH;
+	
+	@Column(name="MEBR_ZIP_CODE")	
+	public String MEBR_ZIP_CODE;
+	
+	@Column(name="MEBR_ADDRESS1")	
+	public String MEBR_ADDRESS1;
+	
+	@Column(name="MEBR_ADDRESS2")	
+	public String MEBR_ADDRESS2;
+	
+	@Column(name="MEBR_ADDRESS3")	
+	public String MEBR_ADDRESS3;
+	
+	@Column(name="MEBR_POINT")	
+	public Integer MEBR_POINT;
+	
+	@Column(name="MEBR_FIELD1")	
+	public String MEBR_FIELD1;
+	
+	@Column(name="MEBR_FIELD2")	
+	public String MEBR_FIELD2;
+	
+	@Column(name="MEBR_FIELD3")	
+	public String MEBR_FIELD3;
+	
+	@Column(name="MEBR_FIELD4")	
+	public String MEBR_FIELD4;
+	
+	@Column(name="MEBR_FIELD5")	
+	public String MEBR_FIELD5;
+	
+	@Column(name="CREATED_DATE")	
+	public Date CREATED_DATE;
+	
+	@Column(name="CREATED_BY_USER_ID")	
+	public Integer CREATED_BY_USER_ID;
+	
+	@Column(name="UPDATED_DATE")	
+	public Date UPDATED_DATE;
+	
+	@Column(name="UPDATED_BY_USER_ID")	
+	public Integer UPDATED_BY_USER_ID;
+	
+	@Column(name="ISDELETED")	
+	public Integer ISDELETED;
+	
+	@Column(name="ISDELETED_DATE",nullable = true)	
+	public Date ISDELETED_DATE;
+	
+	@Column(name="ISDELETED_BY_USER_ID",nullable = true)	
+	public Integer ISDELETED_BY_USER_ID;
+	
+	/* FK -> MstCustomer */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="MEBR_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer MEBR_CUST_FK;	
+	
+	/* FK -> MstSecurityUser User */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="MEBR_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_USER_FK;	
+	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser MEBR_UPDATED_BY_USER_FK;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
+	
 	public Integer getMEBR_ID() {
 		return MEBR_ID;
 	}
@@ -176,86 +276,5 @@ public class MstCustomerMember {
 	}
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}
-	@Id
-    @GeneratedValue
-    @Column(name="MEBR_ID")		
-	public Integer MEBR_ID; 
-	@Column(name="MEBR_CUST_ID")	
-	public Integer MEBR_CUST_ID;
-	@Column(name="MEBR_CUSTOMER_MEMBER_NO")	
-	public String MEBR_CUSTOMER_MEMBER_NO;
-	@Column(name="MEBR_USER_ID")	
-	public Integer MEBR_USER_ID;
-	@Column(name="MEBR_TEL_NO")	
-	public String MEBR_TEL_NO;
-	@Column(name="MEBR_EMAIL_ADDRESS")	
-	public String MEBR_EMAIL_ADDRESS;
-	@Column(name="MEBR_FIRST_NAME")	
-	public String MEBR_FIRST_NAME;
-	@Column(name="MEBR_LAST_NAME")	
-	public String MEBR_LAST_NAME;
-	@Column(name="MEBR_DATE_OF_BIRTH")	
-	public Date MEBR_DATE_OF_BIRTH;
-	@Column(name="MEBR_ZIP_CODE")	
-	public String MEBR_ZIP_CODE;
-	@Column(name="MEBR_ADDRESS1")	
-	public String MEBR_ADDRESS1;
-	@Column(name="MEBR_ADDRESS2")	
-	public String MEBR_ADDRESS2;
-	@Column(name="MEBR_ADDRESS3")	
-	public String MEBR_ADDRESS3;
-	@Column(name="MEBR_POINT")	
-	public Integer MEBR_POINT;
-	@Column(name="MEBR_FIELD1")	
-	public String MEBR_FIELD1;
-	@Column(name="MEBR_FIELD2")	
-	public String MEBR_FIELD2;
-	@Column(name="MEBR_FIELD3")	
-	public String MEBR_FIELD3;
-	@Column(name="MEBR_FIELD4")	
-	public String MEBR_FIELD4;
-	@Column(name="MEBR_FIELD5")	
-	public String MEBR_FIELD5;
-	@Column(name="CREATED_DATE")	
-	public Date CREATED_DATE;
-	@Column(name="CREATED_BY_USER_ID")	
-	public Integer CREATED_BY_USER_ID;
-	@Column(name="UPDATED_DATE")	
-	public Date UPDATED_DATE;
-	@Column(name="UPDATED_BY_USER_ID")	
-	public Integer UPDATED_BY_USER_ID;
-	@Column(name="ISDELETED")	
-	public Integer ISDELETED;
-	@Column(name="ISDELETED_DATE",nullable = true)	
-	public Date ISDELETED_DATE;
-	@Column(name="ISDELETED_BY_USER_ID",nullable = true)	
-	public Integer ISDELETED_BY_USER_ID;
-	
-	public MstSecurityUser getMEBR_CREATED_BY_USER() {
-		return MEBR_CREATED_BY_USER;
-	}
-	public void setMEBR_CREATED_BY_USER(MstSecurityUser mEBR_CREATED_BY_USER) {
-		MEBR_CREATED_BY_USER = mEBR_CREATED_BY_USER;
-	}
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser MEBR_UPDATED_BY_USER;
-
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser MEBR_CREATED_BY_USER;
-	
-	public MstSecurityUser getMEBR_UPDATED_BY_USER() {
-		return MEBR_UPDATED_BY_USER;
-	}
-	public void setMEBR_UPDATED_BY_USER(MstSecurityUser mEBR_UPDATED_BY_USER) {
-		MEBR_UPDATED_BY_USER = mEBR_UPDATED_BY_USER;
 	}	
-	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="RESV_MEMBER")
-	private Collection<TrnReservation> RESV_MEMBER = new LinkedHashSet<TrnReservation>();
 }

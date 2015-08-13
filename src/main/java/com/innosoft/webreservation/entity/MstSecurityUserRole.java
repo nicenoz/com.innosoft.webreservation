@@ -9,6 +9,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name="WR_SECURITY_USER_ROLE")
 public class MstSecurityUserRole {	
+	@Id
+    @GeneratedValue
+    @Column(name="USER_ROLE_ID")	
+	private int USER_ROLE_ID;	
+	
+	@Column(name="USER_ID")
+	private Integer USER_ID;
+	
+	@Column(name="ROLE_ID")
+	private Integer ROLE_ID;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
+	
 	public Integer getUSER_ID() {
 		return USER_ID;
 	}
@@ -28,15 +43,4 @@ public class MstSecurityUserRole {
 	public void setUSER_ROLE_ID(int uSER_ROLE_ID) {
 		USER_ROLE_ID = uSER_ROLE_ID;
 	}
-
-	@Id
-    @GeneratedValue
-    @Column(name="USER_ROLE_ID")	
-	private int USER_ROLE_ID;	
-	
-	@Column(name="USER_ID")
-	private Integer USER_ID;
-	
-	@Column(name="ROLE_ID")
-	private Integer ROLE_ID;	
 }

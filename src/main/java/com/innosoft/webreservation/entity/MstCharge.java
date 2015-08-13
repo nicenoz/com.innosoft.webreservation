@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "WR_CHARGE")
 public class MstCharge {
-	
 	@Id
 	@GeneratedValue
 	@Column(name = "CHRG_ID")
@@ -59,6 +59,24 @@ public class MstCharge {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 	
+	/* FK -> MstCustomer */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CHRG_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer CHRG_CUST_FK;	
+	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CHRG_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CHRG_UPDATED_BY_USER_FK;		
+
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
 	
 	public Integer getCHRG_ID() {
 		return CHRG_ID;
@@ -175,30 +193,4 @@ public class MstCharge {
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
 	}
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CHRG_CREATED_BY_USER;
-
-
-	public MstSecurityUser getCHRG_CREATED_BY_USER() {
-		return CHRG_CREATED_BY_USER;
-	}
-
-	public void setCHRG_CREATED_BY_USER(MstSecurityUser cHRG_CREATED_BY_USER) {
-		CHRG_CREATED_BY_USER = cHRG_CREATED_BY_USER;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CHRG_UPDATED_BY_USER;
-
-	public MstSecurityUser getCHRG_UPDATED_BY_USER() {
-		return CHRG_UPDATED_BY_USER;
-	}
-
-	public void setCHRG_UPDATED_BY_USER(MstSecurityUser cHRG_UPDATED_BY_USER) {
-		CHRG_UPDATED_BY_USER = cHRG_UPDATED_BY_USER;
-	}	
-	
 }

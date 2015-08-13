@@ -4,15 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name="WR_ACCESS_LOG")
 public class TrnAccessLog {
-	
 	@Id
     @GeneratedValue
     @Column(name="ALOG_ID")	
@@ -33,6 +34,19 @@ public class TrnAccessLog {
 	@Column(name="ALOG_ACCESS_DATE")	
 	public Date ALOG_ACCESS_DATE;
 	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ALOG_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer ALOG_CUST_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ALOG_MEBR_ID", insertable=false, updatable=false)
+	public MstCustomerMember ALOG_MEBR_FK;	
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */		
 	
 	public Integer getALOG_ID() {
 		return ALOG_ID;
@@ -80,19 +94,5 @@ public class TrnAccessLog {
 
 	public void setALOG_ACCESS_DATE(Date aLOG_ACCESS_DATE) {
 		ALOG_ACCESS_DATE = aLOG_ACCESS_DATE;
-	}
-	
-/*	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser ALOG_CREATED_BY_USER;
-
-
-	public MstSecurityUser getALOG_CREATED_BY_USER() {
-		return ALOG_CREATED_BY_USER;
-	}
-
-	public void setALOG_CREATED_BY_USER(MstSecurityUser aLOG_CREATED_BY_USER) {
-		ALOG_CREATED_BY_USER = aLOG_CREATED_BY_USER;
-	}*/
-	
+	}	
 }

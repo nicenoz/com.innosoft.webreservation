@@ -2,40 +2,50 @@ package com.innosoft.webreservation.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name="WR_RESERVATION")
 public class TrnReservation {
-
 	@Id
     @GeneratedValue
     @Column(name="RESV_ID")	
 	public Integer RESV_ID;
 	
-	@Column(name="RESV_CUST_ID")	
-	public Integer RESV_CUST_ID;
+	@Column(name="RESV_CUST_ID")
+	public Integer RESV_CUST_ID;  
 	
-	@Column(name="RESV_MEBR_ID")	
+	@Column(name="RESV_MEBR_ID")
 	public Integer RESV_MEBR_ID;
 	
-	@Column(name="RESV_UNIT_NO")	
+	@Column(name="RESV_CACT_ID")
+	public Integer RESV_CACT_ID;
+	
+	@Column(name="RESV_UNIT_NO")
 	public Integer RESV_UNIT_NO;
 	
-	@Column(name="RESV_PARTS_NAME")	
-	public String RESV_PARTS_NAME;
+	@Column(name="RESV_PARTS_NO")
+	public Integer RESV_PARTS_NO;
 	
-	@Column(name="RESV_START_TIME_ID")	
+	@Column(name="RESV_START_TIME_ID")
 	public Integer RESV_START_TIME_ID;
 	
-	@Column(name="RESV_END_TIME_ID")	
-	public Integer RESV_END_TIME_ID;	
+	@Column(name="RESV_END_TIME_ID")
+	public Integer RESV_END_TIME_ID;
+	
+	@Column(name="RESV_NOTE")
+	public String RESV_NOTE;
 	
 	@Column(name="CREATED_DATE")
 	public Date CREATED_DATE;
@@ -49,15 +59,53 @@ public class TrnReservation {
 	@Column(name="UPDATED_BY_USER_ID")
 	public Integer UPDATED_BY_USER_ID;
 	
-	@Column(name="ISDELETED")
+	@Column(name="ISDELETED")	
 	public Integer ISDELETED;
 	
-	@Column(name="ISDELETED_DATE",nullable = true)
+	@Column(name="ISDELETED_DATE")	
 	public Date ISDELETED_DATE;
-	
-	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
-	public Integer ISDELETED_BY_USER_ID;	
 
+	@Column(name="ISDELETED_BY_USER_ID")	
+	public Integer ISDELETED_BY_USER_ID;
+	
+	/* FK -> MstCustomer */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="RESV_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer RESV_CUST_FK;	
+	
+	/* FK -> MstCustomerMember */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="RESV_MEBR_ID", insertable=false, updatable=false)
+	public MstCustomerMember RESV_MEBR_FK;	
+	
+	/* FK -> MstCalendarActivity */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="RESV_CACT_ID", insertable=false, updatable=false)
+	private MstCalendarActivity RESV_CACT_FK;
+	
+	/* FK -> MstCustomerTime TimeStart */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="RESV_START_TIME_ID", insertable=false, updatable=false)
+	public MstCustomerTime RESV_START_TIME_FK;
+	
+	/* FK -> MstCustomerTime TimeEnd */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="RESV_END_TIME_ID", insertable=false, updatable=false)
+	public MstCustomerTime RESV_END_TIME_FK;	
+	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser RESV_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser RESV_UPDATED_BY_USER_FK;		
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */
 	
 	public Integer getRESV_ID() {
 		return RESV_ID;
@@ -83,6 +131,14 @@ public class TrnReservation {
 		RESV_MEBR_ID = rESV_MEBR_ID;
 	}
 
+	public Integer getRESV_CACT_ID() {
+		return RESV_CACT_ID;
+	}
+
+	public void setRESV_CACT_ID(Integer rESV_CACT_ID) {
+		RESV_CACT_ID = rESV_CACT_ID;
+	}
+
 	public Integer getRESV_UNIT_NO() {
 		return RESV_UNIT_NO;
 	}
@@ -91,12 +147,12 @@ public class TrnReservation {
 		RESV_UNIT_NO = rESV_UNIT_NO;
 	}
 
-	public String getRESV_PARTS_NAME() {
-		return RESV_PARTS_NAME;
+	public Integer getRESV_PARTS_NO() {
+		return RESV_PARTS_NO;
 	}
 
-	public void setRESV_PARTS_NAME(String rESV_PARTS_NAME) {
-		RESV_PARTS_NAME = rESV_PARTS_NAME;
+	public void setRESV_PARTS_NO(Integer rESV_PARTS_NO) {
+		RESV_PARTS_NO = rESV_PARTS_NO;
 	}
 
 	public Integer getRESV_START_TIME_ID() {
@@ -113,6 +169,14 @@ public class TrnReservation {
 
 	public void setRESV_END_TIME_ID(Integer rESV_END_TIME_ID) {
 		RESV_END_TIME_ID = rESV_END_TIME_ID;
+	}
+
+	public String getRESV_NOTE() {
+		return RESV_NOTE;
+	}
+
+	public void setRESV_NOTE(String rESV_NOTE) {
+		RESV_NOTE = rESV_NOTE;
 	}
 
 	public Date getCREATED_DATE() {
@@ -146,7 +210,7 @@ public class TrnReservation {
 	public void setUPDATED_BY_USER_ID(Integer uPDATED_BY_USER_ID) {
 		UPDATED_BY_USER_ID = uPDATED_BY_USER_ID;
 	}
-
+	
 	public Integer getISDELETED() {
 		return ISDELETED;
 	}
@@ -169,44 +233,5 @@ public class TrnReservation {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser RESV_CREATED_BY_USER;
-
-	public MstSecurityUser getRESV_CREATED_BY_USER() {
-		return RESV_CREATED_BY_USER;
-	}
-
-	public void setRESV_CREATED_BY_USER(MstSecurityUser rESV_CREATED_BY_USER) {
-		RESV_CREATED_BY_USER = rESV_CREATED_BY_USER;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser RESV_UPDATED_BY_USER;
-
-	public MstSecurityUser getRESV_UPDATED_BY_USER() {
-		return RESV_UPDATED_BY_USER;
-	}
-
-	public void setRESV_UPDATED_BY_USER(MstSecurityUser rESV_UPDATED_BY_USER) {
-		RESV_UPDATED_BY_USER = rESV_UPDATED_BY_USER;
-	}
-	
-	
-	@ManyToOne
-	@JoinColumn(name="RESV_MEBR_ID", insertable=false, updatable=false)
-	public MstCustomerMember RESV_MEMBER;
-	
-	public MstCustomerMember getRESV_MEMBER() {
-		return RESV_MEMBER;
-	}
-
-	public void setCUST_CREATED_BY_USER(MstCustomerMember rESV_MEMBER) {
-		RESV_MEMBER = rESV_MEMBER;
-	}
-	
-
+	}	
 }

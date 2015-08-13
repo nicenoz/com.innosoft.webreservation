@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
@@ -26,6 +27,12 @@ public class CalendarActivityApi {
 		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivity();
 		return list;
 	}	
+	
+	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
+	public @ResponseBody List<MstCalendarActivity> listCalendarActivityByCustomer(@RequestParam(value="customerId") int customerId) {
+		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivityByCustomer(customerId);
+		return list;
+	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {

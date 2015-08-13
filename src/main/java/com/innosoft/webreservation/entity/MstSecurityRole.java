@@ -9,6 +9,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name="WR_SECURITY_ROLE")
 public class MstSecurityRole {
+	@Id
+    @GeneratedValue
+    @Column(name="ROLE_ID")
+	private Integer ROLE_ID;
+	
+	@Column(name="ROLE_ROLE")  
+	private String ROLE_ROLE;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */		
 	
     public Integer getROLE_ID() {
 		return ROLE_ID;
@@ -25,14 +36,4 @@ public class MstSecurityRole {
 	public void setROLE_ROLE(String rOLE_ROLE) {
 		ROLE_ROLE = rOLE_ROLE;
 	}
-
-	@Id
-    @GeneratedValue
-    @Column(name="ROLE_ID")
-	private Integer ROLE_ID;
-	
-	@Column(name="ROLE_ROLE")  
-	private String ROLE_ROLE;
-
-
 }

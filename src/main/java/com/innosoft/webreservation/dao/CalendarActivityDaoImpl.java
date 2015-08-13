@@ -2,15 +2,18 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.TrnReservation;
 
 @Repository
 @Transactional
@@ -31,6 +34,14 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity").list();	
 		return list;		
 	}
+	@SuppressWarnings("unchecked")
+	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCalendarActivity.class);
+		criteria.add(Restrictions.eq("CACT_CUST_ID", customerId));
+		List<MstCalendarActivity> list = criteria.list();	
+		return list;		
+	}	
 	public MstCalendarActivity addCalendarActivity(MstCalendarActivity calendarActivity){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -41,7 +52,7 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 
 			newCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);
 			newCalendarActivity.setCACT_CUST_ID(calendarActivity.CACT_CUST_ID);  
-			newCalendarActivity.setCACT_DATE(calendarActivity.CACT_DATE);  
+			newCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);  
 			newCalendarActivity.setCACT_DETAILS_NO(calendarActivity.CACT_DETAILS_NO);  
 			newCalendarActivity.setCACT_ACTIVITY_CLASSIFICATION(calendarActivity.CACT_ACTIVITY_CLASSIFICATION); 
 			newCalendarActivity.setCACT_ACTIVITY_CONTENTS(calendarActivity.CACT_ACTIVITY_CONTENTS);
@@ -76,7 +87,7 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 			
 			updateCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);
 			updateCalendarActivity.setCACT_CUST_ID(calendarActivity.CACT_CUST_ID);  
-			updateCalendarActivity.setCACT_DATE(calendarActivity.CACT_DATE);  
+			updateCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);  
 			updateCalendarActivity.setCACT_DETAILS_NO(calendarActivity.CACT_DETAILS_NO);  
 			updateCalendarActivity.setCACT_ACTIVITY_CLASSIFICATION(calendarActivity.CACT_ACTIVITY_CLASSIFICATION); 
 			updateCalendarActivity.setCACT_ACTIVITY_CONTENTS(calendarActivity.CACT_ACTIVITY_CONTENTS);

@@ -20,19 +20,20 @@ public class CustomerTimeServiceImpl implements CustomerTimeService {
 	public List<MstCustomerTime> listCustomerTime(){
 		return customerTimeDao.listCustomerTime();
 	}
-
+	
+	public List<MstCustomerTime> listCustomerTimeByCustomer(int customerId) {
+		return customerTimeDao.listCustomerTimeByCustomer(customerId);
+	}
+	
 	public MstCustomerTime addCustomerTime(MstCustomerTime time) {
-		// TODO Auto-generated method stub
 		return customerTimeDao.addCustomerTime(time);
 	}
 
 	public MstCustomerTime editCustomerTime(MstCustomerTime time) {
-		// TODO Auto-generated method stub
 		return customerTimeDao.editCustomerTime(time);
 	}
 
 	public boolean deleteCustomerTime(int id) {
-		// TODO Auto-generated method stub
 		return customerTimeDao.deleteCustomerTime(id);
 	}
 	

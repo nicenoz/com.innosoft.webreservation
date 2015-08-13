@@ -4,6 +4,14 @@ import javax.persistence.Entity;
 
 @Entity
 public class SysEmail {
+	public String EMAIL_EMAIL;
+	public String EMAIL_SUBJECT;
+	public String EMAIL_MESSAGE;
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */	
+	
 	public String getEMAIL_EMAIL() {
 		return EMAIL_EMAIL;
 	}
@@ -22,7 +30,4 @@ public class SysEmail {
 	public void setEMAIL_MESSAGE(String eMAIL_MESSAGE) {
 		EMAIL_MESSAGE = eMAIL_MESSAGE;
 	}
-	public String EMAIL_EMAIL;
-	public String EMAIL_SUBJECT;
-	public String EMAIL_MESSAGE;
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -52,7 +53,29 @@ public class TrnChargeCount {
 	@Column(name="ISDELETED_BY_USER_ID",nullable = true)
 	public Integer ISDELETED_BY_USER_ID;
 	
+	/* FK -> MstCustomer */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CUNT_CUST_ID", insertable=false, updatable=false)
+	public MstCustomer CUNT_CUST_FK;	
 	
+	/* FK -> MstCustomerMember */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CUNT_MEBR_ID", insertable=false, updatable=false)
+	public MstCustomerMember CUNT_MEBR_FK;	
+	
+	/* FK -> MstSecurityUser Created */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUNT_CREATED_BY_USER_FK;	
+	
+	/* FK -> MstSecurityUser Updated */
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
+	public MstSecurityUser CUNT_UPDATED_BY_USER_FK;	
+	
+	/* ************* */
+	/* Setter/Getter */
+	/* ************* */		
 	
 	public Integer getCUNT_ID() {
 		return CUNT_ID;
@@ -92,8 +115,8 @@ public class TrnChargeCount {
 
 	public void setCUNT_EMAIL_ADDRESS(String cUNT_EMAIL_ADDRESS) {
 		CUNT_EMAIL_ADDRESS = cUNT_EMAIL_ADDRESS;
-	}
-
+	}	
+	
 	public Date getCREATED_DATE() {
 		return CREATED_DATE;
 	}
@@ -148,30 +171,5 @@ public class TrnChargeCount {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="CREATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CUNT_CREATED_BY_USER;
-
-	public MstSecurityUser getCUNT_CREATED_BY_USER() {
-		return CUNT_CREATED_BY_USER;
-	}
-
-	public void setCUNT_CREATED_BY_USER(MstSecurityUser cUNT_CREATED_BY_USER) {
-		CUNT_CREATED_BY_USER = cUNT_CREATED_BY_USER;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="UPDATED_BY_USER_ID", insertable=false, updatable=false)
-	public MstSecurityUser CUNT_UPDATED_BY_USER;
-
-	public MstSecurityUser getCUNT_UPDATED_BY_USER() {
-		return CUNT_UPDATED_BY_USER;
-	}
-
-	public void setCUNT_UPDATED_BY_USER(MstSecurityUser cUNT_UPDATED_BY_USER) {
-		CUNT_UPDATED_BY_USER = cUNT_UPDATED_BY_USER;
 	}	
-
 }
