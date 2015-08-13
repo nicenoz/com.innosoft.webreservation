@@ -6,31 +6,11 @@
 <div class="container">
 	<section id="list">
 		<div class="row">
-			<div class="col-lg-12">
-				<h4>Welcome to Salon de Rose Group of Companies blabla</h4>
-			</div>
-		</div>
-		<div class="row" style="margin-bottom:15px;margin-top:10px;">
-		<!-- ADD THIS DYNAMICALLY -->
+		
 			<div class="col-lg-3">
-	                <!-- <select id="CustomerList">
-	                    <option value="0">Salon de Rose SM</option>
-	                    <option value="1">Salon de Rose Colon</option>
-	                    <option value="2">Salon de Rose Mandaue</option>
-	                    <option value="3">Salon de Rose Ayala</option>
-	                    <option value="4">Kilid Kilid Salon</option>
-	                    <option value="5">Mama Salon</option>
-	                    <option value="6">Pet Salon</option>
-	                    <option value="7">Pagwapa Salon</option>
-	                    <option value="8">Salon Pas</option>
-	                    <option value="9">Salon Salon</option>
-	                    <option value="10">Salon Carenderia</option>
-	                    <option value="11">Salon de Lebron</option>
-	                </select> -->
-	                <div id="CustomerList"></div>
-	        </div>
-        </div>
-		<div class="row">
+			  <div id="CustomerList"></div>
+			</div>
+
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
 			<div class="input-group">
@@ -38,7 +18,7 @@
 			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
-			
+
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
@@ -46,7 +26,7 @@
 			</div>
 			</div>
 			
-			<div class="col-lg-6 btn-group">
+			<div class="col-lg-3 btn-group">
 				<button id="cmdCreateReservation" type="submit" class="btn btn-success  border-custom pull-right" onclick="">Create Reservation</button>	
 			</div>
 		</div>
@@ -55,7 +35,7 @@
 		<!-- Table -->
 		<div class="row">
 			<div class="col-lg-12">
-				<wj-flex-grid id="reportGrid" control="flex" allow-merging="Cells" style="height:50vh;"></wj-flex-grid>
+				<wj-flex-grid id="reportGrid" control="flex" allow-merging="Cells" style="height:65vh;"></wj-flex-grid>
 			</div>
 		</div>
 	</section>

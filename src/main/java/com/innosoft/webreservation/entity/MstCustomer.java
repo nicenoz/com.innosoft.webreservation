@@ -6,9 +6,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,8 @@ import javax.persistence.Table;
 public class MstCustomer {
 	
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CUST_ID_SEQ")
+    @SequenceGenerator(name="CUST_ID_SEQ", sequenceName="CUST_ID_SEQ", allocationSize=1)
     @Column(name="CUST_ID")	
 	public Integer CUST_ID;
 	
