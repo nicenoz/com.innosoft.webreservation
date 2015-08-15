@@ -9,7 +9,6 @@
         <div class="row">
             <div class="col-lg-2">
 	            <div id="cboCustomer" class="full-width"></div>
-	            <input class="form-control" id="customerId" type="hidden"/>
             </div>
             <div class="col-lg-2">
 	            <div id="cboCalendarActivityStart" class="full-width"></div>
@@ -61,12 +60,14 @@ var calendarActivityCollection;
 var scheduleCollection;
 
 var calendarActivityList;
+var reservationsList;
+var customerList;
 
 // ======
 // Events
 // ======   
 function cmdGetSchedule_OnClick() {
-	var customerId = document.getElementById('customerId').value;
+	var customerId = customerList[cboCustomer.selectedIndex].id;
     var customerTime = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customerTime/listByCustomer',
@@ -75,47 +76,88 @@ function cmdGetSchedule_OnClick() {
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":customerId},
         success: function (results) {
+
+        	// --- CREATE COLUMNS --------------------------------------
+            var gridColumns = [];
+            gridColumns.push({
+            	"header" : "Time",
+        		"binding" : "time",
+        		"allowSorting" : false,
+        		"allowMerging" : true,
+        		"align" : "center",
+        		"width" : 100
+            });   
+            gridColumns.push({
+            	"header" : "Parts",
+        		"binding" : "parts",
+        		"allowSorting" : false,
+        		"allowMerging" : false,
+        		"align" : "center",
+        		"width" : 200
+            });    
+
+            var startDateIndex = cboCalendarActivityStart.selectedIndex;
+            var endDateIndex = cboCalendarActivityEnd.selectedIndex;
+            
+            for (var k = startDateIndex; k <= endDateIndex; k++) {
+    	    	gridColumns.push({
+    	        	"header" : calendarActivityList[k],
+    	    		"allowSorting" : true,
+    	    		"binding": calendarActivityList[k],
+    	            "isContentHtml": true,
+            		"align" : "center",
+    	    		"width" : 100
+    	        });	
+    	    }     
+        	
+            // --- END CREATE COLUMNS ----------------------------------
+            
+            // --- CREATE DATA -----------------------------------------
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
+                	// --- CREATE PARTS ROWS --------------------------------------
                 	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
-                    	customerTime.push({
-                            time: results[i]["CTIM_DETAILS_NO"].toString(),
-                            parts: p + 1,
-                            noOfParts: results[i]["CTIM_MAX_PARTS_NO"]
-                        });                		
+                		var newObj = {
+                				time: results[i]["CTIM_DETAILS_NO"].toString(), 
+                				parts: p + 1,
+                				/* noOfParts: results[i]["CTIM_MAX_PARTS_NO"] */
+                		};
+                		
+                		// --- CREATE BUTTONS --------------------------------------
+                		
+                		console.log("New Date");
+                		for (k = startDateIndex; k <= endDateIndex; k++) {
+                			var slotHolder = "";
+                			for(a = 0; a < reservationsList.length; a++){
+                				if(reservationsList[a].RESV_CUST_ID == customerId){
+                					console.log("1");
+	                				if(calendarActivityList[k] == reservationsList[a].RESV_DAY_CODE){
+	                					
+	                					console.log("2");
+		                				var id = reservationsList[a]["RESV_START_TIME_ID"];
+	                					console.log(id + " " + results[i]["CTIM_ID"]);
+	                					
+		                				if(id == results[i]["CTIM_ID"]){
+		                					console.log("3");
+			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+			                					console.log("4");
+			                					slotHolder = slotHolder + " <button class='btn btn-primary btn-xs border-custom'>x</button> ";
+			                				}
+		                				}
+	                				}
+                				}
+                			}
+                			console.log("Slot: " + slotHolder);
+                			newObj[calendarActivityList[k]] = slotHolder;
+                 	    }  
+                    	customerTime.push(newObj);                		
                 	}
                 }
                 scheduleCollection = new wijmo.collections.CollectionView(customerTime);
                 scheduleCollection.canFilter = true;   
                 
                 scheduleGrid.dispose();
-                
-                var gridColumns = [];
-                gridColumns.push({
-                	"header" : "Time",
-            		"binding" : "time",
-            		"allowSorting" : false,
-            		"allowMerging" : true,
-            		"width" : 100
-                });   
-                gridColumns.push({
-                	"header" : "Parts",
-            		"binding" : "parts",
-            		"allowSorting" : false,
-            		"allowMerging" : false,
-            		"width" : 200
-                });    
-                
-                var startDateIndex = cboCalendarActivityStart.selectedIndex;
-                var endDateIndex = cboCalendarActivityEnd.selectedIndex;
-                
-                for (var i = startDateIndex; i <= endDateIndex; i++) {
-        	    	gridColumns.push({
-        	        	"header" : calendarActivityList[i],
-        	    		"allowSorting" : true,
-        	    		"width" : 100
-        	        });	
-        	    }                
+                           
                 
                 scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
                 scheduleGrid.frozenColumns = 2;
@@ -144,7 +186,7 @@ function getReservation(customerId, calendarActivityStartId, calendarActivityEnd
 
 }
 function getCustomers() {
-    var customers = new wijmo.collections.ObservableArray();
+	customerList = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customer/list',
         cache: false,
@@ -154,12 +196,12 @@ function getCustomers() {
         success: function (results) {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
-                	customers.push({
+                	customerList.push({
                         id: results[i]["CUST_ID"],
                         customerName: results[i]["CUST_NAME"]
                     });
                 }
-                createCboCustomer(customers);
+                createCboCustomer(customerList);
             }
         }
     }).fail(
@@ -171,20 +213,35 @@ function getCustomers() {
 function getCalendarActivities(customerId) {
     var calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
-        url: '${pageContext.request.contextPath}/api/calendarActivity/list',
+        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":customerId},
         success: function (results) {
+        	reservationsList = new Array();
             if (results.length > 0) {
-                for (i = 0; i < results.length; i++) {
+                results.forEach(function(result){
                 	calendarActivities.push({
-                        id: results[i]["CACT_ID"],
-                        dayCode: results[i]["CACT_CLDR_FK"]["CLDR_DAYCODE"],
-                        reservation: results[i]["RESV_CACT"]
+                        id: result.CACT_ID,
+                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
-                }
+              
+                	//GET ALL RESERVATIONS
+                	result.RESV_CACT.forEach(function (reservation){
+	                	var startTimeName = reservation["RESV_START_TIME_FK"];
+	                	var endTimeName = reservation["RESV_END_TIME_FK"];
+	                	reservationsList.push({
+	                		RESV_CUST_ID: result.CACT_CUST_ID,
+	                		RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+	                		RESV_DAY_CODE: result.CACT_CLDR_FK.CLDR_DAYCODE,
+	                		RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+	                		RESV_END_TIME_ID: reservation.RESV_PARTS_NO,
+	                		RESV_NOTE: reservation.RESV_PARTS_NO,
+	                		/* MEBR_NAME: results[i].RESV_CACT[j].RESV_MEBR_FK"][MEBR_FIRST_NAME] + " " + results[i]["RESV_CACT"]["RESV_MEBR_FK"][MEBR_FIRST_NAME], */
+	                    });
+                	});
+                });
                 createCboCalendarActivity(calendarActivities);
             }
         }
@@ -216,10 +273,12 @@ function createCboCustomer(customers) {
 	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
         itemsSource: customerList,
         onSelectedIndexChanged: function () {
-            $("#customerId").val(customerCollection.items[this.selectedIndex].id);
             getCalendarActivities(customerCollection.items[this.selectedIndex].id)
         }
     });	
+	
+
+    getCalendarActivities(customerCollection.items[0].id)
 }
 function createCboCalendarActivity(calendarActivities) {
 	calendarActivityCollection = new wijmo.collections.CollectionView(calendarActivities);
