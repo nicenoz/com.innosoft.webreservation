@@ -329,8 +329,8 @@ function getMessages() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        MESG_CREATED_BY_USER: Results[i]["MESG_CREATED_BY_USER"],
-                        MESG_UPDATED_BY_USER: Results[i]["MESG_UPDATED_BY_USER"]
+                        MESG_CREATED_BY_USER_FK: Results[i]["MESG_CREATED_BY_USER_FK"],
+                        MESG_UPDATED_BY_USER_FK: Results[i]["MESG_UPDATED_BY_USER_FK"]
                     });
                 }
             } else {
@@ -380,9 +380,9 @@ function updateNavigateButtonsMessage() {
 //=================== 
 function updateDetails() {
 	var item = messages.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.MESG_CREATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.MESG_CREATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.MESG_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.MESG_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 

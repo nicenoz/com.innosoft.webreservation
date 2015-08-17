@@ -1,7 +1,7 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -169,8 +168,9 @@ public class MstCustomerMember {
 	public void setMEBR_LAST_NAME(String mEBR_LAST_NAME) {
 		MEBR_LAST_NAME = mEBR_LAST_NAME;
 	}
-	public Date getMEBR_DATE_OF_BIRTH() {
-		return MEBR_DATE_OF_BIRTH;
+	public String getMEBR_DATE_OF_BIRTH() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		return sf.format(MEBR_DATE_OF_BIRTH);
 	}
 	public void setMEBR_DATE_OF_BIRTH(Date mEBR_DATE_OF_BIRTH) {
 		MEBR_DATE_OF_BIRTH = mEBR_DATE_OF_BIRTH;
@@ -235,8 +235,9 @@ public class MstCustomerMember {
 	public void setMEBR_FIELD5(String mEBR_FIELD5) {
 		MEBR_FIELD5 = mEBR_FIELD5;
 	}
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		return sf.format(CREATED_DATE);
 	}
 	public void setCREATED_DATE(Date cREATED_DATE) {
 		CREATED_DATE = cREATED_DATE;
@@ -247,8 +248,9 @@ public class MstCustomerMember {
 	public void setCREATED_BY_USER_ID(Integer cREATED_BY_USER_ID) {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		return sf.format(UPDATED_DATE);
 	}
 	public void setUPDATED_DATE(Date uPDATED_DATE) {
 		UPDATED_DATE = uPDATED_DATE;

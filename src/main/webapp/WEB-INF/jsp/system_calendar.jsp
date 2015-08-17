@@ -282,8 +282,8 @@ function getCalendars() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        CLDR_CREATED_BY_USER: Results[i]["CLDR_CREATED_BY_USER"],
-                        CLDR_UPDATED_BY_USER: Results[i]["CLDR_UPDATED_BY_USER"]
+                        CLDR_CREATED_BY_USER_FK: Results[i]["CLDR_CREATED_BY_USER_FK"],
+                        CLDR_UPDATED_BY_USER_FK: Results[i]["CLDR_UPDATED_BY_USER_FK"]
                     });
                 }
             } else {
@@ -334,9 +334,9 @@ function updateNavigateButtonsCalendar() {
 // =================== 
 function updateDetails() {
 	var item = calendars.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CLDR_CREATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CLDR_CREATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CLDR_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CLDR_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 
 }

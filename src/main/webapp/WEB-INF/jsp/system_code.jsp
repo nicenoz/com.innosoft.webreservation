@@ -271,8 +271,8 @@ function getCodes() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        CODE_CREATED_BY_USER: Results[i]["CODE_CREATED_BY_USER"],
-                        CODE_UPDATED_BY_USER: Results[i]["CODE_UPDATED_BY_USER"]
+                        CODE_CREATED_BY_USER_FK: Results[i]["CODE_CREATED_BY_USER_FK"],
+                        CODE_UPDATED_BY_USER_FK: Results[i]["CODE_UPDATED_BY_USER_FK"]
                     });
                 }
             } else {
@@ -322,9 +322,9 @@ function getCodes() {
 // ===================
 function updateDetails() {	
 	var item = codes.currentItem;	
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CODE_CREATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CODE_CREATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CODE_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CODE_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 

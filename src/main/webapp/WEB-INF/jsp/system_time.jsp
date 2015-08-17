@@ -80,10 +80,11 @@
 				<form id="chargeForm">
 					<dl class="dl-horizontal">
 			
-						<dt>Customer ID: </dt>
-						<dd>
+						<dt>Customer: </dt>
+						<dd>						
 							<input id="EDIT_CTIM_ID" type="hidden" />
-							<input class="form-control border-custom" id="EDIT_CTIM_CUST_ID" name="EDIT_CTIM_CUST_ID" type="text" required />
+							<div id="cbo_EDIT_CTIM_CUST_ID"  class="form-control border-custom"></div>
+							<input id="EDIT_CTIM_CUST_ID" name="EDIT_CTIM_CUST_ID" type="hidden" required />
 						</dd>
 				
 						<dt>Details No: </dt>
@@ -126,6 +127,57 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+
+//===================
+//Get Customer
+//===================
+function getCustomers() {
+ var customers = new wijmo.collections.ObservableArray();
+ $.ajax({
+     url: '${pageContext.request.contextPath}/api/customer/list',
+     cache: false,
+     type: 'GET',
+     contentType: 'application/json; charset=utf-8',
+     data: {},
+     success: function (results) {
+         if (results.length > 0) {
+             for (i = 0; i < results.length; i++) {
+             	customers.push({
+                     id: results[i]["CUST_ID"],
+                     customerName: results[i]["CUST_NAME"]
+                 });
+             }
+             createCboCustomer(customers);
+         }
+     }
+ }).fail(
+     function (xhr, textStatus, err) {
+         alert(err);
+     }
+ );
+}
+
+//===================
+//Combo Box
+//===================
+function createCboCustomer(customers) {
+	customerCollection = new wijmo.collections.CollectionView(customers);
+ 
+ var customerList = new Array();
+ for (var i = 0; i < customerCollection.items.length; i++) {
+ 	customerList.push(customerCollection.items[i].customerName);
+ }
+	
+cboCustomer.dispose();
+cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CTIM_CUST_ID', {
+     itemsSource: customerList,
+     onSelectedIndexChanged: function () {
+         $("#EDIT_CTIM_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+     }
+ });	
+}
+
 
 // ===================
 // Edit Button Clicked
@@ -261,7 +313,7 @@ function getCustomerTimes() {
 								EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
 								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
 								CTIM_ID : Results[i]["ctim_ID"],
-								CTIM_CUST_ID : Results[i]["ctim_CUST_ID"],
+								CTIM_CUST_FK : Results[i].CTIM_CUST_FK.CUST_NAME,
 								CTIM_DETAILS_NO : Results[i]["ctim_DETAILS_NO"],
 								CTIM_INTERVAL_OF_TIMES : Results[i]["ctim_INTERVAL_OF_TIMES"],
 								CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
@@ -274,8 +326,8 @@ function getCustomerTimes() {
 		                        ISDELETED: Results[i]["isdeleted"],
 		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
 		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-		                        CTIM_CREATED_BY_USER: Results[i]["CTIM_CREATED_BY_USER"],
-		                        CTIM_UPDATED_BY_USER: Results[i]["CTIM_UPDATED_BY_USER"]
+		                        CTIM_CREATED_BY_USER_FK: Results[i]["CTIM_CREATED_BY_USER_FK"],
+		                        CTIM_UPDATED_BY_USER_FK: Results[i]["CTIM_UPDATED_BY_USER_FK"]
 							});
 						}
 					} else {
@@ -322,9 +374,9 @@ function updateNavigateButtonsCustomerTime() {
 //=================== 
 function updateDetails() {
 	var item = customerTimes.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CTIM_CREATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CTIM_CREATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CTIM_UPDATED_BY_USER.USER_LOGIN;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CTIM_UPDATED_BY_USER_FK.USER_LOGIN;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
@@ -403,6 +455,9 @@ $(document).ready(function(){
 	    updateDetails();
 	});
 
+	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CTIM_CUST_ID');
+	getCustomers(); 
+	
 	// Flex Grid
 	customerGrid = new wijmo.grid.FlexGrid('#CustomerTimeGrid');
 	customerGrid.initialize({
@@ -422,14 +477,8 @@ $(document).ready(function(){
 						"isContentHtml" : true
 					},
 					{
-						"header" : "Time Id.",
-						"binding" : "CTIM_ID",
-						"allowSorting" : true,
-						"width" : "6*"
-					}, 
-					{
-						"header" : "Customer Id",
-						"binding" : "CTIM_CUST_ID",
+						"header" : "Customer",
+						"binding" : "CTIM_CUST_FK",
 						"allowSorting" : true,
 						"width" : "6*"
 					}, 
