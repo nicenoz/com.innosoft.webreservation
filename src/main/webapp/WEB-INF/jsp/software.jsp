@@ -66,6 +66,10 @@ var customerList;
 // ======
 // Events
 // ======   
+window.cmdGetUser_OnClick = function(customerName){
+	alertify.alert("Reserved by: " + customerName);
+}
+
 function cmdGetSchedule_OnClick() {
 	var customerId = customerList[cboCustomer.selectedIndex].id;
     var customerTime = new wijmo.collections.ObservableArray();
@@ -102,7 +106,7 @@ function cmdGetSchedule_OnClick() {
             for (var k = startDateIndex; k <= endDateIndex; k++) {
     	    	gridColumns.push({
     	        	"header" : calendarActivityList[k],
-    	    		"allowSorting" : true,
+    	    		"allowSorting" : false,
     	    		"binding": calendarActivityList[k],
     	            "isContentHtml": true,
             		"align" : "center",
@@ -111,7 +115,6 @@ function cmdGetSchedule_OnClick() {
     	    }     
         	
             // --- END CREATE COLUMNS ----------------------------------
-            
             // --- CREATE DATA -----------------------------------------
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
@@ -119,35 +122,31 @@ function cmdGetSchedule_OnClick() {
                 	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
                 		var newObj = {
                 				time: results[i]["CTIM_DETAILS_NO"].toString(), 
-                				parts: p + 1,
-                				/* noOfParts: results[i]["CTIM_MAX_PARTS_NO"] */
+                				parts: p + 1
                 		};
                 		
                 		// --- CREATE BUTTONS --------------------------------------
-                		
-                		console.log("New Date");
+                		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
                 		for (k = startDateIndex; k <= endDateIndex; k++) {
                 			var slotHolder = "";
+                			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
                 			for(a = 0; a < reservationsList.length; a++){
+                				//CHECK IF RESERVATION IS FOR THIS CUSTOMER (to be improved, query)
                 				if(reservationsList[a].RESV_CUST_ID == customerId){
-                					console.log("1");
+                					//CHECK IF RESERVATION IS FOR THIS DAY
 	                				if(calendarActivityList[k] == reservationsList[a].RESV_DAY_CODE){
-	                					
-	                					console.log("2");
-		                				var id = reservationsList[a]["RESV_START_TIME_ID"];
-	                					console.log(id + " " + results[i]["CTIM_ID"]);
-	                					
-		                				if(id == results[i]["CTIM_ID"]){
-		                					console.log("3");
-			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
-			                					console.log("4");
-			                					slotHolder = slotHolder + " <button class='btn btn-primary btn-xs border-custom'>x</button> ";
+	                					//CHECK IF RESERVATION IS FOR THIS TIME
+	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
+			                				//CHECK IF RESERVATION IS FOR THIS PART
+		                					if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+		                						//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
+			                					slotHolder = slotHolder + 
+			                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdGetUser_OnClick(\""+ reservationsList[a]["RESV_MEBR_NAME"] +"\")'>x</button> ";
 			                				}
 		                				}
 	                				}
                 				}
                 			}
-                			console.log("Slot: " + slotHolder);
                 			newObj[calendarActivityList[k]] = slotHolder;
                  	    }  
                     	customerTime.push(newObj);                		
@@ -182,9 +181,6 @@ function cmdGetSchedule_OnClick() {
 //=================
 // Getting the Data
 //=================   
-function getReservation(customerId, calendarActivityStartId, calendarActivityEndId) {
-
-}
 function getCustomers() {
 	customerList = new wijmo.collections.ObservableArray();
     $.ajax({
@@ -213,6 +209,7 @@ function getCustomers() {
 function getCalendarActivities(customerId) {
     var calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
+    	//BUGGED CRITERIA, FIND SOLUTION (Patch api/calendarActivity/listByCustomer)
         url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
         cache: false,
         type: 'GET',
@@ -227,7 +224,7 @@ function getCalendarActivities(customerId) {
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
               
-                	//GET ALL RESERVATIONS
+                	//GET ALL RESERVATIONS - (Improve: Query only Customer Reservations for this date.)
                 	result.RESV_CACT.forEach(function (reservation){
 	                	var startTimeName = reservation["RESV_START_TIME_FK"];
 	                	var endTimeName = reservation["RESV_END_TIME_FK"];
@@ -236,9 +233,9 @@ function getCalendarActivities(customerId) {
 	                		RESV_PARTS_NO: reservation.RESV_PARTS_NO,
 	                		RESV_DAY_CODE: result.CACT_CLDR_FK.CLDR_DAYCODE,
 	                		RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
-	                		RESV_END_TIME_ID: reservation.RESV_PARTS_NO,
+	                		RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
 	                		RESV_NOTE: reservation.RESV_PARTS_NO,
-	                		/* MEBR_NAME: results[i].RESV_CACT[j].RESV_MEBR_FK"][MEBR_FIRST_NAME] + " " + results[i]["RESV_CACT"]["RESV_MEBR_FK"][MEBR_FIRST_NAME], */
+	                		RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
 	                    });
                 	});
                 });

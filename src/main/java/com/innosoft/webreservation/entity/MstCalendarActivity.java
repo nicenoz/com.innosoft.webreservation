@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 public class MstCalendarActivity {
 	@Id
     @GeneratedValue
+    @OrderColumn
     @Column(name="CACT_ID")			
 	public Integer CACT_ID;  
 	
