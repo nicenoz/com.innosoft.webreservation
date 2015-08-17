@@ -9,7 +9,6 @@
         <div class="row">
             <div class="col-lg-2">
 	            <div id="cboCustomer" class="full-width"></div>
-	            <input class="form-control" id="customerId" type="hidden"/>
             </div>
             <div class="col-lg-2">
 	            <div id="cboCalendarActivityStart" class="full-width"></div>
@@ -61,12 +60,18 @@ var calendarActivityCollection;
 var scheduleCollection;
 
 var calendarActivityList;
+var reservationsList;
+var customerList;
 
 // ======
 // Events
 // ======   
+window.cmdGetUser_OnClick = function(customerName){
+	alertify.alert("Reserved by: " + customerName);
+}
+
 function cmdGetSchedule_OnClick() {
-	var customerId = document.getElementById('customerId').value;
+	var customerId = customerList[cboCustomer.selectedIndex].id;
     var customerTime = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customerTime/listByCustomer',
@@ -75,47 +80,83 @@ function cmdGetSchedule_OnClick() {
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":customerId},
         success: function (results) {
+
+        	// --- CREATE COLUMNS --------------------------------------
+            var gridColumns = [];
+            gridColumns.push({
+            	"header" : "Time",
+        		"binding" : "time",
+        		"allowSorting" : false,
+        		"allowMerging" : true,
+        		"align" : "center",
+        		"width" : 100
+            });   
+            gridColumns.push({
+            	"header" : "Parts",
+        		"binding" : "parts",
+        		"allowSorting" : false,
+        		"allowMerging" : false,
+        		"align" : "center",
+        		"width" : 200
+            });    
+
+            var startDateIndex = cboCalendarActivityStart.selectedIndex;
+            var endDateIndex = cboCalendarActivityEnd.selectedIndex;
+            
+            for (var k = startDateIndex; k <= endDateIndex; k++) {
+    	    	gridColumns.push({
+    	        	"header" : calendarActivityList[k],
+    	    		"allowSorting" : false,
+    	    		"binding": calendarActivityList[k],
+    	            "isContentHtml": true,
+            		"align" : "center",
+    	    		"width" : 100
+    	        });	
+    	    }     
+        	
+            // --- END CREATE COLUMNS ----------------------------------
+            // --- CREATE DATA -----------------------------------------
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
+                	// --- CREATE PARTS ROWS --------------------------------------
                 	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
-                    	customerTime.push({
-                            time: results[i]["CTIM_DETAILS_NO"].toString(),
-                            parts: p + 1,
-                            noOfParts: results[i]["CTIM_MAX_PARTS_NO"]
-                        });                		
+                		var newObj = {
+                				time: results[i]["CTIM_DETAILS_NO"].toString(), 
+                				parts: p + 1
+                		};
+                		
+                		// --- CREATE BUTTONS --------------------------------------
+                		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
+                		for (k = startDateIndex; k <= endDateIndex; k++) {
+                			var slotHolder = "";
+                			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
+                			for(a = 0; a < reservationsList.length; a++){
+                				//CHECK IF RESERVATION IS FOR THIS CUSTOMER (to be improved, query)
+                				if(reservationsList[a].RESV_CUST_ID == customerId){
+                					//CHECK IF RESERVATION IS FOR THIS DAY
+	                				if(calendarActivityList[k] == reservationsList[a].RESV_DAY_CODE){
+	                					//CHECK IF RESERVATION IS FOR THIS TIME
+	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
+			                				//CHECK IF RESERVATION IS FOR THIS PART
+		                					if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+		                						//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
+			                					slotHolder = slotHolder + 
+			                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdGetUser_OnClick(\""+ reservationsList[a]["RESV_MEBR_NAME"] +"\")'>x</button> ";
+			                				}
+		                				}
+	                				}
+                				}
+                			}
+                			newObj[calendarActivityList[k]] = slotHolder;
+                 	    }  
+                    	customerTime.push(newObj);                		
                 	}
                 }
                 scheduleCollection = new wijmo.collections.CollectionView(customerTime);
                 scheduleCollection.canFilter = true;   
                 
                 scheduleGrid.dispose();
-                
-                var gridColumns = [];
-                gridColumns.push({
-                	"header" : "Time",
-            		"binding" : "time",
-            		"allowSorting" : false,
-            		"allowMerging" : true,
-            		"width" : 100
-                });   
-                gridColumns.push({
-                	"header" : "Parts",
-            		"binding" : "parts",
-            		"allowSorting" : false,
-            		"allowMerging" : false,
-            		"width" : 200
-                });    
-                
-                var startDateIndex = cboCalendarActivityStart.selectedIndex;
-                var endDateIndex = cboCalendarActivityEnd.selectedIndex;
-                
-                for (var i = startDateIndex; i <= endDateIndex; i++) {
-        	    	gridColumns.push({
-        	        	"header" : calendarActivityList[i],
-        	    		"allowSorting" : true,
-        	    		"width" : 100
-        	        });	
-        	    }                
+                           
                 
                 scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
                 scheduleGrid.frozenColumns = 2;
@@ -140,11 +181,8 @@ function cmdGetSchedule_OnClick() {
 //=================
 // Getting the Data
 //=================   
-function getReservation(customerId, calendarActivityStartId, calendarActivityEndId) {
-
-}
 function getCustomers() {
-    var customers = new wijmo.collections.ObservableArray();
+	customerList = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customer/list',
         cache: false,
@@ -154,12 +192,12 @@ function getCustomers() {
         success: function (results) {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
-                	customers.push({
+                	customerList.push({
                         id: results[i]["CUST_ID"],
                         customerName: results[i]["CUST_NAME"]
                     });
                 }
-                createCboCustomer(customers);
+                createCboCustomer(customerList);
             }
         }
     }).fail(
@@ -171,20 +209,36 @@ function getCustomers() {
 function getCalendarActivities(customerId) {
     var calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
-        url: '${pageContext.request.contextPath}/api/calendarActivity/list',
+    	//BUGGED CRITERIA, FIND SOLUTION (Patch api/calendarActivity/listByCustomer)
+        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":customerId},
         success: function (results) {
+        	reservationsList = new Array();
             if (results.length > 0) {
-                for (i = 0; i < results.length; i++) {
+                results.forEach(function(result){
                 	calendarActivities.push({
-                        id: results[i]["CACT_ID"],
-                        dayCode: results[i]["CACT_CLDR_FK"]["CLDR_DAYCODE"],
-                        reservation: results[i]["RESV_CACT"]
+                        id: result.CACT_ID,
+                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
-                }
+              
+                	//GET ALL RESERVATIONS - (Improve: Query only Customer Reservations for this date.)
+                	result.RESV_CACT.forEach(function (reservation){
+	                	var startTimeName = reservation["RESV_START_TIME_FK"];
+	                	var endTimeName = reservation["RESV_END_TIME_FK"];
+	                	reservationsList.push({
+	                		RESV_CUST_ID: result.CACT_CUST_ID,
+	                		RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+	                		RESV_DAY_CODE: result.CACT_CLDR_FK.CLDR_DAYCODE,
+	                		RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+	                		RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
+	                		RESV_NOTE: reservation.RESV_PARTS_NO,
+	                		RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
+	                    });
+                	});
+                });
                 createCboCalendarActivity(calendarActivities);
             }
         }
@@ -216,10 +270,12 @@ function createCboCustomer(customers) {
 	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
         itemsSource: customerList,
         onSelectedIndexChanged: function () {
-            $("#customerId").val(customerCollection.items[this.selectedIndex].id);
             getCalendarActivities(customerCollection.items[this.selectedIndex].id)
         }
     });	
+	
+
+    getCalendarActivities(customerCollection.items[0].id)
 }
 function createCboCalendarActivity(calendarActivities) {
 	calendarActivityCollection = new wijmo.collections.CollectionView(calendarActivities);

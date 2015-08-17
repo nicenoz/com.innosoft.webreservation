@@ -6,30 +6,11 @@
 <div class="container">
 	<section id="list">
 		<div class="row">
-			<div class="col-lg-12">
-				<h4>Welcome to Salon de Rose Group of Companies blabla</h4>
-			</div>
-		</div>
-		<div class="row" style="margin-bottom:15px;margin-top:10px;">
-		<!-- ADD THIS DYNAMICALLY -->
+		
 			<div class="col-lg-3">
-	                <select id="CustomerList" class="form-control border-custom">
-	                    <option value="0">Salon de Rose SM</option>
-	                    <option value="1">Salon de Rose Colon</option>
-	                    <option value="2">Salon de Rose Mandaue</option>
-	                    <option value="3">Salon de Rose Ayala</option>
-	                    <option value="4">Kilid Kilid Salon</option>
-	                    <option value="5">Mama Salon</option>
-	                    <option value="6">Pet Salon</option>
-	                    <option value="7">Pagwapa Salon</option>
-	                    <option value="8">Salon Pas</option>
-	                    <option value="9">Salon Salon</option>
-	                    <option value="10">Salon Carenderia</option>
-	                    <option value="11">Salon de Lebron</option>
-	                </select>
-	        </div>
-        </div>
-		<div class="row">
+			  <div id="CustomerList"></div>
+			</div>
+
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
 			<div class="input-group">
@@ -37,7 +18,7 @@
 			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
 			</div>
 			</div>
-			
+
 			<div class="col-lg-3">
 			<div class="input-group">
 			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
@@ -45,8 +26,8 @@
 			</div>
 			</div>
 			
-			<div class="col-lg-6 btn-group">
-				<button id="cmdCreateReservation" type="submit" class="btn btn-success  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Create Reservation</button>	
+			<div class="col-lg-3 btn-group">
+				<button id="cmdCreateReservation" type="submit" class="btn btn-success  border-custom pull-right" onclick="">Create Reservation</button>	
 			</div>
 		</div>
 		<br />
@@ -54,7 +35,7 @@
 		<!-- Table -->
 		<div class="row">
 			<div class="col-lg-12">
-				<wj-flex-grid id="reportGrid" control="flex" allow-merging="Cells"></wj-flex-grid>
+				<wj-flex-grid id="reportGrid" control="flex" allow-merging="Cells" style="height:65vh;"></wj-flex-grid>
 			</div>
 		</div>
 	</section>
@@ -95,48 +76,53 @@ var btnCurrentPageGrid;
 
 var ScreenerSaveData;
 
-function cmdGenerateReport(){
+function generateSchedule(){
 	// Collection View
     reports = new wijmo.collections.CollectionView(getReport());
     reports.canFilter = true;
-    reports.pageSize  = 15;
     
     var timeDiff = Math.abs(new Date(reportSearchDateFrom.value.toString("MM/dd/yyyy")) - new Date(reportSearchDateTo.value.toString("MM/dd/yyyy")));
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
- 
-    reportGrid.dispose();
+
+    
     var gridColumns = [];
     gridColumns.push({
     	"header" : "Time",
 		"binding" : "RESV_MEMBERNAME",
-		"allowSorting" : true,
 		"allowMerging" : true,
+		"allowSorting" : false,
+		"align" : "center",
 		"width" : 200
     });
     
     gridColumns.push({
     	"header" : "Parts name",
 		"binding" : "RESV_PARTSNAME",
-		"allowSorting" : true,
+		"allowSorting" : false,
+		"align" : "center",
 		"width" : 200
     });
     
     gridColumns.push({
     	"header" : reportSearchDateFrom.value.toString("dd MMM yyyy"),
-		"binding" : "RESV_ENDTIME" + i,
-		"allowSorting" : true,
+		"binding" : "RESV_SLOTS",
+		"allowSorting" : false,
+        "isContentHtml": true,
+		"align" : "center",
 		"width" : "*"
     });
 
+
   	var headerDate = new Date(reportSearchDateFrom.value.toString("MM/dd/yyyy"));
-  	
 	if(diffDays <= 6){
 		for (var i = 1; i <= diffDays; i++) {
 			headerDate.setDate(headerDate.getDate() + 1);
 	    	gridColumns.push({
 	        	"header" : headerDate.toString("dd MMM yyyy"),
-	    		"binding" : "RESV_ENDTIME" + i,
-	    		"allowSorting" : true,
+	    		"binding" : "RESV_SLOTS",
+	    		"allowSorting" : false,
+                "isContentHtml": true,
+        		"align" : "center",
 	    		"width" : "*"
 	        });
 	    }
@@ -145,23 +131,39 @@ function cmdGenerateReport(){
 	    	headerDate.setDate(headerDate.getDate() + 1);
 	    	gridColumns.push({
 	        	"header" : headerDate.toString("dd MMM yyyy"),
-	        	"binding" : "RESV_ENDTIME" + i,
-	    		"allowSorting" : true,
+	        	"binding" : "RESV_SLOTS",
+	    		"allowSorting" : false,
+                "isContentHtml": true,
+        		"align" : "center"
 	        });
 	    }
     }
 
     
+    reportGrid.dispose();
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+    
 	reportGrid.frozenColumns = 2;
 	reportGrid.initialize({
 		columns : gridColumns,
 		autoGenerateColumns : false,
 		itemsSource : reports,
 		isReadOnly : true,
-		selectionMode : wijmo.grid.SelectionMode.Row,
-		allowMerging : "All"
+		selectionMode : wijmo.grid.SelectionMode.Cell,
+		allowMerging : wijmo.grid.AllowMerging.All
 	});
+	
+	//Implement or not? Place a month on top
+	/* var hr = new wijmo.grid.Row();
+
+    reportGrid.columnHeaders.rows.push(hr);	
+	
+    reportGrid.columnHeaders.setCellData(0, 0, "Time");
+    reportGrid.columnHeaders.setCellData(0, 1, "Parts name");
+    for(x = 2; x <= (diffDays + 2);x++){
+		reportGrid.columnHeaders.setCellData(0, x , ""  + headerDate.toString("MMMM"));
+		console.log("" + x);
+    } */
 	
 	reportGrid.trackChanges = true;
 }
@@ -172,7 +174,7 @@ function cmdGenerateReport(){
 //Generate Button Clicked
 //==================   
 function cmdGenerateReport_OnClick(){
-	cmdGenerateReport();
+	generateSchedule();
 }
 
 
@@ -193,8 +195,17 @@ function getReport() {
     	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
+        	 
+        	 var slotHolder = "";
+        	 for(x = 0; x<3; x++){
+        		 slotHolder = slotHolder + " <button class='btn btn-primary btn-xs border-custom'>x</button> ";
+             }
+        	 
+      		  
              for (i = 0; i < Results.length; i++) {
+            	 
                  reports.push({
+                	 RESV_SLOTS: slotHolder,
                 	 RESV_MEMBERNAME: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
                      RESV_PARTSNAME: Results[i]["resv_PARTS_NAME"],
                      RESV_STARTTIME: Results[i]["resv_START_TIME_ID"],
@@ -209,6 +220,7 @@ function getReport() {
                      ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                  });
              	 
+                 
              }
          } else {
              alertify.alert("No data.");
@@ -256,17 +268,21 @@ function updateNavigateButtonsReport() {
 // On Page Load
 // ============
 $(document).ready(function(){
-	
-	reportSearchDateFromData = new Date();
-	
 	// Date Control Initialization
+	 var cbs = new wijmo.input.AutoComplete('#CustomerList', {
+	        itemsSource: getCustomers(),
+	        placeholder: 'Select Salon'
+	    });
+	
 	reportSearchDateFrom = new wijmo.input.InputDate(
 			'#SEARCH_REPORT_FROM_DATE', {
 				format : 'dd MMMM yyyy',
 				value : new Date(),
+				min : new Date(),
 				max: new Date(),
 		        onValueChanged: function () {
 		        	reportSearchDateTo.min = this.value;
+		            generateSchedule();
 		        }
 			});
 	
@@ -277,41 +293,34 @@ $(document).ready(function(){
 				min: new Date(),
 				onValueChanged: function () {
 					reportSearchDateFrom.max = this.value;
+					generateSchedule();
 		        }
 			});
-	
-	// Flex Grid
-	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
-	reportGrid.frozenColumns = 2;
-	reportGrid.initialize({
-		columns : [{
-			"header" : "Time",
-			"binding" : "RESV_MEMBERNAME",
-			"allowSorting" : true,
-			"width" : 200
-		},  {
-			"header" : "Parts name",
-			"binding" : "RESV_PARTSNAME",
-			"allowSorting" : true,
-			"width" : 200
-		}, {
-			"header" : reportSearchDateFrom.value.toString("dd MMM yyyy"),
-			"binding" : "RESV_STARTTIME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}],
-		
-		autoGenerateColumns : false,
-		itemsSource : reports,
-		isReadOnly : true,
-		selectionMode : wijmo.grid.SelectionMode.Row
-	});
 
-	reportGrid.trackChanges = true;
-	
+	//Initialized to be destroyed. lol
+    reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
+    generateSchedule();
 });
 
 
+
+
+
+function getCustomers() {
+    return [
+	'Salon de Rose SM',
+	'Salon de Rose Colon',
+	'Salon de Rose Mandaue',
+	'Salon de Rose Ayala',
+	'Kilid Kilid Salon',
+	'Mama Salon',
+	'Pet Salon',
+	'Pagwapa Salon',
+	'Salon Pas',
+	'Salon Salon',
+	'Salon Carenderia',
+	'Salon de Lebron'];
+}
 </script>
 <!-- footer -->
 <%@include file="include_secure_footer.jsp"%>

@@ -41,7 +41,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;	
-			
+
 			tx = session.beginTransaction();
 			MstCustomer newCustomer = new MstCustomer();
 
@@ -64,7 +64,6 @@ public class CustomerDaoImpl implements CustomerDao {
 			session.save(newCustomer);
 			tx.commit();
 			session.close();
-			
 			return newCustomer;			
 		} catch(Exception e) {
 			return customer;	
@@ -91,6 +90,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			
 			updateCustomer.setUPDATED_BY_USER_ID(customer.UPDATED_BY_USER_ID);
 			updateCustomer.setUPDATED_DATE(customer.UPDATED_DATE);
+			updateCustomer.setISDELETED(customer.ISDELETED);
 
 			session.update(updateCustomer); 
 			tx.commit();
