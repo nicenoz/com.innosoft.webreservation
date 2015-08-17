@@ -81,14 +81,10 @@
             <div class="modal-body">
                 <form id="calendarActivityForm">
                     <dl class="dl-horizontal">
-                        <dt>Calendar ID: </dt>
+                        <dt>Customer: </dt>
                         <dd>
-                         	<input id="EDIT_CACT_ID" type="hidden" />
-                            <input class="form-control border-custom" id="EDIT_CACT_CLDR_ID" name="EDIT_CACT_CLDR_ID" type="text" required />
-                        </dd>
-                        <dt>Customer ID: </dt>
-                        <dd>
-                            <input class="form-control border-custom" id="EDIT_CACT_CUST_ID" name="EDIT_CACT_CUST_ID" type="text" required />
+                          	<div id="cbo_EDIT_CACT_CUST_ID" class="form-control border-custom"></div>
+                            <input id="EDIT_CACT_CUST_ID" name="EDIT_CACT_CUST_ID" type="hidden" required />
                         </dd>
                         <dt>Date: </dt>
                         <dd>
@@ -148,6 +144,56 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+//=================
+//Getting the Data
+//=================   
+function getCustomers() {
+var customers = new wijmo.collections.ObservableArray();
+$.ajax({
+   url: '${pageContext.request.contextPath}/api/customer/list',
+   cache: false,
+   type: 'GET',
+   contentType: 'application/json; charset=utf-8',
+   data: {},
+   success: function (results) {
+       if (results.length > 0) {
+           for (i = 0; i < results.length; i++) {
+           	customers.push({
+                   id: results[i]["CUST_ID"],
+                   customerName: results[i]["CUST_NAME"]
+               });
+           }
+           createCboCustomer(customers);
+       }
+   }
+}).fail(
+   function (xhr, textStatus, err) {
+       alert(err);
+   }
+);
+}
+
+//========
+//Comboxes
+//======== 
+function createCboCustomer(customers) {
+customerCollection = new wijmo.collections.CollectionView(customers);
+
+var customerList = new Array();
+for (var i = 0; i < customerCollection.items.length; i++) {
+	customerList.push(customerCollection.items[i].customerName);
+}
+	
+cboCustomer.dispose();
+	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CACT_CUST_ID', {
+    itemsSource: customerList,
+    onSelectedIndexChanged: function () {
+        $("#EDIT_CACT_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+    }
+});	
+}
+
 
 // ===================
 // Edit Button Clicked
@@ -318,7 +364,7 @@ function getCalendarActivities() {
                         DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdCalendarActivityDelete_OnClick()'>Delete</button>",
                         CACT_ID: Results[i]["cact_ID"],
                         CACT_CLDR_ID: Results[i]["cact_CLDR_ID"],
-                        CACT_CUST_ID: Results[i]["cact_CUST_ID"],
+                        CACT_CUST_FK_NAME: Results[i].CACT_CUST_FK.CUST_NAME,
                         CACT_DATE: Results[i]["cact_DATE"],
                         CACT_DETAILS_NO: Results[i]["cact_DETAILS_NO"],
                         CACT_ACTIVITY_CLASSIFICATION: Results[i]["cact_ACTIVITY_CLASSIFICATION"],
@@ -326,6 +372,8 @@ function getCalendarActivities() {
                         CACT_START_TIME_ID: Results[i]["cact_START_TIME_ID"],
                         CACT_END_TIME_ID: Results[i]["cact_END_TIME_ID"],
                         CACT_OPERATION_FLAG: Results[i]["cact_OPERATION_FLAG"],
+                        CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
+
                         
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
@@ -334,8 +382,8 @@ function getCalendarActivities() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        CACT_CREATED_BY_USER: Results[i]["CACT_CREATED_BY_USER"],
-                        CACT_UPDATED_BY_USER: Results[i]["CACT_UPDATED_BY_USER"]
+                        CACT_CREATED_BY_USER_FK: Results[i].CACT_CREATED_BY_USER_FK.USER_LOGIN,
+                        CACT_UPDATED_BY_USER_FK: Results[i].CACT_UPDATED_BY_USER_FK.USER_LOGIN
                     });
                 }
             } else {
@@ -385,9 +433,9 @@ function updateNavigateButtonsCalendarActivitiy() {
 //=================== 
 function updateDetails() {	
 	var item = calendarActivities.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CACT_CREATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CACT_UPDATED_BY_USER.USER_LOGIN;;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;	
 }
 
@@ -471,6 +519,9 @@ $(document).ready(function () {
 	    updateDetails();
 	});
     
+    cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CACT_CUST_ID');
+	getCustomers();
+    
     // Flex Grid
     calendarActivityGrid = new wijmo.grid.FlexGrid('#calendarActivityGrid');
     calendarActivityGrid.initialize({
@@ -496,14 +547,14 @@ $(document).ready(function () {
                         "width": "2*"
                     },
                     {
-                        "header": "Customer ID",
-                        "binding": "CACT_CUST_ID",
+                        "header": "Customer Name",
+                        "binding": "CACT_CUST_FK_NAME",
                         "allowSorting": true,
                         "width": "2*"
                     },
                     {
                         "header": "Date",
-                        "binding": "CACT_DATE",
+                        "binding": "CACT_CLDR_FK",
                         "allowSorting": true,
                         "width": "2*"
                     },                    
