@@ -114,7 +114,10 @@
                         </dd>   
                         <dt>Is Deleted?: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" type="text" required />
+                            <select class="form-control border-custom" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required >
+									  <option value="1">Yes</option>
+									  <option value="0">No</option>
+							</select>
                         </dd>                                               
                     </dl>
                 </form>
@@ -245,7 +248,7 @@ function cmdCustomerEditOk_OnClick() {
 	customerObject.CUST_ADDRESS1 = document.getElementById('EDIT_CUST_ADDRESS1').value;	
 	customerObject.CUST_ADDRESS2 = document.getElementById('EDIT_CUST_ADDRESS2').value;	
 	customerObject.CUST_ADDRESS3 = document.getElementById('EDIT_CUST_ADDRESS3').value;	
-	customerObject.CUST_ISDELETED = parseInt(document.getElementById('EDIT_CUST_ISDELETED').value);	
+	customerObject.CUST_ISDELETED = document.getElementById('EDIT_CUST_ISDELETED').options[document.getElementById("EDIT_CUST_ISDELETED").selectedIndex].value;	
 
  	var data = JSON.stringify(customerObject);
 

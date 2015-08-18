@@ -239,14 +239,16 @@ function cmdMessageDelete_OnClick() {
                 dataType: "json",
                 statusCode: {
                     200: function () {
-                        log.success('Successfully Deleted.');
-                        window.setTimeout(function () { location.reload() }, 1000);
+                    	toastr.success('Successfully Deleted!');
+    					window.setTimeout(function() {
+    						location.reload()
+    					}, 1000);
                     },
                     404: function () {
-                        log.error("Not found.");
+                    	toastr.error("Not found!");
                     },
                     400: function () {
-                        log.error("Bad request.");
+                    	toastr.error("Bad request");
                     }
                 }
             });

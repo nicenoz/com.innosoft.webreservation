@@ -1,0 +1,126 @@
+J2EE Setup:
+	Maven, Servlets, Hibernate and Spring
+
+1. Java Virtual Machine / Software on your computer
+	- install JDK (Download free from Oracle Site)
+	- install JRE (Download free from Oracle Site)
+
+
+2. Install Apache Tomcat
+	- configure ports
+	- put username and password
+	- run localhost:port that you configured.  Type in the browser's address bar: localhost:8080
+
+
+3. Download and setup Eclipse IDE - Luna
+	- use J2EE Eclipse for Java Developers
+	- open the J2EE Eclipse IDE for Java Developers
+	- install subversion plugins updates:
+		Steps for installing new softwares:
+	  		>> Click help 
+		 	>> Click Install NewSoftware 
+			>> Copy and Paste a link.
+
+        	- install first subclipse:
+		go to this site: subclipse.tigris.org / search in google.
+		find and copy link of update site. Paste the link into install new software window and push enter. Then install the software, just follow the steps.
+
+
+4. Download the bin zip of Apache Maven
+	- After download, extract where you want to extract.
+	- Go to environmental variables. 
+		Steps for Environmental Variables.
+			>> Right Click on Computer 
+			>> Click properties 
+			>> ClickAdvanced System Settings 
+			>> Click Environmental Variables.
+
+	- Create 2 new Variables. Click new.
+		1st variable:
+			Variable name: MAVEN_HOME
+			Variable Value: path of the extracted downloaded maven. 
+				Example: C:\Program Files\Apache Software Foundation\apache-maven-3.3.3
+		2nd variable:
+			Variable name: JAVA_HOME
+			Variable Value: path of JDK installed.
+				Example: C:\Program Files\Java\jdk1.8.0_45
+
+
+	- Find and include the 2 new variables in the path variable. Type like this: 
+		;%JAVA_HOME%\bin;%MAVEN_HOME%\bin;
+
+	- after the environemental variables, Test the maven and run CMD by typing in command line: 
+		mvn --version
+
+
+5. After Apache Maven, install the M2Eclipse for Maven Integration in the same window of Install new software.
+	- install another plugins for maven integration
+		go to this site: eclipse.org/m2e/download / search in google.
+		find and copy link of update site. Paste the link into install new software window and push enter. Then install the software, just follow the steps.
+
+
+6. After M2Eclipse for Maven Integration, install another plugin. Spring IDE and Spring Tool Suite.
+	- install plugins for Spring IDE and Spring Tool Suite.
+		Steps for installation:
+			>> Click help 
+			>> Click Eclipse Marketplace 
+			>> Type and Search Spring
+
+		Install the Spring IDE  and Spring Tool Suite according to the version of your IDE. for example: Spring Tool Suite for Luna Eclipse.
+			Install theplugin and just follow the steps
+
+
+7. After Installing the plugins, setup the server tomcat..
+	- In Eclipse, Follow this steps for including the the apache tomcat in your eclipse runtime environment. 
+		>> Click the windows 
+		>> Click preferences 
+		>> Type "server" in the filter text 
+		>> Choose and Click Runtime Environement 
+		>> Click Add 
+		>> Select Tomcat Folder and Choose the latest Apache Tomcat you installed 
+		>> Click next 
+		>> Paste the path directory of the Apache Tomcat you installed in computer (The path is most likely in the C:\Program Files\Apache Software Foundation\Tomcat 8.0)
+		>> Choose latest JRE or JDK you installed.
+			if JRE or JDK not exist:
+				>>> Click Installed JRE's button at the Right Side
+				>>> Click Add and Choose Standard VM. Then Paste the Directory of JDK or JRE path.
+				>>> Click Finish, 
+				>>> Click ok and ok. After that Choose JRE or JDK. 
+		>> Click Finish.
+	
+	- Setting up the server in your project. Follow the steps:
+		>> Click File
+		>> Click New
+		>> Choose and Click Others if the server is not exist
+		>> Type in the filter text "Server"
+		>> Choose Server and Click Next
+		>> Choose and Click the Lates Tomcat you install: Example: Tomcat 8.0
+		>> For Server runtime environment, Click and Choose the Apache Tomcat that you set up in the runtime enviroment awhile ago.
+		>> Click next
+		>> Click Finish.
+	
+	- Configuring the ports
+		>> Click Window
+		>> Click Show view
+		>> Choose Server
+			if Server not exist, choose and click other and type Server in the filter text, then Click ok
+		>> Double click on the tomcat server at localhost in the server window.
+		>> find Ports and modify them by incrementing all ports into 1. Example: 8080 becomes 8081
+
+
+8. Set up Github on Eclipse.
+	- Install or update Egit in your IDE Eclipse. follow these steps:
+		>> Click help
+		>> Click Eclipse Marketplace
+		>> Type and Search "Egit" in the filter text 
+		>> Choose and Install/Update the Egit
+
+	- Cloning the project
+		>> Click File
+		>> Type and Search "Project from git" in the filter text
+		>> Click next
+		>> Choose "Clone URI"
+		>> Click next
+		>> Paste the URI from the Github site. The link is from your masters respositories. Copy it and Paste it.
+		>> Type your username and password. Account from your github.
+		>> Click Finish
