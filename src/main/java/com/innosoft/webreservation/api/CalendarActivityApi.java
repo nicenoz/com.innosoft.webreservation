@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.innosoft.webreservation.entity.MstCalendar;
 import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.service.CalendarActivityService;
+import com.innosoft.webreservation.service.SecurityService;
 
 @Controller
 @RequestMapping("api/calendarActivity")
 public class CalendarActivityApi {
 	@Autowired
 	private CalendarActivityService calendarActivityService;
+	@Autowired
+	private SecurityService securityService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivity() {
@@ -38,9 +42,11 @@ public class CalendarActivityApi {
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {
 		try {
 			if(calendarActivity.getCACT_ID()==0) {
+				calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
 				MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
 				return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
 			} else {
+				calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
 				MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
 				return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
 			}

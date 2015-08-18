@@ -85,7 +85,7 @@
                             <input id="EDIT_CODE_ID" type="hidden" />
                             <input class="form-control border-custom" id="EDIT_CODE_KIND_CODE" name="EDIT_CODE_KIND_CODE" type="text" required />
                         </dd>
-                        <dt>Code Value: </dt>
+                        <dt>Value: </dt>
                         <dd>
                             <input class="form-control border-custom" id="EDIT_CODE_CODE_VALUE" name="EDIT_CODE_CODE_VALUE" type="text" required />
                         </dd>
@@ -99,7 +99,10 @@
                         </dd>                        
                         <dt>Is Displayed?: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" type="text" required /> 
+							<select class="form-control border-custom" id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" required >
+									  <option value="1">Yes</option>
+									  <option value="0">No</option>
+							</select>
                         </dd>                       
                     </dl>
                 </form>
@@ -216,7 +219,7 @@ function cmdCodeEditOk_OnClick() {
  	codeObject.CODE_CODE_VALUE = document.getElementById('EDIT_CODE_CODE_VALUE').value;
  	codeObject.CODE_NOTE = document.getElementById('EDIT_CODE_NOTE').value;
  	codeObject.CODE_TEXT = document.getElementById('EDIT_CODE_TEXT').value;
- 	codeObject.CODE_ISDISPLAY = parseInt(document.getElementById('EDIT_CODE_ISDISPLAY').value); 
+ 	codeObject.CODE_ISDISPLAY = document.getElementById('EDIT_CODE_ISDISPLAY').options[document.getElementById("EDIT_CODE_ISDISPLAY").selectedIndex].value; 
 
  	var data = JSON.stringify(codeObject);
 
@@ -423,13 +426,13 @@ $(document).ready(function () {
                         "isContentHtml": true
                     }         ,
                     {
-                        "header": "Kind Code",
+                        "header": "Code",
                         "binding": "CODE_KIND_CODE",
                         "allowSorting": true,
                         "width": 100
                     },
                     {
-                        "header": "Code Value",
+                        "header": "Value",
                         "binding": "CODE_CODE_VALUE",
                         "allowSorting": true,
                         "width": 100

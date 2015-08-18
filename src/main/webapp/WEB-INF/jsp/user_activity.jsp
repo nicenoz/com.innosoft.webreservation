@@ -81,16 +81,20 @@
             <div class="modal-body">
                 <form id="calendarActivityForm">
                     <dl class="dl-horizontal">
-                        <dt>Customer: </dt>
+                        <dt>Calendar: </dt>
                         <dd>
-                          	<div id="cbo_EDIT_CACT_CUST_ID" class="form-control border-custom"></div>
-                            <input id="EDIT_CACT_CUST_ID" name="EDIT_CACT_CUST_ID" type="hidden" required />
+                         	<input id="EDIT_CACT_ID" type="hidden" /> 
+                         	                      	      
+                            <div id="EDIT_CACT_CLDR_ID_DATE" class="form-control border-custom"></div>
+                            <input id="EDIT_CACT_CLDR_ID_DATE_DATA" name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required />    
+                            <input id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required/>   
                         </dd>
-                        <dt>Date: </dt>
-                        <dd>
-                        	<div id="EDIT_CACT_DATE" class="form-control border-custom"></div>
-                            <input id="EDIT_CACT_DATE_DATA" name="EDIT_CACT_DATE_DATA" type="hidden" required/>    
-                        </dd>                        
+                        <dt>Customer: </dt>
+                        <dd>                            
+                            <div id="EDIT_CACT_CUST_ID" class="form-control border-custom"></div>
+							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA" type="hidden" required />
+							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
+                        </dd>                      
                         <dt>Details No: </dt>
                         <dd>
                         	<input class="form-control border-custom" id="EDIT_CACT_DETAILS_NO" name="EDIT_CACT_DETAILS_NO" type="text" required />
@@ -105,15 +109,22 @@
                         </dd>   
                         <dt>Start Time ID: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CACT_START_TIME_ID" name="EDIT_CACT_START_TIME_ID" type="text" required />                           
+                        	<div id="EDIT_CACT_START_TIME" class="form-control border-custom"></div>
+							<input id="EDIT_CACT_START_TIME_ID" name="EDIT_CACT_START_TIME_ID" type="hidden" required />          
+							<input id="EDIT_CACT_START_TIME_ID_DATA" name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />                 
                         </dd>    
                         <dt>End Time ID: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID" type="text" required />                            
+                        	<div id="EDIT_CACT_END_TIME" class="form-control border-custom"></div>
+							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID" type="hidden" required />  
+							<input id="EDIT_CACT_END_TIME_ID_DATA" name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />                                
                         </dd> 
                         <dt>Operation Flag: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" type="text" required />                            
+							<select class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" required >
+									  <option value="1">Yes</option>
+									  <option value="0">No</option>
+							</select>                            
                         </dd>                        
                     </dl>
                 </form>
@@ -195,6 +206,159 @@ cboCustomer.dispose();
 }
 
 
+// ====================================
+// Get Customer, Calendar Date and Time
+// ====================================
+function getCustomers() {
+ var customers = new wijmo.collections.ObservableArray();
+ $.ajax({
+     url: '${pageContext.request.contextPath}/api/customer/list',
+     cache: false,
+     type: 'GET',
+     contentType: 'application/json; charset=utf-8',
+     data: {},
+     success: function (results) {
+         if (results.length > 0) {
+             for (i = 0; i < results.length; i++) {
+             	customers.push({
+                     customerId: results[i]["CUST_ID"],
+                     customerName: results[i]["CUST_NAME"]
+                 });
+             }
+             createCboCustomer(customers);
+         }
+     }
+ }).fail(
+     function (xhr, textStatus, err) {
+         alert(err);
+     }
+ );
+}
+function getCalendarDate() {
+	 var calendarDates = new wijmo.collections.ObservableArray();
+	 $.ajax({
+	     url: '${pageContext.request.contextPath}/api/calendar/list',
+	     cache: false,
+	     type: 'GET',
+	     contentType: 'application/json; charset=utf-8',
+	     data: {},
+	     success: function (results) {
+	         if (results.length > 0) {
+	             for (i = 0; i < results.length; i++) {
+	            	 calendarDates.push({
+	                     calendarId: results[i]["CLDR_ID"],
+	                     calendarDate: results[i]["cldr_DATE"]
+	                 });
+	             }
+	             createCboCalendarDate(calendarDates);
+	         }
+	     }
+	 }).fail(
+	     function (xhr, textStatus, err) {
+	         alert(err);
+	     }
+	 );
+}
+
+function getCustomerTime(customerId) {
+	var customerId = document.getElementById('EDIT_CACT_CUST_ID_DATA').value;
+    var customerTimes = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/customerTime/listByCustomer',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"customerId" : customerId},
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	customerTimes.push({
+                        customerTimeId: results[i]["CTIM_ID"],
+                        customerDetails: results[i]["CTIM_DETAILS_NO"]
+                    });
+                }
+                createCustomerTimeId(customerTimes);
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );	
+}
+
+
+// ===================
+// Combo Boxes
+// ===================
+function createCboCustomer(customers) {
+	customerCollection = new wijmo.collections.CollectionView(customers);
+ 
+ var customerList = new Array();
+ for (var i = 0; i < customerCollection.items.length; i++) {
+ 	customerList.push(customerCollection.items[i].customerName);
+ }
+	
+ cboCustomer.dispose();
+	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CACT_CUST_ID', {
+     itemsSource: customerList,
+     placeholder: 'select a customer',
+     selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
+     onSelectedIndexChanged: function () {
+         $("#EDIT_CACT_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
+         getCustomerTime(customerCollection.items[this.selectedIndex].id)
+     }
+ });	
+}
+function createCboCalendarDate(calendarDates) {
+	calendarDateCollection = new wijmo.collections.CollectionView(calendarDates);
+ 
+ var calendarDateList = new Array();
+ for (var i = 0; i < calendarDateCollection.items.length; i++) {
+	 calendarDateList.push(calendarDateCollection.items[i].calendarDate);
+ }
+	
+ 	cboCalendarDate.dispose();
+ 	cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE', {
+     itemsSource: calendarDateList,
+     placeholder: 'select a Calendar Date',
+     selectedValue: document.getElementById('EDIT_CACT_DATE').value.toString(),
+     onSelectedIndexChanged: function () {
+         $("#EDIT_CACT_CLDR_ID_DATE_DATA").val(calendarDateCollection.items[this.selectedIndex].calendarId);
+     }
+ });	
+}
+
+function createCustomerTimeId(customerTimes) {
+	customerTimeCollection = new wijmo.collections.CollectionView(customerTimes);
+ 
+ var customerTimeList = new Array();
+ for (var i = 0; i < customerTimeCollection.items.length; i++) {
+	 customerTimeList.push(customerTimeCollection.items[i].customerDetails);
+ }
+	
+ cboCustomerStartTimeId.dispose();
+ cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME', {
+     itemsSource: customerTimeList,
+     placeholder: 'select customer Start time Id',
+	 selectedValue: document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value,
+     onSelectedIndexChanged: function () {
+         $("#EDIT_CACT_START_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
+     }
+ });	
+ 
+ cboCustomerEndTimeId.dispose();
+ cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME', {
+     itemsSource: customerTimeList,
+     placeholder: 'select customer End time Id',
+	 selectedValue: document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value,
+     onSelectedIndexChanged: function () {
+         $("#EDIT_CACT_END_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
+     }
+ });	
+}
+
+
 // ===================
 // Edit Button Clicked
 // ===================
@@ -209,26 +373,22 @@ function cmdCalendarActivityEdit_OnClick() {
     var calendarActivity = calendarActivities.currentEditItem;
     
     document.getElementById('EDIT_CACT_ID').value = calendarActivity.CACT_ID !== null && typeof (calendarActivity.CACT_ID) != 'undefined' ? wijmo.Globalize.format(calendarActivity.CACT_ID) : 0;
-    document.getElementById('EDIT_CACT_CLDR_ID').value = calendarActivity.CACT_CLDR_ID ? calendarActivity.CACT_CLDR_ID : '';
-    document.getElementById('EDIT_CACT_CUST_ID').value = calendarActivity.CACT_CUST_ID ? calendarActivity.CACT_CUST_ID : '';
-    document.getElementById('EDIT_CACT_DATE_DATA').value = calendarActivity.CACT_DATE ? calendarActivity.CACT_DATE : '';
+    document.getElementById('EDIT_CACT_CLDR_ID_DATE_DATA').value = calendarActivity.CACT_CLDR_ID ? calendarActivity.CACT_CLDR_ID : '';
+    document.getElementById('EDIT_CACT_CUST_ID_DATA').value = calendarActivity.CACT_CUST_ID ? calendarActivity.CACT_CUST_ID : '';
+    document.getElementById('EDIT_CACT_DATE').value = calendarActivity.CACT_CLDR_FK ? calendarActivity.CACT_CLDR_FK : '';
+    document.getElementById('EDIT_CUST_NAME').value = calendarActivity.CACT_CUST_FK ? calendarActivity.CACT_CUST_FK : '';
     document.getElementById('EDIT_CACT_DETAILS_NO').value = calendarActivity.CACT_DETAILS_NO ? calendarActivity.CACT_DETAILS_NO : '';
     document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value = calendarActivity.CACT_ACTIVITY_CLASSIFICATION ? calendarActivity.CACT_ACTIVITY_CLASSIFICATION : '';
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = calendarActivity.CACT_ACTIVITY_CONTENTS ? calendarActivity.CACT_ACTIVITY_CONTENTS : '';
     document.getElementById('EDIT_CACT_START_TIME_ID').value = calendarActivity.CACT_START_TIME_ID ? calendarActivity.CACT_START_TIME_ID : '';
     document.getElementById('EDIT_CACT_END_TIME_ID').value = calendarActivity.CACT_END_TIME_ID ? calendarActivity.CACT_END_TIME_ID : '';
+    document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value = calendarActivity.CACT_START_TIME_FK ? calendarActivity.CACT_START_TIME_FK : '';
+    document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value = calendarActivity.CACT_END_TIME_FK ? calendarActivity.CACT_END_TIME_FK : '';
     document.getElementById('EDIT_CACT_OPERATION_FLAG').value = calendarActivity.CACT_OPERATION_FLAG ? calendarActivity.CACT_OPERATION_FLAG : '';
     
-    var splitDate = calendarActivity.EDIT_CACT_DATE.split("-");
-    
-    calendarActivityDate.dispose();
-    calendarActivityDate = new wijmo.input.InputDate('#EDIT_CACT_DATE', {
-        format: 'MM/dd/yyyy',
-        value: new Date(splitDate[0], splitDate[1] - 1, splitDate[2]),
-        onValueChanged: function () {
-            document.getElementById('EDIT_CACT_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-        }
-    });  
+	getCustomers();
+	getCalendarDate();
+	getCustomerTime();
 }
 
 // ==================
@@ -239,13 +399,10 @@ function cmdCalendarActivityAdd_OnClick() {
         show: true,
         backdrop: false
     });
-    
-    var currentDate = new Date();
-    
+        
     document.getElementById('EDIT_CACT_ID').value = 0;
-    document.getElementById('EDIT_CACT_CLDR_ID').value = '';
-    document.getElementById('EDIT_CACT_CUST_ID').value = '';
-    document.getElementById('EDIT_CACT_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
+    document.getElementById('EDIT_CACT_CLDR_ID_DATE_DATA').value = '';
+    document.getElementById('EDIT_CACT_CUST_ID_DATA').value = '';
     document.getElementById('EDIT_CACT_DETAILS_NO').value = '';
     document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value = '';
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = '';
@@ -253,14 +410,9 @@ function cmdCalendarActivityAdd_OnClick() {
     document.getElementById('EDIT_CACT_END_TIME_ID').value = '';
     document.getElementById('EDIT_CACT_OPERATION_FLAG').value = '';
     
-    calendarActivityDate.dispose();
-    calendarActivityDate = new wijmo.input.InputDate('#EDIT_CACT_DATE', {
-        format: 'MM/dd/yyyy',
-        value: currentDate,
-        onValueChanged: function () {
-            document.getElementById('EDIT_CACT_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
-        }
-    });         
+ 	getCalendarDate();
+ 	getCustomers();
+ 	
 }
 
 // =====================
@@ -310,19 +462,14 @@ function cmdCalendarActivityEditOk_OnClick() {
 	var calendarActivityObject = new Object();
 
 	calendarActivityObject.CACT_ID = parseInt(document.getElementById('EDIT_CACT_ID').value);
-	calendarActivityObject.CACT_CLDR_ID = document.getElementById('EDIT_CACT_CLDR_ID').value;
-	calendarActivityObject.CACT_CUST_ID = document.getElementById('EDIT_CACT_CUST_ID').value;
+	calendarActivityObject.CACT_CLDR_ID = document.getElementById('EDIT_CACT_CLDR_ID_DATE_DATA').value;
+	calendarActivityObject.CACT_CUST_ID = document.getElementById('EDIT_CACT_CUST_ID_DATA').value;
 	calendarActivityObject.CACT_DETAILS_NO = document.getElementById('EDIT_CACT_DETAILS_NO').value;
 	calendarActivityObject.CACT_ACTIVITY_CLASSIFICATION = document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value;
 	calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
 	calendarActivityObject.CACT_START_TIME_ID = document.getElementById('EDIT_CACT_START_TIME_ID').value;
 	calendarActivityObject.CACT_END_TIME_ID = document.getElementById('EDIT_CACT_END_TIME_ID').value;
-	calendarActivityObject.CACT_OPERATION_FLAG = document.getElementById('EDIT_CACT_OPERATION_FLAG').value;	
-	
-	
-	var splitDate = document.getElementById('EDIT_CACT_DATE_DATA').value.split("-");
-	
-	calendarActivityObject.CACT_DATE = new Date(splitDate[0],splitDate[1] - 1, splitDate[2]);
+	calendarActivityObject.CACT_OPERATION_FLAG = document.getElementById('EDIT_CACT_OPERATION_FLAG').options[document.getElementById("EDIT_CACT_OPERATION_FLAG").selectedIndex].value;	
 	
 	var data = JSON.stringify(calendarActivityObject);
 	
@@ -334,8 +481,8 @@ function cmdCalendarActivityEditOk_OnClick() {
 	    data: data,
 	    success: function (data) {
 	        if (data.CACT_ID > 0) {
-	            toastr.success('Successfully updated.');
-	            window.setTimeout(function () { location.reload() }, 1000);
+	        	 toastr.success('Successfully Updated.');
+                 window.setTimeout(function () { location.reload() }, 1000);
 	        } else {
 	            toastr.error("Not updated.");
 	        }
@@ -364,17 +511,20 @@ function getCalendarActivities() {
                         DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteMessage' onclick='cmdCalendarActivityDelete_OnClick()'>Delete</button>",
                         CACT_ID: Results[i]["cact_ID"],
                         CACT_CLDR_ID: Results[i]["cact_CLDR_ID"],
-                        CACT_CUST_FK_NAME: Results[i].CACT_CUST_FK.CUST_NAME,
+                        CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
+                        CACT_CUST_ID: Results[i]["cact_CUST_ID"],
+                        CACT_CUST_FK: Results[i].CACT_CUST_FK.CUST_NAME,
                         CACT_DATE: Results[i]["cact_DATE"],
                         CACT_DETAILS_NO: Results[i]["cact_DETAILS_NO"],
                         CACT_ACTIVITY_CLASSIFICATION: Results[i]["cact_ACTIVITY_CLASSIFICATION"],
                         CACT_ACTIVITY_CONTENTS: Results[i]["cact_ACTIVITY_CONTENTS"],
-                        CACT_START_TIME_ID: Results[i]["cact_START_TIME_ID"],
-                        CACT_END_TIME_ID: Results[i]["cact_END_TIME_ID"],
+                        CACT_START_TIME_ID: Results[i]["CACT_END_TIME_ID"],
+                        CACT_END_TIME_ID: Results[i]["CACT_END_TIME_ID"],
+                        CACT_START_TIME_FK: Results[i].CACT_START_TIME_FK.CTIM_DETAILS_NO,
+                        CACT_END_TIME_FK: Results[i].CACT_END_TIME_FK.CTIM_DETAILS_NO,
                         CACT_OPERATION_FLAG: Results[i]["cact_OPERATION_FLAG"],
                         CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
-
-                        
+           
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
                         UPDATED_DATE: Results[i]["updated_DATE"],
@@ -382,8 +532,8 @@ function getCalendarActivities() {
                         ISDELETED: Results[i]["isdeleted"],
                         ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                         ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-                        CACT_CREATED_BY_USER_FK: Results[i].CACT_CREATED_BY_USER_FK.USER_LOGIN,
-                        CACT_UPDATED_BY_USER_FK: Results[i].CACT_UPDATED_BY_USER_FK.USER_LOGIN
+                        CACT_CREATED_BY_USER_FK: Results[i]["CACT_CREATED_BY_USER_FK"],
+                        CACT_UPDATED_BY_USER_FK: Results[i]["CACT_UPDATED_BY_USER_FK"]
                     });
                 }
             } else {
@@ -433,9 +583,10 @@ function updateNavigateButtonsCalendarActivitiy() {
 //=================== 
 function updateDetails() {	
 	var item = calendarActivities.currentItem;
-	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK;
+
+	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
-	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK;
+	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CACT_UPDATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;	
 }
 
@@ -474,13 +625,7 @@ $.validator.setDefaults({
 // On Page Load
 // ============
 $(document).ready(function () {
-	
-	 // Date Control Initialization
-    calendarActivityDate = new wijmo.input.InputDate('#EDIT_CACT_DATE', {
-        format: 'MM/dd/yyyy',
-        value: new Date()
-    });  	
-	
+		
     // Validation
     $('#cmdCalendarActivityEditOk').click(function () {
         if (FormValidate() == true) {
@@ -519,9 +664,11 @@ $(document).ready(function () {
 	    updateDetails();
 	});
     
-    cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CACT_CUST_ID');
-	getCustomers();
-    
+    cboCustomer = new wijmo.input.AutoComplete('#EDIT_CACT_CUST_ID');
+	cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE');
+	cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME');
+	cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME');
+ 
     // Flex Grid
     calendarActivityGrid = new wijmo.grid.FlexGrid('#calendarActivityGrid');
     calendarActivityGrid.initialize({
@@ -541,23 +688,17 @@ $(document).ready(function () {
                         "isContentHtml": true
                     },
                     {
-                        "header": "Calendar ID",
-                        "binding": "CACT_CLDR_ID",
-                        "allowSorting": true,
-                        "width": "2*"
-                    },
-                    {
-                        "header": "Customer Name",
-                        "binding": "CACT_CUST_FK_NAME",
-                        "allowSorting": true,
-                        "width": "2*"
-                    },
-                    {
-                        "header": "Date",
+                        "header": "Calendar",
                         "binding": "CACT_CLDR_FK",
                         "allowSorting": true,
                         "width": "2*"
-                    },                    
+                    },
+                    {
+                        "header": "Customer",
+                        "binding": "CACT_CUST_FK",
+                        "allowSorting": true,
+                        "width": "2*"
+                    },                 
                     {
                         "header": "Details No",
                         "binding": "CACT_DETAILS_NO",
