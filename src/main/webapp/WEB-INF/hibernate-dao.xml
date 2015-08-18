@@ -10,10 +10,6 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	
-	<bean id="userRoleDao" class="com.innosoft.webreservation.dao.UserRoleDaoImpl">
-		<property name="sessionFactory" ref="mySessionFactory" />
-	</bean>	
-	
 	<bean id="userDao" class="com.innosoft.webreservation.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>	

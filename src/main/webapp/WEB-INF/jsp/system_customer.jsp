@@ -111,6 +111,7 @@
                         <dt>Address 3: </dt>
                         <dd>
                             <input class="form-control border-custom" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" type="text" required />
+<<<<<<< HEAD
                         </dd>   
                         <dt>Is Deleted?: </dt>
                         <dd>
@@ -119,6 +120,9 @@
 									  <option value="0">No</option>
 							</select>
                         </dd>                                               
+=======
+                        </dd>                                            
+>>>>>>> refs/remotes/origin/master
                     </dl>
                 </form>
             </div>
@@ -168,8 +172,7 @@ function cmdCustomerEdit_OnClick() {
 	document.getElementById('EDIT_CUST_ZIPCODE').value = customer.CUST_ZIPCODE ? customer.CUST_ZIPCODE : '';	
 	document.getElementById('EDIT_CUST_ADDRESS1').value = customer.CUST_ADDRESS1 ? customer.CUST_ADDRESS1 : '';	
 	document.getElementById('EDIT_CUST_ADDRESS2').value = customer.CUST_ADDRESS2 ? customer.CUST_ADDRESS2 : '';	
-	document.getElementById('EDIT_CUST_ADDRESS3').value = customer.CUST_ADDRESS3 ? customer.CUST_ADDRESS3 : '';	
-	document.getElementById('EDIT_CUST_ISDELETED').value = customer.CUST_ISDELETED ? customer.CUST_ISDELETED : '';		       
+	document.getElementById('EDIT_CUST_ADDRESS3').value = customer.CUST_ADDRESS3 ? customer.CUST_ADDRESS3 : '';		       
 }
 
 // ==================
@@ -189,8 +192,7 @@ function cmdCustomerAdd_OnClick() {
 	document.getElementById('EDIT_CUST_ZIPCODE').value = '';	
 	document.getElementById('EDIT_CUST_ADDRESS1').value = '';	
 	document.getElementById('EDIT_CUST_ADDRESS2').value = '';	
-	document.getElementById('EDIT_CUST_ADDRESS3').value = '';	
-	document.getElementById('EDIT_CUST_ISDELETED').value = '';	        
+	document.getElementById('EDIT_CUST_ADDRESS3').value = '';	     
 }
 
 // =====================
@@ -284,7 +286,7 @@ function getCustomers() {
         success: function (Results) {
             $('#loading').modal('hide');
             if (Results.length > 0) {
-                for (i = 0; i < Results.length; i++) {                    	
+                for (i = 0; i < Results.length; i++) {     
                     customers.push({
                         EditId: "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCustomer' onclick='cmdCustomerEdit_OnClick()'>Edit</button>",
                         DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerDelete_OnClick()'>Delete</button>",
@@ -297,7 +299,6 @@ function getCustomers() {
                         CUST_ADDRESS1: Results[i]["CUST_ADDRESS1"],
                         CUST_ADDRESS2: Results[i]["CUST_ADDRESS2"],
                         CUST_ADDRESS3: Results[i]["CUST_ADDRESS3"],
-                        CUST_ISDELETED: Results[i]["CUST_ISDELETED"],
                         
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],

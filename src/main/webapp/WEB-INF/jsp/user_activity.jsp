@@ -83,7 +83,8 @@
                     <dl class="dl-horizontal">
                         <dt>Calendar: </dt>
                         <dd>
-                         	<input id="EDIT_CACT_ID" type="hidden" />                       	      
+                         	<input id="EDIT_CACT_ID" type="hidden" /> 
+                         	                      	      
                             <div id="EDIT_CACT_CLDR_ID_DATE" class="form-control border-custom"></div>
                             <input id="EDIT_CACT_CLDR_ID_DATE_DATA" name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required />    
                             <input id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required/>   
@@ -154,6 +155,56 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+//=================
+//Getting the Data
+//=================   
+function getCustomers() {
+var customers = new wijmo.collections.ObservableArray();
+$.ajax({
+   url: '${pageContext.request.contextPath}/api/customer/list',
+   cache: false,
+   type: 'GET',
+   contentType: 'application/json; charset=utf-8',
+   data: {},
+   success: function (results) {
+       if (results.length > 0) {
+           for (i = 0; i < results.length; i++) {
+           	customers.push({
+                   id: results[i]["CUST_ID"],
+                   customerName: results[i]["CUST_NAME"]
+               });
+           }
+           createCboCustomer(customers);
+       }
+   }
+}).fail(
+   function (xhr, textStatus, err) {
+       alert(err);
+   }
+);
+}
+
+//========
+//Comboxes
+//======== 
+function createCboCustomer(customers) {
+customerCollection = new wijmo.collections.CollectionView(customers);
+
+var customerList = new Array();
+for (var i = 0; i < customerCollection.items.length; i++) {
+	customerList.push(customerCollection.items[i].customerName);
+}
+	
+cboCustomer.dispose();
+	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CACT_CUST_ID', {
+    itemsSource: customerList,
+    onSelectedIndexChanged: function () {
+        $("#EDIT_CACT_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+    }
+});	
+}
+
 
 // ====================================
 // Get Customer, Calendar Date and Time
@@ -472,7 +523,8 @@ function getCalendarActivities() {
                         CACT_START_TIME_FK: Results[i].CACT_START_TIME_FK.CTIM_DETAILS_NO,
                         CACT_END_TIME_FK: Results[i].CACT_END_TIME_FK.CTIM_DETAILS_NO,
                         CACT_OPERATION_FLAG: Results[i]["cact_OPERATION_FLAG"],
-                        
+                        CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
+           
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
                         UPDATED_DATE: Results[i]["updated_DATE"],
@@ -531,6 +583,7 @@ function updateNavigateButtonsCalendarActivitiy() {
 //=================== 
 function updateDetails() {	
 	var item = calendarActivities.currentItem;
+
 	document.getElementById('EDIT_CREATED_BY').innerHTML = item.CACT_CREATED_BY_USER_FK.USER_LOGIN;;
 	document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
 	document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CACT_UPDATED_BY_USER_FK.USER_LOGIN;;
@@ -615,7 +668,7 @@ $(document).ready(function () {
 	cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE');
 	cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME');
 	cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME');
-    
+ 
     // Flex Grid
     calendarActivityGrid = new wijmo.grid.FlexGrid('#calendarActivityGrid');
     calendarActivityGrid.initialize({

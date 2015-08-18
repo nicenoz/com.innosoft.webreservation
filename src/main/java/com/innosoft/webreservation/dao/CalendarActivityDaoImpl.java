@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,9 +38,12 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(MstCalendarActivity.class);
-		criteria.add(Restrictions.eq("CACT_CUST_ID", customerId));
-		List<MstCalendarActivity> list = criteria.list();	
+//		Criteria criteria = session.createCriteria(MstCalendarActivity.class);
+//		criteria.add(Restrictions.eq("CACT_CUST_ID", customerId));
+//		criteria.addOrder(Order.asc("CACT_CUST_ID"));
+//		List<MstCalendarActivity> list = criteria.list();
+	
+		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity where CACT_CUST_ID=" + customerId).list();	
 		return list;		
 	}	
 	public MstCalendarActivity addCalendarActivity(MstCalendarActivity calendarActivity){
