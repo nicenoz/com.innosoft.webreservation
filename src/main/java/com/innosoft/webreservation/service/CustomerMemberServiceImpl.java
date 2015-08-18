@@ -18,6 +18,12 @@ public class CustomerMemberServiceImpl implements CustomerMemberService {
 	public List<MstCustomerMember> listCustomerMember(){
 		return customerMemberDao.listCustomerMember();
 	}
+	
+
+	public List<MstCustomerMember> getMemberByUserId(int id){
+		return customerMemberDao.getMemberByUserId(id);
+	}
+	
 	public MstCustomerMember addCustomerMember(MstCustomerMember member){
 		return customerMemberDao.addCustomerMember(member);
 	}
