@@ -27,7 +27,21 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 	}
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MstCustomerMember> getMemberByUserId(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(MstCustomerMember.class);
+		criteria.add(Restrictions.eq("MEBR_USER_ID", id));
+		
+		List<MstCustomerMember> list = criteria.list();	
+		
+		return list;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerMember> listCustomerMember(){
 		Session session = this.sessionFactory.getCurrentSession();
