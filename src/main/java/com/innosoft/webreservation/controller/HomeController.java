@@ -25,6 +25,21 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("login");
 		return model;
 	}
+	@RequestMapping("/loginFree")
+	public ModelAndView loginFree() {
+		ModelAndView model = new ModelAndView("login_free");
+		return model;
+	}
+	@RequestMapping("/loginMember")
+	public ModelAndView loginMember() {
+		ModelAndView model = new ModelAndView("login_member");
+		return model;
+	}
+	@RequestMapping("/loginSecure")
+	public ModelAndView loginSecure() {
+		ModelAndView model = new ModelAndView("login_secure");
+		return model;
+	}
 	@RequestMapping("/logout") 
 	public String logout() {
 		return "redirect:/j_spring_security_logout";		
@@ -34,9 +49,9 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("home_about");
 		return model;
 	}
-	@RequestMapping("/register")
-	public ModelAndView registration() {
-		ModelAndView model = new ModelAndView("register");
+	@RequestMapping("/registerSecure")
+	public ModelAndView registerSecure() {
+		ModelAndView model = new ModelAndView("register_secure");
 		return model;
 	}
 	@RequestMapping(value = "/member/{userId}", method=RequestMethod.GET)

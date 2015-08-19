@@ -111,7 +111,6 @@
                         <dt>Address 3: </dt>
                         <dd>
                             <input class="form-control border-custom" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" type="text" required />
-<<<<<<< HEAD
                         </dd>   
                         <dt>Is Deleted?: </dt>
                         <dd>
@@ -120,9 +119,6 @@
 									  <option value="0">No</option>
 							</select>
                         </dd>                                               
-=======
-                        </dd>                                            
->>>>>>> refs/remotes/origin/master
                     </dl>
                 </form>
             </div>

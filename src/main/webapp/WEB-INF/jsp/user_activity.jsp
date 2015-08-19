@@ -148,7 +148,10 @@
 var calendarActivities;
 var calendarActivityGrid;
 
-var calendarActivityDate;
+var cboCustomer;
+var cboCalendarDate;
+var cboCustomerStartTimeId;
+var cboCustomerEndTimeId;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
@@ -156,59 +159,10 @@ var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
 
-//=================
-//Getting the Data
-//=================   
-function getCustomers() {
-var customers = new wijmo.collections.ObservableArray();
-$.ajax({
-   url: '${pageContext.request.contextPath}/api/customer/list',
-   cache: false,
-   type: 'GET',
-   contentType: 'application/json; charset=utf-8',
-   data: {},
-   success: function (results) {
-       if (results.length > 0) {
-           for (i = 0; i < results.length; i++) {
-           	customers.push({
-                   id: results[i]["CUST_ID"],
-                   customerName: results[i]["CUST_NAME"]
-               });
-           }
-           createCboCustomer(customers);
-       }
-   }
-}).fail(
-   function (xhr, textStatus, err) {
-       alert(err);
-   }
-);
-}
-
-//========
-//Comboxes
-//======== 
-function createCboCustomer(customers) {
-customerCollection = new wijmo.collections.CollectionView(customers);
-
-var customerList = new Array();
-for (var i = 0; i < customerCollection.items.length; i++) {
-	customerList.push(customerCollection.items[i].customerName);
-}
-	
-cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CACT_CUST_ID', {
-    itemsSource: customerList,
-    onSelectedIndexChanged: function () {
-        $("#EDIT_CACT_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
-    }
-});	
-}
-
 
 // ====================================
 // Get Customer, Calendar Date and Time
-// ====================================
+// ====================================	
 function getCustomers() {
  var customers = new wijmo.collections.ObservableArray();
  $.ajax({
@@ -234,6 +188,7 @@ function getCustomers() {
      }
  );
 }
+
 function getCalendarDate() {
 	 var calendarDates = new wijmo.collections.ObservableArray();
 	 $.ajax({
@@ -288,9 +243,9 @@ function getCustomerTime(customerId) {
 }
 
 
-// ===================
+// ===========
 // Combo Boxes
-// ===================
+// ===========
 function createCboCustomer(customers) {
 	customerCollection = new wijmo.collections.CollectionView(customers);
  
@@ -306,10 +261,11 @@ function createCboCustomer(customers) {
      selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
-         getCustomerTime(customerCollection.items[this.selectedIndex].id)
+         getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
      }
  });	
 }
+
 function createCboCalendarDate(calendarDates) {
 	calendarDateCollection = new wijmo.collections.CollectionView(calendarDates);
  
@@ -318,8 +274,8 @@ function createCboCalendarDate(calendarDates) {
 	 calendarDateList.push(calendarDateCollection.items[i].calendarDate);
  }
 	
- 	cboCalendarDate.dispose();
- 	cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE', {
+ 	 cboCalendarDate.dispose();
+ 	 cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE', {
      itemsSource: calendarDateList,
      placeholder: 'select a Calendar Date',
      selectedValue: document.getElementById('EDIT_CACT_DATE').value.toString(),
@@ -330,34 +286,33 @@ function createCboCalendarDate(calendarDates) {
 }
 
 function createCustomerTimeId(customerTimes) {
-	customerTimeCollection = new wijmo.collections.CollectionView(customerTimes);
+ customerTimeCollection = new wijmo.collections.CollectionView(customerTimes);
  
  var customerTimeList = new Array();
  for (var i = 0; i < customerTimeCollection.items.length; i++) {
 	 customerTimeList.push(customerTimeCollection.items[i].customerDetails);
  }
 	
- cboCustomerStartTimeId.dispose();
- cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME', {
+     cboCustomerStartTimeId.dispose();
+     cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME', {
      itemsSource: customerTimeList,
      placeholder: 'select customer Start time Id',
 	 selectedValue: document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value,
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_START_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
-     }
- });	
+	     }
+	 });	
  
- cboCustomerEndTimeId.dispose();
- cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME', {
+     cboCustomerEndTimeId.dispose();
+     cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME', {
      itemsSource: customerTimeList,
      placeholder: 'select customer End time Id',
 	 selectedValue: document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value,
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_END_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
-     }
- });	
+	     }
+	 });	
 }
-
 
 // ===================
 // Edit Button Clicked
@@ -513,17 +468,16 @@ function getCalendarActivities() {
                         CACT_CLDR_ID: Results[i]["cact_CLDR_ID"],
                         CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
                         CACT_CUST_ID: Results[i]["cact_CUST_ID"],
-                        CACT_CUST_FK: Results[i].CACT_CUST_FK.CUST_NAME,
+                        CACT_CUST_FK: Results[i].CACT_CUST_FK.cust_NAME,
                         CACT_DATE: Results[i]["cact_DATE"],
                         CACT_DETAILS_NO: Results[i]["cact_DETAILS_NO"],
                         CACT_ACTIVITY_CLASSIFICATION: Results[i]["cact_ACTIVITY_CLASSIFICATION"],
                         CACT_ACTIVITY_CONTENTS: Results[i]["cact_ACTIVITY_CONTENTS"],
                         CACT_START_TIME_ID: Results[i]["CACT_END_TIME_ID"],
                         CACT_END_TIME_ID: Results[i]["CACT_END_TIME_ID"],
-                        CACT_START_TIME_FK: Results[i].CACT_START_TIME_FK.CTIM_DETAILS_NO,
-                        CACT_END_TIME_FK: Results[i].CACT_END_TIME_FK.CTIM_DETAILS_NO,
+                        CACT_START_TIME_FK: Results[i].CACT_START_TIME_FK.ctim_DETAILS_NO,
+                        CACT_END_TIME_FK: Results[i].CACT_END_TIME_FK.ctim_DETAILS_NO,
                         CACT_OPERATION_FLAG: Results[i]["cact_OPERATION_FLAG"],
-                        CACT_CLDR_FK: Results[i].CACT_CLDR_FK.cldr_DATE,
            
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
