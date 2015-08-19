@@ -11,7 +11,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Login as ?</title>
+    <title>Login</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
