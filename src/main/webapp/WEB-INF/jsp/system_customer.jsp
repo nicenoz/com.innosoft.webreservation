@@ -118,7 +118,7 @@
 									  <option value="1">Yes</option>
 									  <option value="0">No</option>
 							</select>
-                        </dd>                                               
+                        </dd>
                     </dl>
                 </form>
             </div>
