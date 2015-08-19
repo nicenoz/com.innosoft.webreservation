@@ -56,6 +56,7 @@ public class ReservationApi {
 				return new ResponseEntity<TrnReservation>(editReservation, HttpStatus.OK);
 			}
 		} catch(Exception e) {
+			System.out.println(e.toString());
 			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);
 		}
 	}
