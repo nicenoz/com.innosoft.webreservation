@@ -40,8 +40,8 @@ public class UserDaoImpl implements UserDao {
 	public MstSecurityUser getUser(String login) {
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
 		Session session = this.getSessionFactory().getCurrentSession();
-		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN =:login");
-		query.setParameter("login", login);
+		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN LIKE :login");
+		query.setParameter("login", login + ".%");
 		userList = query.list();
 		if (userList.size() > 0){
 			System.out.print("1");
