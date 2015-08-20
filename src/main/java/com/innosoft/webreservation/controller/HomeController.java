@@ -60,5 +60,13 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("member");
 		model.addObject("Email", user.USER_LOGIN);
 		return model;
-	}			
+	}	
+	@RequestMapping(value = "/loginFreePassword/email={userEmail}", method=RequestMethod.GET)
+	public ModelAndView free(@PathVariable("userEmail") String userEmail) {
+		MstSecurityUser user = userService.getUser(userEmail); 
+		ModelAndView model = new ModelAndView("login_free_password");
+		model.addObject("UserEmail", user.USER_LOGIN);
+	
+		return model;
+	}		
 }
