@@ -61,12 +61,11 @@ public class HomeController {
 		model.addObject("Email", user.USER_LOGIN);
 		return model;
 	}	
-	@RequestMapping(value = "/loginFreePassword/email={userEmail}", method=RequestMethod.GET)
-	public ModelAndView free(@PathVariable("userEmail") String userEmail) {
-		MstSecurityUser user = userService.getUser(userEmail); 
+	@RequestMapping(value = "/loginFreePassword/email={userEmailAdd}", method=RequestMethod.GET)
+	public ModelAndView free(@PathVariable("userEmailAdd") String userEmailAdd) {
+		MstSecurityUser userEmail = userService.getUserEmail(userEmailAdd); 
 		ModelAndView model = new ModelAndView("login_free_password");
-		model.addObject("UserEmail", user.USER_LOGIN);
-	
+		model.addObject("UserEmail", userEmail.USER_LOGIN);
 		return model;
 	}		
 }

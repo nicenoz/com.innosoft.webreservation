@@ -11,10 +11,10 @@
 	<http auto-config="true">  
 		<intercept-url pattern="/software/*" access="ROLE_USER"/>  
 		<intercept-url pattern="/api/customer/*" access="ROLE_USER"/> 
-	    <intercept-url pattern="/setup/*" access="ROLE_ADMIN"/>   
-	    <form-login login-page="/login/"></form-login>
+	    <intercept-url pattern="/software/*" access="ROLE_ADMIN"/>   
+	    <form-login login-page="/loginMember/"></form-login>
 		<form-login 
-		    login-page="/login/" 
+		    login-page="/loginMember/" 
 		    default-target-url="/" 
 			authentication-failure-url="/login?error" />
 		<logout logout-success-url="/" />

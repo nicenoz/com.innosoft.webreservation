@@ -25,6 +25,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUser(id);
 	}
 	
+	public MstSecurityUser getUserEmail(String userEmail) {
+		return userDao.getUserEmail(userEmail);
+	}
+	
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		return userDao.addUser(user);
 	}
