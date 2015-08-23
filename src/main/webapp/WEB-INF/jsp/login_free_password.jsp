@@ -63,7 +63,7 @@
 </nav>
  
 <div class="container"> 
-	<form action="" role="form">
+	<form method="post" action="<c:url value='/j_spring_security_check' />" role="form">
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-md-4 col-md-offset-4">
@@ -73,15 +73,23 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="email" name="" id="" class="form-control border-custom" size="30" maxlength="30" value="${UserEmail}" placeholder="Email Address" readonly/>
-	                            <br />
-	                            <input type="email" name="" id="" class="form-control border-custom" size="30" maxlength="30" placeholder="Password"/>
-	                            <br />
-	                            <button type="button" id="" class="btn btn-lg btn-primary btn-block border-custom" onclick="">
-		                           		Submit
-		                        </button>
-		                        <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
-	                        </fieldset>
+		                           	<input type="text" name="j_username" class="form-control border-custom" id="j_username" size="30" maxlength="40" placeholder="Email Address"  value="${UserEmail}" readonly/>
+		                            <br />
+		                            <input type="password" name="j_password" class="form-control border-custom" id="j_password" size="30" maxlength="32" placeholder="Password"/>
+		                            <br />
+		                            <div class="checkbox">
+		                                <label>
+		                                    <input name="remember" type="checkbox"/>Remember Me
+		                                </label>
+		                            </div>
+		                            <br />
+		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block border-custom" />
+		                            <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
+		                            <br/>
+		                            <p>
+										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>
+									</p>
+		                        </fieldset>
 	                        <br>
 	                    </div>
 	                </div>
