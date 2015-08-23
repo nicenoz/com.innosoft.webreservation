@@ -124,7 +124,6 @@
 //===========================
 var currentLookup;
 var ceilParts = 0;
-
 var loggedInCustomerId;
 var isScheduleUpdated;
 
