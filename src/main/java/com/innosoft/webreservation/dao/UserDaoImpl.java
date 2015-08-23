@@ -40,16 +40,14 @@ public class UserDaoImpl implements UserDao {
 	public MstSecurityUser getUser(String login) {
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
 		Session session = this.getSessionFactory().getCurrentSession();
-		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN LIKE :login");
-		query.setParameter("login", "%" + login + "%");
+		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN = :login");
+		query.setParameter("login", login);
 		userList = query.list();
 		if (userList.size() > 0){
-			System.out.print("1");
 			return userList.get(0);
 		}
 		else
 		{
-			System.out.print("2");
 			return new MstSecurityUser();
 		}
 	}
@@ -66,6 +64,24 @@ public class UserDaoImpl implements UserDao {
 		else
 			return new MstSecurityUser();
 	}	
+	
+	@SuppressWarnings("unchecked")
+	public MstSecurityUser getUserEmail(String userEmail) {
+		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
+		Session session = this.getSessionFactory().getCurrentSession();
+		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN LIKE :userEmail");
+		query.setParameter("userEmail", userEmail + ".%");
+		userList = query.list();
+		if (userList.size() > 0){
+			System.out.print("1");
+			return userList.get(0);
+		}
+		else
+		{
+			System.out.print("2");
+			return new MstSecurityUser();
+		}
+	}
 
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		try {
