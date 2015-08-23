@@ -67,5 +67,10 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("login_free_password");
 		model.addObject("UserEmail", userEmail.USER_LOGIN);
 		return model;
-	}		
+	}
+	@RequestMapping("/register")
+	public ModelAndView register() {
+		ModelAndView model = new ModelAndView("register_secure");
+		return model;
+	}
 }

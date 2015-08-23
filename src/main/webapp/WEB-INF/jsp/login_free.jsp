@@ -73,9 +73,9 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="email" name="" id="" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
+	                           	<input type="email" name="" id="EDIT_EMAIL_ADDRESS" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
 	                            <br />
-	                            <button type="button" id="" class="btn btn-lg btn-primary btn-block border-custom" onclick="">
+	                            <button type="button" id="cmdLoginFree" class="btn btn-lg btn-primary btn-block border-custom" onclick="cmdLoginFree_OnClick()">
 		                           		Submit
 		                        </button>
 		                        <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
@@ -128,6 +128,39 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+
+
+
+<script type="text/javascript">  
+	function cmdLoginFree_OnClick() {
+		var userEmailObject = new Object();
+
+		userEmailObject.USER_LOGIN = document.getElementById('EDIT_EMAIL_ADDRESS').value;
+
+		var data = JSON.stringify(userEmailObject);
+
+		$.ajax({
+			type : "POST",
+			url : '${pageContext.request.contextPath}/api/user/loginFreeUser',
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : data,
+			statusCode : {
+				200 : function() {
+					alert("Succesfully send");
+				},
+				404 : function() {
+					alert("Email Already Exist");
+				},
+				400 : function() {
+					alert("Bad Request");
+				}
+			}
+		});
+	
+	}
+</script>
+
 
 </body>
 </html>

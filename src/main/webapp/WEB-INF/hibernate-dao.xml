@@ -46,8 +46,7 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	
-	<bean id="userPassDao"
-		class="com.innosoft.webreservation.dao.UserPassDaoImpl">
+	<bean id="userPassDao" class="com.innosoft.webreservation.dao.UserPassDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
