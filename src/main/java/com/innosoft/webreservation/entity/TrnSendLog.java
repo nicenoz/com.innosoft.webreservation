@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,8 @@ import javax.persistence.Table;
 public class TrnSendLog {
 	
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SLOG_ID_SEQ")
+    @SequenceGenerator(name="SLOG_ID_SEQ", sequenceName="SLOG_ID_SEQ", allocationSize=1)
     @Column(name="SLOG_ID")	
 	public Integer SLOG_ID;
 	

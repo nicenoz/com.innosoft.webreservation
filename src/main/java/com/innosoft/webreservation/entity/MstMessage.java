@@ -7,16 +7,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="WR_MESSAGE")
 public class MstMessage {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MESG_ID_SEQ")
+    @SequenceGenerator(name="MESG_ID_SEQ", sequenceName="MESG_ID_SEQ", allocationSize=1)
     @Column(name="MESG_ID")	
 	public Integer MESG_ID;
 	

@@ -8,18 +8,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="WR_CALENDAR_ACTIVITY")
 public class MstCalendarActivity {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CACT_ID_SEQ")
+    @SequenceGenerator(name="CACT_ID_SEQ", sequenceName="CACT_ID_SEQ", allocationSize=1)
     @OrderColumn
     @Column(name="CACT_ID")			
 	public Integer CACT_ID;  
