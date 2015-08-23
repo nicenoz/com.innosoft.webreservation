@@ -36,10 +36,22 @@
 	</div>
 </div>
 
+<!-- Loading -->
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width: 220px;">
+        <div class="modal-content border-custom">
+            <div class="modal-header">
+                <h4 class="modal-title">Sending Mail...</h4>
+            </div>
+            <div class="modal-body">
+                <img src="<c:url value='/img/progress_bar.gif' />"></img>
+            </div>
+        </div>
+    </div>
+</div>
+
 	<script type="text/javascript">
-		// =============================
-		// Edit Detail OK Button Clicked
-		// =============================     
+    
 		function cmdCalendarEditOk_OnClick() {
 			var emailObject = new Object();
 
@@ -48,7 +60,8 @@
 			emailObject.EMAIL_SUBJECT = document.getElementById('edit_subject').value;
 
 			var data = JSON.stringify(emailObject);
-
+			
+		    $('#loading').modal('show');
 			$.ajax({
 						type : "POST",
 						url : '${pageContext.request.contextPath}/api/email/send',
@@ -57,12 +70,15 @@
 						data : data,
 						statusCode : {
 							200 : function() {
+								$('#loading').modal('hide');
 								alertify.alert("Succesfully send");
 							},
 							404 : function() {
+								$('#loading').modal('hide');
 								alertify.alert("Not found");
 							},
 							400 : function() {
+								$('#loading').modal('hide');
 								alertify.alert("Bad Request");
 							}
 						}
