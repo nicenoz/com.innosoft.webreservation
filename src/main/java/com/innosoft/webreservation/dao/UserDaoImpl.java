@@ -110,8 +110,7 @@ public class UserDaoImpl implements UserDao {
 			Transaction tx = null;
 
 			tx = session.beginTransaction();
-			MstSecurityUser updateUser = (MstSecurityUser) session.get(
-					MstSecurityUser.class, user.USER_ID);
+			MstSecurityUser updateUser = (MstSecurityUser) session.get(MstSecurityUser.class, user.USER_ID);
 
 			updateUser.setUSER_LOGIN(user.USER_LOGIN);
 			updateUser.setUSER_PASSWORD(user.USER_PASSWORD);
