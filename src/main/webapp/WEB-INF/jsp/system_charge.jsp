@@ -198,7 +198,7 @@ function cmdChargeEdit_OnClick() {
 
     $('#ChargeEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var charge = charges.currentEditItem;   
@@ -241,7 +241,7 @@ function cmdChargeEdit_OnClick() {
 function cmdChargeAdd_OnClick() {	
 	$('#ChargeEdit').modal({
 		show : true,
-		backdrop : false
+		backdrop : 'static'
 	});
 
 	var currentDate = new Date();

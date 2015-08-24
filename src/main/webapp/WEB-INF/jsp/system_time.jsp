@@ -72,7 +72,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
-				<button type="button" class="close" aria-hidden="true">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;</button>
 				<h4 class="modal-title">Customer Time Edit</h4>
 			</div>
@@ -206,7 +206,7 @@ function cmdCustomerTimeEdit_OnClick() {
 
     $('#CustomerTimeEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var customerTime = customerTimes.currentEditItem;   
@@ -241,7 +241,7 @@ function cmdCustomerTimeEdit_OnClick() {
 function cmdCustomerTimeAdd_OnClick() {
 	$('#CustomerTimeEdit').modal({
 		show : true,
-		backdrop : false
+		backdrop : 'static'
 	});
 
 	document.getElementById('EDIT_CTIM_ID').value = "0.0";

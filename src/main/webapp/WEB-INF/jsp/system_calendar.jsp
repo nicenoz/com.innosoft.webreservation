@@ -131,7 +131,7 @@ function cmdCalendarEdit_OnClick() {
 
     $('#CalendarEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var calendar = calendars.currentEditItem;
@@ -158,7 +158,7 @@ function cmdCalendarEdit_OnClick() {
 function cmdCalendarAdd_OnClick() {
     $('#CalendarEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
     
     var currentDate = new Date();

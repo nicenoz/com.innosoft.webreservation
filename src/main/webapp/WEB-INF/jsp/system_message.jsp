@@ -151,7 +151,7 @@ function cmdMessageEdit_OnClick() {
 
     $('#MessageEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var message = messages.currentEditItem;
@@ -190,7 +190,7 @@ function cmdMessageEdit_OnClick() {
 function cmdMessageAdd_OnClick() {
     $('#MessageEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
     
     var currentDate = new Date();

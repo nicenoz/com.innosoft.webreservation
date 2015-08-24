@@ -140,7 +140,7 @@ function cmdCodeEdit_OnClick() {
 
     $('#codeEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var code = codes.currentEditItem;    
@@ -158,7 +158,7 @@ function cmdCodeEdit_OnClick() {
 function cmdCodeAdd_OnClick() {	
     $('#codeEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });    
     document.getElementById('EDIT_CODE_ID').value = 0;
     document.getElementById('EDIT_CODE_KIND_CODE').value = '';

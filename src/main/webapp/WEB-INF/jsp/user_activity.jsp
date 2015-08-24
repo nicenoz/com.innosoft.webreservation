@@ -323,7 +323,7 @@ function cmdCalendarActivityEdit_OnClick() {
 
     $('#CalendarActivityEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
     
     calendarActivityDetailsNo = new Array();
@@ -364,7 +364,7 @@ function cmdCalendarActivityEdit_OnClick() {
 function cmdCalendarActivityAdd_OnClick() {
     $('#CalendarActivityEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
         
     document.getElementById('EDIT_CACT_ID').value = 0;

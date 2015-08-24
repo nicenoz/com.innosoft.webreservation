@@ -155,7 +155,7 @@ function cmdCustomerEdit_OnClick() {
 
     $('#CustomerEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var customer = customers.currentEditItem;
@@ -177,7 +177,7 @@ function cmdCustomerEdit_OnClick() {
 function cmdCustomerAdd_OnClick() {
     $('#CustomerEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
     
     document.getElementById('EDIT_CUST_ID').value = 0;
