@@ -3,14 +3,17 @@ package com.innosoft.webreservation.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="WR_SECURITY_USER_PASSWORD")
 public class MstSecurityUserPassword {	
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UPWD_ID_SEQ")
+    @SequenceGenerator(name="UPWD_ID_SEQ", sequenceName="UPWD_ID_SEQ", allocationSize=1)
     @Column(name="UPWD_ID")	
 	private int UPWD_ID;	
 	

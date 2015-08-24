@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="WR_SECURITY_USER")
@@ -20,10 +21,21 @@ public class MstSecurityUser {
 	@Column(name="USER_PASSWORD")
 	public String USER_PASSWORD;
 	
+	@Transient
+	public String OLD_PASSWORD;
+	
 	/* ************* */
 	/* Setter/Getter */
 	/* ************* */	
 	
+	public String getOLD_PASSWORD() {
+		return OLD_PASSWORD;
+	}
+
+	public void setOLD_PASSWORD(String oLD_PASSWORD) {
+		OLD_PASSWORD = oLD_PASSWORD;
+	}
+
 	public Integer getUSER_ID() {
 		return USER_ID;
 	}

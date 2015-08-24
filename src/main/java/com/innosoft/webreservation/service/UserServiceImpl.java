@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<MstSecurityUser> listUser() {
-		// TODO Auto-generated method stub
 		return userDao.listUser();
 	}
 }
