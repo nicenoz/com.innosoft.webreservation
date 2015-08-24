@@ -180,7 +180,8 @@ public class UserApi {
 			// Email
 			SysEmail mail = new SysEmail();
 			mail.setEMAIL_EMAIL(user.USER_LOGIN);
-			mail.setEMAIL_MESSAGE("LINK: http://localhost:8082/webreservation/loginFreePassword/email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
+			
+			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/?email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
 			mail.setEMAIL_SUBJECT("Free User Login Password");
 			boolean sendMail = emailService.sendMail(mail);	
 			if (sendMail == true) {

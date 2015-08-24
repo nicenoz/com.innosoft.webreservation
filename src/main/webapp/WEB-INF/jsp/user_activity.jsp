@@ -97,7 +97,7 @@
                         </dd>                      
                         <dt>Details No: </dt>
                         <dd>
-                        	<input class="form-control border-custom" id="EDIT_CACT_DETAILS_NO" name="EDIT_CACT_DETAILS_NO" type="text" required />
+                            <div id="EDIT_CACT_DETAILS_NO" class="form-control border-custom"></div>
                         </dd>
                         <dt>Activity Classification: </dt>
                         <dd>
@@ -152,12 +152,15 @@ var cboCustomer;
 var cboCalendarDate;
 var cboCustomerStartTimeId;
 var cboCustomerEndTimeId;
+var cboCalendarActivityDetailsNo;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+var calendarActivityDetailsNo;
 
 
 // ====================================
@@ -276,13 +279,13 @@ function createCboCalendarDate(calendarDates) {
 	
  	 cboCalendarDate.dispose();
  	 cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE', {
-     itemsSource: calendarDateList,
-     placeholder: 'select a Calendar Date',
-     selectedValue: document.getElementById('EDIT_CACT_DATE').value.toString(),
-     onSelectedIndexChanged: function () {
-         $("#EDIT_CACT_CLDR_ID_DATE_DATA").val(calendarDateCollection.items[this.selectedIndex].calendarId);
-     }
- });	
+	     itemsSource: calendarDateList,
+	     placeholder: 'select a Calendar Date',
+	     selectedValue: document.getElementById('EDIT_CACT_DATE').value.toString(),
+	     onSelectedIndexChanged: function () {
+	         $("#EDIT_CACT_CLDR_ID_DATE_DATA").val(calendarDateCollection.items[this.selectedIndex].calendarId);
+	     }
+ 	 });	
 }
 
 function createCustomerTimeId(customerTimes) {
@@ -324,6 +327,15 @@ function cmdCalendarActivityEdit_OnClick() {
         show: true,
         backdrop: false
     });
+    
+    calendarActivityDetailsNo = new Array();
+	for (var i = 1; i <= 20; i++) {
+		calendarActivityDetailsNo.push(i);
+	}
+	cboCalendarActivityDetailsNo.dispose();
+	cboCalendarActivityDetailsNo = new wijmo.input.AutoComplete('#EDIT_CACT_DETAILS_NO', {
+	     itemsSource: calendarActivityDetailsNo,
+	});
 
     var calendarActivity = calendarActivities.currentEditItem;
     
@@ -332,7 +344,9 @@ function cmdCalendarActivityEdit_OnClick() {
     document.getElementById('EDIT_CACT_CUST_ID_DATA').value = calendarActivity.CACT_CUST_ID ? calendarActivity.CACT_CUST_ID : '';
     document.getElementById('EDIT_CACT_DATE').value = calendarActivity.CACT_CLDR_FK ? calendarActivity.CACT_CLDR_FK : '';
     document.getElementById('EDIT_CUST_NAME').value = calendarActivity.CACT_CUST_FK ? calendarActivity.CACT_CUST_FK : '';
-    document.getElementById('EDIT_CACT_DETAILS_NO').value = calendarActivity.CACT_DETAILS_NO ? calendarActivity.CACT_DETAILS_NO : '';
+    /* document.getElementById('EDIT_CACT_DETAILS_NO').value = calendarActivity.CACT_DETAILS_NO ? calendarActivity.CACT_DETAILS_NO : ''; */
+    console.log(calendarActivity.CACT_DETAILS_NO);
+    cboCalendarActivityDetailsNo.selectedIndex = calendarActivity.CACT_DETAILS_NO ? calendarActivity.CACT_DETAILS_NO - 1: 0;
     document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value = calendarActivity.CACT_ACTIVITY_CLASSIFICATION ? calendarActivity.CACT_ACTIVITY_CLASSIFICATION : '';
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = calendarActivity.CACT_ACTIVITY_CONTENTS ? calendarActivity.CACT_ACTIVITY_CONTENTS : '';
     document.getElementById('EDIT_CACT_START_TIME_ID').value = calendarActivity.CACT_START_TIME_ID ? calendarActivity.CACT_START_TIME_ID : '';
@@ -358,7 +372,8 @@ function cmdCalendarActivityAdd_OnClick() {
     document.getElementById('EDIT_CACT_ID').value = 0;
     document.getElementById('EDIT_CACT_CLDR_ID_DATE_DATA').value = '';
     document.getElementById('EDIT_CACT_CUST_ID_DATA').value = '';
-    document.getElementById('EDIT_CACT_DETAILS_NO').value = '';
+    /* document.getElementById('EDIT_CACT_DETAILS_NO').value =  */
+    cboCalendarActivityDetailsNo.selectedIndex = 0;
     document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value = '';
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = '';
     document.getElementById('EDIT_CACT_START_TIME_ID').value = '';
@@ -419,7 +434,7 @@ function cmdCalendarActivityEditOk_OnClick() {
 	calendarActivityObject.CACT_ID = parseInt(document.getElementById('EDIT_CACT_ID').value);
 	calendarActivityObject.CACT_CLDR_ID = document.getElementById('EDIT_CACT_CLDR_ID_DATE_DATA').value;
 	calendarActivityObject.CACT_CUST_ID = document.getElementById('EDIT_CACT_CUST_ID_DATA').value;
-	calendarActivityObject.CACT_DETAILS_NO = document.getElementById('EDIT_CACT_DETAILS_NO').value;
+	calendarActivityObject.CACT_DETAILS_NO = cboCalendarActivityDetailsNo.selectedItem; /* document.getElementById('EDIT_CACT_DETAILS_NO').value; */
 	calendarActivityObject.CACT_ACTIVITY_CLASSIFICATION = document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value;
 	calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
 	calendarActivityObject.CACT_START_TIME_ID = document.getElementById('EDIT_CACT_START_TIME_ID').value;
@@ -622,6 +637,14 @@ $(document).ready(function () {
 	cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE');
 	cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME');
 	cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME');
+	
+	calendarActivityDetailsNo = new Array();
+	for (var i = 1; i <= 20; i++) {
+		calendarActivityDetailsNo.push(i);
+	}
+	cboCalendarActivityDetailsNo = new wijmo.input.AutoComplete('#EDIT_CACT_DETAILS_NO', {
+	     itemsSource: calendarActivityDetailsNo,
+	 });	
  
     // Flex Grid
     calendarActivityGrid = new wijmo.grid.FlexGrid('#calendarActivityGrid');

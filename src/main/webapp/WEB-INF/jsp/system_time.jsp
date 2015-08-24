@@ -95,7 +95,8 @@
 						</dd>
 						<dt>Interval of Times: </dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CTIM_INTERVAL_OF_TIMES" name="EDIT_CTIM_INTERVAL_OF_TIMES" type="text" required />
+						    <div id="EDIT_CTIM_INTERVAL_OF_TIMES"  class="form-control border-custom"></div>
+							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" class="form-control border-custom"  name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
 						</dd>
 						<dt>Max Unit No: </dt>
 						<dd>
@@ -140,6 +141,9 @@ var btnPreviousPageGrid;
 var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
+
+var cboTimeInterval;
+var timeIntervalValue;
 
 
 //===================
@@ -210,9 +214,23 @@ function cmdCustomerTimeEdit_OnClick() {
     document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = customerTime.CTIM_CUST_ID ? customerTime.CTIM_CUST_ID : '';
     document.getElementById('EDIT_CUST_NAME').value = customerTime.CTIM_CUST_FK ? customerTime.CTIM_CUST_FK : '';
     document.getElementById('EDIT_CTIM_DETAILS_NO').value = customerTime.CTIM_DETAILS_NO ? customerTime.CTIM_DETAILS_NO : '';
-    document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value = customerTime.CTIM_INTERVAL_OF_TIMES ? customerTime.CTIM_INTERVAL_OF_TIMES : '';
     document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = customerTime.CTIM_MAX_UNIT_NO ? customerTime.CTIM_MAX_UNIT_NO : '';
     document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = customerTime.CTIM_MAX_PARTS_NO ? customerTime.CTIM_MAX_PARTS_NO : '';
+    
+    document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = customerTime.CTIM_INTERVAL_OF_TIMES;
+    console.log(customerTime.CTIM_INTERVAL_OF_TIMES);
+    cboTimeInterval.dispose();
+    var selectedValue =  customerTime.CTIM_INTERVAL_OF_TIMES == 60? 0:1;
+	cboTimeInterval = new wijmo.input.AutoComplete('#EDIT_CTIM_INTERVAL_OF_TIMES', {
+	     itemsSource: ["60 Minutes","30 Minutes"],
+	     selectedIndex: selectedValue,
+	     onSelectedIndexChanged: function () {
+	    	 if(cboTimeInterval.selectedIndex == 0)
+	    		 document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60;
+	    	 else
+	    		 document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 30;
+	     }
+	 });
     
 	getCustomers(); 
 };
@@ -228,10 +246,22 @@ function cmdCustomerTimeAdd_OnClick() {
 
 	document.getElementById('EDIT_CTIM_ID').value = "0.0";
 	document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = "0.0";
-	document.getElementById('EDIT_CTIM_DETAILS_NO').value = "0.0";
-	document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value = "0.0";
+	document.getElementById('EDIT_CTIM_DETAILS_NO').value = "0";
 	document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = "0.0";
 	document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = "0.0";
+	
+    document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60; 
+    cboTimeInterval.dispose();
+	cboTimeInterval = new wijmo.input.AutoComplete('#EDIT_CTIM_INTERVAL_OF_TIMES', {
+	     itemsSource: ["60 Minutes","30 Minutes"],
+	     selectedIndex: 0,
+	     onSelectedIndexChanged: function () {
+	    	 if(cboTimeInterval.selectedIndex == 0)
+	    		 document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60;
+	    	 else
+	    		 document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 30;
+	     }
+	 });
 	
 	getCustomers(); 
 }
@@ -288,7 +318,7 @@ function cmdCustomerTimeEditOk_OnClick() {
 	chargeObject.CTIM_ID =  parseInt(document.getElementById('EDIT_CTIM_ID').value);
 	chargeObject.CTIM_CUST_ID =  parseInt(document.getElementById('EDIT_CTIM_CUST_ID_DATA').value);
 	chargeObject.CTIM_DETAILS_NO =  parseInt(document.getElementById('EDIT_CTIM_DETAILS_NO').value);
-	chargeObject.CTIM_INTERVAL_OF_TIMES =  parseInt(document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value);
+	chargeObject.CTIM_INTERVAL_OF_TIMES =  parseInt(document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value);
 	chargeObject.CTIM_MAX_UNIT_NO =  document.getElementById('EDIT_CTIM_MAX_UNIT_NO').options[document.getElementById("EDIT_CTIM_MAX_UNIT_NO").selectedIndex].value;
 	chargeObject.CTIM_MAX_PARTS_NO =  document.getElementById('EDIT_CTIM_MAX_PARTS_NO').options[document.getElementById("EDIT_CTIM_MAX_PARTS_NO").selectedIndex].value;
 	
@@ -320,44 +350,44 @@ function getCustomerTimes() {
 	var customerTimes = new wijmo.collections.ObservableArray();
 	$('#loading').modal('show');
 	$.ajax({
-				url : '${pageContext.request.contextPath}/api/customerTime/list',
-				cache : false,
-				type : 'GET',
-				contentType : 'application/json; charset=utf-8',
-				data : {},
-				success : function(Results) {
-					$('#loading').modal('hide');
-					if (Results.length > 0) {
-						for (i = 0; i < Results.length; i++) {
-							customerTimes.push({
-								EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
-								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
-								CTIM_ID : Results[i]["ctim_ID"],
-								CTIM_CUST_FK : Results[i].CTIM_CUST_FK.CUST_NAME,
-								CTIM_CUST_ID : Results[i]["ctim_CUST_ID"],
-								CTIM_DETAILS_NO : Results[i]["ctim_DETAILS_NO"],
-								CTIM_INTERVAL_OF_TIMES : Results[i]["ctim_INTERVAL_OF_TIMES"],
-								CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
-								CTIM_MAX_PARTS_NO : Results[i]["ctim_MAX_PARTS_NO"],
-								
-								CREATED_DATE: Results[i]["created_DATE"],
-		                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
-		                        UPDATED_DATE: Results[i]["updated_DATE"],
-		                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
-		                        ISDELETED: Results[i]["isdeleted"],
-		                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-		                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
-		                        CTIM_CREATED_BY_USER_FK: Results[i]["CTIM_CREATED_BY_USER_FK"],
-		                        CTIM_UPDATED_BY_USER_FK: Results[i]["CTIM_UPDATED_BY_USER_FK"]
-							});
-						}
-					} else {
-						alert("No data.");
-					}
+		url : '${pageContext.request.contextPath}/api/customerTime/list',
+		cache : false,
+		type : 'GET',
+		contentType : 'application/json; charset=utf-8',
+		data : {},
+		success : function(Results) {
+			$('#loading').modal('hide');
+			if (Results.length > 0) {
+				for (i = 0; i < Results.length; i++) {
+					customerTimes.push({
+						EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdCustomerTimeEdit_OnClick()'>Edit</button>",
+						DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
+						CTIM_ID : Results[i]["ctim_ID"],
+						CTIM_CUST_FK : Results[i].CTIM_CUST_FK.CUST_NAME,
+						CTIM_CUST_ID : Results[i]["ctim_CUST_ID"],
+						CTIM_DETAILS_NO : Results[i]["ctim_DETAILS_NO"].toString(),
+						CTIM_INTERVAL_OF_TIMES : Results[i]["ctim_INTERVAL_OF_TIMES"],
+						CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
+						CTIM_MAX_PARTS_NO : Results[i]["ctim_MAX_PARTS_NO"],
+						
+						CREATED_DATE: Results[i]["created_DATE"],
+                        CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
+                        UPDATED_DATE: Results[i]["updated_DATE"],
+                        UPDATED_BY_USER_ID: Results[i]["updated_BY_USER_ID"],
+                        ISDELETED: Results[i]["isdeleted"],
+                        ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                        ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"],
+                        CTIM_CREATED_BY_USER_FK: Results[i]["CTIM_CREATED_BY_USER_FK"],
+                        CTIM_UPDATED_BY_USER_FK: Results[i]["CTIM_UPDATED_BY_USER_FK"]
+					});
 				}
-			}).fail(function(xhr, textStatus, err) {
-					alert(err);
-			});
+			} else {
+				alert("No data.");
+			}
+		}
+	}).fail(function(xhr, textStatus, err) {
+			alert(err);
+	});
 	return customerTimes;
 }
 
@@ -441,7 +471,6 @@ $(document).ready(function(){
     //validation
 	$('#cmdCustomerTimeEditOk').click(function() {
 		if (FormValidate() == true) {
-			cmdCustomerTimeEditOkFunction();
 			$('#ChargeEdit').modal('hide');
 		} else {
 			toastr.error("Fill the required field!");
@@ -459,6 +488,7 @@ $(document).ready(function(){
 	customerTimes = new wijmo.collections.CollectionView(getCustomerTimes());
 	customerTimes.canFilter = true;
 	customerTimes.pageSize = 15;
+	
 
     var filterText = '';
 	$('#InputFilter').keyup(function () {
@@ -477,8 +507,8 @@ $(document).ready(function(){
 	});
 
 	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CTIM_CUST_ID');
+	cboTimeInterval = new wijmo.input.AutoComplete('#EDIT_CTIM_INTERVAL_OF_TIMES');
 
-	
 	// Flex Grid
 	customerGrid = new wijmo.grid.FlexGrid('#CustomerTimeGrid');
 	customerGrid.initialize({
@@ -506,6 +536,7 @@ $(document).ready(function(){
 					{
 						"header" : "Details No",
 						"binding" : "CTIM_DETAILS_NO",
+		        		"align" : "right",
 						"allowSorting" : true,
 						"width" : "6*"
 					}, 

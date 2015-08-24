@@ -16,18 +16,26 @@
 	            <div id="cboCalendarActivityEnd"></div>
             </div>            
             <div class="col-lg-2">
-                <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="cmdGetSchedule_OnClick()">Get Schedules</button>
+                <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="cmdGetSchedule_OnClick()">Get</button>
             </div>
             <div class="col-lg-2 pull-right">
-                <button id="cmdCreateReservation" type="submit" class="btn btn-success border-custom btn-block" onclick="cmdAddReservation_OnClick()">Create Reservation</button>
+                <button id="cmdCreateReservation" type="submit" class="btn btn-success border-custom btn-block" onclick="cmdAddReservation_OnClick()">Add</button>
             </div>
         </div>
         <br />
         <div class="row">
 	    	<div class="col-lg-12">
-	        	<div id="scheduleGrid" class="grid border-custom" style="height:70vh"></div>
+	        	<div id="scheduleGrid" class="grid border-custom" style="height:63vh"></div>
 	        </div>
-        </div>        
+        </div>
+        </br>
+        <div class="row">
+	    	<div class="col-lg-12">
+	        	<button class='btn btn-success btn-xs border-custom'>x</button> - Your Reservations
+	        	&nbsp &nbsp &nbsp &nbsp &nbsp
+	        	<button class='btn btn-primary btn-xs border-custom'>x</button> - Taken Reservations
+	        </div>
+        </div>
     </div>
 </section>
 </div>
@@ -107,11 +115,11 @@
 	            	Delete
 	            </button>
                 <button type="button" class="btn btn-primary border-custom"  id="CmdAddEditOk" onclick="cmdAddEditOk_OnClick()">
-                    Save
+                    Ok
                 </button>
                 <button type="button" class="btn btn-danger border-custom" id="CmdAddEditCancel">
                     <!-- Cancel -->
-                    Return
+                    Cancel
                 </button>
             </div>
         </div>

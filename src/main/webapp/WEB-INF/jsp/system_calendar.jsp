@@ -82,7 +82,7 @@
                         <dt>Date: </dt>
                         <dd>
                         	<input id="EDIT_CLDR_ID" type="hidden" />
-                        	<div class="form-control border-custom" id="EDIT_CLDR_DATE"></div>
+                        	<div class="col-md-12" id="EDIT_CLDR_DATE"></div>
                             <input id="EDIT_CLDR_DATE_DATA" type="hidden" />  
                         </dd>
                         <dt>Daycode: </dt>
