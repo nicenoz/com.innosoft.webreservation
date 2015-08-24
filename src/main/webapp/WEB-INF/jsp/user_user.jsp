@@ -20,7 +20,7 @@
 							<i class="fa fa-search"></i>
 						</button>
 					</span> 
-					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Customer Member">
+					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 		</div>
@@ -57,103 +57,111 @@
 
 	<!-- Charge Edit Detail -->
 	<div class="modal fade" id="MemberEdit">
-		<div class="modal-dialog">
-			<div class="modal-content border-custom">
-				<div class="modal-header">
-					<button type="button" class="close" aria-hidden="true">	&times;</button>
-					<h4 class="modal-title">Member Edit</h4>
-				</div>
+		<div class="modal-dialog  modal-wide">
+				<div class="modal-content border-custom">
+					<div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Member Edit</h4>
+	            </div>
 				<div class="modal-body">
 					<form id="memberForm">
-						<dl class="dl-horizontal">
-							<dt>Customer: </dt>
-							<dd>
-								<input id="EDIT_MEBR_ID" type="hidden" />
-	            				<div id="EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
-								<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
-								<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
-							</dd>
-							<dt>Member No: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
-							</dd>
-							<dt>Member User ID: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" type="text" required />
-							</dd>
-							<dt>First Name: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME"	type="text" required />
-							</dd>
-							<dt>Last Name: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME" type="text" required />
-							</dd>
-							<dt>Tel No: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
-							</dd>
-							<dt>Address1: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text"  />
-							</dd>
-							<dt>Address2: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text"  />
-							</dd>
-							<dt>Address3: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text"  />
-							</dd>
-							<dt>Zip Code: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
-							</dd>
-							<dt>Email Address: </dt>
-							<dd>
-								<input class="form-control border-custom"	id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
-							</dd>
-							<dt>Birth Date: </dt>
-							<dd>
-                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="form-control border-custom"></div>
-                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
-							</dd>
-							<dt>Point: </dt>
-							<dd>
-								<select class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required >
-								  <option value="1">1</option>
-								  <option value="2">2</option>
-								  <option value="3">3</option>
-								  <option value="4">4</option>
-								  <option value="5">5</option>
-								  <option value="6">6</option>
-								  <option value="7">7</option>
-								  <option value="8">8</option>
-								  <option value="9">9</option>
-								  <option value="10">10</option>
-								</select>
-							</dd>
-							<dt>Custom Field 1: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text"  />
-							</dd>
-							<dt>Custom Field 2: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text"  />
-							</dd>
-							<dt>Custom Field 3: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text"  />
-							</dd>
-							<dt>Custom Field 4: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text"  />
-							</dd>
-							<dt>Custom Field 5: </dt>
-							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text"  />
-							</dd>						
-						</dl>
+						<div class="row">
+							<div class="col-sm-6">
+								<dl class="dl-horizontal">
+									<dt>Customer: </dt>
+									<dd>
+										<input id="EDIT_MEBR_ID" type="hidden" />
+			            				<div id="EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
+										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
+										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
+									</dd>
+									<dt>Member No: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
+									</dd>
+									<dt>Member User ID: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" type="text" required />
+									</dd>
+									<dt>First Name: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME"	type="text" required />
+									</dd>
+									<dt>Last Name: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME" type="text" required />
+									</dd>
+									<dt>Tel No: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
+									</dd>
+									<dt>Address1: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text"  />
+									</dd>
+									<dt>Address2: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text"  />
+									</dd>
+									<dt>Address3: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text"  />
+									</dd>
+								</dl>
+							</div>
+							<div class="col-sm-6">	
+								<dl class="dl-horizontal">
+									<dt>Zip Code: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
+									</dd>
+									<dt>Email Address: </dt>
+									<dd>
+										<input class="form-control border-custom"	id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
+									</dd>
+									<dt>Birth Date: </dt>
+									<dd>
+		                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="form-control border-custom"></div>
+		                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
+									</dd>
+									<dt>Point: </dt>
+									<dd>
+										<select class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required >
+										  <option value="1">1</option>
+										  <option value="2">2</option>
+										  <option value="3">3</option>
+										  <option value="4">4</option>
+										  <option value="5">5</option>
+										  <option value="6">6</option>
+										  <option value="7">7</option>
+										  <option value="8">8</option>
+										  <option value="9">9</option>
+										  <option value="10">10</option>
+										</select>
+									</dd>
+									<dt>Custom Field 1: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text"  />
+									</dd>
+									<dt>Custom Field 2: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text"  />
+									</dd>
+									<dt>Custom Field 3: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text"  />
+									</dd>
+									<dt>Custom Field 4: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text"  />
+									</dd>
+									<dt>Custom Field 5: </dt>
+									<dd>
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text"  />
+									</dd>						
+								</dl>
+							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -237,7 +245,7 @@ function cmdCustomerMemberEdit_OnClick() {
 
     $('#MemberEdit').modal({
         show: true,
-        backdrop: false
+        backdrop: 'static'
     });
 
     var customerMember = customerMembers.currentEditItem;
@@ -421,7 +429,7 @@ function getCustomerMembers() {
 						}
 				
 					} else {
-						alert("No data.");
+					/* 	alert("No data."); */
 					}
 				}
 			}).fail(function(xhr, textStatus, err) {
@@ -519,7 +527,7 @@ $(document).ready(function() {
 		$('#CmdCustomerMemberEditOk').click(function() {
 			if (FormValidate() == true) {
 				cmdCustomerEditOkFunction();
-				$('#CustomerMemberEdit').modal('hide');
+				$('#MemberEdit').modal('hide');
 			} else {
 				toastr.error("Fill the required field!");
 			}
@@ -529,7 +537,7 @@ $(document).ready(function() {
 				function() {
 					$("form input").removeClass("errorHighlight");
 					$('form')[0].reset();
-					$('#CustomerEdit').modal('hide');
+					$('#MemberEdit').modal('hide');
 				});
 
 		$('.close-btn').hide();

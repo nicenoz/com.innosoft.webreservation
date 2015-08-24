@@ -188,7 +188,7 @@ function getReport() {
              }
          } else {
              document.getElementById("cmdSaveReport").style.display='none';
-             alertify.alert("No data.");
+         /*     alertify.alert("No data."); */
          }
      }
  }).fail(
@@ -338,7 +338,7 @@ function CmdSaveXLS_OnClick() {
     }
 
     if (CSV == '') {
-        alert("No data");
+       /*  alert("No data"); */
         return;
     }
 

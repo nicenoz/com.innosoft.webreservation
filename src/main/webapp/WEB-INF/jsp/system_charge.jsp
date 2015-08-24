@@ -18,7 +18,7 @@
 							<i class="fa fa-search"></i>
 						</button>
 					</span> 
-					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Charge No.">
+					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
@@ -394,7 +394,7 @@ function getCharges() {
 									});
 						}
 					} else {
-						alert("No data.");
+					/* 	alert("No data."); */
 					}
 				}
 			}).fail(function(xhr, textStatus, err) {

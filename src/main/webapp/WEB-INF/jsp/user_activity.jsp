@@ -18,7 +18,7 @@
 	                <i class="fa fa-search"></i>
 	                </button>
 	            </span>
-	            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search...">
+	            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 	        </div>
 	    </div>
 	    <div class="col-lg-8">
@@ -73,9 +73,7 @@
     <div class="modal-dialog">
         <div class="modal-content border-custom">
             <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">
-                    &times;
-                </button>
+                <button type="button" class="close" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Calendar Activity Edit</h4>
             </div>
             <div class="modal-body">
@@ -506,7 +504,7 @@ function getCalendarActivities() {
                     });
                 }
             } else {
-                alert("No data.");
+              /*   alert("No data."); */
             }
         }
     }).fail(
