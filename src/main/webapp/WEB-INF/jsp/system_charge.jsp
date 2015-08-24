@@ -86,8 +86,10 @@
 				
 						<dt>Customer: </dt>
 						<dd>
-							<div id="cbo_EDIT_CHRG_CUST_ID"  class="form-control border-custom"></div>				
-							<input id="EDIT_CHRG_CUST_ID" name="EDIT_CHRG_CUST_ID" type="hidden" required />
+							<div id="EDIT_CHRG_CUST_ID"  class="form-control border-custom"></div>	
+										
+							<input id="EDIT_CHRG_CUST_ID_DATA" name="EDIT_CHRG_CUST_ID_DATA" type="hidden" required />
+							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
 						<dt>Charge Price: </dt>
 						<dd>
@@ -179,10 +181,11 @@ for (var i = 0; i < customerCollection.items.length; i++) {
 }
 	
 cboCustomer.dispose();
-cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CHRG_CUST_ID', {
+cboCustomer = new wijmo.input.AutoComplete('#EDIT_CHRG_CUST_ID', {
    itemsSource: customerList,
+   selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
    onSelectedIndexChanged: function () {
-       $("#EDIT_CHRG_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+       $("#EDIT_CHRG_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
    }
 });	
 }
@@ -201,12 +204,15 @@ function cmdChargeEdit_OnClick() {
     var charge = charges.currentEditItem;   
     document.getElementById('EDIT_CHRG_ID').value = charge.CHRG_ID !== null && typeof (charge.CHRG_ID) != 'undefined' ? wijmo.Globalize.format(charge.CHRG_ID) : '';
     document.getElementById('EDIT_CHRG_CHARGE_NO').value = charge.CHRG_CHARGE_NO ? charge.CHRG_CHARGE_NO : '';
-    document.getElementById('EDIT_CHRG_CUST_ID').value = charge.CHRG_CUST_ID ? charge.CHRG_CUST_ID : '';
+    document.getElementById('EDIT_CHRG_CUST_ID_DATA').value = charge.CHRG_CUST_ID ? charge.CHRG_CUST_ID : '';
+    document.getElementById('EDIT_CUST_NAME').value = charge.CHRG_CUST_FK ? charge.CHRG_CUST_FK : '';
     document.getElementById('EDIT_CHRG_PRICE').value = charge.CHRG_PRICE ? charge.CHRG_PRICE : '';
     document.getElementById('EDIT_CHRG_APP_DIVISION').value = charge.CHRG_APP_DIVISION ? charge.CHRG_APP_DIVISION : '';
     document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = charge.CHRG_APP_START_DATE ? charge.CHRG_APP_START_DATE : '';
     document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.CHRG_APP_END_DATE ? charge.CHRG_APP_END_DATE : '';
-
+	
+	getCustomers();
+    
     var splitStartDate = charge.CHRG_APP_START_DATE.split("-");
     var splitEndDate = charge.CHRG_APP_END_DATE.split("-");
     
@@ -241,7 +247,7 @@ function cmdChargeAdd_OnClick() {
 	var currentDate = new Date();
 	document.getElementById('EDIT_CHRG_ID').value = 0;
 	document.getElementById('EDIT_CHRG_CHARGE_NO').value = '';
-	document.getElementById('EDIT_CHRG_CUST_ID').value = '';
+	document.getElementById('EDIT_CHRG_CUST_ID_DATA').value = '';
 	document.getElementById('EDIT_CHRG_PRICE').value = '';
 	document.getElementById('EDIT_CHRG_APP_DIVISION').value = '';
 	document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
@@ -316,7 +322,7 @@ function cmdChargeEditOk_OnClick() {
 	var chargeObject = new Object();
 	chargeObject.CHRG_ID = parseInt(document.getElementById('EDIT_CHRG_ID').value);
 	chargeObject.CHRG_CHARGE_NO = document.getElementById('EDIT_CHRG_CHARGE_NO').value;
-	chargeObject.CHRG_CUST_ID =  parseInt(document.getElementById('EDIT_CHRG_CUST_ID').value);
+	chargeObject.CHRG_CUST_ID =  parseInt(document.getElementById('EDIT_CHRG_CUST_ID_DATA').value);
 	chargeObject.CHRG_PRICE =  parseInt(document.getElementById('EDIT_CHRG_PRICE').value);
 	chargeObject.CHRG_APP_DIVISION = document.getElementById('EDIT_CHRG_APP_DIVISION').value;
 
@@ -368,6 +374,7 @@ function getCharges() {
 										EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCharge' onclick='cmdChargeEdit_OnClick()'>Edit</button>",
 										DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdChargeDelete_OnClick()'>Delete</button>",
 										CHRG_ID : Results[i]["chrg_ID"],
+										CHRG_CUST_ID : Results[i]["chrg_CUST_ID"],
 										CHRG_CUST_FK : Results[i].CHRG_CUST_FK.CUST_NAME,
 										CHRG_CHARGE_NO : Results[i]["chrg_CHARGE_NO"],
 										CHRG_PRICE : Results[i]["chrg_PRICE"],
@@ -530,8 +537,8 @@ $(document).ready(function(){
 	    updateDetails();
 	});
 
-	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CHRG_CUST_ID');
-	getCustomers();
+	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CHRG_CUST_ID');
+
 	
 	// Flex Grid
 	chargeGrid = new wijmo.grid.FlexGrid('#ChargeGrid');

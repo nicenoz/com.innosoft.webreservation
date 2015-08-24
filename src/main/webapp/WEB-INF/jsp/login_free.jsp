@@ -11,7 +11,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Login</title>
+    <title>Login - Free User</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
@@ -63,35 +63,30 @@
 </nav>
  
 <div class="container"> 
-	<div id="loginForm">
-		<form method="post" action="<c:url value='/j_spring_security_check' />" role="form">
-		    <div class="container">
-		        <div class="row">
-		            <div class="col-md-4 col-md-offset-4">
-		                <div class="login-panel panel panel-primary border-custom">
-		                    <div class="panel-heading border-custom">
-		                        <h3 class="panel-title ">Login as: </h3>
-		                    </div>
-		                    <div class="panel-body">
-		                        <fieldset>
-		                       		<br/>
-		                       		<div class="row">
-									  <div class="col-xs-6">
-									  		<a href="/webreservation/loginFree" class="btn btn-lg btn-primary btn-block border-custom">Free</a>
-									  </div>
-									  <div class="col-xs-6">
-									  		<a href="/webreservation/loginMember" class="btn btn-lg btn-primary btn-block border-custom">Member</a>
-									  </div>
-									</div>   
-		                            <br/>
-		                        </fieldset>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</form>
-	</div>
+	<form action="" role="form">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-4 col-md-offset-4">
+	                <div class="login-panel panel panel-body-border">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title ">Login as Free</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        <fieldset>
+	                           	<input type="email" name="" id="" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
+	                            <br />
+	                            <button type="button" id="" class="btn btn-lg btn-primary btn-block border-custom" onclick="">
+		                           		Submit
+		                        </button>
+		                        <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
+	                        </fieldset>
+	                        <br>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</form>
 </div>
 
 <!-- Footer -->

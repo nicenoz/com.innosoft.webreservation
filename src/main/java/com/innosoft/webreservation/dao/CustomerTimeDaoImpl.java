@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,6 +42,7 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCustomerTime.class);
 		criteria.add(Restrictions.eq("CTIM_CUST_ID", customerId));
+		criteria.addOrder(Order.asc("CTIM_CUST_ID"));
 		List<MstCustomerTime> list = criteria.list();	
 		return list;		
 	}

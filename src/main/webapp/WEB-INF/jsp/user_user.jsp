@@ -69,20 +69,17 @@
 							<dt>Customer: </dt>
 							<dd>
 								<input id="EDIT_MEBR_ID" type="hidden" />
-	            				<div id="cbo_EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
-								<input id="EDIT_MEBR_CUST_ID" name="EDIT_MEBR_CUST_ID" type="hidden" required />
+	            				<div id="EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
+								<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
+								<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 							</dd>
 							<dt>Member No: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
 							</dd>
-							<dt>Tel No: </dt>
+							<dt>Member User ID: </dt>
 							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
-							</dd>
-							<dt>Email Address: </dt>
-							<dd>
-								<input class="form-control border-custom"	id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
+								<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" type="text" required />
 							</dd>
 							<dt>First Name: </dt>
 							<dd>
@@ -92,10 +89,9 @@
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME" type="text" required />
 							</dd>
-							<dt>Birth Date: </dt>
+							<dt>Tel No: </dt>
 							<dd>
-                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH_DATA" class="form-control border-custom"></div>
-                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
+								<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
 							</dd>
 							<dt>Address1: </dt>
 							<dd>
@@ -113,27 +109,47 @@
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
 							</dd>
+							<dt>Email Address: </dt>
+							<dd>
+								<input class="form-control border-custom"	id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
+							</dd>
+							<dt>Birth Date: </dt>
+							<dd>
+                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="form-control border-custom"></div>
+                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
+							</dd>
 							<dt>Point: </dt>
 							<dd>
-								<input class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" type="text" required />
+								<select class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required >
+								  <option value="1">1</option>
+								  <option value="2">2</option>
+								  <option value="3">3</option>
+								  <option value="4">4</option>
+								  <option value="5">5</option>
+								  <option value="6">6</option>
+								  <option value="7">7</option>
+								  <option value="8">8</option>
+								  <option value="9">9</option>
+								  <option value="10">10</option>
+								</select>
 							</dd>
-							<dt>Field1: </dt>
+							<dt>Custom Field 1: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text"  />
 							</dd>
-							<dt>Field2: </dt>
+							<dt>Custom Field 2: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text"  />
 							</dd>
-							<dt>Field3: </dt>
+							<dt>Custom Field 3: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text"  />
 							</dd>
-							<dt>Field4: </dt>
+							<dt>Custom Field 4: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text"  />
 							</dd>
-							<dt>Field5: </dt>
+							<dt>Custom Field 5: </dt>
 							<dd>
 								<input class="form-control border-custom" id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text"  />
 							</dd>						
@@ -198,18 +214,17 @@ function getCustomers() {
 // ===================
 function createCboCustomer(customers) {
 	customerCollection = new wijmo.collections.CollectionView(customers);
-    
     var customerList = new Array();
     for (var i = 0; i < customerCollection.items.length; i++) {
     	customerList.push(customerCollection.items[i].customerName);
     }
-	
+ 
     cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_MEBR_CUST_ID', {
+	cboCustomer = new wijmo.input.AutoComplete('#EDIT_MEBR_CUST_ID', {
         itemsSource: customerList,
+        selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
         onSelectedIndexChanged: function () {
-            $("#EDIT_MEBR_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
-            getCalendarActivities(customerCollection.items[this.selectedIndex].id)
+            $("#EDIT_MEBR_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
         }
     });	
 }
@@ -226,18 +241,21 @@ function cmdCustomerMemberEdit_OnClick() {
     });
 
     var customerMember = customerMembers.currentEditItem;
-    
+   
     document.getElementById('EDIT_MEBR_ID').value = customerMember.MEBR_ID !== null && typeof (customerMember.MEBR_ID) != 'undefined' ? wijmo.Globalize.format(customerMember.MEBR_ID) : '';
     document.getElementById('EDIT_MEBR_TEL_NO').value = customerMember.MEBR_TEL_NO ? customerMember.MEBR_TEL_NO : '';
-    document.getElementById('EDIT_MEBR_CUST_ID').value = customerMember.MEBR_CUST_ID ? customerMember.MEBR_CUST_ID : '';
+    document.getElementById('EDIT_MEBR_CUST_ID_DATA').value = customerMember.MEBR_CUST_ID ? customerMember.MEBR_CUST_ID : '';
+    document.getElementById('EDIT_CUST_NAME').value = customerMember.MEBR_CUST_FK ? customerMember.MEBR_CUST_FK : '';
     document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_NO').value = customerMember.MEBR_CUSTOMER_MEMBER_NO ? customerMember.MEBR_CUSTOMER_MEMBER_NO : '';
+    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').value = customerMember.MEBR_USER_ID ? customerMember.MEBR_USER_ID : '';
     document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value = customerMember.MEBR_EMAIL_ADDRESS ? customerMember.MEBR_EMAIL_ADDRESS : '';
     document.getElementById('EDIT_MEBR_FIRST_NAME').value = customerMember.MEBR_FIRST_NAME ? customerMember.MEBR_FIRST_NAME : '';
     document.getElementById('EDIT_MEBR_LAST_NAME').value = customerMember.MEBR_LAST_NAME ? customerMember.MEBR_LAST_NAME : '';
-	document.getElementById('EDIT_MEBR_DATE_OF_BIRTH').value = customerMember.MEBR_DATE_OF_BIRTH ? customerMember.MEBR_DATE_OF_BIRTH : '';
+	document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value = customerMember.MEBR_DATE_OF_BIRTH ? customerMember.MEBR_DATE_OF_BIRTH : '';
 	document.getElementById('EDIT_MEBR_ADDRESS1').value = customerMember.MEBR_ADDRESS1 ? customerMember.MEBR_ADDRESS1 : '';
 	document.getElementById('EDIT_MEBR_ADDRESS2').value = customerMember.MEBR_ADDRESS2 ? customerMember.MEBR_ADDRESS2 : '';
 	document.getElementById('EDIT_MEBR_ADDRESS3').value = customerMember.MEBR_ADDRESS3 ? customerMember.MEBR_ADDRESS3 : '';
+	document.getElementById('EDIT_MEBR_ZIP_CODE').value = customerMember.MEBR_ZIP_CODE ? customerMember.MEBR_ZIP_CODE : '';
 	document.getElementById('EDIT_MEBR_POINT').value = customerMember.MEBR_POINT ? customerMember.MEBR_POINT : '';
 	document.getElementById('EDIT_MEBR_FIELD1').value = customerMember.MEBR_FIELD1 ? customerMember.MEBR_FIELD1 : '';
 	document.getElementById('EDIT_MEBR_FIELD2').value = customerMember.MEBR_FIELD2 ? customerMember.MEBR_FIELD2 : '';
@@ -245,15 +263,16 @@ function cmdCustomerMemberEdit_OnClick() {
 	document.getElementById('EDIT_MEBR_FIELD4').value = customerMember.MEBR_FIELD4 ? customerMember.MEBR_FIELD4 : '';
 	document.getElementById('EDIT_MEBR_FIELD5').value = customerMember.MEBR_FIELD5 ? customerMember.MEBR_FIELD5 : '';
 
+	getCustomers(); 
 		
-       var splitDate = customerMember.MEBR_DATE_OF_BIRTH.split("-"); 
+    var splitDate = customerMember.MEBR_DATE_OF_BIRTH.split("-"); 
    
     customerMembersDate.dispose();
-    customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH_DATA', {
+    customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
         format: 'MM/dd/yyyy',
         value: new Date(splitDate[0], splitDate[1] - 1, splitDate[2]),
         onValueChanged: function () {
-            document.getElementById('EDIT_MEBR_DATE_OF_BIRTH').value = this.value.toString("yyyy-MM-dd");
+            document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value = this.value.toString("yyyy-MM-dd");
         }
     }); 
 }
@@ -304,19 +323,22 @@ function cmdCustomerMemberDelete_OnClick() {
 // Edit Detail OK Button Clicked
 // =============================     
 function cmdCustomerMemberEditOk_OnClick() {
+	
 	var customerMemberObject = new Object();
 
 	customerMemberObject.MEBR_ID = parseInt(document.getElementById('EDIT_MEBR_ID').value);
-	customerMemberObject.MEBR_TEL_NO = document.getElementById('EDIT_MEBR_TEL_NO').value;
-	customerMemberObject.MEBR_CUST_ID =  parseInt(document.getElementById('EDIT_MEBR_CUST_ID').value);
+	customerMemberObject.MEBR_CUST_ID = document.getElementById('EDIT_MEBR_CUST_ID_DATA').value;
 	customerMemberObject.MEBR_CUSTOMER_MEMBER_NO =  document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_NO').value;
+	customerMemberObject.MEBR_USER_ID =  document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').value;
+	customerMemberObject.MEBR_TEL_NO = document.getElementById('EDIT_MEBR_TEL_NO').value;
 	customerMemberObject.MEBR_EMAIL_ADDRESS = document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value;
 	customerMemberObject.MEBR_FIRST_NAME = document.getElementById('EDIT_MEBR_FIRST_NAME').value;
 	customerMemberObject.MEBR_LAST_NAME = document.getElementById('EDIT_MEBR_LAST_NAME').value;
 	customerMemberObject.MEBR_ADDRESS1 = document.getElementById('EDIT_MEBR_ADDRESS1').value;
 	customerMemberObject.MEBR_ADDRESS2 = document.getElementById('EDIT_MEBR_ADDRESS2').value;
 	customerMemberObject.MEBR_ADDRESS3 = document.getElementById('EDIT_MEBR_ADDRESS3').value;
-	customerMemberObject.MEBR_POINT = document.getElementById('EDIT_MEBR_POINT').value;
+	customerMemberObject.MEBR_ZIP_CODE = document.getElementById('EDIT_MEBR_ZIP_CODE').value;
+	customerMemberObject.MEBR_POINT = document.getElementById('EDIT_MEBR_POINT').options[document.getElementById("EDIT_MEBR_POINT").selectedIndex].value;
 	customerMemberObject.MEBR_FIELD1 = document.getElementById('EDIT_MEBR_FIELD1').value;
 	customerMemberObject.MEBR_FIELD2 = document.getElementById('EDIT_MEBR_FIELD2').value;
 	customerMemberObject.MEBR_FIELD3 = document.getElementById('EDIT_MEBR_FIELD3').value;
@@ -324,7 +346,7 @@ function cmdCustomerMemberEditOk_OnClick() {
 	customerMemberObject.MEBR_FIELD5 = document.getElementById('EDIT_MEBR_FIELD5').value;
 
 
-	var splitDate = document.getElementById('EDIT_MEBR_DATE_OF_BIRTH').value.split("-");
+	var splitDate = document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value.split("-");
 
 	customerMemberObject.MEBR_DATE_OF_BIRTH = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);
  	
@@ -367,8 +389,10 @@ function getCustomerMembers() {
 								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerMemberDelete_OnClick()'>Delete</button>",
 								MEBR_ID : Results[i]["mebr_ID"],
 								MEBR_CUST_FK : Results[i].MEBR_CUST_FK.CUST_NAME,
+								MEBR_CUST_ID : Results[i]["mebr_CUST_ID"],
 								MEBR_TEL_NO : Results[i]["mebr_TEL_NO"], 
 								MEBR_CUSTOMER_MEMBER_NO : Results[i]["mebr_CUSTOMER_MEMBER_NO"],
+								MEBR_USER_ID : Results[i]["mebr_USER_ID"],
 								MEBR_EMAIL_ADDRESS : Results[i]["mebr_EMAIL_ADDRESS"],
 								MEBR_FIRST_NAME : Results[i]["mebr_FIRST_NAME"],
 								MEBR_LAST_NAME : Results[i]["mebr_LAST_NAME"],
@@ -486,7 +510,7 @@ $.validator.setDefaults({
 //========= 
 $(document).ready(function() {
 
-		customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH_DATA', {
+		customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
 	        format: 'MM/dd/yyyy',
 	        value: new Date()
 	    }); 
@@ -533,8 +557,8 @@ $(document).ready(function() {
 			    updateDetails();
 		});
 		
-		cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_MEBR_CUST_ID');
-		getCustomers(); 
+		cboCustomer = new wijmo.input.AutoComplete('#EDIT_MEBR_CUST_ID');
+
 		 
 		// Flex Grid
 		customerMemberGrid = new wijmo.grid.FlexGrid('#customerMemberGrid');
@@ -567,14 +591,8 @@ $(document).ready(function() {
 						"width" : "2*"
 					},
 				    {
-						"header" : "Tel #",
+						"header" : "Telephone No.",
 						"binding" : "MEBR_TEL_NO",
-						"allowSorting" : true,
-						"width" : "2*"
-					},
-					{
-						"header" : "Lastname",
-						"binding" : "MEBR_LAST_NAME",
 						"allowSorting" : true,
 						"width" : "2*"
 					},

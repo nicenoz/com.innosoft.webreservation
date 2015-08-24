@@ -83,8 +83,10 @@
 						<dt>Customer: </dt>
 						<dd>						
 							<input id="EDIT_CTIM_ID" type="hidden" />
-							<div id="cbo_EDIT_CTIM_CUST_ID"  class="form-control border-custom"></div>
-							<input id="EDIT_CTIM_CUST_ID" name="EDIT_CTIM_CUST_ID" type="hidden" required />
+							
+							<div id="EDIT_CTIM_CUST_ID"  class="form-control border-custom"></div>
+							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required />
+							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
 				
 						<dt>Details No: </dt>
@@ -97,13 +99,24 @@
 						</dd>
 						<dt>Max Unit No: </dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CTIM_MAX_UNIT_NO"	name="EDIT_CTIM_MAX_UNIT_NO" type="text" required />
+							<select class="form-control border-custom" id="EDIT_CTIM_MAX_UNIT_NO" name="EDIT_CTIM_MAX_UNIT_NO" required >
+									  <option value="1">1</option>
+									  <option value="2">2</option>
+									  <option value="3">3</option>
+									  <option value="4">4</option>
+									  <option value="5">5</option>
+							</select>
 						</dd>
 						<dt>Max Parts No: </dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CTIM_MAX_PARTS_NO"  name="EDIT_CTIM_MAX_PARTS_NO" type="text" required />
+							<select class="form-control border-custom" id="EDIT_CTIM_MAX_PARTS_NO" name="EDIT_CTIM_MAX_PARTS_NO" required >
+									  <option value="1">1</option>
+									  <option value="2">2</option>
+									  <option value="3">3</option>
+									  <option value="4">4</option>
+									  <option value="5">5</option>
+							</select>
 						</dd>
-
 					</dl>
 				</form>
 			</div>
@@ -170,10 +183,12 @@ function createCboCustomer(customers) {
  }
 	
 cboCustomer.dispose();
-cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CTIM_CUST_ID', {
+cboCustomer = new wijmo.input.AutoComplete('#EDIT_CTIM_CUST_ID', {
      itemsSource: customerList,
+     placeholder: 'select a customer',
+     selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
      onSelectedIndexChanged: function () {
-         $("#EDIT_CTIM_CUST_ID").val(customerCollection.items[this.selectedIndex].id);
+         $("#EDIT_CTIM_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
      }
  });	
 }
@@ -192,11 +207,14 @@ function cmdCustomerTimeEdit_OnClick() {
 
     var customerTime = customerTimes.currentEditItem;   
     document.getElementById('EDIT_CTIM_ID').value = customerTime.CTIM_ID !== null && typeof (customerTime.CTIM_ID) != 'undefined' ? wijmo.Globalize.format(customerTime.CTIM_ID) : '';
-    document.getElementById('EDIT_CTIM_CUST_ID').value = customerTime.CTIM_CUST_ID ? customerTime.CTIM_CUST_ID : '';
+    document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = customerTime.CTIM_CUST_ID ? customerTime.CTIM_CUST_ID : '';
+    document.getElementById('EDIT_CUST_NAME').value = customerTime.CTIM_CUST_FK ? customerTime.CTIM_CUST_FK : '';
     document.getElementById('EDIT_CTIM_DETAILS_NO').value = customerTime.CTIM_DETAILS_NO ? customerTime.CTIM_DETAILS_NO : '';
     document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value = customerTime.CTIM_INTERVAL_OF_TIMES ? customerTime.CTIM_INTERVAL_OF_TIMES : '';
     document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = customerTime.CTIM_MAX_UNIT_NO ? customerTime.CTIM_MAX_UNIT_NO : '';
     document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = customerTime.CTIM_MAX_PARTS_NO ? customerTime.CTIM_MAX_PARTS_NO : '';
+    
+	getCustomers(); 
 };
 
 // ==================
@@ -209,11 +227,13 @@ function cmdCustomerTimeAdd_OnClick() {
 	});
 
 	document.getElementById('EDIT_CTIM_ID').value = "0.0";
-	document.getElementById('EDIT_CTIM_CUST_ID').value = "0.0";
+	document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = "0.0";
 	document.getElementById('EDIT_CTIM_DETAILS_NO').value = "0.0";
 	document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value = "0.0";
 	document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = "0.0";
 	document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = "0.0";
+	
+	getCustomers(); 
 }
 
 // =====================
@@ -266,11 +286,11 @@ function cmdCustomerTimeEditCancel_OnClick() {
 function cmdCustomerTimeEditOk_OnClick() {
 	var chargeObject = new Object();
 	chargeObject.CTIM_ID =  parseInt(document.getElementById('EDIT_CTIM_ID').value);
-	chargeObject.CTIM_CUST_ID =  parseInt(document.getElementById('EDIT_CTIM_CUST_ID').value);
+	chargeObject.CTIM_CUST_ID =  parseInt(document.getElementById('EDIT_CTIM_CUST_ID_DATA').value);
 	chargeObject.CTIM_DETAILS_NO =  parseInt(document.getElementById('EDIT_CTIM_DETAILS_NO').value);
 	chargeObject.CTIM_INTERVAL_OF_TIMES =  parseInt(document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES').value);
-	chargeObject.CTIM_MAX_UNIT_NO =  parseInt(document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value);
-	chargeObject.CTIM_MAX_PARTS_NO =  parseInt(document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value);
+	chargeObject.CTIM_MAX_UNIT_NO =  document.getElementById('EDIT_CTIM_MAX_UNIT_NO').options[document.getElementById("EDIT_CTIM_MAX_UNIT_NO").selectedIndex].value;
+	chargeObject.CTIM_MAX_PARTS_NO =  document.getElementById('EDIT_CTIM_MAX_PARTS_NO').options[document.getElementById("EDIT_CTIM_MAX_PARTS_NO").selectedIndex].value;
 	
 	var data = JSON.stringify(chargeObject);
 	$.ajax({
@@ -314,6 +334,7 @@ function getCustomerTimes() {
 								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCharge' onclick='cmdCustomerTimeDelete_OnClick()'>Delete</button>",
 								CTIM_ID : Results[i]["ctim_ID"],
 								CTIM_CUST_FK : Results[i].CTIM_CUST_FK.CUST_NAME,
+								CTIM_CUST_ID : Results[i]["ctim_CUST_ID"],
 								CTIM_DETAILS_NO : Results[i]["ctim_DETAILS_NO"],
 								CTIM_INTERVAL_OF_TIMES : Results[i]["ctim_INTERVAL_OF_TIMES"],
 								CTIM_MAX_UNIT_NO : Results[i]["ctim_MAX_UNIT_NO"],
@@ -455,8 +476,8 @@ $(document).ready(function(){
 	    updateDetails();
 	});
 
-	cboCustomer = new wijmo.input.AutoComplete('#cbo_EDIT_CTIM_CUST_ID');
-	getCustomers(); 
+	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CTIM_CUST_ID');
+
 	
 	// Flex Grid
 	customerGrid = new wijmo.grid.FlexGrid('#CustomerTimeGrid');

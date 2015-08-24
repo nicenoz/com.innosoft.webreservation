@@ -11,7 +11,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Login</title>
+    <title>Home Page - Web Reservation</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
@@ -70,20 +70,26 @@
 		            <div class="col-md-4 col-md-offset-4">
 		                <div class="login-panel panel panel-primary border-custom">
 		                    <div class="panel-heading border-custom">
-		                        <h3 class="panel-title ">Login as: </h3>
+		                        <h3 class="panel-title ">Please Login</h3>
 		                    </div>
 		                    <div class="panel-body">
 		                        <fieldset>
-		                       		<br/>
-		                       		<div class="row">
-									  <div class="col-xs-6">
-									  		<a href="/webreservation/loginFree" class="btn btn-lg btn-primary btn-block border-custom">Free</a>
-									  </div>
-									  <div class="col-xs-6">
-									  		<a href="/webreservation/loginMember" class="btn btn-lg btn-primary btn-block border-custom">Member</a>
-									  </div>
-									</div>   
+		                           	<input type="text" name="j_username" class="form-control border-custom" id="j_username" size="30" maxlength="40" placeholder="Email Address"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
+		                            <br />
+		                            <input type="password" name="j_password" class="form-control border-custom" id="j_password" size="30" maxlength="32" placeholder="Password"/>
+		                            <br />
+		                            <div class="checkbox">
+		                                <label>
+		                                    <input name="remember" type="checkbox"/>Remember Me
+		                                </label>
+		                            </div>
+		                            <br />
+		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block border-custom" />
+		                            <a href="/webreservation/register" class="btn btn-lg btn-primary btn-block border-custom">Register</a>
 		                            <br/>
+		                            <p>
+										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>
+									</p>
 		                        </fieldset>
 		                    </div>
 		                </div>

@@ -38,6 +38,12 @@ public class CustomerMemberApi {
 		return list;
 	}
 	
+	@RequestMapping(value = "/getloggedinmember", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MstCustomerMember> reportCustomerMember() {
+		List<MstCustomerMember> list = customerMemberService.getMemberByUserId(securityService.getCurrentUser().getUSER_ID());
+		return list;
+	}
+	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCustomerMember> updateCharge(@RequestBody MstCustomerMember member) {
 		try {

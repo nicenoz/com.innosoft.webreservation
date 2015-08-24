@@ -79,17 +79,17 @@
             <div class="modal-body">
                 <form id="messageForm">
                     <dl class="dl-horizontal">
-                        <dt>Calendar Date: </dt>
+                        <dt>Date: </dt>
                         <dd>
                         	<input id="EDIT_CLDR_ID" type="hidden" />
                         	<div class="form-control border-custom" id="EDIT_CLDR_DATE"></div>
                             <input id="EDIT_CLDR_DATE_DATA" type="hidden" />  
                         </dd>
-                        <dt>Calendar Daycode: </dt>
+                        <dt>Daycode: </dt>
                         <dd>
                             <input class="form-control border-custom" id="EDIT_CLDR_DAYCODE" name="EDIT_CLDR_DAYCODE" type="text" required />
                         </dd>
-                        <dt>Calendar Note: </dt>
+                        <dt>Note: </dt>
                         <dd>
                             <input class="form-control border-custom" id="EDIT_CLDR_NOTE" name="EDIT_CLDR_NOTE" type="text" required />
                         </dd>                      
@@ -443,19 +443,19 @@ $(document).ready(function () {
                         "isContentHtml": true
                     },
                     {
-                        "header": "Calendar Date",
+                        "header": "Date",
                         "binding": "CLDR_DATE",
                         "allowSorting": true,
                         "width": "2*"
                     },
                     {
-                        "header": "Calendar Daycode",
+                        "header": "Daycode",
                         "binding": "CLDR_DAYCODE",
                         "allowSorting": true,
                         "width": "2*"
                     },
                     {
-                        "header": "Calendar Note",
+                        "header": "Note",
                         "binding": "CLDR_NOTE",
                         "allowSorting": true,
                         "width": "2*"

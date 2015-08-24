@@ -80,6 +80,8 @@ public class ReservationDaoImpl implements ReservationDao {
 			newReservation.setRESV_PARTS_NO(reservation.RESV_PARTS_NO);
 			newReservation.setRESV_START_TIME_ID(reservation.RESV_START_TIME_ID);
 			newReservation.setRESV_END_TIME_ID(reservation.RESV_END_TIME_ID);
+			newReservation.setRESV_CACT_ID(reservation.RESV_CACT_ID);
+			newReservation.setRESV_NOTE(reservation.RESV_NOTE);
 			
 			newReservation.setCREATED_BY_USER_ID(reservation.CREATED_BY_USER_ID);
 			newReservation.setCREATED_DATE(reservation.CREATED_DATE);
@@ -111,6 +113,7 @@ public class ReservationDaoImpl implements ReservationDao {
 			updateReservation.setRESV_PARTS_NO(reservation.RESV_PARTS_NO);
 			updateReservation.setRESV_START_TIME_ID(reservation.RESV_START_TIME_ID);
 			updateReservation.setRESV_END_TIME_ID(reservation.RESV_END_TIME_ID);
+			updateReservation.setRESV_NOTE(reservation.RESV_NOTE);
 			
 			updateReservation.setUPDATED_BY_USER_ID(reservation.UPDATED_BY_USER_ID);
 			updateReservation.setUPDATED_DATE(reservation.UPDATED_DATE);
