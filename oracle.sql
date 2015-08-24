@@ -55,7 +55,6 @@ BEGIN
 	SELECT UPWD_ID_SEQ.NEXTVAL into :NEW.UPWD_ID from DUAL;
 END;
 
-
 /*****************/
 /* Message Table */
 /*****************/
