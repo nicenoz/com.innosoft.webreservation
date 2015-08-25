@@ -21,7 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table(name="WR_RESERVATION")
 public class TrnReservation {
 	@Id
-	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESV_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESV_ID_SEQ")
     @SequenceGenerator(name="RESV_ID_SEQ", sequenceName="RESV_ID_SEQ", allocationSize=1)
     @Column(name="RESV_ID")	
 	public Integer RESV_ID;

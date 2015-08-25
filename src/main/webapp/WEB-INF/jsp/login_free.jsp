@@ -19,10 +19,15 @@
     <!-- Custom CSS -->
     <link href="<c:url value='/css/landing-page.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
+	<link href="<c:url value='/css/alertify.core.css' />" rel="stylesheet"/>
+	<link href="<c:url value='/css/alertify.default.css' />" rel="stylesheet"/>
 	
     <!-- Custom Fonts -->
     <link href="<c:url value='/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css"/>
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
+    
+    <!-- Scripts -->
+    <script src="<c:url value='/js/alertify.min.js'/>"></script>
 </head>
 <body class="bodytopindent">
 
@@ -73,9 +78,9 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="email" name="" id="" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
+	                           	<input type="email" name="" id="EDIT_EMAIL_ADDRESS" class="form-control border-custom" size="30" maxlength="30" value="${Email}" placeholder="Email Address"/>
 	                            <br />
-	                            <button type="button" id="" class="btn btn-lg btn-primary btn-block border-custom" onclick="">
+	                            <button type="button" id="cmdLoginFree" class="btn btn-lg btn-primary btn-block border-custom" onclick="cmdLoginFree_OnClick()">
 		                           		Submit
 		                        </button>
 		                        <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
@@ -87,6 +92,20 @@
 	        </div>
 	    </div>
 	</form>
+</div>
+
+<!-- Loading -->
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width: 220px;">
+        <div class="modal-content border-custom">
+            <div class="modal-header">
+                <h4 class="modal-title">Sending Email...</h4>
+            </div>
+            <div class="modal-body">
+                <img src="<c:url value='/img/progress_bar.gif' />"></img>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -128,6 +147,43 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+
+
+
+<script type="text/javascript">  
+	function cmdLoginFree_OnClick() {
+		var userEmailObject = new Object();
+
+		userEmailObject.USER_LOGIN = document.getElementById('EDIT_EMAIL_ADDRESS').value;
+
+		var data = JSON.stringify(userEmailObject);
+		
+	    $('#loading').modal('show');
+		$.ajax({
+			type : "POST",
+			url : '${pageContext.request.contextPath}/api/user/loginFreeUser',
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : data,
+			statusCode : {
+				200 : function() {
+					$('#loading').modal('hide');
+					alertify.alert("Succesfully send Email");
+				},
+				404 : function() {
+					$('#loading').modal('hide');
+					alertify.alert("Email Already Exist");
+				},
+				400 : function() {
+					$('#loading').modal('hide');
+					alertify.alert("Bad Request");
+				}
+			}
+		});
+	
+	}
+</script>
+
 
 </body>
 </html>

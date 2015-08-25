@@ -385,11 +385,7 @@ $(document).ready(function () {
 	
   // Validation
     $('#CmdCalendarEditOk').click(function () {
-        if (FormValidate() == true) {
-            cmdCalendarEditOkFunction();
-            $('#CalendarEdit').modal('hide');
-        }
-        else {
+        if (FormValidate() != true) {
             toastr.error("Fill the required field!");
         }
     });

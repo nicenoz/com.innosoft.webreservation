@@ -91,6 +91,8 @@ public class UserDaoImpl implements UserDao {
 			tx = session.beginTransaction();
 			MstSecurityUser newUser = new MstSecurityUser();
 
+			System.out.print( user + "");
+			System.out.print( user.USER_LOGIN + user.USER_PASSWORD + "");
 			newUser.setUSER_LOGIN(user.USER_LOGIN);
 			newUser.setUSER_PASSWORD(user.USER_PASSWORD);
 
@@ -98,8 +100,10 @@ public class UserDaoImpl implements UserDao {
 			tx.commit();
 			session.close();
 
+			
 			return newUser;
 		} catch (Exception e) {
+			System.out.print("FAIL");
 			return user;
 		}
 	}

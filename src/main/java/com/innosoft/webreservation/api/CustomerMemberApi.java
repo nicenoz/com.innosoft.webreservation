@@ -39,7 +39,7 @@ public class CustomerMemberApi {
 	}
 	
 	@RequestMapping(value = "/getloggedinmember", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<MstCustomerMember> reportCustomerMember() {
+	public @ResponseBody List<MstCustomerMember> getLoggedInCustomerMember() {
 		List<MstCustomerMember> list = customerMemberService.getMemberByUserId(securityService.getCurrentUser().getUSER_ID());
 		return list;
 	}

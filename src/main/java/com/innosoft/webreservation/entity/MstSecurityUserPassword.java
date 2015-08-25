@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="WR_SECURITY_USER_PASSWORD")
 public class MstSecurityUserPassword {	
 	@Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UPWD_ID_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UPWD_ID_SEQ")
     @SequenceGenerator(name="UPWD_ID_SEQ", sequenceName="UPWD_ID_SEQ", allocationSize=1)
     @Column(name="UPWD_ID")	
 	private int UPWD_ID;	
