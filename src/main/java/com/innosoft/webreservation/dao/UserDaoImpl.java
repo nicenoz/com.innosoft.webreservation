@@ -73,13 +73,28 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("userEmail", userEmail + ".%");
 		userList = query.list();
 		if (userList.size() > 0){
-			System.out.print("1");
 			return userList.get(0);
 		}
 		else
 		{
-			System.out.print("2");
 			return new MstSecurityUser();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int getUserIdIfEmailExist(String userEmail){
+		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
+		Session session = this.getSessionFactory().getCurrentSession();
+		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN LIKE :userEmail");
+		System.out.print(userEmail);
+		query.setParameter("userEmail", userEmail);
+		userList = query.list();
+		if (userList.size() > 0){
+			return userList.get(0).getUSER_ID();
+		}
+		else
+		{
+			return 0;
 		}
 	}
 

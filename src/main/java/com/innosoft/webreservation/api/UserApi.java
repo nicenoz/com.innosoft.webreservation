@@ -155,12 +155,15 @@ public class UserApi {
 	public ResponseEntity<String> loginFreeUser(@RequestBody MstSecurityUser user) {
 		try {
 			String password = this.generatePassword();
-			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
-			if (searchUser.getUSER_ID() == null) {
+
+			int userId = userService.getUserIdIfEmailExist(user.USER_LOGIN);
+			System.out.println("" + userId);
+			if ( userId == 0) {
 				user.setUSER_PASSWORD(password);
 				userService.addUser(user);
 			} 
 			else {
+				user.setUSER_ID(userId);
 				user.setUSER_PASSWORD(password);
 				userService.editUser(user);				
 			}
@@ -169,7 +172,7 @@ public class UserApi {
 			SysEmail mail = new SysEmail();
 			mail.setEMAIL_EMAIL(user.USER_LOGIN);
 			
-			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/?email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
+			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
 			mail.setEMAIL_SUBJECT("Free User Login Password");
 			boolean sendMail = emailService.sendMail(mail);	
 			if (sendMail == true) {
