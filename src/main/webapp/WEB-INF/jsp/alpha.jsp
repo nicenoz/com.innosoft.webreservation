@@ -223,7 +223,7 @@ function getReport() {
                  
              }
          } else {
-             alertify.alert("No data.");
+         /*     alertify.alert("No data."); */
          }
      }
  }).fail(

@@ -18,7 +18,7 @@
 		                <i class="fa fa-search"></i>
 		                </button>
 		            </span>
-		            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search Customer">
+		            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 		        </div>
 		    </div>
 		    <div class="col-lg-8">
@@ -308,7 +308,7 @@ function getCustomers() {
                     });
                 }
             } else {
-                alert("No data.");
+         /*        alert("No data."); */
             }
         }
     }).fail(
