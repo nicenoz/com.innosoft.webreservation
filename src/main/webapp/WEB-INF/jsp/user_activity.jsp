@@ -73,9 +73,7 @@
     <div class="modal-dialog">
         <div class="modal-content border-custom">
             <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">
-                    &times;
-                </button>
+                <button type="button" class="close" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Calendar Activity Edit</h4>
             </div>
             <div class="modal-body">

@@ -346,4 +346,7 @@ dt {
 	resize: none;
 }
 
-
+/* modal style */
+.modal-wide {
+	width: 75%;
+}
