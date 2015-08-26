@@ -91,17 +91,17 @@
                         </dd>
                         <dt>Note: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" type="text" required /> 
+							<textarea cols="*" rows="3" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" class="form-control border-custom" required ></textarea>
                         </dd>
                         <dt>Text: </dt>
                         <dd>
-							<input class="form-control border-custom" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" type="text" required /> 
+                        	<textarea cols="*" rows="3" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" class="form-control border-custom" required ></textarea>
                         </dd>                        
                         <dt>Is Displayed?: </dt>
                         <dd>
 							<select class="form-control border-custom" id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" required >
-									  <option value="1">Yes</option>
-									  <option value="0">No</option>
+								  <option value="0">No</option>
+								  <option value="1">Yes</option>
 							</select>
                         </dd>                       
                     </dl>
@@ -149,7 +149,7 @@ function cmdCodeEdit_OnClick() {
     document.getElementById('EDIT_CODE_CODE_VALUE').value = code.CODE_CODE_VALUE ? code.CODE_CODE_VALUE : '';
     document.getElementById('EDIT_CODE_NOTE').value = code.CODE_NOTE ? code.CODE_NOTE : '';
     document.getElementById('EDIT_CODE_TEXT').value = code.CODE_TEXT ? code.CODE_TEXT : '';
-    document.getElementById('EDIT_CODE_ISDISPLAY').value = code.CODE_ISDISPLAY ? code.CODE_ISDISPLAY : 1;      
+    document.getElementById('EDIT_CODE_ISDISPLAY').selectedIndex = code.CODE_ISDISPLAY;      
 } 
 
 // ==================
@@ -266,6 +266,7 @@ function getCodes() {
                         CODE_NOTE: Results[i]["CODE_NOTE"],
                         CODE_TEXT: Results[i]["CODE_TEXT"],
                         CODE_ISDISPLAY: Results[i]["CODE_ISDISPLAY"],
+                        CODE_ISDISPLAY_SHOW: Results[i]["CODE_ISDISPLAY"]==1?"Yes":"No",
                         
                         CREATED_DATE: Results[i]["created_DATE"],
                         CREATED_BY_USER_ID: Results[i]["created_BY_USER_ID"],
@@ -450,10 +451,10 @@ $(document).ready(function () {
                         "width": "2*"
                     },
                     {
-                        "header": "Display",
-                        "binding": "CODE_ISDISPLAY",
+                        "header": "Displayed",
+                        "binding": "CODE_ISDISPLAY_SHOW",
                         "allowSorting": true,
-                        "width": 60
+                        "width": 100
                     }                
         	],
         autoGenerateColumns: false,

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.entity.TrnReservation;
 
 
@@ -37,6 +38,15 @@ public class ReservationDaoImpl implements ReservationDao {
 	public List<TrnReservation> listReservation() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TrnReservation> list = session.createQuery("from TrnReservation").list();	
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TrnReservation> listByCustomer(int customerId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(TrnReservation.class);
+		criteria.add(Restrictions.eq("RESV_CUST_ID", customerId));
+		List<TrnReservation> list = criteria.list();	
 		return list;
 	}
 	

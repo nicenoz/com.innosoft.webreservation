@@ -103,7 +103,7 @@
                         
                         <dt>Reservation Note: </dt>
                         <dd>
-                            <textarea cols="*" rows="3" id="AE_RESV_NOTES" class="form-control border-custom" name="etAEResvNote" required ></textarea>
+                            <textarea cols="*" rows="3" id="AE_RESV_NOTES" name="AE_RESV_NOTES" class="form-control border-custom" required ></textarea>
                         </dd>
                                            
                     </dl>
@@ -180,32 +180,43 @@ function updateTable(){
                         id: result.CACT_ID,
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
-              
-                	//GET ALL RESERVATIONS - (Improve: Query only Customer Reservations for this date.)
-                	result.RESV_CACT.forEach(function (reservation){
-	                	var startTimeName = reservation["RESV_START_TIME_FK"];
-	                	var endTimeName = reservation["RESV_END_TIME_FK"];
-	                	reservationsList.push({
-	                		RESV_CUST_ID: result.CACT_CUST_ID,
-	                		RESV_DAY_CODE: result.CACT_CLDR_FK.CLDR_DAYCODE,
-
-	                		RESV_ID: reservation.RESV_ID,
-	                		RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
-	                		RESV_CACT_ID: result.CACT_ID,
-	                		RESV_UNIT_NO: reservation.RESV_UNIT_NO,
-	                		RESV_PARTS_NO: reservation.RESV_PARTS_NO,
-	                		RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
-	                		RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
-	                		RESV_NOTE: reservation.RESV_NOTE,
-	                		
-	                		RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
-	                	
-	                    });
-                	});
                 });
-
-                cmdGetSchedule_OnClick();
+                
             }
+
+			console.log("update");
+            $.ajax({
+                url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
+                cache: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                data: {"customerId":customerId},
+                success: function (results) {
+                	//GET ALL RESERVATIONS
+                	results.forEach(function (reservation){
+                		reservationsList.push({
+                			RESV_ID: reservation.RESV_ID,
+                			RESV_CUST_ID: reservation.RESV_CUST_ID,
+                			RESV_CACT_ID: reservation.RESV_CACT_ID,
+                			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+                			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
+                			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+                			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+                			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
+                			RESV_NOTE: reservation.RESV_NOTE,
+                			
+                			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
+                	    });
+            			console.log(reservation.RESV_ID);
+                	});
+                	
+                	cmdGetSchedule_OnClick();
+                }
+            }).fail(
+                function (xhr, textStatus, err) {
+                    alert(err);
+                }
+            );	
         }
     }).fail(
         function (xhr, textStatus, err) {
@@ -290,11 +301,11 @@ function cmdGetSchedule_OnClick() {
                 				//CHECK IF RESERVATION IS FOR THIS CUSTOMER
                 				if(reservationsList[a].RESV_CUST_ID == customerId){
                 					//CHECK IF RESERVATION IS FOR THIS DAY
-	                				if(calendarActivityList[k] == reservationsList[a].RESV_DAY_CODE){
+	                				if(calendarActivities[k].id == reservationsList[a].RESV_CACT_ID){
 	                					//CHECK IF RESERVATION IS FOR THIS TIME
 	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
 			                				//CHECK IF RESERVATION IS FOR THIS PART
-		                					if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
 		                						//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
 		                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
 			                						//CAN EDIT IF RESERVED BY CUSTOMER
@@ -318,8 +329,6 @@ function cmdGetSchedule_OnClick() {
                 scheduleCollection = new wijmo.collections.CollectionView(customerTime);
                 scheduleCollection.canFilter = true;   
                 
-
-                console.log("Disposed");
                 scheduleGrid.dispose();
                 scheduleGrid = new wijmo.grid.FlexGrid('#scheduleGrid');
                 scheduleGrid.frozenColumns = 2;
@@ -328,13 +337,11 @@ function cmdGetSchedule_OnClick() {
             		autoGenerateColumns : false,
             		itemsSource : scheduleCollection,
             		isReadOnly : true,
-            		selectionMode : wijmo.grid.SelectionMode.Row,
+            		selectionMode : wijmo.grid.SelectionMode.Cell,
             		allowMerging : "All"
             	});
                 scheduleGrid.trackChanges = true;                
             }
-
-            console.log("Success");
         }
     }).fail(
         function (xhr, textStatus, err) {
@@ -617,6 +624,8 @@ function getCustomers() {
     );
 }
 
+
+
 function getCalendarActivities(customerId) {
     calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
@@ -633,31 +642,40 @@ function getCalendarActivities(customerId) {
                         id: result.CACT_ID,
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
-              
-                	//GET ALL RESERVATIONS - (Improve: Query only Customer Reservations for this date.)
-                	result.RESV_CACT.forEach(function (reservation){
-	                	var startTimeName = reservation["RESV_START_TIME_FK"];
-	                	var endTimeName = reservation["RESV_END_TIME_FK"];
-	                	reservationsList.push({
-	                		RESV_CUST_ID: result.CACT_CUST_ID,
-	                		RESV_DAY_CODE: result.CACT_CLDR_FK.CLDR_DAYCODE,
-
-	                		RESV_ID: reservation.RESV_ID,
-	                		RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
-	                		RESV_CACT_ID: result.CACT_ID,
-	                		RESV_UNIT_NO: reservation.RESV_UNIT_NO,
-	                		RESV_PARTS_NO: reservation.RESV_PARTS_NO,
-	                		RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
-	                		RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
-	                		RESV_NOTE: reservation.RESV_NOTE,
-	                		
-	                		RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
-	                	
-	                    });
-                	});
                 });
                 createCboCalendarActivity(calendarActivities);
             }
+            $.ajax({
+                url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
+                cache: false,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                data: {"customerId":customerId},
+                success: function (results) {
+                	//GET ALL RESERVATIONS
+                	results.forEach(function (reservation){
+                		reservationsList.push({
+                			RESV_ID: reservation.RESV_ID,
+                			RESV_CUST_ID: reservation.RESV_CUST_ID,
+                			RESV_CACT_ID: reservation.RESV_CACT_ID,
+                			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+                			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
+                			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+                			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+                			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
+                			RESV_NOTE: reservation.RESV_NOTE,
+                			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
+                	    });
+                	});
+                	
+                	cmdGetSchedule_OnClick();
+                }
+            }).fail(
+                function (xhr, textStatus, err) {
+                    alert(err);
+                }
+            );	
+            
         }
     }).fail(
         function (xhr, textStatus, err) {

@@ -102,23 +102,23 @@
                         </dd> 
                         <dt>Address 1: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" type="text" required />
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" class="form-control border-custom" required ></textarea>
                         </dd>   
                         <dt>Address 2: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" type="text" required />
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" class="form-control border-custom" required ></textarea>
                         </dd> 
                         <dt>Address 3: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" type="text" required />
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" class="form-control border-custom" required ></textarea>
                         </dd>   
-                        <dt>Is Deleted?: </dt>
-                        <dd>
-                            <select class="form-control border-custom" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required >
-									  <option value="1">Yes</option>
+<!--                    <dt>Is Deleted?: </dt>
+                        <dd> -->
+                            <select class="form-control border-custom hidden" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required>
 									  <option value="0">No</option>
+									  <option value="1">Yes</option>
 							</select>
-                        </dd>
+<!-- 					</dd> -->
                     </dl>
                 </form>
             </div>
@@ -246,7 +246,7 @@ function cmdCustomerEditOk_OnClick() {
 	customerObject.CUST_ADDRESS1 = document.getElementById('EDIT_CUST_ADDRESS1').value;	
 	customerObject.CUST_ADDRESS2 = document.getElementById('EDIT_CUST_ADDRESS2').value;	
 	customerObject.CUST_ADDRESS3 = document.getElementById('EDIT_CUST_ADDRESS3').value;	
-	customerObject.CUST_ISDELETED = document.getElementById('EDIT_CUST_ISDELETED').options[document.getElementById("EDIT_CUST_ISDELETED").selectedIndex].value;	
+	/* customerObject.CUST_ISDELETED = document.getElementById('EDIT_CUST_ISDELETED').options[document.getElementById("EDIT_CUST_ISDELETED").selectedIndex].value; */	
 
  	var data = JSON.stringify(customerObject);
 

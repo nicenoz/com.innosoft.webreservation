@@ -31,6 +31,12 @@ public class ReservationApi {
 		return list;
 	}
 	
+	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json",  params = {"customerId"})
+	public @ResponseBody List<TrnReservation> listByCustomer(@RequestParam(value="customerId") int customerId) {
+		List<TrnReservation> list = reservationService.listByCustomer(customerId);
+		return list;
+	}
+	
 	@RequestMapping(value = "/schedule", method = RequestMethod.GET, produces = "application/json",  params = {"customerId", "calendarActivityId"})
 	public @ResponseBody List<TrnReservation> scheduleReservation(@RequestParam(value="customerId") int customerId, @RequestParam(value="calendarActivityId") int calendarActivityId) {
 		List<TrnReservation> list = reservationService.scheduleReservation(customerId,calendarActivityId);
