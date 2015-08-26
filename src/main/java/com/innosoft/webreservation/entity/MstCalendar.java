@@ -26,10 +26,10 @@ public class MstCalendar {
 	@Id   
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLDR_ID_SEQ")
     @SequenceGenerator(name="CLDR_ID_SEQ", sequenceName="CLDR_ID_SEQ", allocationSize=1)
-    @Column(name="CLDR_ID")	
+    @Column(name="CLDR_ID")
 	public Integer CLDR_ID;
 	
-	@Column(name="CLDR_DATE")	
+	@Column(name="CLDR_DATE")
 	public Date CLDR_DATE; 
 	
 	@Column(name="CLDR_DAYCODE")	

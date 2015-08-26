@@ -53,7 +53,7 @@ public class UserApi {
 				
 				SysEmail se = new SysEmail();
 				se.setEMAIL_EMAIL(user.USER_LOGIN);
-				se.setEMAIL_MESSAGE("http://localhost:8082/webreservation/login/"+newUser.getUSER_ID());
+				se.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/login/"+newUser.getUSER_ID());
 				se.setEMAIL_SUBJECT("Web Reservation Membership");
 
 				boolean sendMail = emailService.sendMail(se);
