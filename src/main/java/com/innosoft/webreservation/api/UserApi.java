@@ -27,7 +27,6 @@ public class UserApi {
 	@Autowired
 	private EmailService emailService;
 	
-
 	@Autowired
 	private CustomerService customerService;
 
@@ -49,19 +48,9 @@ public class UserApi {
 			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
 			if (searchUser == null || searchUser.getUSER_ID() == 0) 
 			{
-				MstSecurityUser newUser = userService.addUser(user);
-				
-				SysEmail se = new SysEmail();
-				se.setEMAIL_EMAIL(user.USER_LOGIN);
-				se.setEMAIL_MESSAGE("http://localhost:8082/webreservation/login/"+newUser.getUSER_ID());
-				se.setEMAIL_SUBJECT("Web Reservation Membership");
-
-				boolean sendMail = emailService.sendMail(se);
-				if (sendMail == true) {
-					return new ResponseEntity<String>(HttpStatus.OK);
-				} else {
-					return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-				}
+				user.setUSER_ID(searchUser.getUSER_ID());
+				MstSecurityUser newUser = userService.editUser(user);
+				return new ResponseEntity<String>(HttpStatus.OK);
 			} 
 			else
 			{
@@ -161,7 +150,6 @@ public class UserApi {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}*/
-	
 
 	@RequestMapping(value = "/loginFreeUser", method = RequestMethod.POST)
 	public ResponseEntity<String> loginFreeUser(@RequestBody MstSecurityUser user) {

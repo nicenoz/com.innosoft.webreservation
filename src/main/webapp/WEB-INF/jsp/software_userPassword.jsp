@@ -14,20 +14,20 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="password" name="" class="form-control border-custom" id="oldpassword" size="30" maxlength="40" placeholder="Current Password"/>
+	                           	<input type="password" name="" class="form-control border-custom" id="OLD_PASSWORD" size="30" maxlength="40" placeholder="Current Password"/>
 	                            <hr/>
-	                            <input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password"/>
+	                            <input type="password" name="" class="form-control border-custom" id="USER_PASSWORD" size="30" maxlength="32" placeholder="New Password"/>
 	                            <br />
-	                            <input type="password" name="" class="form-control border-custom" id="confirmpassword" size="30" maxlength="32" placeholder="Confirm Password"/>
+	                            <input type="password" name="" class="form-control border-custom" id="CONFIRMED_USER_PASSWORD" size="30" maxlength="32" placeholder="Confirm Password"/>
 	                            <br />
-	                            <input type="button" value="Change Password" class="btn btn-lg btn-danger btn-block border-custom" onclick="check()"/>
+	                            <input type="button" value="Change Password" class="btn btn-lg btn-danger btn-block border-custom" onclick="ChangePassword_Onclick()"/>
 	                        </fieldset>
 	                        <br>
 	                     </div>
 	                     <span class="footer-data-style" id="name">
 		          			<sec:authorize access="isAuthenticated()">
 			  					<sec:authentication var="principal" property="principal"/>
-								  <input id="usernamelogin" type="hidden" value="${principal.username}"></input>
+								  <input id="USER_LOGIN" type="hidden" value="${principal.username}"></input>
 							</sec:authorize> 
 						 </span> 
 	                </div>
@@ -39,40 +39,42 @@
 </div>
 
 <script type="text/javascript">
-	function check()
+function ChangePassword_Onclick()
+{
+	if(document.getElementById("OLD_PASSWORD").value != document.getElementById("USER_PASSWORD").value && 
+	   document.getElementById("USER_PASSWORD").value == document.getElementById("CONFIRMED_USER_PASSWORD").value)
 	{
-		if(document.getElementById("oldpassword").value != document.getElementById("newpassword").value && document.getElementById("newpassword").value == document.getElementById("confirmpassword").value)
-		{
-			var passwordObject = new Object();
-			passwordObject.OLD_PASSWORD = document.getElementById('oldpassword').value;
-			console.log(passwordObject.OLD_PASSWORD);
-			passwordObject.USER_LOGIN = document.getElementById('usernamelogin').value;
-			console.log(passwordObject.USER_LOGIN);
-			passwordObject.USER_PASSWORD = document.getElementById('confirmpassword').value;
-			console.log(passwordObject.USER_PASSWORD);
-			
-			var data = JSON.stringify(passwordObject);
-			
-		    $.ajax({
-		        type: "POST",
-		        url: '${pageContext.request.contextPath}/api/userPass/update',
-		        contentType: "application/json; charset=utf-8",
-		        dataType: "json",
-		        data: data,
-		        success: function (data) {
-		            if (data.USER_ID > 0) {
-		                toastr.success('Successfully updated.');
-		                window.setTimeout(function () { location.reload() }, 1000);
-		            } else {
-		                toastr.error("Not updated.");
-		            }
-		        }
-		    });
-		}else{ alert("please check your password");}
-	}
-	$(document).ready(function(){
+		var userObject = new Object();
 		
-	});
+		userObject.USER_ID = 0;
+		userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
+		userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
+		
+		var data = JSON.stringify(userObject);
+		
+	    $.ajax({
+	        type: "POST",
+	        url: '${pageContext.request.contextPath}/api/user/update',
+	        contentType: "application/json; charset=utf-8",
+	        dataType: "json",
+	        data: data,
+	        success: function (data) {
+	            if (data.USER_ID > 0) {
+	                toastr.success("Successfully updated.");
+	                window.setTimeout(function () { location.reload() }, 1000);
+	            } else {
+	                toastr.error("Error updating.");
+	            }
+	        }
+	    });
+	} else { 
+		toastr.error("Password mismatch.");
+	}
+}
+
+$(document).ready(function(){
+	
+});
 </script>
 
 <!-- footer -->
