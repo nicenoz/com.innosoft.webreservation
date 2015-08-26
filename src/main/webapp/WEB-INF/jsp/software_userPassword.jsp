@@ -27,7 +27,7 @@
 	                     <span class="footer-data-style" id="name">
 		          			<sec:authorize access="isAuthenticated()">
 			  					<sec:authentication var="principal" property="principal"/>
-								  <input id="USER_LOGIN" type="text" value="${principal.username}"></input>
+								  <input id="USER_LOGIN" type="hidden" value="${principal.username}"></input>
 							</sec:authorize> 
 						 </span> 
 	                </div>
@@ -46,6 +46,7 @@ function ChangePassword_Onclick()
 	{
 		var userObject = new Object();
 		
+		userObject.USER_ID = 0;
 		userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
 		userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
 		
@@ -57,17 +58,15 @@ function ChangePassword_Onclick()
 	        contentType: "application/json; charset=utf-8",
 	        dataType: "json",
 	        data: data,
-	        statusCode : {
-				200 : function() {
-					toastr.success("Succesfully Updated");
-				},
-				404 : function() {
-					toastr.error("Not found!");
-				},
-				400 : function() {
-					toastr.error("Bad Request!");
-				}
-			}});
+	        success: function (data) {
+	            if (data.USER_ID > 0) {
+	                toastr.success("Successfully updated.");
+	                window.setTimeout(function () { location.reload() }, 1000);
+	            } else {
+	                toastr.error("Error updating.");
+	            }
+	        }
+	    });
 	} else { 
 		toastr.error("Password mismatch.");
 	}

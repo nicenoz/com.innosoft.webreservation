@@ -15,7 +15,6 @@ import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.entity.SysEmail;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
-import com.innosoft.webreservation.service.UserPasswordService;
 import com.innosoft.webreservation.service.UserService;
 
 @Controller
@@ -27,9 +26,6 @@ public class UserApi {
 
 	@Autowired
 	private EmailService emailService;
-	
-	@Autowired
-	private UserPasswordService userPasswordService;
 	
 	@Autowired
 	private CustomerService customerService;
@@ -50,12 +46,10 @@ public class UserApi {
 	public ResponseEntity<String> updateUser(@RequestBody MstSecurityUser user) {
 		try {
 			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
-			if (searchUser.getUSER_ID() != 0) 
+			if (searchUser == null || searchUser.getUSER_ID() == 0) 
 			{
 				user.setUSER_ID(searchUser.getUSER_ID());
-				userService.editUser(user);
-				userPasswordService.insertPassword(searchUser.getUSER_PASSWORD(), searchUser.getUSER_ID());
-				
+				MstSecurityUser newUser = userService.editUser(user);
 				return new ResponseEntity<String>(HttpStatus.OK);
 			} 
 			else

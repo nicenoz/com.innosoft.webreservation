@@ -119,28 +119,7 @@ public class UserDaoImpl implements UserDao {
 			return user;
 		}
 	}
-	
-/*	public MstSecurityUser updateUser(String password,Integer id)
-	{
-		try{
-			Session session = this.sessionFactory.openSession();
-			Transaction tx = null;
-			
-			tx = session.beginTransaction();
-			
-			MstSecurityUser updateUserPassword = (MstSecurityUser) session.get(MstSecurityUser.class,id);
-			updateUserPassword.setUSER_PASSWORD(password);
-			
-			session.update(updateUserPassword);
-			
-			t
-			
-			return null;
-		}catch(Exception e){
-			return null;
-		}
-	}*/
-	
+
 	public MstSecurityUser editUser(MstSecurityUser user) {
 		try {
 			Session session = this.sessionFactory.openSession();
