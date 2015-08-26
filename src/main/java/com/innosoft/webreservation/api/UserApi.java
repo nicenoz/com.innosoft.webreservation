@@ -27,7 +27,6 @@ public class UserApi {
 	@Autowired
 	private EmailService emailService;
 	
-
 	@Autowired
 	private CustomerService customerService;
 
@@ -49,19 +48,9 @@ public class UserApi {
 			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
 			if (searchUser == null || searchUser.getUSER_ID() == 0) 
 			{
-				MstSecurityUser newUser = userService.addUser(user);
-				
-				SysEmail se = new SysEmail();
-				se.setEMAIL_EMAIL(user.USER_LOGIN);
-				se.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/login/"+newUser.getUSER_ID());
-				se.setEMAIL_SUBJECT("Web Reservation Membership");
-
-				boolean sendMail = emailService.sendMail(se);
-				if (sendMail == true) {
-					return new ResponseEntity<String>(HttpStatus.OK);
-				} else {
-					return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-				}
+				user.setUSER_ID(searchUser.getUSER_ID());
+				MstSecurityUser newUser = userService.editUser(user);
+				return new ResponseEntity<String>(HttpStatus.OK);
 			} 
 			else
 			{
@@ -161,18 +150,20 @@ public class UserApi {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}*/
-	
 
 	@RequestMapping(value = "/loginFreeUser", method = RequestMethod.POST)
 	public ResponseEntity<String> loginFreeUser(@RequestBody MstSecurityUser user) {
 		try {
 			String password = this.generatePassword();
-			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
-			if (searchUser.getUSER_ID() == null) {
+
+			int userId = userService.getUserIdIfEmailExist(user.USER_LOGIN);
+			System.out.println("" + userId);
+			if ( userId == 0) {
 				user.setUSER_PASSWORD(password);
 				userService.addUser(user);
 			} 
 			else {
+				user.setUSER_ID(userId);
 				user.setUSER_PASSWORD(password);
 				userService.editUser(user);				
 			}
@@ -181,7 +172,7 @@ public class UserApi {
 			SysEmail mail = new SysEmail();
 			mail.setEMAIL_EMAIL(user.USER_LOGIN);
 			
-			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/?email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
+			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
 			mail.setEMAIL_SUBJECT("Free User Login Password");
 			boolean sendMail = emailService.sendMail(mail);	
 			if (sendMail == true) {

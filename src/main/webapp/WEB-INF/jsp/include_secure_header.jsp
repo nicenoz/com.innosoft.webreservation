@@ -65,7 +65,7 @@
 				            <li><a href="/webreservation/software/email/">Email</a></li>
 				            <li><a href="/webreservation/software/charging/">Charging</a></li>
 				            <li class="divider"></li>
-				            <li><a href="/webreservation/software/userPassword/">Schedule Password</a></li>     
+				            <li><a href="/webreservation/software/userPassword/">Change Password</a></li>     
 				         </ul>
                     </li>
    
