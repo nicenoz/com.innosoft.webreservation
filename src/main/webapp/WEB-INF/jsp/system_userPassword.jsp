@@ -29,7 +29,7 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="password" name="" class="form-control border-custom" id="oldpassword" size="30" maxlength="40" placeholder="Current Password"/>
+	                           	<input type="password" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email"/>
 	                            <hr/>
 	                            <input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password"/>
 	                            <br />
@@ -56,35 +56,33 @@
 <script type="text/javascript">
 	function check()
 	{
-		if(document.getElementById("oldpassword").value != document.getElementById("newpassword").value && document.getElementById("newpassword").value == document.getElementById("confirmpassword").value)
+		if(document.getElementById("newpassword").value == document.getElementById("confirmpassword").value)
 		{
 			var passwordObject = new Object();
-			passwordObject.OLD_PASSWORD = document.getElementById('oldpassword').value;
-			console.log(passwordObject.OLD_PASSWORD);
-			passwordObject.USER_LOGIN = document.getElementById('usernamelogin').value;
-			console.log(passwordObject.USER_LOGIN);
+			passwordObject.USER_LOGIN = document.getElementById('Email').value;
 			passwordObject.USER_PASSWORD = document.getElementById('confirmpassword').value;
-			console.log(passwordObject.USER_PASSWORD);
-			
+
 			var data = JSON.stringify(passwordObject);
 			
 		    $('#loading').modal('show');
 		    $.ajax({
 		        type: "POST",
-		        url: '${pageContext.request.contextPath}/api/user/updatePassword',
+		        url: '${pageContext.request.contextPath}/api/user/update',
 		        contentType: "application/json; charset=utf-8",
 		        dataType: "json",
 		        data: data,
-		        success: function (data) {
-		            if (data.USER_ID > 0) {
-		            	$('#loading').modal('hide');
-		                alert.success('Successfully updated.');
-		                window.setTimeout(function () { location.reload() }, 1000);
-		            } else {
-		            	$('#loading').modal('hide');
-		                alert.error("Not updated.");
-		            }
-		        }
+	            statusCode: {
+	                200: function () {
+	                    toastr.success('Successfully Updated.');
+	                    window.setTimeout(function () { location.reload() }, 1000);
+	                },
+	                404: function () {
+	                    toastr.error("Not found.");
+	                },
+	                400: function () {
+	                    toastr.error("Bad request.");
+	                }
+	            }
 		    });
 		}else{ alert("please check your password");}
 	}

@@ -46,7 +46,6 @@ function ChangePassword_Onclick()
 	{
 		var userObject = new Object();
 		
-		userObject.USER_ID = 0;
 		userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
 		userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
 		
@@ -58,14 +57,18 @@ function ChangePassword_Onclick()
 	        contentType: "application/json; charset=utf-8",
 	        dataType: "json",
 	        data: data,
-	        success: function (data) {
-	            if (data.USER_ID > 0) {
-	                toastr.success("Successfully updated.");
-	                window.setTimeout(function () { location.reload() }, 1000);
-	            } else {
-	                toastr.error("Error updating.");
-	            }
-	        }
+            statusCode: {
+                200: function () {
+                    toastr.success('Successfully Updated.');
+                    window.setTimeout(function () { location.reload() }, 1000);
+                },
+                404: function () {
+                    toastr.error("Not found.");
+                },
+                400: function () {
+                    toastr.error("Bad request.");
+                }
+            }
 	    });
 	} else { 
 		toastr.error("Password mismatch.");
