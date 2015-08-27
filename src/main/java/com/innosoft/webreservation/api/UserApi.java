@@ -26,7 +26,7 @@ public class UserApi {
 
 	@Autowired
 	private EmailService emailService;
-
+	
 	@Autowired
 	private CustomerService customerService;
 
@@ -184,6 +184,4 @@ public class UserApi {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
 }

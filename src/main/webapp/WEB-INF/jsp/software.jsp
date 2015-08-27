@@ -754,4 +754,4 @@ $(document).ready(function () {
 </script>
 
 <!-- footer -->
-<%@include file="include_secure_copyright_footer.jsp"%>
+<%@include file="include_secure_footer.jsp"%>
