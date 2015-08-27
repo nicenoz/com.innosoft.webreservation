@@ -15,7 +15,7 @@ import com.innosoft.webreservation.entity.MstSecurityUserPassword;
 
 @Repository
 @Transactional
-public class UserPassDaoImpl implements UserPassDao{
+public class UserPasswordImpl implements UserPasswordDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -42,7 +42,7 @@ public class UserPassDaoImpl implements UserPassDao{
 			return new MstSecurityUserPassword();
 	}
 
-	public MstSecurityUserPassword inserUserPass(String user, int id) {
+	public MstSecurityUserPassword insertUserPass(String user, int id) {
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;

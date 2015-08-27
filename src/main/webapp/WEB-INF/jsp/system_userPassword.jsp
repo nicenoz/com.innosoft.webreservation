@@ -3,6 +3,21 @@
 <title>System - Password</title>
 
 <div class="container"> 
+
+<!-- Loading -->
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width: 220px;">
+        <div class="modal-content border-custom">
+            <div class="modal-header">
+                <h4 class="modal-title">Sending Email...</h4>
+            </div>
+            <div class="modal-body">
+                <img src="<c:url value='/img/progress_bar.gif' />"></img>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section id="">
 	<form action="" role="form">
 	    <div class="container">
@@ -53,18 +68,21 @@
 			
 			var data = JSON.stringify(passwordObject);
 			
+		    $('#loading').modal('show');
 		    $.ajax({
 		        type: "POST",
-		        url: '${pageContext.request.contextPath}/api/userPass/update',
+		        url: '${pageContext.request.contextPath}/api/user/updatePassword',
 		        contentType: "application/json; charset=utf-8",
 		        dataType: "json",
 		        data: data,
 		        success: function (data) {
 		            if (data.USER_ID > 0) {
-		                toastr.success('Successfully updated.');
+		            	$('#loading').modal('hide');
+		                alert.success('Successfully updated.');
 		                window.setTimeout(function () { location.reload() }, 1000);
 		            } else {
-		                toastr.error("Not updated.");
+		            	$('#loading').modal('hide');
+		                alert.error("Not updated.");
 		            }
 		        }
 		    });

@@ -147,6 +147,11 @@ var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
     
+    
+	function pad (str, max) {
+	  str = str.toString();
+	  return str.length < max ? pad("0" + str, max) : str;
+	}
 // ===================
 // Edit Button Clicked
 // ===================
@@ -161,14 +166,18 @@ function cmdCustomerEdit_OnClick() {
     var customer = customers.currentEditItem;
       
     document.getElementById('EDIT_CUST_ID').value = customer.CUST_ID !== null && typeof (customer.CUST_ID) != 'undefined' ? wijmo.Globalize.format(customer.CUST_ID) : 0;
-	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = customer.CUST_CUSTOMER_NO ? customer.CUST_CUSTOMER_NO : '';	
+/* 	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = customer.CUST_CUSTOMER_NO ? customer.CUST_CUSTOMER_NO : '';	 */
 	document.getElementById('EDIT_CUST_NAME').value = customer.CUST_NAME ? customer.CUST_NAME : '';	
 	document.getElementById('EDIT_CUST_PHONENO').value = customer.CUST_PHONENO ? customer.CUST_PHONENO : '';	
 	document.getElementById('EDIT_CUST_EMAIL').value = customer.CUST_EMAIL ? customer.CUST_EMAIL : '';	
 	document.getElementById('EDIT_CUST_ZIPCODE').value = customer.CUST_ZIPCODE ? customer.CUST_ZIPCODE : '';	
 	document.getElementById('EDIT_CUST_ADDRESS1').value = customer.CUST_ADDRESS1 ? customer.CUST_ADDRESS1 : '';	
 	document.getElementById('EDIT_CUST_ADDRESS2').value = customer.CUST_ADDRESS2 ? customer.CUST_ADDRESS2 : '';	
-	document.getElementById('EDIT_CUST_ADDRESS3').value = customer.CUST_ADDRESS3 ? customer.CUST_ADDRESS3 : '';		       
+	document.getElementById('EDIT_CUST_ADDRESS3').value = customer.CUST_ADDRESS3 ? customer.CUST_ADDRESS3 : '';		   
+	
+	var ccn = customer.CUST_CUSTOMER_NO;	
+	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = pad(cbb, 6);
+	
 }
 
 // ==================

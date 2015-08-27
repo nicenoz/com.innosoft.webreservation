@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.innosoft.webreservation.entity.MstCustomer;
 import com.innosoft.webreservation.entity.MstSecurityUser;
+import com.innosoft.webreservation.entity.MstSecurityUserPassword;
 import com.innosoft.webreservation.entity.SysEmail;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
+import com.innosoft.webreservation.service.UserPassService;
 import com.innosoft.webreservation.service.UserService;
 
 @Controller
@@ -26,6 +29,9 @@ public class UserApi {
 
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private UserPassService userPassService;
 	
 
 	@Autowired
@@ -193,4 +199,63 @@ public class UserApi {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	public ResponseEntity<String> updatePassword(@RequestBody MstSecurityUser user) {
+		   
+			try {
+				MstSecurityUser searchUser = userService.getUser(user.USER_LOGIN);
+				System.out.println("get" + user.USER_LOGIN);
+						if (searchUser.getUSER_ID() > 0) 
+						{
+							System.out.println(searchUser.getUSER_ID()+" is > 0");
+							
+							userPassService.insertUserPass(searchUser.getUSER_PASSWORD(), searchUser.getUSER_ID());
+							System.out.println("inserting the old pass Succesfully");
+							
+							MstSecurityUserPassword getsPasswords = userPassService.getUserPass(user.USER_PASSWORD, searchUser.getUSER_ID());
+							System.out.println("getting the " + getsPasswords.getUPWD_ID() + "On User Id" + searchUser.getUSER_ID());
+							
+							System.out.println(getsPasswords.getUPWD_ID() + "is > 0");
+							if(getsPasswords.getUPWD_ID() <= 0)
+							{
+									System.out.println("trying to insert the edited item");
+									
+									MstSecurityUser editUser = userService.editUser(user);
+									System.out.println("Inserted Success fully");
+									
+									Date date = new Date();
+									
+									System.out.println("trying to send the email");
+									
+									SysEmail se = new SysEmail();
+									se.setEMAIL_EMAIL(user.USER_LOGIN);
+									se.setEMAIL_MESSAGE("welcome "+ editUser.getUSER_LOGIN() + "! Your Password has been change on " + date + "please don`t give your password to other, happy day! please do not reply this is a robot email.");
+									se.setEMAIL_SUBJECT("Change Password Information");
+									
+									boolean sendMail = emailService.sendMail(se);
+									if (sendMail == true) {
+										System.out.println("Successfully Send!");
+										return new ResponseEntity<String>(HttpStatus.OK);
+									} else {
+										System.out.println("Failed to send");
+										return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+									}
+							}else
+							{
+								return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+							}
+						} 
+						else
+						{
+							System.out.println("fourth ");
+							return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+						}	
+			} catch (Exception e) {
+				System.out.println(e);
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+	}
+	
+	
 }

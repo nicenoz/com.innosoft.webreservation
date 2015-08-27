@@ -192,6 +192,20 @@ cboCustomer.dispose();
 });	
 }
 
+	function pad (str, max) {
+	  str = str.toString();
+	  return str.length < max ? pad("0" + str, max) : str;
+	}
+
+/* 	pad("3", 3);    // => "003"
+	pad("123", 3);  // => "123"
+	pad("1234", 3); // => "1234"
+
+	var test = "MR 2";
+	var parts = test.split(" ");
+	parts[1] = pad(parts[1], 3);
+	parts.join(" ");  */
+	
 // ===================
 // Edit Button Clicked
 // ===================
@@ -212,6 +226,10 @@ function cmdChargeEdit_OnClick() {
     document.getElementById('EDIT_CHRG_APP_DIVISION').value = charge.CHRG_APP_DIVISION ? charge.CHRG_APP_DIVISION : '';
     document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = charge.CHRG_APP_START_DATE ? charge.CHRG_APP_START_DATE : '';
     document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.CHRG_APP_END_DATE ? charge.CHRG_APP_END_DATE : '';
+    
+	var ccn = document.getElementById('EDIT_CHRG_CHARGE_NO').value;
+	
+	chargeObject.CHRG_CHARGE_NO  = pad(ccn, 6);
 	
 	getCustomers();
     
@@ -319,6 +337,7 @@ function cmdChargeEditCancel_OnClick() {
 	$('#ChargeEdit').modal('hide');	
 }
 	
+		
 // =============================
 // Edit Detail OK Button Clicked 
 // =============================     
@@ -329,13 +348,15 @@ function cmdChargeEditOk_OnClick() {
 	chargeObject.CHRG_CUST_ID =  parseInt(document.getElementById('EDIT_CHRG_CUST_ID_DATA').value);
 	chargeObject.CHRG_PRICE =  parseInt(document.getElementById('EDIT_CHRG_PRICE').value);
 	chargeObject.CHRG_APP_DIVISION = document.getElementById('EDIT_CHRG_APP_DIVISION').value;
-
+	
 	var splitStartDate = document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value.split("-");
 	var splitEndDate = document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value.split("-");
 
 	chargeObject.CHRG_APP_START_DATE = new Date(splitStartDate[0],splitStartDate[1] - 1, splitStartDate[2]);
 	chargeObject.CHRG_APP_END_DATE = new Date(splitEndDate[0],splitEndDate[1] - 1, splitEndDate[2]);
 
+	
+	
 	var data = JSON.stringify(chargeObject);
 
 	$.ajax({
