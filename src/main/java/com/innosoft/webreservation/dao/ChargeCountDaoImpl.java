@@ -40,6 +40,9 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnChargeCount.class).setProjection(Projections.max("CUNT_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

@@ -40,6 +40,9 @@ public class MessageDaoImpl implements MessageDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstMessage.class).setProjection(Projections.max("MSG_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

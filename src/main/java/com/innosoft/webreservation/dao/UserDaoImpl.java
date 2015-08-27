@@ -105,6 +105,9 @@ public class UserDaoImpl implements UserDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstSecurityUser.class).setProjection(Projections.max("USER_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

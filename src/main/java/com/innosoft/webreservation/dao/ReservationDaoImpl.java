@@ -81,6 +81,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnReservation.class).setProjection(Projections.max("RESV_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

@@ -68,6 +68,9 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCalendarActivity.class).setProjection(Projections.max("CACT_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

@@ -36,6 +36,9 @@ public class SendLogDaoImpl implements SendLogDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnSendLog.class).setProjection(Projections.max("SLOG_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	
