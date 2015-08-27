@@ -7,12 +7,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 
 @Repository
@@ -47,6 +47,14 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 		return list;		
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCustomerTime.class).setProjection(Projections.max("CTIM_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCustomerTime addCustomerTime(MstCustomerTime time) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -54,7 +62,7 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 			
 			tx = session.beginTransaction();
 			MstCustomerTime newCustomerTime = new MstCustomerTime();
-
+			newCustomerTime.setCTIM_ID(getMaxId() + 1);
 			newCustomerTime.setCTIM_CUST_ID(time.CTIM_CUST_ID);
 			newCustomerTime.setCTIM_DETAILS_NO(time.CTIM_DETAILS_NO);
 			newCustomerTime.setCTIM_INTERVAL_OF_TIMES(time.CTIM_INTERVAL_OF_TIMES);

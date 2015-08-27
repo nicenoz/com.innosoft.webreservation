@@ -2,27 +2,18 @@ package com.innosoft.webreservation.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="WR_RESERVATION")
 public class TrnReservation {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESV_ID_SEQ")
-    @SequenceGenerator(name="RESV_ID_SEQ", sequenceName="RESV_ID_SEQ", allocationSize=1)
     @Column(name="RESV_ID")	
 	public Integer RESV_ID;
 	

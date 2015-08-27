@@ -2,9 +2,11 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +35,14 @@ public class CodeDaoImpl implements CodeDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCode.class).setProjection(Projections.max("CODE_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCode addCode(MstCode code) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -40,7 +50,7 @@ public class CodeDaoImpl implements CodeDao {
 			
 			tx = session.beginTransaction();
 			MstCode newCode = new MstCode();
-
+			newCode.setCODE_ID(getMaxId() + 1);
 			newCode.setCODE_KIND_CODE(code.getCODE_KIND_CODE());
 			newCode.setCODE_CODE_VALUE(code.getCODE_CODE_VALUE());
 			newCode.setCODE_NOTE(code.getCODE_NOTE());
