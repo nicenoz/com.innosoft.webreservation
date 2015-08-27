@@ -73,13 +73,28 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("userEmail", userEmail + ".%");
 		userList = query.list();
 		if (userList.size() > 0){
-			System.out.print("1");
 			return userList.get(0);
 		}
 		else
 		{
-			System.out.print("2");
 			return new MstSecurityUser();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int getUserIdIfEmailExist(String userEmail){
+		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
+		Session session = this.getSessionFactory().getCurrentSession();
+		Query query = session.createQuery("from MstSecurityUser where USER_LOGIN LIKE :userEmail");
+		System.out.print(userEmail);
+		query.setParameter("userEmail", userEmail);
+		userList = query.list();
+		if (userList.size() > 0){
+			return userList.get(0).getUSER_ID();
+		}
+		else
+		{
+			return 0;
 		}
 	}
 
@@ -91,16 +106,13 @@ public class UserDaoImpl implements UserDao {
 			tx = session.beginTransaction();
 			MstSecurityUser newUser = new MstSecurityUser();
 
-			System.out.print( user + "");
-			System.out.print( user.USER_LOGIN + user.USER_PASSWORD + "");
 			newUser.setUSER_LOGIN(user.USER_LOGIN);
 			newUser.setUSER_PASSWORD(user.USER_PASSWORD);
 
 			session.save(newUser);
 			tx.commit();
 			session.close();
-
-			
+	
 			return newUser;
 		} catch (Exception e) {
 			System.out.print("FAIL");

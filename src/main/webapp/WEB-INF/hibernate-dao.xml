@@ -45,9 +45,5 @@
 	<bean id="accessLogDao"	class="com.innosoft.webreservation.dao.AccessLogDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
-	
-	<bean id="userPassDao" class="com.innosoft.webreservation.dao.UserPasswordImpl">
-		<property name="sessionFactory" ref="mySessionFactory" />
-	</bean>
 
 </beans>
