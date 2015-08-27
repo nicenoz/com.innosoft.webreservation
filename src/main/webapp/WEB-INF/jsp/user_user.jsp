@@ -71,7 +71,7 @@
 									<dt>Customer: </dt>
 									<dd>
 										<input id="EDIT_MEBR_ID" type="hidden" />
-			            				<div id="EDIT_MEBR_CUST_ID" class="form-control border-custom"></div>
+			            				<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
 										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
 										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 									</dd>
@@ -121,7 +121,7 @@
 									</dd>
 									<dt>Birth Date: </dt>
 									<dd>
-		                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="form-control border-custom"></div>
+		                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="autocomplete-wide"></div>
 		                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
 									</dd>
 									<dt>Point: </dt>

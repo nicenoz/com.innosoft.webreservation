@@ -76,34 +76,34 @@
                         <dt>Customer: </dt>
                         <dd>
                             <input type="text" id="AE_CUST_ID" class="hidden" readonly>
-                        	<input type="text" id="AE_CUST_NAME" readonly>
+                        	<input type="text" class="form-control autocomplete-wide" id="AE_CUST_NAME" readonly>
                         </dd>
                         <dt>Calendar Date: </dt>
                         <dd>
                         	<input type="text" id="AE_CACT_ID" class="hidden" readonly>
-                            <div id="AE_CALENDAR_DATE"></div>
+                            <div id="AE_CALENDAR_DATE" class="autocomplete-wide"></div>
                         </dd>
                         <dt>Parts no: </dt>
                         <dd>
                             <input type="text" id="AE_PARTS_NO" class="hidden" readonly>
-                            <div id="AE_PARTS"></div>
+                            <div id="AE_PARTS" class="autocomplete-wide"></div>
                         </dd>
                         
                         <dt>Start Time: </dt>
                         <dd>
                         	<input type="text" id="AE_START_TIME_ID" class="hidden" readonly>
-                            <div id="AE_START_TIME"></div>
+                            <div id="AE_START_TIME" class="autocomplete-wide"></div>
                         </dd>
                         
                         <dt>End Time: </dt>
                         <dd>
                         	<input type="text" id="AE_END_TIME_ID" class="hidden" readonly>
-                            <div id="AE_END_TIME"></div>
+                            <div id="AE_END_TIME" class="autocomplete-wide"></div>
                         </dd>
                         
                         <dt>Reservation Note: </dt>
                         <dd>
-                            <textarea cols="*" rows="3" id="AE_RESV_NOTES" name="AE_RESV_NOTES" class="form-control border-custom" required ></textarea>
+                            <textarea cols="*" rows="3" id="AE_RESV_NOTES" name="AE_RESV_NOTES" class="form-control border-custom textbox-size" required ></textarea>
                         </dd>
                                            
                     </dl>

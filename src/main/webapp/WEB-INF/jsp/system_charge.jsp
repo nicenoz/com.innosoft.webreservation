@@ -81,12 +81,12 @@
 						<dt>Charge No: </dt>
 						<dd>
 							<input id="EDIT_CHRG_ID" type="hidden" />
-							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" readonly />
 						</dd>
 				
 						<dt>Customer: </dt>
 						<dd>
-							<div id="EDIT_CHRG_CUST_ID"  class="form-control border-custom"></div>	
+							<div id="EDIT_CHRG_CUST_ID"  class="autocomplete-wide"></div>	
 										
 							<input id="EDIT_CHRG_CUST_ID_DATA" name="EDIT_CHRG_CUST_ID_DATA" type="hidden" required />
 							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
@@ -101,12 +101,12 @@
 						</dd>
 						<dt>Start Date: </dt>
 						<dd>
-							<div id="EDIT_CHRG_APP_START_DATE" class="form-control border-custom"></div>
+							<div id="EDIT_CHRG_APP_START_DATE" class="autocomplete-wide"></div>
 							<input id="EDIT_CHRG_APP_START_DATE_DATA" type="hidden" />
 						</dd>
 						<dt>End Date: </dt>
 						<dd>
-							<div id="EDIT_CHRG_APP_END_DATE" class="form-control border-custom"></div>
+							<div id="EDIT_CHRG_APP_END_DATE" class="autocomplete-wide"></div>
 							<input id="EDIT_CHRG_APP_END_DATE_DATA" type="hidden" />
 						</dd>
 					</dl>

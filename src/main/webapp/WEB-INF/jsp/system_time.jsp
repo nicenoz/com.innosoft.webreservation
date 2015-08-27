@@ -84,7 +84,7 @@
 						<dd>						
 							<input id="EDIT_CTIM_ID" type="hidden" />
 							
-							<div id="EDIT_CTIM_CUST_ID"  class="form-control border-custom"></div>
+							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"></div>
 							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required />
 							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
@@ -95,7 +95,7 @@
 						</dd>
 						<dt>Interval of Times: </dt>
 						<dd>
-						    <div id="EDIT_CTIM_INTERVAL_OF_TIMES"  class="form-control border-custom"></div>
+						    <div id="EDIT_CTIM_INTERVAL_OF_TIMES"  class="autocomplete-wide"></div>
 							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" class="form-control border-custom"  name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
 						</dd>
 						<dt>Max Unit No: </dt>

@@ -102,15 +102,15 @@
                         </dd> 
                         <dt>Address 1: </dt>
                         <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" class="form-control border-custom" required ></textarea>
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" class="form-control border-custom textbox-size" required ></textarea>
                         </dd>   
                         <dt>Address 2: </dt>
                         <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" class="form-control border-custom" required ></textarea>
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" class="form-control border-custom textbox-size" required ></textarea>
                         </dd> 
                         <dt>Address 3: </dt>
                         <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" class="form-control border-custom" required ></textarea>
+                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" class="form-control border-custom textbox-size" required ></textarea>
                         </dd>   
 <!--                    <dt>Is Deleted?: </dt>
                         <dd> -->

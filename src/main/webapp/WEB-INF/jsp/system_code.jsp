@@ -91,11 +91,11 @@
                         </dd>
                         <dt>Note: </dt>
                         <dd>
-							<textarea cols="*" rows="3" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" class="form-control border-custom" required ></textarea>
+							<textarea cols="*" rows="3" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" class="form-control border-custom textbox-size" required ></textarea>
                         </dd>
                         <dt>Text: </dt>
                         <dd>
-                        	<textarea cols="*" rows="3" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" class="form-control border-custom" required ></textarea>
+                        	<textarea cols="*" rows="3" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" class="form-control border-custom textbox-size" required ></textarea>
                         </dd>                        
                         <dt>Is Displayed?: </dt>
                         <dd>

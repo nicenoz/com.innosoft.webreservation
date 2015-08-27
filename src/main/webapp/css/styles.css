@@ -350,3 +350,13 @@ dt {
 .modal-wide {
 	width: 75%;
 }
+
+/* Input Style */
+.autocomplete-wide {
+	margin-top: 3px;
+	width: 100%;
+	border-radius: 0 !important;	
+}
+.textbox-size {
+	resize: none;
+}
