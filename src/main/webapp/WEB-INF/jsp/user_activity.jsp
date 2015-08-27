@@ -83,19 +83,19 @@
                         <dd>
                          	<input id="EDIT_CACT_ID" type="hidden" /> 
                          	                      	      
-                            <div id="EDIT_CACT_CLDR_ID_DATE" class="form-control border-custom"></div>
+                            <div id="EDIT_CACT_CLDR_ID_DATE" class="autocomplete-wide"></div>
                             <input id="EDIT_CACT_CLDR_ID_DATE_DATA" name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required />    
                             <input id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required/>   
                         </dd>
                         <dt>Customer: </dt>
                         <dd>                            
-                            <div id="EDIT_CACT_CUST_ID" class="form-control border-custom"></div>
+                            <div id="EDIT_CACT_CUST_ID" class="autocomplete-wide"></div>
 							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA" type="hidden" required />
 							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
                         </dd>                      
                         <dt>Details No: </dt>
                         <dd>
-                            <div id="EDIT_CACT_DETAILS_NO" class="form-control border-custom"></div>
+                            <div id="EDIT_CACT_DETAILS_NO" class="autocomplete-wide"></div>
                         </dd>
                         <dt>Activity Classification: </dt>
                         <dd>

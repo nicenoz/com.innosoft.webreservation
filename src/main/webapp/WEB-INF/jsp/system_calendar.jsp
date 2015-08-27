@@ -82,7 +82,7 @@
                         <dt>Date: </dt>
                         <dd>
                         	<input id="EDIT_CLDR_ID" type="hidden" />
-                        	<div class="col-md-12" id="EDIT_CLDR_DATE"></div>
+                        	<div class="autocomplete-wide" id="EDIT_CLDR_DATE"></div>
                             <input id="EDIT_CLDR_DATE_DATA" type="hidden" />  
                         </dd>
                         <dt>Daycode: </dt>
@@ -313,7 +313,7 @@ function updateNavigateButtonsCalendar() {
         btnNextPageGrid.removeAttribute('disabled');
         btnLastPageGrid.removeAttribute('disabled');
     }
-    else if (calendars.pageIndex === (Calendars.pageCount - 1)) {
+    else if (calendars.pageIndex === (calendars.pageCount - 1)) {
         btnFirstPageGrid.removeAttribute('disabled');
         btnPreviousPageGrid.removeAttribute('disabled');
         btnLastPageGrid.setAttribute('disabled', 'disabled');

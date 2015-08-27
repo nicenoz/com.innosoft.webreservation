@@ -97,21 +97,21 @@
                         <dt>Level: </dt>
                         <dd>
                         	<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden" readonly required >
-                            <div id="EDIT_MESG_LEVEL"></div>
+                            <div id="EDIT_MESG_LEVEL" class="autocomplete-wide"></div>
                         </dd>
                         <dt>Note: </dt>
                         <dd>
-                        	<textarea cols="*" rows="3" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" class="form-control border-custom"  required ></textarea>
+                        	<textarea cols="*" rows="3" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" class="form-control border-custom textbox-size"  required ></textarea>
                         </dd>                        
                         <dt>Start Date: </dt>
                         <dd>
                             <!-- class="form-control border-custom" -->
-							<div id="EDIT_MESG_START_DATE"></div>
+							<div id="EDIT_MESG_START_DATE" class="autocomplete-wide"></div>
                             <input id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
                         </dd>
                         <dt>End Date: </dt>
                         <dd>
-							<div id="EDIT_MESG_END_DATE"></div>
+							<div id="EDIT_MESG_END_DATE" class="autocomplete-wide"></div>
                             <input id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
                         </dd>                        
                     </dl>
