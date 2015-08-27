@@ -192,10 +192,6 @@ cboCustomer.dispose();
 });	
 }
 
-	function pad (str, max) {
-	  str = str.toString();
-	  return str.length < max ? pad("0" + str, max) : str;
-	}
 
 /* 	pad("3", 3);    // => "003"
 	pad("123", 3);  // => "123"
@@ -227,9 +223,7 @@ function cmdChargeEdit_OnClick() {
     document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = charge.CHRG_APP_START_DATE ? charge.CHRG_APP_START_DATE : '';
     document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = charge.CHRG_APP_END_DATE ? charge.CHRG_APP_END_DATE : '';
     
-	var ccn = document.getElementById('EDIT_CHRG_CHARGE_NO').value;
-	
-	chargeObject.CHRG_CHARGE_NO  = pad(ccn, 6);
+
 	
 	getCustomers();
     
@@ -378,6 +372,11 @@ function cmdChargeEditOk_OnClick() {
 	});
 }
 
+function pad (str, max) {
+	  str = str.toString();
+	  return str.length < max ? pad("0" + str, max) : str;
+	}
+	
 // ================
 // Get Charges Data 
 // ================   
@@ -401,7 +400,7 @@ function getCharges() {
 										CHRG_ID : Results[i]["chrg_ID"],
 										CHRG_CUST_ID : Results[i]["chrg_CUST_ID"],
 										CHRG_CUST_FK : Results[i].CHRG_CUST_FK.CUST_NAME,
-										CHRG_CHARGE_NO : Results[i]["chrg_CHARGE_NO"],
+										CHRG_CHARGE_NO : pad (Results[i]["chrg_CHARGE_NO"], 6),
 										CHRG_PRICE : Results[i]["chrg_PRICE"],
 										CHRG_APP_DIVISION : Results[i]["chrg_APP_DIVISION"],
 										CHRG_APP_START_DATE : Results[i]["chrg_APP_START_DATE"],
