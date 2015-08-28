@@ -79,10 +79,10 @@
             <div class="modal-body scroll">
                 <form id="messageForm">       
                     <dl class="dl-horizontal">
-                        <dt>Customer No: </dt>
+                        <dt id="CUSTOMER_NO_LABEL">Customer No: </dt>
                         <dd>
                             <input id="EDIT_CUST_ID" type="hidden" />
-                            <input class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO" name="EDIT_CUST_CUSTOMER_NO" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO" name="EDIT_CUST_CUSTOMER_NO" type="text" readonly />
                         </dd>
                         <dt>Name: </dt>
                         <dd>
@@ -163,6 +163,9 @@ function cmdCustomerEdit_OnClick() {
         backdrop: 'static'
     });
 
+    $('#EDIT_CUST_CUSTOMER_NO').show();
+    $('#CUSTOMER_NO_LABEL').show();
+    
     var customer = customers.currentEditItem;
       
     document.getElementById('EDIT_CUST_ID').value = customer.CUST_ID !== null && typeof (customer.CUST_ID) != 'undefined' ? wijmo.Globalize.format(customer.CUST_ID) : 0;
@@ -189,8 +192,11 @@ function cmdCustomerAdd_OnClick() {
         backdrop: 'static'
     });
     
+    $('#EDIT_CUST_CUSTOMER_NO').hide();
+    $('#CUSTOMER_NO_LABEL').hide();
+    
     document.getElementById('EDIT_CUST_ID').value = 0;
-    document.getElementById('EDIT_CUST_CUSTOMER_NO').value = '';	
+    document.getElementById('EDIT_CUST_CUSTOMER_NO').value = '';
 	document.getElementById('EDIT_CUST_NAME').value = '';	
 	document.getElementById('EDIT_CUST_PHONENO').value = '';	
 	document.getElementById('EDIT_CUST_EMAIL').value = '';	

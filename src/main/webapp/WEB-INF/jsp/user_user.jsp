@@ -556,10 +556,11 @@ $(document).ready(function() {
 		customerMembers.filter = function(item) {
 			return !filterText || (item.MEBR_FIRST_NAME.toLowerCase().indexOf(filterText) > -1);
 		}
-	   /*  customerMembers.collectionChanged.addHandler(function (sender, args) {
-		 updateNavigateButtonsCustomer();
-		 });  */
-		
+
+		customerMembers.collectionChanged.addHandler(function (sender, args) {
+			updateNavigateButtonsCustomerMember();
+		});
+	
 		 
 		customerMembers.currentChanged.addHandler(function (sender, args) {
 			    updateDetails();

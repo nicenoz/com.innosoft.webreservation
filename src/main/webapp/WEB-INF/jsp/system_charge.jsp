@@ -78,7 +78,7 @@
 			<div class="modal-body">
 				<form id="chargeForm">
 					<dl class="dl-horizontal">
-						<dt>Charge No: </dt>
+						<dt id="CHARGE_NO_LABEL">Charge No: </dt>
 						<dd>
 							<input id="EDIT_CHRG_ID" type="hidden" />
 							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" readonly />
@@ -213,6 +213,10 @@ function cmdChargeEdit_OnClick() {
         backdrop: 'static'
     });
 
+    $('#EDIT_CHRG_CHARGE_NO').show();
+    $('#CHARGE_NO_LABEL').show();
+
+    
     var charge = charges.currentEditItem;   
     document.getElementById('EDIT_CHRG_ID').value = charge.CHRG_ID !== null && typeof (charge.CHRG_ID) != 'undefined' ? wijmo.Globalize.format(charge.CHRG_ID) : '';
     document.getElementById('EDIT_CHRG_CHARGE_NO').value = charge.CHRG_CHARGE_NO ? charge.CHRG_CHARGE_NO : '';
@@ -258,6 +262,9 @@ function cmdChargeAdd_OnClick() {
 		backdrop : 'static'
 	});
 
+    $('#EDIT_CHRG_CHARGE_NO').hide();
+    $('#CHARGE_NO_LABEL').hide();
+	
 	var currentDate = new Date();
 	document.getElementById('EDIT_CHRG_ID').value = 0;
 	document.getElementById('EDIT_CHRG_CHARGE_NO').value = '';
