@@ -29,7 +29,7 @@
 	                    </div>
 	                    <div class="panel-body">
 	                        <fieldset>
-	                           	<input type="password" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email"/>
+	                           	<input type="text" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email"/>
 	                            <hr/>
 	                            <input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password"/>
 	                            <br />

@@ -90,7 +90,7 @@
 				            <li class="divider"></li>
 				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
 				            <li><a href="/webreservation/system/time/">Time</a></li>
-				            <li><a href="/webreservation/system/userPassword/">Password</a></li>
+				            <li><a href="/webreservation/system/userPassword/">Change Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
 				            <li><a href="/webreservation/system/message/">Message</a></li>
 				            <li><a href="/webreservation/system/charge/">Charge</a></li>
