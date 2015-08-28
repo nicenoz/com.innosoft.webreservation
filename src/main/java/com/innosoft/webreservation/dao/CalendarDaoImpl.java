@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendar;
-import com.innosoft.webreservation.entity.MstCharge;
 
 @Repository
 @Transactional
@@ -40,7 +39,7 @@ public class CalendarDaoImpl implements CalendarDao {
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CLDR_ID"));
+		Criteria criteria = session.createCriteria(MstCalendar.class).setProjection(Projections.max("CLDR_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
 		return 	maxId;
 	}

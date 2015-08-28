@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 
 @Repository
@@ -104,7 +103,7 @@ public class UserDaoImpl implements UserDao {
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("USER_ID"));
+		Criteria criteria = session.createCriteria(MstSecurityUser.class).setProjection(Projections.max("USER_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
 		return 	maxId;
 	}
