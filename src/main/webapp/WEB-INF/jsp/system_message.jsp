@@ -96,20 +96,22 @@
                         </dd>
                         <dt>Level: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_MESG_LEVEL" name="EDIT_MESG_LEVEL" type="text" required />
+                        	<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden" readonly required >
+                            <div id="EDIT_MESG_LEVEL"></div>
                         </dd>
                         <dt>Note: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" type="text" required />
+                        	<textarea cols="*" rows="3" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" class="form-control border-custom"  required ></textarea>
                         </dd>                        
                         <dt>Start Date: </dt>
                         <dd>
-							<div id="EDIT_MESG_START_DATE" class="form-control border-custom"></div>
+                            <!-- class="form-control border-custom" -->
+							<div id="EDIT_MESG_START_DATE"></div>
                             <input id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
                         </dd>
                         <dt>End Date: </dt>
                         <dd>
-							<div id="EDIT_MESG_END_DATE" class="form-control border-custom"></div>
+							<div id="EDIT_MESG_END_DATE"></div>
                             <input id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
                         </dd>                        
                     </dl>
@@ -143,6 +145,8 @@ var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
 
+var cboMesgLevel;
+
 // ===================
 // Edit Button Clicked
 // ===================
@@ -158,11 +162,27 @@ function cmdMessageEdit_OnClick() {
     
     document.getElementById('EDIT_MESG_ID').value = message.MESG_ID !== null && typeof (message.MESG_ID) != 'undefined' ? wijmo.Globalize.format(message.MESG_ID) : 0;
     document.getElementById('EDIT_MESG_CODE').value = message.MESG_CODE ? message.MESG_CODE : '';
-    document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : '';
+    /* document.getElementById('EDIT_MESG_LEVEL').value = message.MESG_LEVEL ? message.MESG_LEVEL : ''; */
     document.getElementById('EDIT_MESG_NOTE').value = message.MESG_NOTE ? message.MESG_NOTE : '';
     document.getElementById('EDIT_MESG_START_DATE_DATA').value = message.MESG_START_DATE ? message.MESG_START_DATE : '';
     document.getElementById('EDIT_MESG_END_DATE_DATA').value = message.MESG_END_DATE ? message.MESG_END_DATE : '';
-     
+    
+    var mesgLvls = new Array();
+    for(i = 1; i <= 20; i++){
+    	mesgLvls.push(i);
+    }
+    
+    document.getElementById('EDIT_MESG_LEVEL_DATA').value = message.MESG_LEVEL; 
+    cboMesgLevel.dispose();
+    cboMesgLevel = new wijmo.input.AutoComplete('#EDIT_MESG_LEVEL', {
+        itemsSource: mesgLvls,
+        selectedIndex: message.MESG_LEVEL - 1,
+        onSelectedIndexChanged: function () {
+        	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
+        }
+    });
+    
+    
     var splitStartDate = message.MESG_START_DATE.split("-");
     var splitEndDate = message.MESG_END_DATE.split("-");
     
@@ -197,10 +217,23 @@ function cmdMessageAdd_OnClick() {
     
     document.getElementById('EDIT_MESG_ID').value = 0;
     document.getElementById('EDIT_MESG_CODE').value = '';
-    document.getElementById('EDIT_MESG_LEVEL').value = '';
     document.getElementById('EDIT_MESG_NOTE').value = '';
     document.getElementById('EDIT_MESG_START_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");
-    document.getElementById('EDIT_MESG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd");  
+    document.getElementById('EDIT_MESG_END_DATE_DATA').value = currentDate.toString("yyyy-MM-dd"); 
+    
+    var mesgLvls = new Array();
+    for(i = 1; i <= 20; i++){
+    	mesgLvls.push(i);
+    }
+    
+    document.getElementById('EDIT_MESG_LEVEL_DATA').value = 1; 
+    cboMesgLevel.dispose();
+    cboMesgLevel = new wijmo.input.AutoComplete('#EDIT_MESG_LEVEL', {
+        itemsSource: mesgLvls,
+        onSelectedIndexChanged: function () {
+        	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
+        }
+    });	
     
     messageStartDate.dispose();
     messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
@@ -271,7 +304,7 @@ function cmdMessageEditOk_OnClick() {
 
 	messageObject.MESG_ID = parseInt(document.getElementById('EDIT_MESG_ID').value);
 	messageObject.MESG_CODE = document.getElementById('EDIT_MESG_CODE').value;
-	messageObject.MESG_LEVEL = document.getElementById('EDIT_MESG_LEVEL').value;
+	messageObject.MESG_LEVEL = document.getElementById('EDIT_MESG_LEVEL_DATA').value; 
 	messageObject.MESG_NOTE = document.getElementById('EDIT_MESG_NOTE').value;
 		 
 	var splitStartDate = document.getElementById('EDIT_MESG_START_DATE_DATA').value.split("-");
@@ -450,6 +483,8 @@ $(document).ready(function () {
         $('#MessageEdit').modal('hide');
     });
     $('.close-btn').hide();
+    
+    cboMesgLevel = new wijmo.input.AutoComplete('#EDIT_MESG_LEVEL');
 
     // Collection View
     messages = new wijmo.collections.CollectionView(getMessages());

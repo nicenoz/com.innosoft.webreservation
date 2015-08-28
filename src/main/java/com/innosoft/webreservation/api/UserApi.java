@@ -49,6 +49,7 @@ public class UserApi {
 	public ResponseEntity<String> updateUser(@RequestBody MstSecurityUser user) {
 		try {
 			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
+
 			if (searchUser.getUSER_ID() != 0) 
 			{
 				user.setUSER_ID(searchUser.getUSER_ID());
