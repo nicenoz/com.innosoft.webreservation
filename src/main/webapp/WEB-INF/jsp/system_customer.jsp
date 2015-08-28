@@ -166,7 +166,7 @@ function cmdCustomerEdit_OnClick() {
     var customer = customers.currentEditItem;
       
     document.getElementById('EDIT_CUST_ID').value = customer.CUST_ID !== null && typeof (customer.CUST_ID) != 'undefined' ? wijmo.Globalize.format(customer.CUST_ID) : 0;
-/* 	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = customer.CUST_CUSTOMER_NO ? customer.CUST_CUSTOMER_NO : '';	 */
+ 	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = customer.CUST_CUSTOMER_NO ? customer.CUST_CUSTOMER_NO : '';	 
 	document.getElementById('EDIT_CUST_NAME').value = customer.CUST_NAME ? customer.CUST_NAME : '';	
 	document.getElementById('EDIT_CUST_PHONENO').value = customer.CUST_PHONENO ? customer.CUST_PHONENO : '';	
 	document.getElementById('EDIT_CUST_EMAIL').value = customer.CUST_EMAIL ? customer.CUST_EMAIL : '';	
@@ -174,10 +174,6 @@ function cmdCustomerEdit_OnClick() {
 	document.getElementById('EDIT_CUST_ADDRESS1').value = customer.CUST_ADDRESS1 ? customer.CUST_ADDRESS1 : '';	
 	document.getElementById('EDIT_CUST_ADDRESS2').value = customer.CUST_ADDRESS2 ? customer.CUST_ADDRESS2 : '';	
 	document.getElementById('EDIT_CUST_ADDRESS3').value = customer.CUST_ADDRESS3 ? customer.CUST_ADDRESS3 : '';		   
-	
-	var ccn = customer.CUST_CUSTOMER_NO;	
-	document.getElementById('EDIT_CUST_CUSTOMER_NO').value = pad(cbb, 6);
-	
 }
 
 // ==================
@@ -296,7 +292,7 @@ function getCustomers() {
                         EditId: "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCustomer' onclick='cmdCustomerEdit_OnClick()'>Edit</button>",
                         DeleteId: "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCustomer' onclick='cmdCustomerDelete_OnClick()'>Delete</button>",
                         CUST_ID: Results[i]["CUST_ID"],
-                        CUST_CUSTOMER_NO: Results[i]["CUST_CUSTOMER_NO"],
+                        CUST_CUSTOMER_NO: pad(Results[i]["CUST_CUSTOMER_NO"], 6),
                         CUST_NAME: Results[i]["CUST_NAME"],
                         CUST_PHONENO: Results[i]["CUST_PHONENO"],
                         CUST_EMAIL: Results[i]["CUST_EMAIL"],
