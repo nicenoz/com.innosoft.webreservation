@@ -38,7 +38,7 @@ public class MessageDaoImpl implements MessageDao {
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(MstMessage.class).setProjection(Projections.max("MSG_ID"));
+		Criteria criteria = session.createCriteria(MstMessage.class).setProjection(Projections.max("MESG_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
 		if(maxId == null){
 			maxId = 0;
@@ -88,6 +88,7 @@ public class MessageDaoImpl implements MessageDao {
 			updateMessage.setMESG_LEVEL(message.MESG_LEVEL);
 			updateMessage.setMESG_START_DATE(message.MESG_START_DATE);
 			updateMessage.setMESG_END_DATE(message.MESG_END_DATE);
+			updateMessage.setMESG_NOTE(message.MESG_NOTE);
 			
 			updateMessage.setUPDATED_BY_USER_ID(message.UPDATED_BY_USER_ID);
 			updateMessage.setUPDATED_DATE(message.UPDATED_DATE);
