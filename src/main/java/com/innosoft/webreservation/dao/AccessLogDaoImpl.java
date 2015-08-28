@@ -36,6 +36,9 @@ public class AccessLogDaoImpl implements AccessLogDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnAccessLog.class).setProjection(Projections.max("ALOG_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

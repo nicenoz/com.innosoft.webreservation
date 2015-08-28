@@ -41,6 +41,9 @@ public class CalendarDaoImpl implements CalendarDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCalendar.class).setProjection(Projections.max("CLDR_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

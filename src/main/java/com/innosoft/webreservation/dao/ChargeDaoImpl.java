@@ -40,6 +40,9 @@ public class ChargeDaoImpl implements ChargeDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CHRG_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

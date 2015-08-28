@@ -25,7 +25,7 @@
         <br />
         <div class="row">
 	    	<div class="col-lg-12">
-	        	<div id="scheduleGrid" class="grid border-custom" style="height:63vh"></div>
+	        	<div id="scheduleGrid" class="grid border-custom" style="height:60vh"></div>
 	        </div>
         </div>
         </br>
@@ -190,7 +190,7 @@ function updateTable(){
                 cache: false,
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
-                data: {"customerId":customerId},
+                data: {"customerId":customerList[cboCustomer.selectedIndex].id},
                 success: function (results) {
                 	//GET ALL RESERVATIONS
                 	results.forEach(function (reservation){
@@ -460,6 +460,10 @@ function cmdAddReservation_OnClick() {
 	        itemsSource: customerTimeList,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+	        	if(this.selectedIndex > cboAEEndTime.selectedIndex){
+	        		cboAEEndTime.selectedIndex = this.selectedIndex;
+	        		document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+	        	}
 	        }
 	    });	
 	    
@@ -469,6 +473,10 @@ function cmdAddReservation_OnClick() {
 	        itemsSource: customerTimeList,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+	        	if(this.selectedIndex < cboAEStartTime.selectedIndex){
+	        		cboAEStartTime.selectedIndex = this.selectedIndex;
+	        		document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+	        	}
 	        }
 	    });
 	    
@@ -556,6 +564,10 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	        selectedIndex: startTimeIndex,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+	        	if(this.selectedIndex > cboAEEndTime.selectedIndex){
+	        		cboAEEndTime.selectedIndex = this.selectedIndex;
+	        		document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+	        	}
 	        }
 	    });	
 
@@ -576,6 +588,10 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	        selectedIndex: endTimeIndex,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+	        	if(this.selectedIndex < cboAEStartTime.selectedIndex){
+	        		cboAEStartTime.selectedIndex = this.selectedIndex;
+	        		document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+	        	}
 	        }
 	    });
 	    
@@ -719,11 +735,21 @@ function createCboCalendarActivity(calendarActivities) {
     cboCalendarActivityStart.dispose();
     cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
         itemsSource: calendarActivityList,
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
+        		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
+        	}
+        }
     });		
     
     cboCalendarActivityEnd.dispose();
     cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
         itemsSource: calendarActivityList,
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
+        		cboCalendarActivityStart.selectedIndex = this.selectedIndex;
+        	}
+        }
     });	    
 }
 

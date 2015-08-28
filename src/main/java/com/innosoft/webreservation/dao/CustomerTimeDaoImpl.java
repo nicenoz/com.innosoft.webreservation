@@ -52,6 +52,9 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCustomerTime.class).setProjection(Projections.max("CTIM_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	

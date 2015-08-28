@@ -73,6 +73,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCustomerMember.class).setProjection(Projections.max("MEBR_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
 		return 	maxId;
 	}
 	
