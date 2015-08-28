@@ -3,14 +3,17 @@ package com.innosoft.webreservation.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 
 @Repository
@@ -97,7 +100,15 @@ public class UserDaoImpl implements UserDao {
 			return 0;
 		}
 	}
-
+	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("USER_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -105,7 +116,7 @@ public class UserDaoImpl implements UserDao {
 
 			tx = session.beginTransaction();
 			MstSecurityUser newUser = new MstSecurityUser();
-
+			newUser.setUSER_ID(getMaxId()+1);
 			newUser.setUSER_LOGIN(user.USER_LOGIN);
 			newUser.setUSER_PASSWORD(user.USER_PASSWORD);
 

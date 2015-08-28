@@ -2,9 +2,11 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,14 +35,23 @@ public class ChargeDaoImpl implements ChargeDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CHRG_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCharge addCharge(MstCharge charge) {
+		
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;	
 			
 			tx = session.beginTransaction();
 			MstCharge newCharge = new MstCharge();
-
+			newCharge.setCHRG_ID(getMaxId() + 1);
 			newCharge.setCHRG_CHARGE_NO(charge.CHRG_CHARGE_NO);
 			newCharge.setCHRG_CUST_ID(charge.CHRG_CUST_ID);
 			newCharge.setCHRG_PRICE(charge.CHRG_PRICE);

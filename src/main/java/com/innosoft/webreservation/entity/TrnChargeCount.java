@@ -5,12 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +15,6 @@ import javax.persistence.Table;
 public class TrnChargeCount {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CUNT_ID_SEQ")
-    @SequenceGenerator(name="CUNT_ID_SEQ", sequenceName="CUNT_ID_SEQ", allocationSize=1)
 	@Column(name = "CUNT_ID")
 	public Integer CUNT_ID;
 	

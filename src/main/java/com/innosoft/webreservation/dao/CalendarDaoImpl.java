@@ -2,15 +2,18 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendar;
+import com.innosoft.webreservation.entity.MstCharge;
 
 @Repository
 @Transactional
@@ -34,19 +37,24 @@ public class CalendarDaoImpl implements CalendarDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CLDR_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCalendar addCalendar(MstCalendar calendar) {
 		try {
-			
-			System.out.println("i");
 			
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;
 			
-			System.out.println("2");
-			
 			tx = session.beginTransaction();
 			MstCalendar newCalendar = new MstCalendar();
 
+			newCalendar.setCLDR_ID(getMaxId() + 1);
 			newCalendar.setCLDR_DATE(calendar.CLDR_DATE);
 			newCalendar.setCLDR_DAYCODE(calendar.CLDR_DAYCODE);
 			newCalendar.setCLDR_NOTE(calendar.CLDR_NOTE);

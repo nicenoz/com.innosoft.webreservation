@@ -10,11 +10,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstCustomerMember;
 
 @Repository
@@ -67,6 +69,14 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("MEBR_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCustomerMember addCustomerMember(MstCustomerMember member){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -74,7 +84,8 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 			
 			tx = session.beginTransaction();
 			MstCustomerMember newCustomerMember = new MstCustomerMember();
-		 
+			
+			newCustomerMember.setMEBR_ID(getMaxId() + 1);
 			newCustomerMember.setMEBR_CUST_ID(member.MEBR_CUST_ID); 
 			newCustomerMember.setMEBR_CUSTOMER_MEMBER_NO(member.MEBR_CUSTOMER_MEMBER_NO); 
 			newCustomerMember.setMEBR_USER_ID(member.MEBR_USER_ID); 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.innosoft.webreservation.entity.MstCalendar;
 import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.service.CalendarActivityService;
 import com.innosoft.webreservation.service.SecurityService;

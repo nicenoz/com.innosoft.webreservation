@@ -2,13 +2,16 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.TrnSendLog;
 
 @Repository
@@ -28,6 +31,16 @@ public class SendLogDaoImpl implements SendLogDao {
 		List<TrnSendLog> list = session.createQuery("from TrnSendLog").list();	
 		return list;		
 	}
+	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("SLOG_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
+	
 	public TrnSendLog addSendLog(TrnSendLog sendLog){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -35,7 +48,7 @@ public class SendLogDaoImpl implements SendLogDao {
 			
 			tx = session.beginTransaction();
 			TrnSendLog newSendLog = new TrnSendLog();
-			
+			newSendLog.setSLOG_ID(getMaxId() + 1);
 			newSendLog.setSLOG_TIME_STAMP(sendLog.SLOG_TIME_STAMP);
 			newSendLog.setSLOG_MEBR_ID(sendLog.SLOG_MEBR_ID);
 			newSendLog.setSLOG_EMAIL_ADDRESS(sendLog.SLOG_EMAIL_ADDRESS);

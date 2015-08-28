@@ -1,21 +1,22 @@
 package com.innosoft.webreservation.dao;
 
-import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.TrnReservation;
 
 
@@ -76,6 +77,14 @@ public class ReservationDaoImpl implements ReservationDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("RESV_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public TrnReservation addReservation(TrnReservation reservation) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -83,7 +92,7 @@ public class ReservationDaoImpl implements ReservationDao {
 			
 			tx = session.beginTransaction();
 			TrnReservation newReservation = new TrnReservation();
-
+			newReservation.setRESV_ID(getMaxId() + 1);
 			newReservation.setRESV_CUST_ID(reservation.RESV_CUST_ID);
 			newReservation.setRESV_MEBR_ID(reservation.RESV_MEBR_ID);
 			newReservation.setRESV_UNIT_NO(reservation.RESV_UNIT_NO);

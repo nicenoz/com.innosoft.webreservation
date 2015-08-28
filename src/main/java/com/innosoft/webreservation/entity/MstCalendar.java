@@ -1,31 +1,20 @@
 package com.innosoft.webreservation.entity;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="WR_CALENDAR")
 public class MstCalendar {
 	@Id   
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLDR_ID_SEQ")
-    @SequenceGenerator(name="CLDR_ID_SEQ", sequenceName="CLDR_ID_SEQ", allocationSize=1)
     @Column(name="CLDR_ID")
 	public Integer CLDR_ID;
 	

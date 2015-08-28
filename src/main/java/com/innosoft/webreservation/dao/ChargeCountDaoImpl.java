@@ -2,13 +2,16 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.TrnChargeCount;
 
 @Repository
@@ -33,6 +36,14 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CUNT_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public TrnChargeCount addChargeCount(TrnChargeCount chargeCount) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -40,7 +51,7 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 			
 			tx = session.beginTransaction();
 			TrnChargeCount newChargeCount = new TrnChargeCount();
-
+			newChargeCount.setCUNT_ID(getMaxId() + 1);
 			newChargeCount.setCUNT_TIME_STAMP(chargeCount.CUNT_TIME_STAMP);
 			newChargeCount.setCUNT_CUST_ID(chargeCount.CUNT_CUST_ID);
 			newChargeCount.setCUNT_MEBR_ID(chargeCount.CUNT_MEBR_ID);

@@ -6,12 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +16,6 @@ import javax.persistence.Table;
 public class MstCustomerMember {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEBR_ID_SEQ")
-    @SequenceGenerator(name="MEBR_ID_SEQ", sequenceName="MEBR_ID_SEQ", allocationSize=1)
     @Column(name="MEBR_ID")		
 	public Integer MEBR_ID; 
 	

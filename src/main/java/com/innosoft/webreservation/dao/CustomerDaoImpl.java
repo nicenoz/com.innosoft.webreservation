@@ -2,13 +2,16 @@ package com.innosoft.webreservation.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.MstCustomer;
 
 @Repository
@@ -37,6 +40,14 @@ public class CustomerDaoImpl implements CustomerDao {
 		return list;
 	}
 	
+	public int getMaxId()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CUST_ID"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		return 	maxId;
+	}
+	
 	public MstCustomer addCustomer(MstCustomer customer) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -44,7 +55,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			tx = session.beginTransaction();
 			MstCustomer newCustomer = new MstCustomer();
-
+			newCustomer.setCUST_ID(getMaxId() + 1);
 			newCustomer.setCUST_CUSTOMER_NO(customer.CUST_CUSTOMER_NO);	
 			newCustomer.setCUST_NAME(customer.CUST_NAME);	
 			newCustomer.setCUST_PHONENO(customer.CUST_PHONENO);	
