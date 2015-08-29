@@ -46,16 +46,30 @@ public class ChargeDaoImpl implements ChargeDao {
 		return 	maxId;
 	}
 	
+	public String getMaxChrgNum()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCharge.class).setProjection(Projections.max("CHRG_CHARGE_NO"));
+	    String maxNo = (String)criteria.uniqueResult();
+		if(maxNo == null){
+			maxNo = "0";
+		}
+		return 	maxNo;
+	}
+	
 	public MstCharge addCharge(MstCharge charge) {
 		
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;	
-			
+			StringBuilder sb = new StringBuilder();
+			int cnvrtdVl = Integer.parseInt(getMaxChrgNum()) + 1;
+			sb.append("");
+			sb.append(cnvrtdVl);
 			tx = session.beginTransaction();
 			MstCharge newCharge = new MstCharge();
 			newCharge.setCHRG_ID(getMaxId() + 1);
-			newCharge.setCHRG_CHARGE_NO(charge.CHRG_CHARGE_NO);
+			newCharge.setCHRG_CHARGE_NO(sb.toString());
 			newCharge.setCHRG_CUST_ID(charge.CHRG_CUST_ID);
 			newCharge.setCHRG_PRICE(charge.CHRG_PRICE);
 			newCharge.setCHRG_APP_DIVISION(charge.CHRG_APP_DIVISION);

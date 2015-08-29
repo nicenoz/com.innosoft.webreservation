@@ -50,15 +50,29 @@ public class CustomerDaoImpl implements CustomerDao {
 		return 	maxId;
 	}
 	
+	public String getMaxCustNum()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCustomer.class).setProjection(Projections.max("CUST_CUSTOMER_NO"));
+	    String maxNo = (String)criteria.uniqueResult();
+		if(maxNo == null){
+			maxNo = "0";
+		}
+		return 	maxNo;
+	}
+	
 	public MstCustomer addCustomer(MstCustomer customer) {
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;	
-
+			StringBuilder sb = new StringBuilder();
+			int cnvrtdVl = Integer.parseInt(getMaxCustNum()) + 1;
+			sb.append("");
+			sb.append(cnvrtdVl);
 			tx = session.beginTransaction();
 			MstCustomer newCustomer = new MstCustomer();
 			newCustomer.setCUST_ID(getMaxId() + 1);
-			newCustomer.setCUST_CUSTOMER_NO(customer.CUST_CUSTOMER_NO);	
+			newCustomer.setCUST_CUSTOMER_NO(sb.toString());	
 			newCustomer.setCUST_NAME(customer.CUST_NAME);	
 			newCustomer.setCUST_PHONENO(customer.CUST_PHONENO);	
 			newCustomer.setCUST_EMAIL(customer.CUST_EMAIL);	
@@ -66,7 +80,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			newCustomer.setCUST_ADDRESS1(customer.CUST_ADDRESS1);	
 			newCustomer.setCUST_ADDRESS2(customer.CUST_ADDRESS2);	
 			newCustomer.setCUST_ADDRESS3(customer.CUST_ADDRESS3);	
-			newCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);	
+			newCustomer.setCUST_ISDELETED(0);	
 			
 			newCustomer.setCREATED_BY_USER_ID(customer.CREATED_BY_USER_ID);
 			newCustomer.setCREATED_DATE(customer.CREATED_DATE);
