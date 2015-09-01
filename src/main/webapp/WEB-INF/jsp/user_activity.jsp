@@ -596,7 +596,6 @@ $(document).ready(function () {
     // Validation
     $('#cmdCalendarActivityEditOk').click(function () {
         if (FormValidate() == true) {
-        	cmdCalendarActivityEditOkFunction();
             $('#CalendarActivityEdit').modal('hide');
         }
         else {

@@ -1,22 +1,27 @@
 package com.innosoft.webreservation.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.TrnChargeCount;
+import com.innosoft.webreservation.entity.TrnReservation;
 
 @Repository
 @Transactional
 public class ChargeCountDaoImpl implements ChargeCountDao {
-
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -32,6 +37,24 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 	public List<TrnChargeCount> listChargeCount() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TrnChargeCount> list = session.createQuery("from TrnChargeCount").list();	
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TrnChargeCount> getReport(String from, String to) {
+		
+		DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a", Locale.ENGLISH);
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(TrnChargeCount.class);
+
+		try {
+			criteria.add(Restrictions.between("CUNT_TIME_STAMP", format.parse(from + " 12:00:00 am"), 
+					format.parse(to + " 11:59:59 pm")));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		List<TrnChargeCount> list = criteria.list();	
+		
 		return list;
 	}
 	

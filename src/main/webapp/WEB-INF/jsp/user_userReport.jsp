@@ -11,23 +11,19 @@
 			</div>
 		</div>
 		<div class="row">
-
-			<!-- Search Calendar -->
-			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
-			</div>
-			</div>
+			<div class="col-lg-4">
+		        <div class="input-group">
+		            <!-- <span class="input-group-btn">
+		                <button class="btn btn-default border-custom" type="button" readonly>
+		                <i class="fa fa-search"></i>
+		                </button>
+		            </span> -->
+		            <!-- <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search"> -->
+		            <div id="cboCustomer"></div>
+		        </div>
+	    	</div>
 			
-			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
-			</div>
-			</div>
-			
-			<div class="col-lg-6 btn-group">
+			<div class="col-lg-8 btn-group">
 				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
 				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
 				
@@ -65,8 +61,6 @@
 	</section>
 </div>
 
-
-
 <!-- Loading -->
 <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
@@ -89,8 +83,7 @@
 var reports;
 var reportGrid;
 
-var reportSearchDateFrom;
-var reportSearchDateTo;
+var cboCustomer;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
@@ -100,24 +93,45 @@ var btnCurrentPageGrid;
 
 var ScreenerSaveData;
 
-function cmdGenerateReport(){
-	// Collection View
-    reports = new wijmo.collections.CollectionView(getReport());
-    reports.canFilter = true;
-    reports.pageSize  = 15;
-    
-    reportGrid.dispose();
+var customerList;
+
+function generateTable(){
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
 	reportGrid.allowMerging = "Cells"
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Last Name",
-			"binding" : "MEBR_LASTNAME",
+			"header" : "No.",
+			"binding" : "MEBR_NO",
+			"allowSorting" : true,
+			"width" : "1*"
+		},  {
+			"header" : "Customer",
+			"binding" : "MEBR_CUSTOMER",
 			"allowSorting" : true,
 			"width" : "2*"
-		},  {
-			"header" : "First Name",
-			"binding" : "MEBR_FIRSTNAME",
+		}, {
+			"header" : "User",
+			"binding" : "MEBR_USER_ID",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Full Name",
+			"binding" : "MEBR_FULLNAME",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Phone",
+			"binding" : "MEBR_CONTACT",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Address",
+			"binding" : "MEBR_ADDRESS",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Zip",
+			"binding" : "MEBR_ZIP",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
@@ -126,13 +140,8 @@ function cmdGenerateReport(){
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Contact Number",
-			"binding" : "MEBR_CONTACT",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "Address 1",
-			"binding" : "MEBR_ADDRESS",
+			"header" : "Birthdate",
+			"binding" : "MEBR_BDAY",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -142,6 +151,58 @@ function cmdGenerateReport(){
 		isReadOnly : true,
 		selectionMode : wijmo.grid.SelectionMode.Row
 	});
+}
+
+function getCustomers(){
+	customerList = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/customer/list',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	customerList.push({
+                        id: results[i]["CUST_ID"],
+                        customerName: results[i]["CUST_NAME"]
+                    });
+                	
+                	cboCustomer.dispose();
+                	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
+                        itemsSource: customerList,
+                        displayMemberPath: "customerName",
+                        onSelectedIndexChanged: function () {}
+                    });	
+                }
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            /* alert(err); */
+            console.log("error")
+        }
+    );
+    
+}
+
+function cmdGenerateReport(){
+	// Collection View
+    reports = new wijmo.collections.CollectionView(getReport());
+    reports.canFilter = true;
+    reports.pageSize  = 15;
+
+	reportGrid.dispose();
+    generateTable();
+	
+	var filterText = '';
+	$('#InputFilter').keyup(function () {
+	    filterText = this.value.toLowerCase();
+	    reports.refresh();
+	});
+	reports.filter = function (item) {
+	    return !filterText || (item.MEBR_CUSTOMER.toLowerCase().indexOf(filterText) > -1);
+	}
 
 	reportGrid.trackChanges = true;
 }
@@ -162,27 +223,31 @@ function cmdSaveReport_OnClick(){
 //==================   
 function getReport() {
  var reports = new wijmo.collections.ObservableArray();
+ /* EDIT LATER */
  $('#loading').modal('show');
  $.ajax({
-     url: '${pageContext.request.contextPath}/api/customerMember/report',
-     cache: false,
-     type: 'GET',
-     contentType: 'application/json; charset=utf-8',
-     data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
-    	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")},
-     success: function (Results) {
+	 url: '${pageContext.request.contextPath}/api/customerMember/report',
+ 	 cache: false,
+ 	 type: 'GET',     
+ 	 data: {"customerId" : cboCustomer.selectedValue.id},
+ 	 contentType: 'application/json; charset=utf-8',
+ 	 success: function (Results) {
     	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
              document.getElementById("cmdSaveReport").style.display='block';
              for (i = 0; i < Results.length; i++) {
                  reports.push({
-                	 MEBR_LASTNAME: Results[i]["mebr_LAST_NAME"],
-                     MEBR_FIRSTNAME: Results[i]["mebr_FIRST_NAME"],
-                     MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
+                	 MEBR_NO: Results[i]["mebr_CUSTOMER_MEMBER_NO"],
+                	 MEBR_CUSTOMER: Results[i]["MEBR_CUST_FK"]["cust_NAME"],
+                	 MEBR_USER_ID: Results[i]["mebr_USER_ID"],
+                	 MEBR_FULLNAME: Results[i]["mebr_LAST_NAME"] + ", " + Results[i]["mebr_FIRST_NAME"],
                      MEBR_CONTACT: Results[i]["mebr_TEL_NO"],
                      MEBR_ADDRESS: Results[i]["mebr_ADDRESS1"],
-
+                     MEBR_ZIP: Results[i]["mebr_ZIP_CODE"],
+                     MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
+                     MEBR_BDAY: Results[i]["mebr_DATE_OF_BIRTH"],
+                     
                      CREATED_DATE: Results[i]["CREATED_DATE"],
                      CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
                      UPDATED_DATE: Results[i]["UPDATED_DATE"],
@@ -203,6 +268,7 @@ function getReport() {
     	 alertify.alert(err);
      }
  );
+ 
  return reports;
 }
 
@@ -236,80 +302,68 @@ function updateNavigateButtonsReport() {
  btnCurrentPageGrid.innerHTML = (reports.pageIndex + 1) + ' / ' + reports.pageCount;
 }
 
+
+
 // ============
 // On Page Load
 // ============
 $(document).ready(function(){
-	
-	reportSearchDateFromData = new Date();
-	
-	// Date Control Initialization
-	reportSearchDateFrom = new wijmo.input.InputDate(
-			'#SEARCH_REPORT_FROM_DATE', {
-				format : 'MM/dd/yyyy',
-				value : new Date(),
-				max: new Date(),
-		        onValueChanged: function () {
-		        	reportSearchDateTo.min = this.value;
-		        }
-			});
-	
-	reportSearchDateTo = new wijmo.input.InputDate(
-			'#SEARCH_REPORT_TO_DATE', {
-				format : 'MM/dd/yyyy',
-				value : new Date(),
-				min: new Date(),
-				onValueChanged: function () {
-					reportSearchDateFrom.max = this.value;
-		        }
-			});
-	
 	// Flex Grid
-	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
-	reportGrid.allowMerging = "Cells"
-	reportGrid.initialize({
-		columns : [{
-			"header" : "Last Name",
-			"binding" : "MEBR_LASTNAME",
-			"allowSorting" : true,
-			"width" : "2*"
-		},  {
-			"header" : "First Name",
-			"binding" : "MEBR_FIRSTNAME",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "Email",
-			"binding" : "MEBR_EMAIL",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "Contact Number",
-			"binding" : "MEBR_CONTACT",
-			"allowSorting" : true,
-			"width" : "2*"
-		}, {
-			"header" : "Address 1",
-			"binding" : "MEBR_ADDRESS",
-			"allowSorting" : true,
-			"width" : "2*"
-		}],
-		
-		autoGenerateColumns : false,
-		itemsSource : reports,
-		isReadOnly : true,
-		selectionMode : wijmo.grid.SelectionMode.Row
-	});
-
+	generateTable();
+    
 	reportGrid.trackChanges = true;
+	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer');
+	getCustomers();
 	
 });
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------
-
-
 function CmdSaveXLS_OnClick() {
     var CSV = '';
     var screener = [];
@@ -382,7 +436,6 @@ function CmdSaveXLS_OnClick() {
     document.body.removeChild(link);
 
 }
-
 
 </script>
 <!-- footer -->

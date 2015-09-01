@@ -21,6 +21,11 @@ public class ChargeCountServiceImpl implements ChargeCountService{
 		return chargeCountDao.listChargeCount();
 	}
 	
+
+	public List<TrnChargeCount> getReport(String from, String to){
+		return chargeCountDao.getReport(from, to);
+	}
+	
 	public TrnChargeCount addChargeCount(TrnChargeCount chargeCount){
 		return chargeCountDao.addChargeCount(chargeCount);
 	}	

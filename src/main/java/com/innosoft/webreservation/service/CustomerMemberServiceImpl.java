@@ -34,7 +34,7 @@ public class CustomerMemberServiceImpl implements CustomerMemberService {
 		return customerMemberDao.deleteCustomerMember(id);
 	}
 	
-	public List<MstCustomerMember> reportCustomerMember(String from, String to) {
-		return customerMemberDao.reportCustomerMember(from, to);
+	public List<MstCustomerMember> reportCustomerMember(int customerId) {
+		return customerMemberDao.reportCustomerMember(customerId);
 	}
 }

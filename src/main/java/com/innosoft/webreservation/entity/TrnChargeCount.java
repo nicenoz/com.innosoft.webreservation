@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -83,8 +84,9 @@ public class TrnChargeCount {
 		CUNT_ID = cUNT_ID;
 	}
 
-	public Date getCUNT_TIME_STAMP() {
-		return CUNT_TIME_STAMP;
+	public String getCUNT_TIME_STAMP() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");	
+		return sf.format(CUNT_TIME_STAMP);
 	}
 
 	public void setCUNT_TIME_STAMP(Date cUNT_TIME_STAMP) {

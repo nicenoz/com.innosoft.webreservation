@@ -81,7 +81,7 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 
 			tx = session.beginTransaction();
 			MstCalendarActivity newCalendarActivity = new MstCalendarActivity();
-			newCalendarActivity.setCACT_CLDR_ID(getMaxId() + 1);
+			newCalendarActivity.setCACT_ID(getMaxId() + 1);
 			newCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);
 			newCalendarActivity.setCACT_CUST_ID(calendarActivity.CACT_CUST_ID);  
 			newCalendarActivity.setCACT_CLDR_ID(calendarActivity.CACT_CLDR_ID);  
