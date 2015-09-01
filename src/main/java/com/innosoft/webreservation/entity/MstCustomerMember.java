@@ -265,8 +265,13 @@ public class MstCustomerMember {
 	public void setISDELETED(Integer iSDELETED) {
 		ISDELETED = iSDELETED;
 	}
-	public Date getISDELETED_DATE() {
-		return ISDELETED_DATE;
+	public String getISDELETED_DATE() {
+		String result = "";
+		if(ISDELETED_DATE != null){
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");	
+			result = sf.format(ISDELETED_DATE);
+		}
+		return result;
 	}
 	public void setISDELETED_DATE(Date iSDELETED_DATE) {
 		ISDELETED_DATE = iSDELETED_DATE;

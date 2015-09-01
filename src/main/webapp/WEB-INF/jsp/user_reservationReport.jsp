@@ -421,71 +421,8 @@ $(document).ready(function(){
 		isReadOnly : true,
 		selectionMode : wijmo.grid.SelectionMode.Row
 	});
-
 	reportGrid.trackChanges = true;
-	
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //----------------------
@@ -503,13 +440,13 @@ function CmdSaveXLS_OnClick() {
             Note: "" + ScreenerSaveData[i]["RESV_NOTE"],
             DayCode: "" + ScreenerSaveData[i]["RESV_DAY_CODE"],
             
-            CREATED_DATE: ScreenerSaveData[i]["CREATED_DATE"],
-            CREATED_BY_USER_ID: ScreenerSaveData[i]["CREATED_BY_USER_ID"],
-            UPDATED_DATE: ScreenerSaveData[i]["UPDATED_DATE"],
-            UPDATED_BY_USER_ID: ScreenerSaveData[i]["UPDATED_BY_USER_ID"],
-            ISDELETED: ScreenerSaveData[i]["ISDELETED"],
-            ISDELETED_DATE: ScreenerSaveData[i]["ISDELETED_DATE"],
-            ISDELETED_BY_USER_ID: ScreenerSaveData[i]["ISDELETED_BY_USER_ID"]
+            CreatedDate: ScreenerSaveData[i]["CREATED_DATE"],
+            CreatedByUser: ScreenerSaveData[i]["CREATED_BY_USER_ID"],
+            UpdatedDate: ScreenerSaveData[i]["UPDATED_DATE"],
+            UpdatedByUser: ScreenerSaveData[i]["UPDATED_BY_USER_ID"],
+            IsDeleted: ScreenerSaveData[i]["ISDELETED"],
+            DeletedDate: ScreenerSaveData[i]["ISDELETED_DATE"],
+            DeletedByUser: ScreenerSaveData[i]["ISDELETED_BY_USER_ID"]
             
         });
     }
@@ -538,7 +475,7 @@ function CmdSaveXLS_OnClick() {
     }
 
     // Create filename
-    var fileName = 'ReservationReportFrom' + cboCalendarActivityStart.selectedValue.dayCode +
+    var fileName = 'ReservationReportFrom-' + cboCalendarActivityStart.selectedValue.dayCode +
     'to' + cboCalendarActivityEnd.selectedValue.dayCode + '.CSV';
     // Download via <a> link
 

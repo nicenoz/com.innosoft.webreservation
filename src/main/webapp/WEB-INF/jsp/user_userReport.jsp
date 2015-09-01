@@ -348,52 +348,6 @@ $(document).ready(function(){
 	getCustomers();
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //----------------------
 function CmdSaveXLS_OnClick() {
     var CSV = '';
@@ -412,6 +366,13 @@ function CmdSaveXLS_OnClick() {
             Address3: ScreenerSaveData[i]["mebr_ADDRESS3"],
             Point: ScreenerSaveData[i]["mebr_POINT"],
             
+            CreatedDate: ScreenerSaveData[i]["CREATED_DATE"],
+            CreatedByUser: ScreenerSaveData[i]["CREATED_BY_USER_ID"],
+            UpdatedDate: ScreenerSaveData[i]["UPDATED_DATE"],
+            UpdatedByUser: ScreenerSaveData[i]["UPDATED_BY_USER_ID"],
+            IsDeleted: ScreenerSaveData[i]["ISDELETED"],
+            DeletedDate: ScreenerSaveData[i]["ISDELETED_DATE"],
+            DeletedByUser: ScreenerSaveData[i]["ISDELETED_BY_USER_ID"]
         });
     }
 
@@ -439,8 +400,8 @@ function CmdSaveXLS_OnClick() {
     }
 
     // Create filename
-    var fileName = 'CustomerMemberReportFrom' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
-    'to' + reportSearchDateTo.value.toString("dd-MMM-yyyy") + '.CSV';
+     var today = new Date();
+    var fileName = 'CustomerMemberReportAsOf-' +today.toString("dd-MMM-yyyy") + '.CSV';
     // Download via <a> link
 
     var link = document.createElement("a");

@@ -59,9 +59,18 @@
 				</button>
 				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
-				</button>
+				</button>	
+			</div>
+			
+			<div class="col-md-5">
+				<div class="pull-right">
+					<span id="counter">
+					Count: 0
+					</span>
+				</div>
 			</div>
 		</div>
+
 	</section>
 </div>
 
@@ -205,6 +214,7 @@ function getReport() {
          $('#loading').modal('hide');
          if (Results.length > 0) {
              document.getElementById("cmdSaveReport").style.display='block';
+             var counter = 0;
              for (i = 0; i < Results.length; i++) {
                  reports.push({
                      CUNT_TIMESTAMP : Results[i]["cunt_TIME_STAMP"],
@@ -221,8 +231,12 @@ function getReport() {
                      ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                      ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                  });
-             	 
+                 if( Results[i]["isdeleted"] == 0){
+                	 counter++;
+                 }
              }
+             document.getElementById('counter').textContent = "Count: " + counter;
+             
          } else {
              document.getElementById("cmdSaveReport").style.display='none';
       /*   	 alertify.alert("No data."); */
@@ -340,19 +354,18 @@ function CmdSaveXLS_OnClick() {
 
     for (i = 0; i < ScreenerSaveData.length; i++) {
         screener.push({
-        	TimeStamp : Results[i]["cunt_TIME_STAMP"],
-            CustomerName: Results[i]["CUNT_CUST_FK"]["cust_NAME"],
-            CustomerMemberName: Results[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
-            MemberEmail : Results[i]["cunt_EMAIL_ADDRESS"],
-            IsDeleted : Results[i]["isdeleted"] == 0 ? "No":"Yes",
+        	TimeStamp : ScreenerSaveData[i]["cunt_TIME_STAMP"],
+            CustomerName: ScreenerSaveData[i]["CUNT_CUST_FK"]["cust_NAME"],
+            CustomerMemberName: ScreenerSaveData[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
+            MemberEmail : ScreenerSaveData[i]["cunt_EMAIL_ADDRESS"],
+            IsDeleted : ScreenerSaveData[i]["isdeleted"] == 0 ? "No":"Yes",
 
-            CreatedDate: Results[i]["CREATED_DATE"],
-            CreatedByUser: Results[i]["CREATED_BY_USER_ID"],
-            UpdatedDate: Results[i]["UPDATED_DATE"],
-            UpdatedByUser: Results[i]["UPDATED_BY_USER_ID"],
-            ISDELETED: Results[i]["ISDELETED"],
-            ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-            ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+            CreatedDate: ScreenerSaveData[i]["CREATED_DATE"],
+            CreatedByUser: ScreenerSaveData[i]["CREATED_BY_USER_ID"],
+            UpdatedDate: ScreenerSaveData[i]["UPDATED_DATE"],
+            UpdatedByUser: ScreenerSaveData[i]["UPDATED_BY_USER_ID"],
+            DeletedDate: ScreenerSaveData[i]["ISDELETED_DATE"],
+            DeletedByUser: ScreenerSaveData[i]["ISDELETED_BY_USER_ID"]
             
         });
     }
@@ -381,7 +394,7 @@ function CmdSaveXLS_OnClick() {
     }
 
     // Create filename
-    var fileName = 'CustomerMemberReportFrom' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
+    var fileName = 'ChargingReportFrom-' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
     'to' + reportSearchDateTo.value.toString("dd-MMM-yyyy") + '.CSV';
     // Download via <a> link
 

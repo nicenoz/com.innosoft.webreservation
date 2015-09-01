@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -173,8 +174,9 @@ public class TrnReservation {
 		RESV_NOTE = rESV_NOTE;
 	}
 
-	public Date getCREATED_DATE() {
-		return CREATED_DATE;
+	public String getCREATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(CREATED_DATE);
 	}
 
 	public void setCREATED_DATE(Date cREATED_DATE) {
@@ -189,8 +191,9 @@ public class TrnReservation {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 
-	public Date getUPDATED_DATE() {
-		return UPDATED_DATE;
+	public String getUPDATED_DATE() {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		return sf.format(UPDATED_DATE);
 	}
 
 	public void setUPDATED_DATE(Date uPDATED_DATE) {
@@ -213,8 +216,13 @@ public class TrnReservation {
 		ISDELETED = iSDELETED;
 	}
 
-	public Date getISDELETED_DATE() {
-		return ISDELETED_DATE;
+	public String getISDELETED_DATE() {
+		String result = "";
+		if(ISDELETED_DATE != null){
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");	
+			result = sf.format(ISDELETED_DATE);
+		}
+		return result;
 	}
 
 	public void setISDELETED_DATE(Date iSDELETED_DATE) {
