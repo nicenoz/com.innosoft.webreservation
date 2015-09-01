@@ -13,18 +13,24 @@
     <meta name="author" content=""/>
 	
 	<!-- CSS Links -->
+	<link href="<c:url value='/css/alertify.core.css' />" rel="stylesheet"/>
+	<link href="<c:url value='/css/alertify.default.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/landing-page.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/toastr.css' />" rel="stylesheet"/>
 	<link href="<c:url value='/css/styles.css' />" rel="stylesheet"/>
+	<link href="<c:url value='/font-awesome/css/font-awesome.min.css'/>" rel="stylesheet"/>
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
 	
 	<!-- Scripts -->
+	<script src="<c:url value='/js/alertify.min.js'/>"></script>
 	<script src="<c:url value='/js/jquery.js'/>"></script>
 	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/js/jquery.validate.js' />"></script>
 	<script src="<c:url value='/js/toastr.js' />"></script>
 	<script src="<c:url value='/js/style.js'/>"></script>
 	<script src="<c:url value='/js/jquery.easing.min.js'/>"></script>	
-	<script src="<c:url value='/js/date.js' />"></script>	
+	<script src="<c:url value='/js/date.js' />"></script>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
@@ -60,7 +66,7 @@
                   </li>
                   <li>
                     <sec:authorize access="isAuthenticated()">
-						<a href="logout">Logout</a>
+						<a onclick="onClick_Logout()" href="#">Logout</a>
 					</sec:authorize> 
                   </li>   
               </ul>
@@ -69,3 +75,13 @@
         </div>
      <!-- /.container -->
 </nav>
+
+<script type="text/javascript">
+	function onClick_Logout() {
+		alertify.confirm("Are you sure you want to logout?", function (e) {
+		    if (e) {
+		    		window.location.assign("/webreservation/logout");
+		    	}
+	    });
+	}	
+</script>
