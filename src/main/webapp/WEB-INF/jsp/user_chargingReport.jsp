@@ -300,12 +300,10 @@ $(document).ready(function(){
 	reportGrid.trackChanges = true;
 	
 });
-
+111
 
 
 //----------------------
-
-
 function CmdSaveXLS_OnClick() {
     var CSV = '';
     var screener = [];

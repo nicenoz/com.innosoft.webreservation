@@ -220,8 +220,8 @@ function getCalendarActivities(customerId) {
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
                 });
-                createCboCalendarActivity(calendarActivities);
             }
+            createCboCalendarActivity(calendarActivities);
         }
     }).fail(
         function (xhr, textStatus, err) {
