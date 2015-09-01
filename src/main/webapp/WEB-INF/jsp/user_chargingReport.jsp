@@ -143,6 +143,36 @@ function cmdGenerateReport(){
 	});
 
 	reportGrid.trackChanges = true;
+	
+	reports.collectionChanged.addHandler(function (sender, args) {
+		updateNavigateButtonsReport();
+    });
+	
+	// Navigation button
+    btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
+    btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+    btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
+    btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
+    btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
+
+    updateNavigateButtonsReport();
+
+    btnFirstPageGrid.addEventListener('click', function () {
+    	reports.moveToFirstPage();
+        updateNavigateButtonsReport();
+    });
+    btnPreviousPageGrid.addEventListener('click', function () {
+    	reports.moveToPreviousPage();
+        updateNavigateButtonsReport();
+    });
+    btnNextPageGrid.addEventListener('click', function () {
+    	reports.moveToNextPage();
+        updateNavigateButtonsReport();
+    });
+    btnLastPageGrid.addEventListener('click', function () {
+    	reports.moveToLastPage();
+        updateNavigateButtonsReport();
+    });
 }
 
 //==================

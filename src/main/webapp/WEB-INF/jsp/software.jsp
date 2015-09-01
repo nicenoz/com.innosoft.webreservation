@@ -7,13 +7,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-	            <div id="cboCustomer"></div>
+	            <div id="cboCustomer" class="border-custom"></div>
             </div>
             <div class="col-lg-2">
-	            <div id="cboCalendarActivityStart"></div>
+	            <div id="cboCalendarActivityStart" class="border-custom"></div>
             </div>
             <div class="col-lg-2">
-	            <div id="cboCalendarActivityEnd"></div>
+	            <div id="cboCalendarActivityEnd" class="border-custom"></div>
             </div>            
             <div class="col-lg-2">
                 <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="cmdGetSchedule_OnClick()">Get</button>

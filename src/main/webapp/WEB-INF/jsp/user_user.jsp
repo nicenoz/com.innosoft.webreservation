@@ -79,7 +79,7 @@
 									<dd>
 										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
 									</dd>
-									<dt>Member User ID: </dt>
+									<dt>Member User Id: </dt>
 									<dd>
 										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" type="text" required />
 									</dd>

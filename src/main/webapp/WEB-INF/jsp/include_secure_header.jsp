@@ -100,7 +100,7 @@
                     
                     <li class="dropdown">
 	                    <sec:authorize access="isAuthenticated()">
-	        				<a class="dropdown-toggle" href="/webreservation/logout">Logout</a>
+	        				<a onclick="onClick_Logout()" href="#">Logout</a>
 	        			</sec:authorize> 
                     </li>		                    
                 </ul>
@@ -108,3 +108,12 @@
     </div>
 </nav>
 
+<script type="text/javascript">
+	function onClick_Logout() {
+		alertify.confirm("Are you sure you want to logout?", function (e) {
+		    if (e) {
+		    		window.location.assign("/webreservation/logout");
+		    	}
+	    });
+	}	
+</script>
