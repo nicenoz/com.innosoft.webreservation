@@ -107,13 +107,13 @@
                         </dd>   
                         <dt>Start Time ID: </dt>
                         <dd>
-                        	<div id="EDIT_CACT_START_TIME" class="form-control border-custom"></div>
+                        	<div id="EDIT_CACT_START_TIME" class="autocomplete-wide"></div>
 							<input id="EDIT_CACT_START_TIME_ID" name="EDIT_CACT_START_TIME_ID" type="hidden" required />          
 							<input id="EDIT_CACT_START_TIME_ID_DATA" name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />                 
                         </dd>    
                         <dt>End Time ID: </dt>
                         <dd>
-                        	<div id="EDIT_CACT_END_TIME" class="form-control border-custom"></div>
+                        	<div id="EDIT_CACT_END_TIME" class="autocomplete-wide"></div>
 							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID" type="hidden" required />  
 							<input id="EDIT_CACT_END_TIME_ID_DATA" name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />                                
                         </dd> 

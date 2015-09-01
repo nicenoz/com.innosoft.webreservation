@@ -146,6 +146,36 @@ function cmdGenerateReport(){
 	});
 
 	reportGrid.trackChanges = true;
+	
+	reports.collectionChanged.addHandler(function (sender, args) {
+		updateNavigateButtonsReport();
+    });
+	
+	// Navigation button
+    btnFirstPageGrid    = document.getElementById('btnMoveToFirstPageGrid');
+    btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+    btnNextPageGrid     = document.getElementById('btnMoveToNextPageGrid');
+    btnLastPageGrid     = document.getElementById('btnMoveToLastPageGrid');
+    btnCurrentPageGrid  = document.getElementById('btnCurrentPageGrid');
+
+    updateNavigateButtonsReport();
+
+    btnFirstPageGrid.addEventListener('click', function () {
+    	reports.moveToFirstPage();
+        updateNavigateButtonsReport();
+    });
+    btnPreviousPageGrid.addEventListener('click', function () {
+    	reports.moveToPreviousPage();
+        updateNavigateButtonsReport();
+    });
+    btnNextPageGrid.addEventListener('click', function () {
+    	reports.moveToNextPage();
+        updateNavigateButtonsReport();
+    });
+    btnLastPageGrid.addEventListener('click', function () {
+    	reports.moveToLastPage();
+        updateNavigateButtonsReport();
+    });
 }
 
 //==================
@@ -220,8 +250,8 @@ function getCalendarActivities(customerId) {
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
                 });
-                createCboCalendarActivity(calendarActivities);
             }
+            createCboCalendarActivity(calendarActivities);
         }
     }).fail(
         function (xhr, textStatus, err) {
@@ -241,7 +271,6 @@ function getReport(){
         success: function (results) {
             $('#loading').modal('hide');
             if (results.length > 0) {
-                document.getElementById("cmdSaveReport").style.display='block';
                 startDateIndex = cboCalendarActivityStart.selectedIndex;
                 endDateIndex = cboCalendarActivityEnd.selectedIndex;
 
@@ -270,6 +299,11 @@ function getReport(){
                 	}         
                 }
                 
+                if(reports.length > 0){
+                    document.getElementById("cmdSaveReport").style.display='block';
+                }else{
+                	document.getElementById("cmdSaveReport").style.display='none';
+                }
                 ScreenerSaveData = reports;
             }
         }
