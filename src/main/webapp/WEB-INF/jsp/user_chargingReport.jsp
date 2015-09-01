@@ -110,28 +110,28 @@ function cmdGenerateReport(){
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Last Name",
-			"binding" : "MEBR_LASTNAME",
+			"header" : "Time Stamp",
+			"binding" : "CUNT_TIMESTAMP",
 			"allowSorting" : true,
 			"width" : "2*"
 		},  {
-			"header" : "First Name",
-			"binding" : "MEBR_FIRSTNAME",
+			"header" : "Customer",
+			"binding" : "CUNT_CUSTOMER_NAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Email",
-			"binding" : "MEBR_EMAIL",
+			"header" : "User",
+			"binding" : "CUNT_MEMBER_NAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Contact Number",
-			"binding" : "MEBR_CONTACT",
+			"header" : "E-mail",
+			"binding" : "CUNT_EMAIL",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Address 1",
-			"binding" : "MEBR_ADDRESS",
+			"header" : "Deleted",
+			"binding" : "CUNT_ISDELETED",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -163,12 +163,13 @@ function getReport() {
  var reports = new wijmo.collections.ObservableArray();
  $('#loading').modal('show');
  $.ajax({
-     url: '${pageContext.request.contextPath}/api/customerMember/report',
+     url: '${pageContext.request.contextPath}/api/chargeCount/report',
      cache: false,
      type: 'GET',
+     data:{"from":reportSearchDateFrom.value.toString("dd-MM-yyyy"),
+    	   "to":reportSearchDateTo.value.toString("dd-MM-yyyy")
+     },
      contentType: 'application/json; charset=utf-8',
-     data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
-    	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")},
      success: function (Results) {
     	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
@@ -176,11 +177,11 @@ function getReport() {
              document.getElementById("cmdSaveReport").style.display='block';
              for (i = 0; i < Results.length; i++) {
                  reports.push({
-                	 MEBR_LASTNAME: Results[i]["mebr_LAST_NAME"],
-                     MEBR_FIRSTNAME: Results[i]["mebr_FIRST_NAME"],
-                     MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
-                     MEBR_CONTACT: Results[i]["mebr_TEL_NO"],
-                     MEBR_ADDRESS: Results[i]["mebr_ADDRESS1"],
+                     CUNT_TIMESTAMP : Results[i]["cunt_TIME_STAMP"],
+                     CUNT_CUSTOMER_NAME: Results[i]["CUNT_CUST_FK"]["cust_NAME"],
+                     CUNT_MEMBER_NAME: Results[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
+                     CUNT_EMAIL : Results[i]["cunt_EMAIL_ADDRESS"],
+                     CUNT_ISDELETED : Results[i]["isdeleted"] == 0 ? "No":"Yes",
 
                      CREATED_DATE: Results[i]["CREATED_DATE"],
                      CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
@@ -199,7 +200,7 @@ function getReport() {
      }
  }).fail(
      function (xhr, textStatus, err) {
-    	 alertify.alert(err);
+/*     	 alertify.alert(err); */
      }
  );
  return reports;
@@ -239,9 +240,6 @@ function updateNavigateButtonsReport() {
 // On Page Load
 // ============
 $(document).ready(function(){
-	
-	reportSearchDateFromData = new Date();
-	
 	// Date Control Initialization
 	reportSearchDateFrom = new wijmo.input.InputDate(
 			'#SEARCH_REPORT_FROM_DATE', {
@@ -267,28 +265,28 @@ $(document).ready(function(){
 	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Last Name",
-			"binding" : "MEBR_LASTNAME",
+			"header" : "Time Stamp",
+			"binding" : "CUNT_TIMESTAMP",
 			"allowSorting" : true,
 			"width" : "2*"
 		},  {
-			"header" : "First Name",
-			"binding" : "MEBR_FIRSTNAME",
+			"header" : "Customer",
+			"binding" : "CUNT_CUSTOMER_NAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Email",
-			"binding" : "MEBR_EMAIL",
+			"header" : "User",
+			"binding" : "CUNT_MEMBER_NAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Contact Number",
-			"binding" : "MEBR_CONTACT",
+			"header" : "E-mail",
+			"binding" : "CUNT_EMAIL",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Address 1",
-			"binding" : "MEBR_ADDRESS",
+			"header" : "Deleted",
+			"binding" : "CUNT_ISDELETED",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -314,16 +312,19 @@ function CmdSaveXLS_OnClick() {
 
     for (i = 0; i < ScreenerSaveData.length; i++) {
         screener.push({
-            LastName: ScreenerSaveData[i]["mebr_LAST_NAME"],
-            FirstName: ScreenerSaveData[i]["mebr_FIRST_NAME"],
-            Email: ScreenerSaveData[i]["mebr_EMAIL_ADDRESS"],
-            ContactNumber: ScreenerSaveData[i]["mebr_TEL_NO"],
-            DateOfBirth: ScreenerSaveData[i]["mebr_DATE_OF_BIRTH"],
-            ZipCode: ScreenerSaveData[i]["mebr_ZIP_CODE"],
-            Address1: ScreenerSaveData[i]["mebr_ADDRESS1"],
-            Address2: ScreenerSaveData[i]["mebr_ADDRESS2"],
-            Address3: ScreenerSaveData[i]["mebr_ADDRESS3"],
-            Point: ScreenerSaveData[i]["mebr_POINT"],
+        	TimeStamp : Results[i]["cunt_TIME_STAMP"],
+            CustomerName: Results[i]["CUNT_CUST_FK"]["cust_NAME"],
+            CustomerMemberName: Results[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
+            MemberEmail : Results[i]["cunt_EMAIL_ADDRESS"],
+            IsDeleted : Results[i]["isdeleted"] == 0 ? "No":"Yes",
+
+            CreatedDate: Results[i]["CREATED_DATE"],
+            CreatedByUser: Results[i]["CREATED_BY_USER_ID"],
+            UpdatedDate: Results[i]["UPDATED_DATE"],
+            UpdatedByUser: Results[i]["UPDATED_BY_USER_ID"],
+            ISDELETED: Results[i]["ISDELETED"],
+            ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+            ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
             
         });
     }

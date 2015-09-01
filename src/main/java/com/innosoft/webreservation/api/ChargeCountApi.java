@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.TrnChargeCount;
+import com.innosoft.webreservation.entity.TrnReservation;
 import com.innosoft.webreservation.service.ChargeCountService;
 import com.innosoft.webreservation.service.SecurityService;
 
@@ -27,6 +29,12 @@ public class ChargeCountApi {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<TrnChargeCount> listChargeCount() {
 		List<TrnChargeCount> list = chargeCountService.listChargeCount();
+		return list;
+	}
+	
+	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"from", "to"})
+	public @ResponseBody List<TrnChargeCount> getReport(@RequestParam(value="from") String from, @RequestParam(value="to") String to) {
+		List<TrnChargeCount> list = chargeCountService.getReport(from, to);
 		return list;
 	}
 	

@@ -32,9 +32,9 @@ public class CustomerMemberApi {
 		return list;
 	}
 	
-	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"from", "to"})
-	public @ResponseBody List<MstCustomerMember> reportCustomerMember(@RequestParam(value="from") String from, @RequestParam(value="to") String to) {
-		List<MstCustomerMember> list = customerMemberService.reportCustomerMember(from, to);
+	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"customerId"})
+	public @ResponseBody List<MstCustomerMember> reportCustomerMember(@RequestParam(value="customerId") int customerId) {
+		List<MstCustomerMember> list = customerMemberService.reportCustomerMember(customerId);
 		return list;
 	}
 	

@@ -13,19 +13,15 @@
 		<div class="row">
 
 			<!-- Search Calendar -->
-			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
-			</div>
-			</div>
-			
-			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
-			</div>
-			</div>
+			 <div class="col-lg-2">
+	            <div id="cboCustomer"></div>
+            </div>
+            <div class="col-lg-2">
+	            <div id="cboCalendarActivityStart"></div>
+            </div>
+            <div class="col-lg-2">
+	            <div id="cboCalendarActivityEnd"></div>
+            </div>            
 			
 			<div class="col-lg-6 btn-group">
 				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
@@ -89,8 +85,9 @@
 var reports;
 var reportGrid;
 
-var reportSearchDateFrom;
-var reportSearchDateTo;
+var cboCustomer;
+var cboCalendarActivityStart;
+var cboCalendarActivityEnd;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
@@ -98,6 +95,7 @@ var btnNextPageGrid;
 var btnLastPageGrid;
 var btnCurrentPageGrid;
 
+var calendarActivities;
 var ScreenerSaveData;
 
 function cmdGenerateReport(){
@@ -110,23 +108,33 @@ function cmdGenerateReport(){
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Member name",
-			"binding" : "RESV_MEMBERNAME",
+			"header" : "Customer",
+			"binding" : "RESV_CUSTOMER",
 			"allowSorting" : true,
 			"width" : "2*"
-		},  {
-			"header" : "Parts name",
+		}, {
+			"header" : "Date",
+			"binding" : "RESV_DAY_CODE",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Parts No.",
 			"binding" : "RESV_PARTSNAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Start time",
+			"header" : "Start Time",
 			"binding" : "RESV_STARTTIME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "End time",
+			"header" : "End Time",
 			"binding" : "RESV_ENDTIME",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Note",
+			"binding" : "RESV_NOTE",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -154,49 +162,149 @@ function cmdSaveReport_OnClick(){
 //==================
 //   Get Report
 //==================   
-function getReport() {
- var reports = new wijmo.collections.ObservableArray();
- $('#loading').modal('show');
- $.ajax({
-     url: '${pageContext.request.contextPath}/api/reservation/report',
-     cache: false,
-     type: 'GET',
-     contentType: 'application/json; charset=utf-8',
-     data: {"from" : reportSearchDateFrom.value.toString("dd-MMM-yyyy"),
-    	    "to" : reportSearchDateTo.value.toString("dd-MMM-yyyy")},
-     success: function (Results) {
-    	 ScreenerSaveData = Results;
-         $('#loading').modal('hide');
-         if (Results.length > 0) {
-             document.getElementById("cmdSaveReport").style.display='block';
-             for (i = 0; i < Results.length; i++) {
-                 reports.push({
-                	 RESV_MEMBERNAME: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
-                     RESV_PARTSNAME: Results[i]["resv_PARTS_NAME"],
-                     RESV_STARTTIME: Results[i]["resv_START_TIME_ID"],
-                     RESV_ENDTIME: Results[i]["resv_END_TIME_ID"],
-                     
-                     CREATED_DATE: Results[i]["CREATED_DATE"],
-                     CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                     UPDATED_DATE: Results[i]["UPDATED_DATE"],
-                     UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                     ISDELETED: Results[i]["ISDELETED"],
-                     ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-                     ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
-                 });
-             	 
-             }
-         } else {
-             document.getElementById("cmdSaveReport").style.display='none';
-         /*     alertify.alert("No data."); */
-         }
-     }
- }).fail(
-     function (xhr, textStatus, err) {
-    	 alertify.alert(err);
-     }
- );
- return reports;
+function getCustomers() {
+	 var customers = new wijmo.collections.ObservableArray();
+	 $('#loading').modal('show');
+	 $.ajax({
+	     url: '${pageContext.request.contextPath}/api/customer/list',
+	     cache: false,
+	     type: 'GET',
+	     contentType: 'application/json; charset=utf-8',
+	     success: function (results) {
+			ScreenerSaveData = results;
+			   $('#loading').modal('hide');
+			   if (results.length > 0) {
+			       for (i = 0; i < results.length; i++) {
+			      	 customers.push({
+			          	 CUST_ID: results[i]["cust_ID"],
+			             CUST_NAME: results[i]["cust_NAME"]
+			           });
+			       	 
+			       }
+			   } else {
+			   /*     alertify.alert("No data."); */
+		       }
+	        cboCustomer.dispose();
+	     	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
+	             itemsSource: customers,
+	             displayMemberPath:"CUST_NAME",
+	             onSelectedIndexChanged: function () {
+	     	     	getCalendarActivities(cboCustomer.selectedValue.CUST_ID); 
+	            }
+	        });
+	     	
+	     	getCalendarActivities(cboCustomer.selectedValue.CUST_ID); 
+	     }
+	 }).fail(
+	     function (xhr, textStatus, err) {
+	    	 alertify.alert(err);
+	     }
+	 );
+	 return reports;
+}
+
+function getCalendarActivities(customerId) {
+    calendarActivities = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"customerId":customerId},
+        success: function (results) {
+        	reservationsList = new Array();
+            if (results.length > 0) {
+                results.forEach(function(result){
+                	calendarActivities.push({
+                        id: result.CACT_ID,
+                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+                    });
+                });
+                createCboCalendarActivity(calendarActivities);
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );	
+}
+
+function getReport(){
+	var reports = new wijmo.collections.ObservableArray();
+	$.ajax({
+        url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"customerId":cboCustomer.selectedValue.CUST_ID},
+        success: function (results) {
+            $('#loading').modal('hide');
+            if (results.length > 0) {
+                document.getElementById("cmdSaveReport").style.display='block';
+                startDateIndex = cboCalendarActivityStart.selectedIndex;
+                endDateIndex = cboCalendarActivityEnd.selectedIndex;
+
+                for (i = 0; i < results.length; i++) {
+                	for (k = startDateIndex; k <= endDateIndex; k++) {
+                  		if(calendarActivities[k].id == results[i].resv_CACT_ID){
+                  			reports.push({
+                  				RESV_MEMBERNAME: results[i]["RESV_MEBR_FK"]["MEBR_LAST_NAME"] + ", " + results[i]["RESV_MEBR_FK"]["MEBR_FIRST_NAME"],
+                              	RESV_CUSTOMER: results[i]["RESV_CUST_FK"]["cust_NAME"],
+                                RESV_PARTSNAME: "" + results[i]["resv_PARTS_NO"],
+                                RESV_STARTTIME: "" + results[i]["RESV_START_TIME_FK"]["ctim_DETAILS_NO"],
+                                RESV_ENDTIME: "" + results[i]["RESV_END_TIME_FK"]["ctim_DETAILS_NO"],
+                                RESV_NOTE: "" + results[i]["resv_NOTE"],
+                                RESV_DAY_CODE: "" + calendarActivities[k].dayCode,
+                                   
+                                CREATED_DATE: results[i]["CREATED_DATE"],
+                                CREATED_BY_USER_ID: results[i]["CREATED_BY_USER_ID"],
+                                UPDATED_DATE: results[i]["UPDATED_DATE"],
+                                UPDATED_BY_USER_ID: results[i]["UPDATED_BY_USER_ID"],
+                                ISDELETED: results[i]["ISDELETED"],
+                                ISDELETED_DATE: results[i]["ISDELETED_DATE"],
+                                ISDELETED_BY_USER_ID: results[i]["ISDELETED_BY_USER_ID"]
+                            });
+                  			break;
+                  		}
+                	}         
+                }
+                
+                ScreenerSaveData = reports;
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );
+	
+	return reports;
+}
+
+function createCboCalendarActivity(calendarActivities) {
+	
+    cboCalendarActivityStart.dispose();
+    cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
+        itemsSource: calendarActivities,
+        displayMemberPath: "dayCode",
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
+        		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
+        	}
+        }
+    });		
+    
+    cboCalendarActivityEnd.dispose();
+    cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
+        itemsSource: calendarActivities,
+        displayMemberPath: "dayCode",
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
+        		cboCalendarActivityStart.selectedIndex = this.selectedIndex;
+        	}
+        }
+    });	    
 }
 
 //==================
@@ -234,50 +342,42 @@ function updateNavigateButtonsReport() {
 // ============
 $(document).ready(function(){
 	
-	reportSearchDateFromData = new Date();
+	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer');
+ 	cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart');
+	cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd'); 
 	
-	// Date Control Initialization
-	reportSearchDateFrom = new wijmo.input.InputDate(
-			'#SEARCH_REPORT_FROM_DATE', {
-				format : 'MM/dd/yyyy',
-				value : new Date(),
-				max: new Date(),
-		        onValueChanged: function () {
-		        	reportSearchDateTo.min = this.value;
-		        }
-			});
-	
-	reportSearchDateTo = new wijmo.input.InputDate(
-			'#SEARCH_REPORT_TO_DATE', {
-				format : 'MM/dd/yyyy',
-				value : new Date(),
-				min: new Date(),
-				onValueChanged: function () {
-					reportSearchDateFrom.max = this.value;
-		        }
-			});
-	
+	getCustomers();
 	// Flex Grid
 	reportGrid = new wijmo.grid.FlexGrid('#reportGrid');
 	reportGrid.initialize({
 		columns : [{
-			"header" : "Member name",
-			"binding" : "RESV_MEMBERNAME",
+			"header" : "Customer",
+			"binding" : "RESV_CUSTOMER",
 			"allowSorting" : true,
 			"width" : "2*"
-		},  {
-			"header" : "Parts name",
+		}, {
+			"header" : "Date",
+			"binding" : "RESV_DAY_CODE",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Parts No.",
 			"binding" : "RESV_PARTSNAME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "Start time",
+			"header" : "Start Time",
 			"binding" : "RESV_STARTTIME",
 			"allowSorting" : true,
 			"width" : "2*"
 		}, {
-			"header" : "End time",
+			"header" : "End Time",
 			"binding" : "RESV_ENDTIME",
+			"allowSorting" : true,
+			"width" : "2*"
+		}, {
+			"header" : "Note",
+			"binding" : "RESV_NOTE",
 			"allowSorting" : true,
 			"width" : "2*"
 		}],
@@ -294,27 +394,88 @@ $(document).ready(function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------
-
-
 function CmdSaveXLS_OnClick() {
     var CSV = '';
     var screener = [];
 
     for (i = 0; i < ScreenerSaveData.length; i++) {
-        screener.push({            
-            MemberName: Results[i]["RESV_MEMBER"]["MEBR_LAST_NAME"] + ", " + Results[i]["RESV_MEMBER"]["MEBR_FIRST_NAME"],
-            PartsName: Results[i]["resv_PARTS_NAME"],
-            StartTime: Results[i]["resv_START_TIME_ID"],
-            EndTime: Results[i]["resv_END_TIME_ID"],
+        screener.push({     
+            Customer: ScreenerSaveData[i]["RESV_CUSTOMER"],
+            Member: ScreenerSaveData[i]["RESV_MEMBERNAME"],
+            PartsNo: "" + ScreenerSaveData[i]["RESV_PARTSNAME"],
+            StartTime: "" + ScreenerSaveData[i]["RESV_STARTTIME"],
+            EndTime: "" + ScreenerSaveData[i]["RESV_ENDTIME"],
+            Note: "" + ScreenerSaveData[i]["RESV_NOTE"],
+            DayCode: "" + ScreenerSaveData[i]["RESV_DAY_CODE"],
             
-            CREATED_DATE: Results[i]["CREATED_DATE"],
-            CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-            UPDATED_DATE: Results[i]["UPDATED_DATE"],
-            UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-            ISDELETED: Results[i]["ISDELETED"],
-            ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-            ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+            CREATED_DATE: ScreenerSaveData[i]["CREATED_DATE"],
+            CREATED_BY_USER_ID: ScreenerSaveData[i]["CREATED_BY_USER_ID"],
+            UPDATED_DATE: ScreenerSaveData[i]["UPDATED_DATE"],
+            UPDATED_BY_USER_ID: ScreenerSaveData[i]["UPDATED_BY_USER_ID"],
+            ISDELETED: ScreenerSaveData[i]["ISDELETED"],
+            ISDELETED_DATE: ScreenerSaveData[i]["ISDELETED_DATE"],
+            ISDELETED_BY_USER_ID: ScreenerSaveData[i]["ISDELETED_BY_USER_ID"]
             
         });
     }
@@ -343,8 +504,8 @@ function CmdSaveXLS_OnClick() {
     }
 
     // Create filename
-    var fileName = 'ReservationReportFrom' + reportSearchDateFrom.value.toString("dd-MMM-yyyy") +
-    'to' + reportSearchDateTo.value.toString("dd-MMM-yyyy") + '.CSV';
+    var fileName = 'ReservationReportFrom' + cboCalendarActivityStart.selectedValue.dayCode +
+    'to' + cboCalendarActivityEnd.selectedValue.dayCode + '.CSV';
     // Download via <a> link
 
     var link = document.createElement("a");

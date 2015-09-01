@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomerMember;
+import com.innosoft.webreservation.entity.TrnReservation;
 
 @Repository
 @Transactional
@@ -51,20 +52,11 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<MstCustomerMember> reportCustomerMember(String from, String to) {
-		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.ENGLISH);
+	public List<MstCustomerMember> reportCustomerMember(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCustomerMember.class);
-
-		try {
-			criteria.add(Restrictions.between("CREATED_DATE", format.parse(from + " 00:00:00"), 
-					format.parse(to + " 23:59:59")));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} 
+		criteria.add(Restrictions.eq("MEBR_CUST_ID", customerId));
 		List<MstCustomerMember> list = criteria.list();	
-//		Session session = this.sessionFactory.getCurrentSession();
-//		List<MstCustomerMember> list = session.createQuery("from MstCustomerMember where CREATED_DATE between '"+from +" 00:00:00' and '" + to + " 23:59:59'").list();
 		return list;
 	}
 	
