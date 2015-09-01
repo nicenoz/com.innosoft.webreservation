@@ -175,7 +175,7 @@ public class TrnReservation {
 	}
 
 	public String getCREATED_DATE() {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");		
 		return sf.format(CREATED_DATE);
 	}
 
@@ -192,7 +192,7 @@ public class TrnReservation {
 	}
 
 	public String getUPDATED_DATE() {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");		
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");		
 		return sf.format(UPDATED_DATE);
 	}
 

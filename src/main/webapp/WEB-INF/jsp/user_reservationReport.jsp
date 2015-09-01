@@ -286,9 +286,9 @@ function getReport(){
                                 RESV_NOTE: "" + results[i]["resv_NOTE"],
                                 RESV_DAY_CODE: "" + calendarActivities[k].dayCode,
                                    
-                                CREATED_DATE: results[i]["CREATED_DATE"],
+                                CREATED_DATE: results[i]["created_DATE"],
                                 CREATED_BY_USER_ID: results[i]["CREATED_BY_USER_ID"],
-                                UPDATED_DATE: results[i]["UPDATED_DATE"],
+                                UPDATED_DATE: results[i]["updated_DATE"],
                                 UPDATED_BY_USER_ID: results[i]["UPDATED_BY_USER_ID"],
                                 ISDELETED: results[i]["ISDELETED"],
                                 ISDELETED_DATE: results[i]["ISDELETED_DATE"],

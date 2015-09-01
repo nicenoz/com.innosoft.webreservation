@@ -223,9 +223,9 @@ function getReport() {
                      CUNT_EMAIL : Results[i]["cunt_EMAIL_ADDRESS"],
                      CUNT_ISDELETED : Results[i]["isdeleted"] == 0 ? "No":"Yes",
 
-                     CREATED_DATE: Results[i]["CREATED_DATE"],
+                     CREATED_DATE: Results[i]["created_DATE"],
                      CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                     UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                     UPDATED_DATE: Results[i]["updated_DATE"],
                      UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
                      ISDELETED: Results[i]["ISDELETED"],
                      ISDELETED_DATE: Results[i]["ISDELETED_DATE"],

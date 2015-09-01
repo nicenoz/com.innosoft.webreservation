@@ -167,7 +167,7 @@ public class MstCustomerMember {
 		MEBR_LAST_NAME = mEBR_LAST_NAME;
 	}
 	public String getMEBR_DATE_OF_BIRTH() {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");
 		return sf.format(MEBR_DATE_OF_BIRTH);
 	}
 	public void setMEBR_DATE_OF_BIRTH(Date mEBR_DATE_OF_BIRTH) {
@@ -234,7 +234,7 @@ public class MstCustomerMember {
 		MEBR_FIELD5 = mEBR_FIELD5;
 	}
 	public String getCREATED_DATE() {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");
 		return sf.format(CREATED_DATE);
 	}
 	public void setCREATED_DATE(Date cREATED_DATE) {
@@ -247,7 +247,7 @@ public class MstCustomerMember {
 		CREATED_BY_USER_ID = cREATED_BY_USER_ID;
 	}
 	public String getUPDATED_DATE() {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");
 		return sf.format(UPDATED_DATE);
 	}
 	public void setUPDATED_DATE(Date uPDATED_DATE) {
