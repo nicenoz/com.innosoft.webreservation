@@ -103,47 +103,56 @@ function generateTable(){
 			"header" : "No.",
 			"binding" : "MEBR_NO",
 			"allowSorting" : true,
-			"width" : "1*"
+			"width" : "1*",
+			"cssClass" : "wcell"
 		},  {
 			"header" : "Customer",
 			"binding" : "MEBR_CUSTOMER",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "User",
 			"binding" : "MEBR_USER_ID",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Full Name",
 			"binding" : "MEBR_FULLNAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Phone",
 			"binding" : "MEBR_CONTACT",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Address",
 			"binding" : "MEBR_ADDRESS",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Zip",
 			"binding" : "MEBR_ZIP",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Email",
 			"binding" : "MEBR_EMAIL",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Birthdate",
 			"binding" : "MEBR_BDAY",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}],
 		
 		autoGenerateColumns : false,

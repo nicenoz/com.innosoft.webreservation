@@ -111,32 +111,38 @@ function cmdGenerateReport(){
 			"header" : "Customer",
 			"binding" : "RESV_CUSTOMER",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Date",
 			"binding" : "RESV_DAY_CODE",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Parts No.",
 			"binding" : "RESV_PARTSNAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Start Time",
 			"binding" : "RESV_STARTTIME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "End Time",
 			"binding" : "RESV_ENDTIME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Note",
 			"binding" : "RESV_NOTE",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}],
 		
 		autoGenerateColumns : false,

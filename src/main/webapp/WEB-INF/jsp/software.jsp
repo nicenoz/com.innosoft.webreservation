@@ -134,6 +134,7 @@ var currentLookup;
 var ceilParts = 0;
 var loggedInCustomerId;
 var isScheduleUpdated;
+var loggedInCustomerEmail;
 
 var cboCustomer;
 var cboCalendarActivityStart;
@@ -237,7 +238,6 @@ function cmdGetSchedule_OnClick() {
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":customerId},
         success: function (results) {
-
         	// --- CREATE COLUMNS --------------------------------------
             var gridColumns = [];
             gridColumns.push({
@@ -359,7 +359,7 @@ function cmdAddEditOk_OnClick() {
  	reservation.RESV_UNIT_NO = /* parseInt(document.getElementById('AE_UNIT_NO').value) */ 1;
  	reservation.RESV_PARTS_NO = parseInt(document.getElementById('AE_PARTS_NO').value);
  	reservation.RESV_START_TIME_ID = parseInt(document.getElementById('AE_START_TIME_ID').value);
- 	reservation.RESV_END_TIME_ID = document.getElementById('AE_END_TIME_ID').value;
+ 	reservation.RESV_END_TIME_ID = parseInt(document.getElementById('AE_END_TIME_ID').value);
  	reservation.RESV_NOTE = document.getElementById('AE_RESV_NOTES').value;
  	
  	var data = JSON.stringify(reservation);
@@ -377,6 +377,40 @@ function cmdAddEditOk_OnClick() {
                 	updateTable();
                 	closeWindow();
                 }, 1000);
+                
+                var emailObject = new Object();
+    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
+    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
+    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
+    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+    				"\nTime Start: "+ cboAEStartTime.selectedValue +
+    				"\nTime End: "+  cboAEEndTime.selectedValue +
+    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
+
+    			var data = JSON.stringify(emailObject);
+    			
+    		    $('#loading').modal('show');
+    			$.ajax({
+					type : "POST",
+					url : '${pageContext.request.contextPath}/api/email/send',
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : data,
+					statusCode : {
+						200 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Confirmation sent");
+						},
+						404 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Not found");
+						},
+						400 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Bad Request");
+						}
+					}
+ 				});
             } else {
                 toastr.error("Not updated.");
             }
@@ -624,10 +658,12 @@ function getCustomers() {
         success: function (results) {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
-                	customerList.push({
-                        id: results[i]["CUST_ID"],
-                        customerName: results[i]["CUST_NAME"]
-                    });
+                	if(results[i]["CUST_ID"] != 0){
+	                	customerList.push({
+	                        id: results[i]["CUST_ID"],
+	                        customerName: results[i]["CUST_NAME"]
+	                    });
+                	}
                 }
                 createCboCustomer(customerList);
             }
@@ -765,6 +801,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
         	loggedInCustomerId = data[0]["MEBR_ID"];
+        	loggedInCustomerEmail = data[0]["mebr_EMAIL_ADDRESS"]
         }
     });
 	
