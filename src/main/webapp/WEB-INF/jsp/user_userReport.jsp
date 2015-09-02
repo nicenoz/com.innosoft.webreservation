@@ -280,9 +280,9 @@ function getReport() {
                      MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
                      MEBR_BDAY: Results[i]["mebr_DATE_OF_BIRTH"],
                      
-                     CREATED_DATE: Results[i]["CREATED_DATE"],
+                     CREATED_DATE: Results[i]["created_DATE"],
                      CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                     UPDATED_DATE: Results[i]["UPDATED_DATE"],
+                     UPDATED_DATE: Results[i]["updated_DATE"],
                      UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
                      ISDELETED: Results[i]["ISDELETED"],
                      ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
