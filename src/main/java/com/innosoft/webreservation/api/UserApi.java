@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.entity.SysEmail;
+import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
 import com.innosoft.webreservation.service.UserPasswordService;
@@ -43,7 +46,12 @@ public class UserApi {
 		}		
 		return password;
 	}
-
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<MstSecurityUser> listSendLog() {
+		List<MstSecurityUser> list = userService.listUser();
+		return list;
+	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<String> updateUser(@RequestBody MstSecurityUser user) {

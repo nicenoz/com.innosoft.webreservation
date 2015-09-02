@@ -71,6 +71,7 @@
 									<dt>Customer: </dt>
 									<dd>
 										<input id="EDIT_MEBR_ID" type="hidden" />
+										
 			            				<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
 										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
 										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
@@ -79,9 +80,11 @@
 									<dd>
 										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
 									</dd>
-									<dt>Member User Id: </dt>
-									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" type="text" required />
+									<dt>User: </dt>
+									<dd>							
+										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" class="autocomplete-wide"></div>
+										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden" required />
+										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden" required />
 									</dd>
 									<dt>First Name: </dt>
 									<dd>
@@ -217,6 +220,33 @@ function getCustomers() {
     );
 }
 
+function getUsers() {
+    var users = new wijmo.collections.ObservableArray();
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/user/list',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {},
+        success: function (results) {
+            if (results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                	users.push({
+                        id: results[i]["USER_ID"],
+                        userLogin: results[i]["USER_LOGIN"]
+                    });
+                }
+                createCboUsers(users);
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );
+}
+
+
 // ===================
 // Combo Box
 // ===================
@@ -233,6 +263,24 @@ function createCboCustomer(customers) {
         selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
         onSelectedIndexChanged: function () {
             $("#EDIT_MEBR_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
+        }
+    });	
+}
+
+
+function createCboUsers(users) {
+	userCollection = new wijmo.collections.CollectionView(users);
+    var userList = new Array();
+    for (var i = 0; i < userCollection.items.length; i++) {
+    	userList.push(userCollection.items[i].id);
+    }
+ 
+    cboUsers.dispose();
+    cboUsers = new wijmo.input.AutoComplete('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID', {
+        itemsSource: userList,
+        selectedValue: document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME').value.toString(),
+        onSelectedIndexChanged: function () {
+            $("#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA").val(userCollection.items[this.selectedIndex].id);
         }
     });	
 }
@@ -255,7 +303,7 @@ function cmdCustomerMemberEdit_OnClick() {
     document.getElementById('EDIT_MEBR_CUST_ID_DATA').value = customerMember.MEBR_CUST_ID ? customerMember.MEBR_CUST_ID : '';
     document.getElementById('EDIT_CUST_NAME').value = customerMember.MEBR_CUST_FK ? customerMember.MEBR_CUST_FK : '';
     document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_NO').value = customerMember.MEBR_CUSTOMER_MEMBER_NO ? customerMember.MEBR_CUSTOMER_MEMBER_NO : '';
-    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').value = customerMember.MEBR_USER_ID ? customerMember.MEBR_USER_ID : '';
+    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME').value = customerMember.MEBR_USER_ID ? customerMember.MEBR_USER_ID : '';
     document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value = customerMember.MEBR_EMAIL_ADDRESS ? customerMember.MEBR_EMAIL_ADDRESS : '';
     document.getElementById('EDIT_MEBR_FIRST_NAME').value = customerMember.MEBR_FIRST_NAME ? customerMember.MEBR_FIRST_NAME : '';
     document.getElementById('EDIT_MEBR_LAST_NAME').value = customerMember.MEBR_LAST_NAME ? customerMember.MEBR_LAST_NAME : '';
@@ -272,7 +320,8 @@ function cmdCustomerMemberEdit_OnClick() {
 	document.getElementById('EDIT_MEBR_FIELD5').value = customerMember.MEBR_FIELD5 ? customerMember.MEBR_FIELD5 : '';
 
 	getCustomers(); 
-		
+	getUsers();
+	
     var splitDate = customerMember.MEBR_DATE_OF_BIRTH.split("-"); 
    
     customerMembersDate.dispose();
@@ -337,7 +386,7 @@ function cmdCustomerMemberEditOk_OnClick() {
 	customerMemberObject.MEBR_ID = parseInt(document.getElementById('EDIT_MEBR_ID').value);
 	customerMemberObject.MEBR_CUST_ID = document.getElementById('EDIT_MEBR_CUST_ID_DATA').value;
 	customerMemberObject.MEBR_CUSTOMER_MEMBER_NO =  document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_NO').value;
-	customerMemberObject.MEBR_USER_ID =  document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').value;
+	customerMemberObject.MEBR_USER_ID =  document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA').value;
 	customerMemberObject.MEBR_TEL_NO = document.getElementById('EDIT_MEBR_TEL_NO').value;
 	customerMemberObject.MEBR_EMAIL_ADDRESS = document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value;
 	customerMemberObject.MEBR_FIRST_NAME = document.getElementById('EDIT_MEBR_FIRST_NAME').value;
@@ -400,7 +449,7 @@ function getCustomerMembers() {
 								MEBR_CUST_ID : Results[i]["mebr_CUST_ID"],
 								MEBR_TEL_NO : Results[i]["mebr_TEL_NO"], 
 								MEBR_CUSTOMER_MEMBER_NO : Results[i]["mebr_CUSTOMER_MEMBER_NO"],
-								MEBR_USER_ID : Results[i]["mebr_USER_ID"],
+								MEBR_USER_ID : Results[i].MEBR_USER_FK.USER_ID,
 								MEBR_EMAIL_ADDRESS : Results[i]["mebr_EMAIL_ADDRESS"],
 								MEBR_FIRST_NAME : Results[i]["mebr_FIRST_NAME"],
 								MEBR_LAST_NAME : Results[i]["mebr_LAST_NAME"],
@@ -567,8 +616,8 @@ $(document).ready(function() {
 		});
 		
 		cboCustomer = new wijmo.input.AutoComplete('#EDIT_MEBR_CUST_ID');
-
-		 
+		cboUsers = new wijmo.input.AutoComplete('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID');
+		
 		// Flex Grid
 		customerMemberGrid = new wijmo.grid.FlexGrid('#customerMemberGrid');
 		customerMemberGrid.initialize({
