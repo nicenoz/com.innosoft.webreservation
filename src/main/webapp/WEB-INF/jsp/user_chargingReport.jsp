@@ -122,27 +122,32 @@ function cmdGenerateReport(){
 			"header" : "Time Stamp",
 			"binding" : "CUNT_TIMESTAMP",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		},  {
 			"header" : "Customer",
 			"binding" : "CUNT_CUSTOMER_NAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "User",
 			"binding" : "CUNT_MEMBER_NAME",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "E-mail",
 			"binding" : "CUNT_EMAIL",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}, {
 			"header" : "Deleted",
 			"binding" : "CUNT_ISDELETED",
 			"allowSorting" : true,
-			"width" : "2*"
+			"width" : "2*",
+			"cssClass" : "wcell"
 		}],
 		
 		autoGenerateColumns : false,

@@ -7,6 +7,10 @@
     text-align:center;
 }
 
+.wcell{
+	font-size:11px;
+}
+
 .box {
     background-color: coral;
     width: 30%;
