@@ -530,7 +530,7 @@ function updateNavigateButtonsCalendarActivitiy() {
         btnNextPageGrid.removeAttribute('disabled');
         btnLastPageGrid.removeAttribute('disabled');
     }
-    else if (calendarActivities.pageIndex === (CalendarActivities.pageCount - 1)) {
+    else if (calendarActivities.pageIndex === (calendarActivities.pageCount - 1)) {
         btnFirstPageGrid.removeAttribute('disabled');
         btnPreviousPageGrid.removeAttribute('disabled');
         btnLastPageGrid.setAttribute('disabled', 'disabled');
