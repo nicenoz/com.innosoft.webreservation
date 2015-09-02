@@ -667,7 +667,7 @@ $(document).ready(function() {
 						"width" : "2*"
 					},
 					{
-						"header" : "Phone No",
+						"header" : "Member No",
 						"binding" : "MEBR_CUSTOMER_MEMBER_NO",
 						"allowSorting" : true,
 						"width" : "2*"
