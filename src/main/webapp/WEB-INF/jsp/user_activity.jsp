@@ -595,10 +595,7 @@ $(document).ready(function () {
 		
     // Validation
     $('#cmdCalendarActivityEditOk').click(function () {
-        if (FormValidate() == true) {
-            $('#CalendarActivityEdit').modal('hide');
-        }
-        else {
+        if (FormValidate() != true) {
             toastr.error("Fill the required field!");
         }
     });
