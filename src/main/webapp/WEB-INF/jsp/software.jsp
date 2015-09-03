@@ -389,7 +389,7 @@ function cmdAddEditOk_OnClick() {
 
     			var data = JSON.stringify(emailObject);
     			
-    		    $('#loading').modal('show');
+/*     		    $('#loading').modal('show'); */
     			$.ajax({
 					type : "POST",
 					url : '${pageContext.request.contextPath}/api/email/send',
@@ -398,7 +398,7 @@ function cmdAddEditOk_OnClick() {
 					data : data,
 					statusCode : {
 						200 : function() {
-							$('#loading').modal('hide');
+/* 							$('#loading').modal('hide'); */
 							alertify.alert("Confirmation sent");
 						},
 						404 : function() {
@@ -658,7 +658,7 @@ function getCustomers() {
         success: function (results) {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
-                	if(results[i]["CUST_ID"] != 0){
+                	if(results[i]["CUST_CUSTOMER_NO"] != "000000"){
 	                	customerList.push({
 	                        id: results[i]["CUST_ID"],
 	                        customerName: results[i]["CUST_NAME"]

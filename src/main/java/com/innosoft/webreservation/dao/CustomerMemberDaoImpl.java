@@ -1,10 +1,6 @@
 package com.innosoft.webreservation.dao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomerMember;
-import com.innosoft.webreservation.entity.TrnReservation;
 
 @Repository
 @Transactional
@@ -41,6 +36,31 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		List<MstCustomerMember> list = criteria.list();	
 		
 		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MstCustomerMember> getMemberByEmail(String email) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(MstCustomerMember.class);
+		criteria.add(Restrictions.eq("MEBR_EMAIL_ADDRESS", email));
+		
+		List<MstCustomerMember> list = criteria.list();	
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean isAlreadyFreeUser(int freeCustomerId, String email){
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(MstCustomerMember.class);
+		criteria.add(Restrictions.eq("MEBR_CUST_ID", freeCustomerId));
+		criteria.add(Restrictions.eq("MEBR_EMAIL_ADDRESS", email));
+	
+		List<MstCustomerMember> list = criteria.list();	
+		
+		return list.size() > 0;
 	}
 	
 	

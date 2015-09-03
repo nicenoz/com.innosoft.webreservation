@@ -39,6 +39,17 @@ public class CustomerDaoImpl implements CustomerDao {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<MstCustomer> listCustomerWithNo(String custNo){
+		Session session = this.sessionFactory.openSession();
+
+		List<MstCustomer> list = session.createQuery("from MstCustomer where CUST_CUSTOMER_NO = \'" + custNo + "\'").list();	
+		
+		session.close();
+		
+		return list;
+	}
+	
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();

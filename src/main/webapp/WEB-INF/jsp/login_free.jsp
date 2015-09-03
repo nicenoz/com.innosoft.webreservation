@@ -99,7 +99,7 @@
     <div class="modal-dialog" style="width: 220px;">
         <div class="modal-content border-custom">
             <div class="modal-header">
-                <h4 class="modal-title">Sending Email...</h4>
+                <h4 class="modal-title">Registering Email...</h4>
             </div>
             <div class="modal-body">
                 <img src="<c:url value='/img/progress_bar.gif' />"></img>
@@ -166,13 +166,62 @@
 			dataType : "json",
 			data : data,
 			statusCode : {
-				200 : function() {
+				200 : function(data) {
+					var response = data.responseText.split("-");
+					
+					var userId = response[0];
+					var customerId = response[1];
+					var email = response[2];
+					var memberId = response[3];
+					
+					///INSERT ADD FREE CUSTOMER HERE
+					var customerMemberObject = new Object();
+
+					customerMemberObject.MEBR_ID = memberId;
+					customerMemberObject.MEBR_CUSTOMER_MEMBER_NO =  "0";
+					customerMemberObject.MEBR_CUST_ID = customerId;
+					customerMemberObject.MEBR_USER_ID =  userId;
+					customerMemberObject.MEBR_TEL_NO = "NA";
+					customerMemberObject.MEBR_EMAIL_ADDRESS = email;
+					customerMemberObject.MEBR_FIRST_NAME = "NA";
+					customerMemberObject.MEBR_LAST_NAME = "NA";
+					customerMemberObject.MEBR_ZIP_CODE = "NA";
+					customerMemberObject.MEBR_POINT = "1";
+					customerMemberObject.MEBR_DATE_OF_BIRTH  = new Date();
+					customerMemberObject.CREATED_DATE = new Date();
+					customerMemberObject.CREATED_BY_USER_ID = 1;
+					customerMemberObject.UPDATED_DATE = new Date();
+					customerMemberObject.UPDATED_BY_USER_ID = 1;
+					customerMemberObject.ISDELETED = 0;
+				 	
+				 	var data = JSON.stringify(customerMemberObject);
+
+				    $.ajax({
+				        type: "POST",
+				        url: '${pageContext.request.contextPath}/api/customerMember/update',
+				        contentType: "application/json; charset=utf-8",
+				        dataType: "json",
+				        data: data,
+				        success: function (data) {
+				            if (data.MEBR_ID > 0) {
+								
+								$('#loading').modal('hide');
+								alertify.alert("Succesfully registered. An Email has been sent with your password credentials.");
+				            } else {
+								alertify.alert("Membership error");
+				            }
+				        }
+				    }); 
+				},
+				409 : function() {
 					$('#loading').modal('hide');
-					alertify.alert("Succesfully send Email");
+					alertify.alert("Already a member, redirecting to login...");
+					window.setTimeout(function () { document.location.href = "/webreservation/loginMember" }, 2000);
+
 				},
 				404 : function() {
 					$('#loading').modal('hide');
-					alertify.alert("Email Already Exist");
+					alertify.alert("Email Sending Error");
 				},
 				400 : function() {
 					$('#loading').modal('hide');
