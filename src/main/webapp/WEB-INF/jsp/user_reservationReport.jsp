@@ -102,7 +102,7 @@ function cmdGenerateReport(){
 	// Collection View
     reports = new wijmo.collections.CollectionView(getReport());
     reports.canFilter = true;
-    reports.pageSize  = 15;
+    reports.pageSize  = 10;
     
     reportGrid.dispose();
     reportGrid = new wijmo.grid.FlexGrid('#reportGrid');

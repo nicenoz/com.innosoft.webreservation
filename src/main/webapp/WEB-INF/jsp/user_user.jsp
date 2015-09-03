@@ -272,7 +272,7 @@ function createCboUsers(users) {
 	userCollection = new wijmo.collections.CollectionView(users);
     var userList = new Array();
     for (var i = 0; i < userCollection.items.length; i++) {
-    	userList.push(userCollection.items[i].id);
+    	userList.push(userCollection.items[i].userLogin);
     }
  
     cboUsers.dispose();
@@ -303,7 +303,8 @@ function cmdCustomerMemberEdit_OnClick() {
     document.getElementById('EDIT_MEBR_CUST_ID_DATA').value = customerMember.MEBR_CUST_ID ? customerMember.MEBR_CUST_ID : '';
     document.getElementById('EDIT_CUST_NAME').value = customerMember.MEBR_CUST_FK ? customerMember.MEBR_CUST_FK : '';
     document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_NO').value = customerMember.MEBR_CUSTOMER_MEMBER_NO ? customerMember.MEBR_CUSTOMER_MEMBER_NO : '';
-    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME').value = customerMember.MEBR_USER_ID ? customerMember.MEBR_USER_ID : '';
+    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA').value = customerMember.MEBR_USER_ID ? customerMember.MEBR_USER_ID : '';
+    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME').value = customerMember.MEBR_USER_LOGIN ? customerMember.MEBR_USER_LOGIN : '';
     document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value = customerMember.MEBR_EMAIL_ADDRESS ? customerMember.MEBR_EMAIL_ADDRESS : '';
     document.getElementById('EDIT_MEBR_FIRST_NAME').value = customerMember.MEBR_FIRST_NAME ? customerMember.MEBR_FIRST_NAME : '';
     document.getElementById('EDIT_MEBR_LAST_NAME').value = customerMember.MEBR_LAST_NAME ? customerMember.MEBR_LAST_NAME : '';
@@ -318,7 +319,7 @@ function cmdCustomerMemberEdit_OnClick() {
 	document.getElementById('EDIT_MEBR_FIELD3').value = customerMember.MEBR_FIELD3 ? customerMember.MEBR_FIELD3 : '';
 	document.getElementById('EDIT_MEBR_FIELD4').value = customerMember.MEBR_FIELD4 ? customerMember.MEBR_FIELD4 : '';
 	document.getElementById('EDIT_MEBR_FIELD5').value = customerMember.MEBR_FIELD5 ? customerMember.MEBR_FIELD5 : '';
-
+	
 	getCustomers(); 
 	getUsers();
 	
@@ -408,7 +409,7 @@ function cmdCustomerMemberEditOk_OnClick() {
 	customerMemberObject.MEBR_DATE_OF_BIRTH = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);
  	
  	var data = JSON.stringify(customerMemberObject);
-
+	
     $.ajax({
         type: "POST",
         url: '${pageContext.request.contextPath}/api/customerMember/update',
@@ -450,6 +451,7 @@ function getCustomerMembers() {
 								MEBR_TEL_NO : Results[i]["mebr_TEL_NO"], 
 								MEBR_CUSTOMER_MEMBER_NO : Results[i]["mebr_CUSTOMER_MEMBER_NO"],
 								MEBR_USER_ID : Results[i].MEBR_USER_FK.USER_ID,
+								MEBR_USER_LOGIN : Results[i].MEBR_USER_FK.USER_LOGIN,
 								MEBR_EMAIL_ADDRESS : Results[i]["mebr_EMAIL_ADDRESS"],
 								MEBR_FIRST_NAME : Results[i]["mebr_FIRST_NAME"],
 								MEBR_LAST_NAME : Results[i]["mebr_LAST_NAME"],
@@ -594,7 +596,7 @@ $(document).ready(function() {
 		// Collection View
 		customerMembers = new wijmo.collections.CollectionView(getCustomerMembers());
 		customerMembers.canFilter = true;
-		customerMembers.pageSize = 15;
+		customerMembers.pageSize = 10;
 
 		var filterText = '';
 		$('#InputFilter').keyup(function() {
@@ -667,7 +669,7 @@ $(document).ready(function() {
 						"width" : "2*"
 					},
 					{
-						"header" : "Phone No",
+						"header" : "Member No",
 						"binding" : "MEBR_CUSTOMER_MEMBER_NO",
 						"allowSorting" : true,
 						"width" : "2*"

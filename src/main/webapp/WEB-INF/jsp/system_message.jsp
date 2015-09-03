@@ -489,7 +489,7 @@ $(document).ready(function () {
     // Collection View
     messages = new wijmo.collections.CollectionView(getMessages());
     messages.canFilter = true;
-    messages.pageSize  = 15;
+    messages.pageSize  = 10;
     
     var filterText = '';
     $('#InputFilter').keyup(function () {

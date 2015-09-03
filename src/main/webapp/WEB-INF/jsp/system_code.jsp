@@ -389,7 +389,7 @@ $(document).ready(function () {
     // Collection View
     codes = new wijmo.collections.CollectionView(getCodes());
     codes.canFilter = true;
-    codes.pageSize  = 15;
+    codes.pageSize  = 10;
     
     var filterText = '';    
     $('#InputFilter').keyup(function () {

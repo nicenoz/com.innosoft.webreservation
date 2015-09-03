@@ -401,7 +401,7 @@ $(document).ready(function () {
     // Collection View
     calendars = new wijmo.collections.CollectionView(getCalendars());
     calendars.canFilter = true;
-    calendars.pageSize  = 15;
+    calendars.pageSize  = 10;
     
     var filterText = '';
     $('#InputFilter').keyup(function () {
