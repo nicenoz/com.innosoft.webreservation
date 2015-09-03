@@ -548,7 +548,7 @@ $(document).ready(function(){
 	// Collection View
 	charges = new wijmo.collections.CollectionView(getCharges());
 	charges.canFilter = true;
-	charges.pageSize = 15;
+	charges.pageSize = 10;
 
     var filterText = '';
     

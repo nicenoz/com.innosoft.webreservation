@@ -167,7 +167,7 @@ public class MstCustomerMember {
 		MEBR_LAST_NAME = mEBR_LAST_NAME;
 	}
 	public String getMEBR_DATE_OF_BIRTH() {
-		SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		return sf.format(MEBR_DATE_OF_BIRTH);
 	}
 	public void setMEBR_DATE_OF_BIRTH(Date mEBR_DATE_OF_BIRTH) {

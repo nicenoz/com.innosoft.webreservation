@@ -612,7 +612,7 @@ $(document).ready(function () {
     // Collection View
     calendarActivities = new wijmo.collections.CollectionView(getCalendarActivities());
     calendarActivities.canFilter = true;
-    calendarActivities.pageSize  = 15;
+    calendarActivities.pageSize  = 10;
     
     var filterText = '';
     $('#InputFilter').keyup(function () {

@@ -433,7 +433,7 @@ $(document).ready(function () {
     // Collection View
     customers = new wijmo.collections.CollectionView(getCustomers());
     customers.canFilter = true;
-    customers.pageSize  = 15;
+    customers.pageSize  = 10;
     
     var filterText = '';
     $('#InputFilter').keyup(function () {

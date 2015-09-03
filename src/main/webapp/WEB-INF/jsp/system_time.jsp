@@ -487,7 +487,7 @@ $(document).ready(function(){
 	// Collection View
 	customerTimes = new wijmo.collections.CollectionView(getCustomerTimes());
 	customerTimes.canFilter = true;
-	customerTimes.pageSize = 15;
+	customerTimes.pageSize = 10;
 	
 
     var filterText = '';
