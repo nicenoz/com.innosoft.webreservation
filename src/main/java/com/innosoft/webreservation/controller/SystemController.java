@@ -29,6 +29,11 @@ public class SystemController {
 		return "system_code";
 	}	
 	
+	@RequestMapping("/activity")
+	public String activity(Model model) {
+		return "user_activity";
+	}
+	
 	@RequestMapping("/customer")
 	public String customer(Model model) {
 		return "system_customer";

@@ -62,10 +62,8 @@
                         <ul class="dropdown-menu">
 				            <li><a href="/webreservation/software/"><b>Schedule</b></a></li>
 				            <li class="divider"></li>
-				            <li><a href="/webreservation/software/email/">Email</a></li>
-				            <li><a href="/webreservation/software/charging/">Charging</a></li>
-				            <li class="divider"></li>
-				            <li><a href="/webreservation/software/userPassword/">Change Password</a></li>     
+				            <li><a href="/webreservation/software/email/">Send Magazine Email</a></li>
+				            <li><a href="/webreservation/software/email/">Send Notification Email</a></li>    
 				         </ul>
                     </li>
    
@@ -75,7 +73,7 @@
 				            <li><a href="/webreservation/user/"><b>User Dashboard</b></a></li>
 				            <li class="divider"></li>
 				            <li><a href="/webreservation/user/user/">User Information</a></li>
-				            <li><a href="/webreservation/user/activity">Activity</a></li>
+				            <li><a href="/webreservation/user/userPassword">Change Password</a></li>
 				            <li class="divider"></li>
 				            <li><a href="/webreservation/user/userReport/">User Report</a></li>
 				            <li><a href="/webreservation/user/reservationReport/">Reservation Report</a></li>
@@ -88,13 +86,17 @@
                         <ul class="dropdown-menu">
 				            <li><a href="/webreservation/system/"><b>System Dashboard</b></a></li>
 				            <li class="divider"></li>
-				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
-				            <li><a href="/webreservation/system/time/">Time</a></li>
-				            <li><a href="/webreservation/system/userPassword/">Change Password</a></li>
 				            <li><a href="/webreservation/system/customer/">Customer</a></li>
+				            <li><a href="/webreservation/system/calendar/">Calendar</a></li>
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/system/time/">Customer Time</a></li>
+				            <li><a href="/webreservation/system/activity/">Calendar Activity</a></li>
+				            <li class="divider"></li>
 				            <li><a href="/webreservation/system/message/">Message</a></li>
-				            <li><a href="/webreservation/system/charge/">Charge</a></li>
-				            <li><a href="/webreservation/system/code/">Code</a></li>      
+				            <li><a href="/webreservation/system/code/">Code</a></li> 
+				            <li><a href="/webreservation/system/charge/">Charge</a></li>  
+				            <li class="divider"></li>
+				            <li><a href="/webreservation/system/userPassword/">Change Password</a></li>    
 				         </ul>
                     </li>		
                     
