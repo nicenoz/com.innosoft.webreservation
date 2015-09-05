@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name="WR_CUSTOMER_MEMBER")
 public class MstCustomerMember {
@@ -24,6 +26,9 @@ public class MstCustomerMember {
 	
 	@Column(name="MEBR_CUSTOMER_MEMBER_NO")	
 	public String MEBR_CUSTOMER_MEMBER_NO;
+	
+	@Formula(value="to_number(MEBR_CUSTOMER_MEMBER_NO)")
+	private int MEBR_CUSTOMER_MEMBER_NO_INT;
 	
 	@Column(name="MEBR_USER_ID")	
 	public Integer MEBR_USER_ID;
@@ -281,5 +286,14 @@ public class MstCustomerMember {
 	}
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}	
+	}
+	
+
+	public int getMEBR_CUSTOMER_MEMBER_NO_INT() {
+		return MEBR_CUSTOMER_MEMBER_NO_INT;
+	}
+	
+	public void setMEBR_CUSTOMER_MEMBER_NO_INT(int mEBR_CUSTOMER_MEMBER_NO_INT) {
+		MEBR_CUSTOMER_MEMBER_NO_INT = mEBR_CUSTOMER_MEMBER_NO_INT;
+	}
 }

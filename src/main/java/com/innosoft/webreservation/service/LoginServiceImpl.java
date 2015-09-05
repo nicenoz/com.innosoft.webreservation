@@ -2,8 +2,15 @@ package com.innosoft.webreservation.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
  
+
+
+
+
+import javax.persistence.Column;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,8 +21,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.dao.CustomerMemberDao;
 import com.innosoft.webreservation.dao.UserDao;
+import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstSecurityUser;
+import com.innosoft.webreservation.entity.TrnAccessLog;
  
 @Service("loginServiceImpl")
 @Transactional(readOnly = true)
@@ -23,10 +33,17 @@ public class LoginServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private CustomerMemberDao customerMemberDao;
+	
+	@Autowired
+	private AccessLogService accessLogService;
+	
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException {
 
     	MstSecurityUser domainUser = userDao.getUser(login);
+    	MstCustomerMember customerMember = customerMemberDao.getMemberByUserId(domainUser.getUSER_ID()).get(0);
         
         boolean accountEnabled = true;
         boolean accountNonExpired = true;
@@ -36,6 +53,16 @@ public class LoginServiceImpl implements UserDetailsService {
         if(domainUser.getUSER_ID()==0) {
         	throw new UsernameNotFoundException("User not found");
         } else {
+        	TrnAccessLog accessLog = new TrnAccessLog();
+  
+        	accessLog.ALOG_CUST_ID = customerMember.getMEBR_CUST_ID();
+        	accessLog.ALOG_MEBR_ID = customerMember.getMEBR_ID();
+        	accessLog.ALOG_EMAIL_ADDRESS = domainUser.getUSER_LOGIN();
+        	accessLog.ALOG_ACCESS_DATE = new Date();
+        	accessLog.ALOG_TIME_STAMP = new Date();
+        	
+        	accessLogService.addAccessLog(accessLog);
+        	
 	        return new User(
 	                domainUser.getUSER_LOGIN(), 
 	                domainUser.getUSER_PASSWORD(), 

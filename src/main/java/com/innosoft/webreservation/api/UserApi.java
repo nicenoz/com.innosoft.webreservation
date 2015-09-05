@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
+import com.innosoft.webreservation.service.SendLogService;
 import com.innosoft.webreservation.service.UserPasswordService;
 import com.innosoft.webreservation.service.UserService;
 
@@ -111,6 +113,7 @@ public class UserApi {
 			
 			mail.setEMAIL_MESSAGE("LINK: http://magentatest.cloudapp.net/webreservation/loginFreePassword/email=" + user.USER_LOGIN + " \n PASSWORD:" + password);
 			mail.setEMAIL_SUBJECT("Free User Login Password");
+
 			boolean sendMail = emailService.sendMail(mail);	
 			if (sendMail == true) {
 				//RETURN CUSTOMER ID WITH 000000 and User ID

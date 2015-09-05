@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCustomerMember;
+import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.SecurityService;
+import com.innosoft.webreservation.service.SendLogService;
 
 
 @Controller
@@ -25,6 +28,9 @@ public class CustomerMemberApi {
 	private CustomerMemberService customerMemberService;
 	@Autowired
 	private SecurityService securityService;
+	
+	@Autowired
+	private SendLogService sendLogService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerMember> listCustomerMember() {
@@ -50,6 +56,16 @@ public class CustomerMemberApi {
 			if(member.getMEBR_ID() == 0) {
 				member = (MstCustomerMember)securityService.stampCreated(member);
 				MstCustomerMember newCustomerMember = customerMemberService.addCustomerMember(member);
+				
+				TrnSendLog newSendLog = new TrnSendLog();
+				
+				newSendLog.SLOG_TIME_STAMP = new Date();
+				newSendLog.SLOG_EMAIL_ADDRESS = newCustomerMember.getMEBR_EMAIL_ADDRESS();
+				newSendLog.SLOG_MEBR_ID = newCustomerMember.getMEBR_ID();
+				newSendLog.SLOG_PURPOSE_DIVISION = "Add Free User";
+				
+				sendLogService.addSendLog(newSendLog);
+				
 				return new ResponseEntity<MstCustomerMember>(newCustomerMember, HttpStatus.OK);
 			} else {
 				member = (MstCustomerMember)securityService.stampUpdated(member);

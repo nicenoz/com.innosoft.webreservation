@@ -91,6 +91,17 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		return 	maxId;
 	}
 	
+	public String getNewMemberNo()
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCustomerMember.class).setProjection(Projections.max("MEBR_CUSTOMER_MEMBER_NO_INT"));
+	    Integer maxId = (Integer)criteria.uniqueResult();
+		if(maxId == null){
+			maxId = 0;
+		}
+		return String.format("%06d", Integer.parseInt("" + (maxId + 1)));
+	}
+	
 	public MstCustomerMember addCustomerMember(MstCustomerMember member){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -101,7 +112,7 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 			
 			newCustomerMember.setMEBR_ID(getMaxId() + 1);
 			newCustomerMember.setMEBR_CUST_ID(member.MEBR_CUST_ID); 
-			newCustomerMember.setMEBR_CUSTOMER_MEMBER_NO(member.MEBR_CUSTOMER_MEMBER_NO); 
+			newCustomerMember.setMEBR_CUSTOMER_MEMBER_NO(getNewMemberNo()); 
 			newCustomerMember.setMEBR_USER_ID(member.MEBR_USER_ID); 
 			newCustomerMember.setMEBR_TEL_NO(member.MEBR_TEL_NO);  
 			newCustomerMember.setMEBR_EMAIL_ADDRESS(member.MEBR_EMAIL_ADDRESS); 
