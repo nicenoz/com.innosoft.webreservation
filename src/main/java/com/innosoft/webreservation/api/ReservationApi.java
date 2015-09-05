@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.innosoft.webreservation.entity.TrnChargeCount;
 import com.innosoft.webreservation.entity.TrnReservation;
+import com.innosoft.webreservation.service.ChargeCountService;
 import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SecurityService;
 
@@ -24,6 +27,8 @@ public class ReservationApi {
 	private ReservationService reservationService;
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
+	private ChargeCountService chargeCountService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<TrnReservation> listReservation() {
@@ -55,6 +60,15 @@ public class ReservationApi {
 			if(reservation.getRESV_ID() == 0) {
 				reservation = (TrnReservation)securityService.stampCreated(reservation);
 				TrnReservation newReservation = reservationService.addReservation(reservation);
+				TrnChargeCount newChargeCount = new TrnChargeCount();
+				
+				newChargeCount.setCUNT_TIME_STAMP(new Date());
+				newChargeCount.setCUNT_CUST_ID(reservation.getRESV_CUST_ID());
+				newChargeCount.setCUNT_MEBR_ID(reservation.getRESV_MEBR_ID());
+				newChargeCount.setCUNT_EMAIL_ADDRESS(securityService.getCurrentUser().getUSER_LOGIN());
+				newChargeCount = (TrnChargeCount)securityService.stampCreated(newChargeCount);
+				
+				chargeCountService.addChargeCount(newChargeCount);
 				return new ResponseEntity<TrnReservation>(newReservation, HttpStatus.OK);
 			} else {
 				reservation = (TrnReservation)securityService.stampUpdated(reservation);

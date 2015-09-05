@@ -372,45 +372,50 @@ function cmdAddEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.RESV_ID > 0) {
-                toastr.success('Successfully updated.');
-                window.setTimeout(function () { 
+            	if(reservation.RESV_ID  == 0){
+	                toastr.success('Successfully Added Reservation.');
+	                
+	                var emailObject = new Object();
+	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
+	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
+	    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
+	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
+	    				"\nTime End: "+  cboAEEndTime.selectedValue +
+	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
+	    				
+    				emailObject.EMAIL_RECEIVER_ID = reservation.RESV_MEBR_ID;
+	    			emailObject.EMAIL_PURPOSE = "Add Reservation";
+	    				
+	    			var data = JSON.stringify(emailObject);
+	    			$.ajax({
+						type : "POST",
+						url : '${pageContext.request.contextPath}/api/email/send',
+						contentType : "application/json; charset=utf-8",
+						dataType : "json",
+						data : data,
+						statusCode : {
+							200 : function() {
+							},
+							404 : function() {
+								$('#loading').modal('hide');
+								alertify.alert("Not found");
+							},
+							400 : function() {
+								$('#loading').modal('hide');
+								alertify.alert("Bad Request");
+							}
+						}
+	 				});
+            	}else{
+            		toastr.success('Successfully Updated Reservation.');
+            	}
+            	
+            	window.setTimeout(function () { 
                 	updateTable();
                 	closeWindow();
                 }, 1000);
-                
-                var emailObject = new Object();
-    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
-    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
-    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
-    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
-    				"\nTime Start: "+ cboAEStartTime.selectedValue +
-    				"\nTime End: "+  cboAEEndTime.selectedValue +
-    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
-
-    			var data = JSON.stringify(emailObject);
-    			
-/*     		    $('#loading').modal('show'); */
-    			$.ajax({
-					type : "POST",
-					url : '${pageContext.request.contextPath}/api/email/send',
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					data : data,
-					statusCode : {
-						200 : function() {
-/* 							$('#loading').modal('hide'); */
-							alertify.alert("Confirmation sent");
-						},
-						404 : function() {
-							$('#loading').modal('hide');
-							alertify.alert("Not found");
-						},
-						400 : function() {
-							$('#loading').modal('hide');
-							alertify.alert("Bad Request");
-						}
-					}
- 				});
+            	
             } else {
                 toastr.error("Not updated.");
             }
@@ -429,6 +434,41 @@ function cmdDelete_OnClick(){
             statusCode: {
                 200: function () {
                     toastr.success('Successfully Deleted.');
+                    
+                    var emailObject = new Object();
+	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
+	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Canceled Reservation";
+	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation: \nReservation Date: " + cboAECalenderDate.selectedValue +
+	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
+	    				"\nTime End: "+  cboAEEndTime.selectedValue +
+	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
+	    				
+
+	    			emailObject.EMAIL_RECEIVER_ID = loggedInCustomerId;
+	    			emailObject.EMAIL_PURPOSE = "Delete Reservation";
+	
+	    			var data = JSON.stringify(emailObject);
+	    			$.ajax({
+						type : "POST",
+						url : '${pageContext.request.contextPath}/api/email/send',
+						contentType : "application/json; charset=utf-8",
+						dataType : "json",
+						data : data,
+						statusCode : {
+							200 : function() {
+							},
+							404 : function() {
+								$('#loading').modal('hide');
+								alertify.alert("Not found");
+							},
+							400 : function() {
+								$('#loading').modal('hide');
+								alertify.alert("Bad Request");
+							}
+						}
+	 				});
+                    
                     window.setTimeout(function () { 
                     	updateTable();
                     	closeWindow();
