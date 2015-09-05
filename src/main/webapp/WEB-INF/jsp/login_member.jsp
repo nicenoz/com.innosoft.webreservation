@@ -76,9 +76,9 @@
 		                        <fieldset>
 		                        	<input type="text" name="" class="form-control border-custom" id="" size="30" maxlength="40" placeholder="Member ID"/>
 		                            <hr>
-		                           	<input type="text" name="j_username" class="form-control border-custom" id="j_username" size="30" maxlength="40" placeholder="Email Address"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
+		                           	<input type="email" name="j_username" class="form-control border-custom" id="j_username" size="30" maxlength="40" placeholder="Email Address"  value="${SPRING_SECURITY_LAST_USERNAME}" required/>
 		                            <br />
-		                            <input type="password" name="j_password" class="form-control border-custom" id="j_password" size="30" maxlength="32" placeholder="Password"/>
+		                            <input type="password" name="j_password" class="form-control border-custom" id="j_password" size="30" maxlength="32" placeholder="Password" required/>
 		                            <br />
 		                            <div class="checkbox">
 		                                <label>
@@ -86,12 +86,10 @@
 		                                </label>
 		                            </div>
 		                            <br />
-		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block border-custom" />
+		                            <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block border-custom"/>
 		                            <a href="/webreservation/login" class="btn btn-lg btn-success btn-block border-custom">Change Login</a>
 		                            <br/>
-		                            <p>
-										<b class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password are incorrect')}"/></b>
-									</p>
+									<strong class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password is incorrect')}"/></strong>
 		                        </fieldset>
 		                    </div>
 		                </div>

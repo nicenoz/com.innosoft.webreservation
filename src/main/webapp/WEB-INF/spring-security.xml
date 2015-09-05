@@ -13,9 +13,10 @@
 		<intercept-url pattern="/api/customer/*" access="ROLE_USER"/> 
 	    <intercept-url pattern="/software/*" access="ROLE_ADMIN"/>   
 	    <form-login login-page="/login/"></form-login>
+	    
 		<form-login 
 		    login-page="/login/" 
-		    default-target-url="/" 
+		    default-target-url="/loginMember/" 
 			authentication-failure-url="/login?error" />
 		<logout logout-success-url="/" />
 		<!-- enable csrf protection -->

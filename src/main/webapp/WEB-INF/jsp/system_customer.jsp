@@ -94,7 +94,7 @@
                         </dd>  
                         <dt>E-mail Address: </dt>
                         <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_EMAIL" name="EDIT_CUST_EMAIL" type="text" required />
+                            <input class="form-control border-custom" id="EDIT_CUST_EMAIL" name="EDIT_CUST_EMAIL" type="email" required />
                         </dd> 	
                         <dt>ZIP Code: </dt>
                         <dd>
@@ -410,8 +410,21 @@ $.validator.setDefaults({
 // On Page Load
 // ============
 $(document).ready(function () {
-
- // Validation
+	$("#EDIT_CUST_PHONENO").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
+	
+	
+ 	// Validation
     $('#CmdCustomerEditOk').click(function () {
         if (FormValidate() == true) {
             cmdCustomerEditOkFunction();

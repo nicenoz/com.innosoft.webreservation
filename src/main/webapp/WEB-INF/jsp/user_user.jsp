@@ -23,6 +23,9 @@
 					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
+			<div class="col-lg-8">
+		        <button id="cmdAddCustomer" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMemberAdd_OnClick()">Add</button>
+		    </div>
 		</div>
 		<br />
 		
@@ -334,6 +337,51 @@ function cmdCustomerMemberEdit_OnClick() {
         }
     }); 
 }
+
+//=================================
+//Add OnClick Button
+//=================================     
+function cmdMemberAdd_OnClick() {
+	$('#MemberEdit').modal({
+        show: true,
+        backdrop: 'static'
+    });
+	
+	var currentDate = new Date();
+    
+    document.getElementById('EDIT_MEBR_ID').value = 0;
+    document.getElementById('EDIT_MEBR_TEL_NO').value = '';
+    document.getElementById('EDIT_MEBR_CUST_ID_DATA').value = '';
+    document.getElementById('EDIT_CUST_NAME').value = '';
+    document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA').value = '';
+    document.getElementById('EDIT_MEBR_EMAIL_ADDRESS').value = '';
+    document.getElementById('EDIT_MEBR_FIRST_NAME').value = '';
+    document.getElementById('EDIT_MEBR_LAST_NAME').value = '';
+    document.getElementById('EDIT_MEBR_ADDRESS1').value = '';
+    document.getElementById('EDIT_MEBR_ADDRESS2').value = '';
+    document.getElementById('EDIT_MEBR_ADDRESS3').value = '';
+    document.getElementById('EDIT_MEBR_ZIP_CODE').value = '';
+    document.getElementById('EDIT_MEBR_POINT').value = '';
+    document.getElementById('EDIT_MEBR_FIELD1').value = '';
+    document.getElementById('EDIT_MEBR_FIELD2').value = '';
+    document.getElementById('EDIT_MEBR_FIELD3').value = '';
+    document.getElementById('EDIT_MEBR_FIELD4').value = '';
+    document.getElementById('EDIT_MEBR_FIELD5').value = '';
+	
+    getCustomers(); 
+	getUsers();
+	
+	customerMembersDate.dispose();
+    customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
+        format: 'MM/dd/yyyy',
+        value: currentDate,
+        onValueChanged: function () {
+            document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value = this.value.toString("yyyy-MM-dd");
+        }
+    }); 
+
+}
+
 
 // =================================
 // Edit Detail Cancel Button Clicked 

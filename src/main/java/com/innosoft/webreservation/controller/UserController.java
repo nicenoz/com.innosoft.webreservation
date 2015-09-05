@@ -13,16 +13,16 @@ public class UserController {
 		ModelAndView model = new ModelAndView("user");
 		return model;
 	}
-	
-	@RequestMapping("/activity")
-	public String activity(Model model) {
-		return "user_activity";
-	}	
-	
+		
 	@RequestMapping("/chargingReport")
 	public String chargingReport(Model model) {
 		return "user_chargingReport";
 	}	
+	
+	@RequestMapping("/userPassword")
+	public String userPassword(Model model) {
+		return "user_userPassword";
+	}
 	
 	@RequestMapping("/reservationReport")
 	public String reservationReport(Model model) {

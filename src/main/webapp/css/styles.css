@@ -135,6 +135,9 @@ dt {
   	border-radius: 0 !important;
   	background-color: #E0E0D1;
 }
+.jumbotron-custom-margin {
+	margin-bottom: 200px;
+}
 		
 
 /* Panel Styles inside the Jumbotron Customize */
