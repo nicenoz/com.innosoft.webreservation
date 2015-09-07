@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name="WR_CUSTOMER_TIME")
 public class MstCustomerTime {
@@ -25,6 +27,10 @@ public class MstCustomerTime {
 	@Column(name="CTIM_DETAILS_NO")	
 	public Integer CTIM_DETAILS_NO; 
 	
+	//FOR SORTING
+	@Formula(value="to_number(CTIM_DETAILS_NO)")
+	private int CTIM_DETAILS_NO_INT;
+
 	@Column(name="CTIM_INTERVAL_OF_TIMES")	
 	public Integer CTIM_INTERVAL_OF_TIMES;
 	
@@ -178,5 +184,13 @@ public class MstCustomerTime {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}	
+	}
+	
+	public int getCTIM_DETAILS_NO_INT() {
+		return CTIM_DETAILS_NO_INT;
+	}
+
+	public void setCTIM_DETAILS_NO_INT(int cTIM_DETAILS_NO_INT) {
+		CTIM_DETAILS_NO_INT = cTIM_DETAILS_NO_INT;
+	}
 }
