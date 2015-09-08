@@ -181,14 +181,15 @@ for (var i = 0; i < customerCollection.items.length; i++) {
 }
 	
 cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CHRG_CUST_ID', {
-  itemsSource: customerList,
-  placeholder: 'select a customer',
-  selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
-  onSelectedIndexChanged: function () {
-      $("#EDIT_CHRG_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
-      getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
-  }
+	  cboCustomer = new wijmo.input.ComboBox('#EDIT_CHRG_CUST_ID', {
+	  itemsSource: customerList,
+	  placeholder: 'select a customer',
+	  isEditable: false,
+	  selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
+	  onSelectedIndexChanged: function () {
+	      $("#EDIT_CHRG_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
+	      getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
+	  }
 });	
 }
 
@@ -237,6 +238,7 @@ function cmdChargeEdit_OnClick() {
     chargeStartDate.dispose();
     chargeStartDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_START_DATE', {
         format: 'MM/dd/yyyy',
+        mask: '99/99/9999',
         value: new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]),
         onValueChanged: function () {
             document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
@@ -246,6 +248,7 @@ function cmdChargeEdit_OnClick() {
     chargeEndDate.dispose();
     chargeEndDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_END_DATE', {
         format: 'MM/dd/yyyy',
+        mask: '99/99/9999',
         value: new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]),
         onValueChanged: function () {
             document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
@@ -278,6 +281,7 @@ function cmdChargeAdd_OnClick() {
 	chargeStartDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_START_DATE',{
 				format : 'MM/dd/yyyy',
 				value : currentDate,
+				mask: '99/99/9999',
 				onValueChanged : function() {
 					document.getElementById('EDIT_CHRG_APP_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
 				}
@@ -287,6 +291,7 @@ function cmdChargeAdd_OnClick() {
 	chargeEndDate = new wijmo.input.InputDate('#EDIT_CHRG_APP_END_DATE',{
 				format : 'MM/dd/yyyy',
 				value : currentDate,
+				mask: '99/99/9999',
 				onValueChanged : function() {
 					document.getElementById('EDIT_CHRG_APP_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
 				}
@@ -515,6 +520,19 @@ $.validator.setDefaults({
 // On Page Load
 // ============
 $(document).ready(function(){
+	$("#EDIT_CHRG_PRICE").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
+	
 	// Date Control Initialization
 	chargeStartDate = new wijmo.input.InputDate(
 			'#EDIT_CHRG_APP_START_DATE', {
