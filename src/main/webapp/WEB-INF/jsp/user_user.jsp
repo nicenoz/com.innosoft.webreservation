@@ -79,9 +79,9 @@
 										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
 										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 									</dd>
-									<dt>Member No: </dt>
+									<dt id="EDIT_MEBR_CUSTOMER_MEMBER_NO_LABEL">Member No: </dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" required />
+										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" readonly/>
 									</dd>
 									<dt>User: </dt>
 									<dd>							
@@ -261,8 +261,10 @@ function createCboCustomer(customers) {
     }
  
     cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#EDIT_MEBR_CUST_ID', {
+	cboCustomer = new wijmo.input.ComboBox('#EDIT_MEBR_CUST_ID', {
         itemsSource: customerList,
+        placeholder: 'select customer',
+        isEditable: false,
         selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
         onSelectedIndexChanged: function () {
             $("#EDIT_MEBR_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
@@ -279,8 +281,10 @@ function createCboUsers(users) {
     }
  
     cboUsers.dispose();
-    cboUsers = new wijmo.input.AutoComplete('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID', {
+    cboUsers = new wijmo.input.ComboBox('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID', {
         itemsSource: userList,
+        placeholder: 'select user',
+        isEditable: false,
         selectedValue: document.getElementById('EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME').value.toString(),
         onSelectedIndexChanged: function () {
             $("#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA").val(userCollection.items[this.selectedIndex].id);
@@ -332,6 +336,7 @@ function cmdCustomerMemberEdit_OnClick() {
     customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
         format: 'MM/dd/yyyy',
         value: new Date(splitDate[0], splitDate[1] - 1, splitDate[2]),
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value = this.value.toString("yyyy-MM-dd");
         }
@@ -346,6 +351,9 @@ function cmdMemberAdd_OnClick() {
         show: true,
         backdrop: 'static'
     });
+	
+	$('#EDIT_MEBR_CUSTOMER_MEMBER_NO_LABEL').hide();
+	$('#EDIT_MEBR_CUSTOMER_MEMBER_NO').hide();
 	
 	var currentDate = new Date();
     
@@ -375,6 +383,7 @@ function cmdMemberAdd_OnClick() {
     customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
         format: 'MM/dd/yyyy',
         value: currentDate,
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value = this.value.toString("yyyy-MM-dd");
         }
@@ -617,6 +626,19 @@ $.validator.setDefaults({
 //========= 
 $(document).ready(function() {
 
+	$("#EDIT_MEBR_TEL_NO").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
+	
 		customerMembersDate = new wijmo.input.InputDate('#EDIT_MEBR_DATE_OF_BIRTH', {
 	        format: 'MM/dd/yyyy',
 	        value: new Date()

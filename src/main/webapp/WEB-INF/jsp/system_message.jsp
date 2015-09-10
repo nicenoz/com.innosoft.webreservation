@@ -174,7 +174,7 @@ function cmdMessageEdit_OnClick() {
     
     document.getElementById('EDIT_MESG_LEVEL_DATA').value = message.MESG_LEVEL; 
     cboMesgLevel.dispose();
-    cboMesgLevel = new wijmo.input.AutoComplete('#EDIT_MESG_LEVEL', {
+    cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
         itemsSource: mesgLvls,
         selectedIndex: message.MESG_LEVEL - 1,
         onSelectedIndexChanged: function () {
@@ -189,6 +189,7 @@ function cmdMessageEdit_OnClick() {
     messageStartDate.dispose();
     messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
         format: 'MM/dd/yyyy',
+        mask: '99/99/9999',
         value: new Date(splitStartDate[0], splitStartDate[1] - 1, splitStartDate[2]),
         onValueChanged: function () {
             document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
@@ -197,6 +198,7 @@ function cmdMessageEdit_OnClick() {
     messageEndDate.dispose();
     messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
         format: 'MM/dd/yyyy',
+        mask: '99/99/9999',
         value: new Date(splitEndDate[0], splitEndDate[1] - 1, splitEndDate[2]),
         onValueChanged: function () {
             document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
@@ -228,8 +230,10 @@ function cmdMessageAdd_OnClick() {
     
     document.getElementById('EDIT_MESG_LEVEL_DATA').value = 1; 
     cboMesgLevel.dispose();
-    cboMesgLevel = new wijmo.input.AutoComplete('#EDIT_MESG_LEVEL', {
+    cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
         itemsSource: mesgLvls,
+        isEditable: false,
+        placeholder: 'select level',
         onSelectedIndexChanged: function () {
         	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
         }
@@ -239,6 +243,7 @@ function cmdMessageAdd_OnClick() {
     messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
         format: 'MM/dd/yyyy',
         value: currentDate,
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_MESG_START_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }
@@ -247,6 +252,7 @@ function cmdMessageAdd_OnClick() {
     messageEndDate = new wijmo.input.InputDate('#EDIT_MESG_END_DATE', {
         format: 'MM/dd/yyyy',
         value: currentDate,
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_MESG_END_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }
@@ -457,6 +463,18 @@ $.validator.setDefaults({
 // ============
 $(document).ready(function () {
 	
+	$("#EDIT_MESG_LEVEL").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
 	 // Date Control Initialization
     messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {
         format: 'MM/dd/yyyy',

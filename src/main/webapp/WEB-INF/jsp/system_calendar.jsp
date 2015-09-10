@@ -146,6 +146,7 @@ function cmdCalendarEdit_OnClick() {
     calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
         format: 'MM/dd/yyyy',
         value: new Date(splitDate[0], splitDate[1] - 1, splitDate[2]),
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }
@@ -172,6 +173,7 @@ function cmdCalendarAdd_OnClick() {
     calendarDate = new wijmo.input.InputDate('#EDIT_CLDR_DATE', {
         format: 'MM/dd/yyyy',
         value: currentDate,
+        mask: '99/99/9999',
         onValueChanged: function () {
             document.getElementById('EDIT_CLDR_DATE_DATA').value = this.value.toString("yyyy-MM-dd");
         }

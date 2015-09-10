@@ -187,9 +187,10 @@ function createCboCustomer(customers) {
  }
 	
 cboCustomer.dispose();
-cboCustomer = new wijmo.input.AutoComplete('#EDIT_CTIM_CUST_ID', {
+cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
      itemsSource: customerList,
      placeholder: 'select a customer',
+     isEditable: false,
      selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
      onSelectedIndexChanged: function () {
          $("#EDIT_CTIM_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
@@ -221,9 +222,11 @@ function cmdCustomerTimeEdit_OnClick() {
     console.log(customerTime.CTIM_INTERVAL_OF_TIMES);
     cboTimeInterval.dispose();
     var selectedValue =  customerTime.CTIM_INTERVAL_OF_TIMES == 60? 0:1;
-	cboTimeInterval = new wijmo.input.AutoComplete('#EDIT_CTIM_INTERVAL_OF_TIMES', {
+	cboTimeInterval = new wijmo.input.ComboBox('#EDIT_CTIM_INTERVAL_OF_TIMES', {
 	     itemsSource: ["60 Minutes","30 Minutes"],
+	     placeholder: 'select an interval of times',
 	     selectedIndex: selectedValue,
+	     isEditable: false,
 	     onSelectedIndexChanged: function () {
 	    	 if(cboTimeInterval.selectedIndex == 0)
 	    		 document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60;
@@ -252,8 +255,10 @@ function cmdCustomerTimeAdd_OnClick() {
 	
     document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60; 
     cboTimeInterval.dispose();
-	cboTimeInterval = new wijmo.input.AutoComplete('#EDIT_CTIM_INTERVAL_OF_TIMES', {
+	cboTimeInterval = new wijmo.input.ComboBox('#EDIT_CTIM_INTERVAL_OF_TIMES', {
 	     itemsSource: ["60 Minutes","30 Minutes"],
+	     placeholder: 'select an interval of times',
+	     isEditable: false,
 	     selectedIndex: 0,
 	     onSelectedIndexChanged: function () {
 	    	 if(cboTimeInterval.selectedIndex == 0)
@@ -468,6 +473,19 @@ $.validator.setDefaults({
 // On Page Load
 // ============
 $(document).ready(function(){
+	$("#EDIT_CTIM_DETAILS_NO").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
+	
     //validation
 	$('#cmdCustomerTimeEditOk').click(function() {
 		if (FormValidate() == true) {

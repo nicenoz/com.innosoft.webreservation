@@ -256,9 +256,10 @@ function createCboCustomer(customers) {
  }
 	
  cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#EDIT_CACT_CUST_ID', {
+	cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID', {
      itemsSource: customerList,
      placeholder: 'select a customer',
+     isEditable: false,
      selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
@@ -276,9 +277,10 @@ function createCboCalendarDate(calendarDates) {
  }
 	
  	 cboCalendarDate.dispose();
- 	 cboCalendarDate = new wijmo.input.AutoComplete('#EDIT_CACT_CLDR_ID_DATE', {
+ 	 cboCalendarDate = new wijmo.input.ComboBox('#EDIT_CACT_CLDR_ID_DATE', {
 	     itemsSource: calendarDateList,
 	     placeholder: 'select a Calendar Date',
+	     isEditable: false,
 	     selectedValue: document.getElementById('EDIT_CACT_DATE').value.toString(),
 	     onSelectedIndexChanged: function () {
 	         $("#EDIT_CACT_CLDR_ID_DATE_DATA").val(calendarDateCollection.items[this.selectedIndex].calendarId);
@@ -295,9 +297,10 @@ function createCustomerTimeId(customerTimes) {
  }
 	
      cboCustomerStartTimeId.dispose();
-     cboCustomerStartTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_START_TIME', {
+     cboCustomerStartTimeId = new wijmo.input.ComboBox('#EDIT_CACT_START_TIME', {
      itemsSource: customerTimeList,
      placeholder: 'select customer Start time Id',
+     isEditable: false,
 	 selectedValue: document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value,
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_START_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
@@ -305,9 +308,10 @@ function createCustomerTimeId(customerTimes) {
 	 });	
  
      cboCustomerEndTimeId.dispose();
-     cboCustomerEndTimeId = new wijmo.input.AutoComplete('#EDIT_CACT_END_TIME', {
+     cboCustomerEndTimeId = new wijmo.input.ComboBox('#EDIT_CACT_END_TIME', {
      itemsSource: customerTimeList,
      placeholder: 'select customer End time Id',
+     isEditable: false,
 	 selectedValue: document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value,
      onSelectedIndexChanged: function () {
          $("#EDIT_CACT_END_TIME_ID").val(customerTimeCollection.items[this.selectedIndex].customerTimeId);
@@ -331,8 +335,10 @@ function cmdCalendarActivityEdit_OnClick() {
 		calendarActivityDetailsNo.push(i);
 	}
 	cboCalendarActivityDetailsNo.dispose();
-	cboCalendarActivityDetailsNo = new wijmo.input.AutoComplete('#EDIT_CACT_DETAILS_NO', {
+	cboCalendarActivityDetailsNo = new wijmo.input.ComboBox('#EDIT_CACT_DETAILS_NO', {
+		placeholder: 'select details no',
 	     itemsSource: calendarActivityDetailsNo,
+	     isEditable: false
 	});
 
     var calendarActivity = calendarActivities.currentEditItem;
@@ -593,6 +599,19 @@ $.validator.setDefaults({
 // ============
 $(document).ready(function () {
 		
+	$("#EDIT_CACT_DETAILS_NO").keydown(function(event) {
+		// Allow only backspace and delete
+		if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			// let it happen, don't do anything
+		}
+		else {
+			// Ensure that it is a number and stop the keypress
+			if (event.keyCode < 48 || event.keyCode > 57 ) {
+				event.preventDefault();	
+			}	
+		}
+	});
+	
     // Validation
     $('#cmdCalendarActivityEditOk').click(function () {
         if (FormValidate() != true) {

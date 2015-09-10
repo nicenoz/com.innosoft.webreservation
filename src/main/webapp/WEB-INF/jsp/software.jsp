@@ -560,8 +560,9 @@ function cmdAddReservation_OnClick() {
 	    
 	    document.getElementById("AE_CACT_ID").value = calendarActivities[0].id;
 	    cboAECalenderDate.dispose();
-	    cboAECalenderDate = new wijmo.input.AutoComplete('#AE_CALENDAR_DATE', {
+	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
 	        itemsSource: calendarActivityList.slice(startDateIndex, endDateIndex + 1),
+	        isEditable: false,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_CACT_ID").value = calendarActivities[cboAECalenderDate.selectedIndex + startDateIndex].id;
 	        }
@@ -569,8 +570,9 @@ function cmdAddReservation_OnClick() {
 
     	document.getElementById("AE_PARTS_NO").value = partsList[0];
 	    cboAEPartsNo.dispose();
-	    cboAEPartsNo = new wijmo.input.AutoComplete('#AE_PARTS', {
+	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
 	        itemsSource: partsList,
+	        isEditable: false,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_PARTS_NO").value = partsList[cboAEPartsNo.selectedIndex];
 	        }
@@ -578,8 +580,9 @@ function cmdAddReservation_OnClick() {
 	    
 	    document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[0].id;
 	    cboAEStartTime.dispose();
-	    cboAEStartTime = new wijmo.input.AutoComplete('#AE_START_TIME', {
+	    cboAEStartTime = new wijmo.input.ComboBox('#AE_START_TIME', {
 	        itemsSource: customerTimeList,
+	        isEditable: false,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
 	        	if(this.selectedIndex > cboAEEndTime.selectedIndex){
@@ -591,8 +594,9 @@ function cmdAddReservation_OnClick() {
 	    
 	    document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[0].id;
 	    cboAEEndTime.dispose();
-	    cboAEEndTime = new wijmo.input.AutoComplete('#AE_END_TIME', {
+	    cboAEEndTime = new wijmo.input.ComboBox('#AE_END_TIME', {
 	        itemsSource: customerTimeList,
+	        isEditable: false,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
 	        	if(this.selectedIndex < cboAEStartTime.selectedIndex){
@@ -650,7 +654,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 		}
 	    document.getElementById("AE_CACT_ID").value = calendarActivities[calendarDateIndex].id;
 	    cboAECalenderDate.dispose();
-	    cboAECalenderDate = new wijmo.input.AutoComplete('#AE_CALENDAR_DATE', {
+	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
 	        itemsSource: calendarActivityList.slice(startDateIndex, endDateIndex + 1),
 	        disabled: !isUser,
 	        selectedIndex: calendarDateIndex,
@@ -661,7 +665,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    
     	document.getElementById("AE_PARTS_NO").value = partsList[reservation.RESV_PARTS_NO - 1];
 	    cboAEPartsNo.dispose();
-	    cboAEPartsNo = new wijmo.input.AutoComplete('#AE_PARTS', {
+	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
 	        itemsSource: partsList,
 	        disabled: !isUser,
 	        selectedIndex: reservation.RESV_PARTS_NO - 1,
@@ -681,7 +685,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 		
 	    document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[startTimeIndex].id;
 	    cboAEStartTime.dispose();
-	    cboAEStartTime = new wijmo.input.AutoComplete('#AE_START_TIME', {
+	    cboAEStartTime = new wijmo.input.ComboBox('#AE_START_TIME', {
 	        itemsSource: customerTimeList,
 	        disabled: !isUser,
 	        selectedIndex: startTimeIndex,
@@ -705,7 +709,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 		
 	    document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[endTimeIndex].id;
 	    cboAEEndTime.dispose();
-	    cboAEEndTime = new wijmo.input.AutoComplete('#AE_END_TIME', {
+	    cboAEEndTime = new wijmo.input.ComboBox('#AE_END_TIME', {
 	        itemsSource: customerTimeList,
 	        disabled: !isUser,
 	        selectedIndex: endTimeIndex,
@@ -832,9 +836,10 @@ function getCalendarActivities(customerId) {
 //======== 
 function createCboCustomer(customers) {
     cboCustomer.dispose();
-	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer', {
+	cboCustomer = new wijmo.input.ComboBox('#cboCustomer', {
         itemsSource: customers,
         displayMemberPath:"customerName",
+        isEditable: false,
         onSelectedIndexChanged: function () {
             getCalendarActivities(this.selectedValue.id);
             isScheduleUpdated = false;
@@ -853,8 +858,9 @@ function createCboCalendarActivity(calendarActivities) {
     }
 	
     cboCalendarActivityStart.dispose();
-    cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
+    cboCalendarActivityStart = new wijmo.input.ComboBox('#cboCalendarActivityStart', {
         itemsSource: calendarActivityList,
+        isEditable: false,
         onSelectedIndexChanged: function () {
         	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
         		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
@@ -863,8 +869,9 @@ function createCboCalendarActivity(calendarActivities) {
     });		
     
     cboCalendarActivityEnd.dispose();
-    cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
+    cboCalendarActivityEnd = new wijmo.input.ComboBox('#cboCalendarActivityEnd', {
         itemsSource: calendarActivityList,
+        isEditable: false,
         onSelectedIndexChanged: function () {
         	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
         		cboCalendarActivityStart.selectedIndex = this.selectedIndex;
