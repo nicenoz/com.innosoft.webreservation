@@ -16,7 +16,7 @@
 	            <div id="cboCalendarActivityEnd" class="border-custom"></div>
             </div>            
             <div class="col-lg-2">
-                <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="cmdGetSchedule_OnClick()">Get</button>
+                <button id="cmdGetSchedule" type="submit" class="btn btn-primary border-custom btn-block pull-right" onclick="updateTable()">Get</button>
             </div>
             <div class="col-lg-2 pull-right">
                 <button id="cmdCreateReservation" type="submit" class="btn btn-success border-custom btn-block" onclick="cmdAddReservation_OnClick()">Add</button>
@@ -33,7 +33,11 @@
 	    	<div class="col-lg-12">
 	        	<button class='btn btn-success btn-xs border-custom'>x</button> - Your Reservations
 	        	&nbsp &nbsp &nbsp &nbsp &nbsp
+	        	<button class='btn btn-warning btn-xs border-custom'>x</button> - Your Waiting Reservations
+	        	&nbsp &nbsp &nbsp &nbsp &nbsp
 	        	<button class='btn btn-primary btn-xs border-custom'>x</button> - Taken Reservations
+	        	&nbsp &nbsp &nbsp &nbsp &nbsp
+	        	<button class='btn btn-danger btn-xs border-custom'>x</button> - Waiting Reservations
 	        </div>
         </div>
     </div>
@@ -181,10 +185,7 @@ function updateTable(){
                         dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
                     });
                 });
-                
             }
-
-			console.log("update");
             $.ajax({
                 url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
                 cache: false,
@@ -204,10 +205,9 @@ function updateTable(){
                 			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
                 			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
                 			RESV_NOTE: reservation.RESV_NOTE,
-                			
+                			RESV_ISDELETED: reservation.ISDELETED,
                 			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
                 	    });
-            			console.log(reservation.RESV_ID);
                 	});
                 	
                 	cmdGetSchedule_OnClick();
@@ -276,9 +276,10 @@ function cmdGetSchedule_OnClick() {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
                 	// --- CREATE PARTS ROWS --------------------------------------
+                	var counter = new Array(ceilParts);
                 	customerTimeFlat.push({
                 		id: results[i]["CTIM_ID"],
-                		time: results[i]["CTIM_DETAILS_NO"].toString(), 
+                		time: results[i]["CTIM_DETAILS_NO"].toString()
                 	});
                 	
                 	if(results[i]["CTIM_MAX_PARTS_NO"] > ceilParts)
@@ -297,24 +298,51 @@ function cmdGetSchedule_OnClick() {
                 			var slotHolder = "";
                 			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
                 			for(a = 0; a < reservationsList.length; a++){
-                				//CHECK IF RESERVATION IS FOR THIS CUSTOMER
-                				if(reservationsList[a].RESV_CUST_ID == customerId){
-                					//CHECK IF RESERVATION IS FOR THIS DAY
+                				//CHECK IF IS DELETED
+                				if(reservationsList[a].RESV_ISDELETED == 0){
+	                				//CHECK IF RESERVATION IS FOR THIS DAY
 	                				if(calendarActivities[k].id == reservationsList[a].RESV_CACT_ID){
 	                					//CHECK IF RESERVATION IS FOR THIS TIME
 	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
 			                				//CHECK IF RESERVATION IS FOR THIS PART
 			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
-		                						//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
-		                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
-			                						//CAN EDIT IF RESERVED BY CUSTOMER
-		                							slotHolder = slotHolder + 
-				                					"<button class='btn btn-success btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+		                						var x = reservationsList[a]["RESV_PARTS_NO"] - 1;
+		                						var y = k - startDateIndex;
+		                						
+			                					if(counter[x] == null){
+			                						counter[x] = new Array(endDateIndex - startDateIndex + 1);
+			                						counter[x][y] = 1;
+			                					}else{
+			                						if(counter[x][y] == null){
+			                							counter[x][y] = 1;
+			                						}else{
+			                							counter[x][y]++;
+			                						}
+			                					}
+			                					
+			                					if(counter[x][y] <= results[i]["CTIM_MAX_UNIT_NO"]){
+		                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
+			                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
+				                						//CAN EDIT IF RESERVED BY CUSTOMER
+			                							slotHolder = slotHolder + 
+					                					"<button class='btn btn-success btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+			                						}else{
+			                							//VIEW ONLY IF NOT
+					                					slotHolder = slotHolder + 
+					                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+			                						}
 		                						}else{
-		                							//VIEW ONLY IF NOT
-				                					slotHolder = slotHolder + 
-				                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+		                							if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
+				                						//CAN EDIT IF RESERVED BY CUSTOMER
+			                							slotHolder = slotHolder + 
+					                					"<button class='btn btn-warning btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+			                						}else{
+			                							//VIEW ONLY IF NOT
+					                					slotHolder = slotHolder + 
+					                					"<button class='btn btn-danger btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+			                						}
 		                						}
+			                					
 		                					}
 		                				}
 	                				}
@@ -351,6 +379,8 @@ function cmdGetSchedule_OnClick() {
 
 function cmdAddEditOk_OnClick() {
  	var reservation = new Object();
+ 	
+ 	document.getElementById("CmdAddEditOk").disabled = true;
 
  	reservation.RESV_ID      = parseInt(document.getElementById('AE_RESV_ID').value);
  	reservation.RESV_CUST_ID = parseInt(document.getElementById('AE_CUST_ID').value);
@@ -370,54 +400,66 @@ function cmdAddEditOk_OnClick() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: data,
-        success: function (data) {
-            if (data.RESV_ID > 0) {
-            	if(reservation.RESV_ID  == 0){
-	                toastr.success('Successfully Added Reservation.');
-	                
-	                var emailObject = new Object();
-	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
-	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
-	    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
-	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
-	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
-	    				"\nTime End: "+  cboAEEndTime.selectedValue +
-	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
-	    				
-    				emailObject.EMAIL_RECEIVER_ID = reservation.RESV_MEBR_ID;
-	    			emailObject.EMAIL_PURPOSE = "Add Reservation";
-	    				
-	    			var data = JSON.stringify(emailObject);
-	    			$.ajax({
-						type : "POST",
-						url : '${pageContext.request.contextPath}/api/email/send',
-						contentType : "application/json; charset=utf-8",
-						dataType : "json",
-						data : data,
-						statusCode : {
-							200 : function() {
-							},
-							404 : function() {
-								$('#loading').modal('hide');
-								alertify.alert("Not found");
-							},
-							400 : function() {
-								$('#loading').modal('hide');
-								alertify.alert("Bad Request");
-							}
-						}
-	 				});
-            	}else{
-            		toastr.success('Successfully Updated Reservation.');
-            	}
-            	
-            	window.setTimeout(function () { 
-                	updateTable();
-                	closeWindow();
-                }, 1000);
-            	
-            } else {
-                toastr.error("Not updated.");
+        statusCode: {
+            200: function (data) {
+            	if (data.RESV_ID > 0) {
+                	if(reservation.RESV_ID  == 0){
+    	                toastr.success('Successfully Added Reservation asd.');
+    	                
+    	                var emailObject = new Object();
+    	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
+    	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
+    	    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
+    	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+    	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
+    	    				"\nTime End: "+  cboAEEndTime.selectedValue +
+    	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
+    	    				
+        				emailObject.EMAIL_RECEIVER_ID = reservation.RESV_MEBR_ID;
+    	    			emailObject.EMAIL_PURPOSE = "Add Reservation";
+    	    				
+    	    			var email = JSON.stringify(emailObject);
+    	    			$.ajax({
+    						type : "POST",
+    						url : '${pageContext.request.contextPath}/api/email/send',
+    						contentType : "application/json; charset=utf-8",
+    						dataType : "json",
+    						data : email,
+    						statusCode : {
+    							200 : function() {
+    							},
+    							404 : function() {
+    								$('#loading').modal('hide');
+    								alertify.alert("Not found");
+    							},
+    							400 : function() {
+    								$('#loading').modal('hide');
+    								alertify.alert("Bad Request");
+    							}
+    						}
+    	 				});
+                	}else{
+                		toastr.success('Successfully Updated Reservation.');
+                	}
+                	
+                	window.setTimeout(function () { 
+                    	updateTable();
+                    	closeWindow();
+                    	document.getElementById("CmdAddEditOk").disabled = false;
+                    }, 1000);
+                	
+                } else {
+                	document.getElementById("CmdAddEditOk").disabled = false;
+                    toastr.error("Not updated.");
+                }
+            },
+            404: function () {
+           		document.getElementById("CmdAddEditOk").disabled = false;
+               	toastr.error('Max units reserved.');
+            },
+            409: function () {
+           		document.getElementById("CmdAddEditOk").disabled = false;
+               	toastr.error('Duplicate Reservation.');
             }
         }
     }); 
@@ -426,11 +468,17 @@ function cmdAddEditOk_OnClick() {
 function cmdDelete_OnClick(){
     alertify.confirm("Are you sure you want to cancel this reservation? <span class='glyphicon glyphicon-trash'></span>", function (e) {
     if (e) {
+    	
+    	var reservation = new Object();
+     	reservation.RESV_ID = currentLookup;
+     	
+     	var data = JSON.stringify(reservation);
         $.ajax({
-            type: "DELETE",
-            url: '${pageContext.request.contextPath}/api/reservation/delete/' + currentLookup,
+            type: "POST",
+            url: '${pageContext.request.contextPath}/api/reservation/sdelete',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            data: data,
             statusCode: {
                 200: function () {
                     toastr.success('Successfully Deleted.');
@@ -487,6 +535,7 @@ function cmdDelete_OnClick(){
 }
 
 function cmdAddReservation_OnClick() {
+	document.getElementById("CmdAddEditOk").disabled = false;
 	if(isScheduleUpdated){
 	    $('#ReservationAddEdit').modal({
 	        show: true,
@@ -564,6 +613,8 @@ function cmdAddReservation_OnClick() {
 
 function cmdEditReservation_OnClick(customerId, isUser) {
 	var reservation = reservationsList[customerId];
+	
+	document.getElementById("CmdAddEditOk").disabled = false;
 
 	if(isScheduleUpdated){
 	    $('#ReservationAddEdit').modal({
@@ -593,7 +644,6 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 		//INDEXOF DOES NOT WORK, USING FOR LOOPS FOR NOW (DAFUQ)
 		for(a = 0; a < calendarActivities.slice(startDateIndex, endDateIndex + 1).length; a++)
 		{
-			console.log(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].id + " " + reservation.RESV_CACT_ID)
 			if(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].id == reservation.RESV_CACT_ID){
 				calendarDateIndex = a;
 			}
@@ -755,6 +805,7 @@ function getCalendarActivities(customerId) {
                 			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
                 			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
                 			RESV_NOTE: reservation.RESV_NOTE,
+                			RESV_ISDELETED: reservation.ISDELETED,
                 			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
                 	    });
                 	});

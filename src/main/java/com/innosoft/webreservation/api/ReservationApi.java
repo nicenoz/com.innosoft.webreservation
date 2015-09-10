@@ -60,21 +60,52 @@ public class ReservationApi {
 			if(reservation.getRESV_ID() == 0) {
 				reservation = (TrnReservation)securityService.stampCreated(reservation);
 				TrnReservation newReservation = reservationService.addReservation(reservation);
-				TrnChargeCount newChargeCount = new TrnChargeCount();
 				
-				newChargeCount.setCUNT_TIME_STAMP(new Date());
-				newChargeCount.setCUNT_CUST_ID(reservation.getRESV_CUST_ID());
-				newChargeCount.setCUNT_MEBR_ID(reservation.getRESV_MEBR_ID());
-				newChargeCount.setCUNT_EMAIL_ADDRESS(securityService.getCurrentUser().getUSER_LOGIN());
-				newChargeCount = (TrnChargeCount)securityService.stampCreated(newChargeCount);
-				
-				chargeCountService.addChargeCount(newChargeCount);
-				return new ResponseEntity<TrnReservation>(newReservation, HttpStatus.OK);
+				if(newReservation.getRESV_ID() == -1){
+					return new ResponseEntity<TrnReservation>(HttpStatus.NOT_FOUND);
+				}else if(newReservation.getRESV_ID() == -2){
+					return new ResponseEntity<TrnReservation>(HttpStatus.CONFLICT);
+				}else{
+					TrnChargeCount newChargeCount = new TrnChargeCount();
+					
+					newChargeCount.setCUNT_TIME_STAMP(new Date());
+					newChargeCount.setCUNT_CUST_ID(reservation.getRESV_CUST_ID());
+					newChargeCount.setCUNT_MEBR_ID(reservation.getRESV_MEBR_ID());
+					newChargeCount.setCUNT_EMAIL_ADDRESS(securityService.getCurrentUser().getUSER_LOGIN());
+					newChargeCount.setCUNT_RESV_ID(newReservation.RESV_ID);
+					newChargeCount = (TrnChargeCount)securityService.stampCreated(newChargeCount);
+					
+					chargeCountService.addChargeCount(newChargeCount);
+					return new ResponseEntity<TrnReservation>(newReservation, HttpStatus.OK);
+				}
 			} else {
 				reservation = (TrnReservation)securityService.stampUpdated(reservation);
 				TrnReservation editReservation = reservationService.editReservation(reservation);
-				return new ResponseEntity<TrnReservation>(editReservation, HttpStatus.OK);
+				
+				if(editReservation.getRESV_ID() == -1){
+					return new ResponseEntity<TrnReservation>(HttpStatus.NOT_FOUND);
+				}else if(editReservation.getRESV_ID() == -2){
+					return new ResponseEntity<TrnReservation>(HttpStatus.CONFLICT);
+				}else{
+					return new ResponseEntity<TrnReservation>(editReservation, HttpStatus.OK);
+				}
 			}
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);
+		}
+	}
+	@RequestMapping(value = "/sdelete", method = RequestMethod.POST)
+	public ResponseEntity<TrnReservation> softDeleteReservation(@RequestBody TrnReservation reservation) {
+		try {
+			reservation = (TrnReservation)securityService.stampDeleted(reservation);
+			TrnReservation deleteReservation = reservationService.editReservation(reservation);
+			
+			TrnChargeCount deleteChargeCount = chargeCountService.getReservationById(deleteReservation.getRESV_ID());
+			deleteChargeCount = (TrnChargeCount)securityService.stampDeleted(deleteChargeCount);
+			chargeCountService.editChargeCount(deleteChargeCount);
+		
+			return new ResponseEntity<TrnReservation>(deleteReservation, HttpStatus.OK);
 		} catch(Exception e) {
 			System.out.println(e.toString());
 			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);

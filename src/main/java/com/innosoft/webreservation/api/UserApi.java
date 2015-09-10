@@ -1,6 +1,5 @@
 package com.innosoft.webreservation.api;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -15,11 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.entity.SysEmail;
-import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
-import com.innosoft.webreservation.service.SendLogService;
 import com.innosoft.webreservation.service.UserPasswordService;
 import com.innosoft.webreservation.service.UserService;
 
