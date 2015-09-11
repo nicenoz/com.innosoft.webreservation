@@ -16,7 +16,7 @@
 			                   </div>
 			                   <div class="panel-body">
 			                      	<fieldset>
-										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" size="40" maxlength="40" placeholder="To:"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
+										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" size="40" placeholder="To:"  value="${SPRING_SECURITY_LAST_USERNAME}"/>
 			                           	<br />
 			                           	<input type="text" name="edit_subject" class="form-control border-custom" id="edit_subject" size="40" maxlength="32" placeholder="Subject:"/>
 			                           	<br />
@@ -50,42 +50,42 @@
     </div>
 </div>
 
-	<script type="text/javascript">
-    
-		function cmdCalendarEditOk_OnClick() {
-			var emailObject = new Object();
+<script type="text/javascript">
+   
+	function cmdCalendarEditOk_OnClick() {
+		var emailObject = new Object();
 
-			emailObject.EMAIL_EMAIL = document.getElementById('edit_email').value;
-			emailObject.EMAIL_MESSAGE = document.getElementById('edit_message').value;
-			emailObject.EMAIL_SUBJECT = document.getElementById('edit_subject').value;
+		emailObject.EMAIL_EMAIL = document.getElementById('edit_email').value;
+		emailObject.EMAIL_MESSAGE = document.getElementById('edit_message').value;
+		emailObject.EMAIL_SUBJECT = document.getElementById('edit_subject').value;
 
-			var data = JSON.stringify(emailObject);
-			
-		    $('#loading').modal('show');
-			$.ajax({
-						type : "POST",
-						url : '${pageContext.request.contextPath}/api/email/send',
-						contentType : "application/json; charset=utf-8",
-						dataType : "json",
-						data : data,
-						statusCode : {
-							200 : function() {
-								$('#loading').modal('hide');
-								alertify.alert("Succesfully send");
-							},
-							404 : function() {
-								$('#loading').modal('hide');
-								alertify.alert("Not found");
-							},
-							400 : function() {
-								$('#loading').modal('hide');
-								alertify.alert("Bad Request");
-							}
+		var data = JSON.stringify(emailObject);
+		
+	    $('#loading').modal('show');
+		$.ajax({
+					type : "POST",
+					url : '${pageContext.request.contextPath}/api/email/send',
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : data,
+					statusCode : {
+						200 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Succesfully send");
+						},
+						404 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Not found");
+						},
+						400 : function() {
+							$('#loading').modal('hide');
+							alertify.alert("Bad Request");
 						}
-					});
+					}
+				});
 
-		}
-	</script>
+	}
+</script>
 
 <!-- footer -->
 <%@include file="include_secure_footer.jsp"%>

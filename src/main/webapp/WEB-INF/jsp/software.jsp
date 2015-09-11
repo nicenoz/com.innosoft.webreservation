@@ -783,10 +783,12 @@ function getCalendarActivities(customerId) {
         	reservationsList = new Array();
             if (results.length > 0) {
                 results.forEach(function(result){
-                	calendarActivities.push({
-                        id: result.CACT_ID,
-                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
-                    });
+                	if(result.CACT_OPERATION_FLAG == 1){
+	                	calendarActivities.push({
+	                        id: result.CACT_ID,
+	                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+	                    });
+                	}
                 });
                 createCboCalendarActivity(calendarActivities);
             }
