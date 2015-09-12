@@ -1,137 +1,157 @@
 <!-- Header -->
 <%@include file="include_secure_header.jsp"%>
 <title>System - Customer</title>
-    
+
 <!-- Customer List -->
-<div class="container"> 
+<div class="container">
 	<section id="customerList">
 		<div class="row">
-		    <div class="col-lg-12">
-		        <h4>Customer List</h4>
-		    </div>
+			<div class="col-lg-12">
+				<h4>Customer List</h4>
+			</div>
 		</div>
 		<div class="row">
-		    <div class="col-lg-4">
-		        <div class="input-group">
-		            <span class="input-group-btn">
-		                <button class="btn btn-default border-custom" type="button" readonly>
-		                <i class="fa fa-search"></i>
-		                </button>
-		            </span>
-		            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
-		        </div>
-		    </div>
-		    <div class="col-lg-8">
-		        <button id="cmdAddCustomer" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCustomerAdd_OnClick()">Add</button>
-		    </div>
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default border-custom" type="button"
+							readonly>
+							<i class="fa fa-search"></i>
+						</button>
+					</span> <input type="text" class="form-control border-custom"
+						id="InputFilter" placeholder="Search">
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<button id="cmdAddCustomer" type="submit"
+					class="btn btn-primary pull-right border-custom"
+					onclick="cmdCustomerAdd_OnClick()">Add</button>
+			</div>
 		</div>
 		<br />
 		<div class="row">
-		    <div class="col-lg-12">
-		        <div id="customerGrid" class="grid border-custom"></div>
-		    </div>
-		</div>	
-		<br />	
+			<div class="col-lg-12">
+				<div id="customerGrid" class="grid border-custom"></div>
+			</div>
+		</div>
+		<br />
 		<div class="row">
-		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-		            <span class="glyphicon glyphicon-fast-backward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-		            <span class="glyphicon glyphicon-step-backward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-		            <span class="glyphicon glyphicon-step-forward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-		            <span class="glyphicon glyphicon-fast-forward"></span>
-		        </button>
-		    </div>
+			<div class="btn-group col-md-7" id="naviagtionPageGrid">
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToFirstPageGrid">
+					<span class="glyphicon glyphicon-fast-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToPreviousPageGrid">
+					<span class="glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom" disabled
+					style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToNextPageGrid">
+					<span class="glyphicon glyphicon-step-forward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToLastPageGrid">
+					<span class="glyphicon glyphicon-fast-forward"></span>
+				</button>
+			</div>
 		</div>
 	</section>
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
-    <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <h4 class="modal-title">Loading...</h4>
-            </div>
-            <div class="modal-body">
-                <img src="<c:url value='/img/progress_bar.gif' />"></img>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="loading" tabindex="-1" role="dialog"
+	aria-labelledby="Loading..." aria-hidden="true">
+	<div class="modal-dialog" style="width: 220px;">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<h4 class="modal-title">Loading...</h4>
+			</div>
+			<div class="modal-body">
+				<img src="<c:url value='/img/progress_bar.gif' />"></img>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Customer Edit Detail -->
 <div class="modal fade" id="CustomerEdit">
-    <div class="modal-dialog">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title">Customer Edit</h4>
-            </div>
-            <div class="modal-body scroll">
-                <form id="messageForm">       
-                    <dl class="dl-horizontal">
-                        <dt id="CUSTOMER_NO_LABEL">Customer No: </dt>
-                        <dd>
-                            <input id="EDIT_CUST_ID" type="hidden" />
-                            <input class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO" name="EDIT_CUST_CUSTOMER_NO" type="text" readonly />
-                        </dd>
-                        <dt>Name: </dt>
-                        <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="text" required />
-                        </dd>
-                        <dt>Phone No: </dt>
-                        <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_PHONENO" name="EDIT_CUST_PHONENO" type="text" required />
-                        </dd>  
-                        <dt>E-mail Address: </dt>
-                        <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_EMAIL" name="EDIT_CUST_EMAIL" type="email" required />
-                        </dd> 	
-                        <dt>ZIP Code: </dt>
-                        <dd>
-                            <input class="form-control border-custom" id="EDIT_CUST_ZIPCODE" name="EDIT_CUST_ZIPCODE" type="text" required />
-                        </dd> 
-                        <dt>Address 1: </dt>
-                        <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" class="form-control border-custom textbox-size" required ></textarea>
-                        </dd>   
-                        <dt>Address 2: </dt>
-                        <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" class="form-control border-custom textbox-size" required ></textarea>
-                        </dd> 
-                        <dt>Address 3: </dt>
-                        <dd>
-                            <textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" class="form-control border-custom textbox-size" required ></textarea>
-                        </dd>   
-<!--                    <dt>Is Deleted?: </dt>
+	<div class="modal-dialog">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true">
+					&times;</button>
+				<h4 class="modal-title">Customer Edit</h4>
+			</div>
+			<div class="modal-body scroll">
+				<form id="messageForm">
+					<dl class="dl-horizontal">
+						<dt id="CUSTOMER_NO_LABEL">Customer No:</dt>
+						<dd>
+							<input id="EDIT_CUST_ID" type="hidden" /> <input
+								class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO"
+								name="EDIT_CUST_CUSTOMER_NO" type="text" readonly />
+						</dd>
+						<dt>Name:</dt>
+						<dd>
+							<input class="form-control border-custom" id="EDIT_CUST_NAME"
+								name="EDIT_CUST_NAME" type="text" required />
+						</dd>
+						<dt>Phone No:</dt>
+						<dd>
+							<input class="form-control border-custom" id="EDIT_CUST_PHONENO"
+								name="EDIT_CUST_PHONENO" type="text" required />
+						</dd>
+						<dt>E-mail Address:</dt>
+						<dd>
+							<input class="form-control border-custom" id="EDIT_CUST_EMAIL"
+								name="EDIT_CUST_EMAIL" type="email" required />
+						</dd>
+						<dt>ZIP Code:</dt>
+						<dd>
+							<input class="form-control border-custom" id="EDIT_CUST_ZIPCODE"
+								name="EDIT_CUST_ZIPCODE" type="text" required />
+						</dd>
+						<dt>Address 1:</dt>
+						<dd>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1"
+								name="EDIT_CUST_ADDRESS1"
+								class="form-control border-custom textbox-size" required></textarea>
+						</dd>
+						<dt>Address 2:</dt>
+						<dd>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2"
+								name="EDIT_CUST_ADDRESS2"
+								class="form-control border-custom textbox-size" required></textarea>
+						</dd>
+						<dt>Address 3:</dt>
+						<dd>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3"
+								name="EDIT_CUST_ADDRESS3"
+								class="form-control border-custom textbox-size" required></textarea>
+						</dd>
+						<!--                    <dt>Is Deleted?: </dt>
                         <dd> -->
-                            <select class="form-control border-custom hidden" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required>
-									  <option value="0">No</option>
-									  <option value="1">Yes</option>
-							</select>
-<!-- 					</dd> -->
-                    </dl>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary border-custom"  id="cmdCustomerEditOk" onclick="cmdCustomerEditOk_OnClick()">
-                    Ok
-                </button>
-                <button type="button" class="btn btn-danger border-custom" id="cmdCustomerEditCancel" onclick="cmdCustomerEditCancel_OnClick()">
-                    Cancel
-                </button>
-            </div>
-        </div>
-    </div>
+						<select class="form-control border-custom hidden"
+							id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+						<!-- 					</dd> -->
+					</dl>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary border-custom"
+					id="cmdCustomerEditOk" onclick="cmdCustomerEditOk_OnClick()">
+					Ok</button>
+				<button type="button" class="btn btn-danger border-custom"
+					id="cmdCustomerEditCancel"
+					onclick="cmdCustomerEditCancel_OnClick()">Cancel</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -203,7 +223,9 @@ function cmdCustomerAdd_OnClick() {
 	document.getElementById('EDIT_CUST_ZIPCODE').value = '';	
 	document.getElementById('EDIT_CUST_ADDRESS1').value = '';	
 	document.getElementById('EDIT_CUST_ADDRESS2').value = '';	
-	document.getElementById('EDIT_CUST_ADDRESS3').value = '';	     
+	document.getElementById('EDIT_CUST_ADDRESS3').value = '';	
+	
+	getMessage("E0003")
 }
 
 // =====================
@@ -215,7 +237,7 @@ function cmdCustomerDelete_OnClick() {
     var id = customers.currentEditItem.CUST_ID;
     var customerName = customers.currentEditItem.CUST_NAME;
  
-    alertify.confirm("Are you sure you want to delete customer " + customerName + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
         $.ajax({
             type: "DELETE",
@@ -224,14 +246,14 @@ function cmdCustomerDelete_OnClick() {
             dataType: "json",
             statusCode: {
                 200: function () {
-                    toastr.success('Successfully Deleted.');
+                    toastr.success(getMessage("S0001"));
                     window.setTimeout(function () { location.reload() }, 1000);
                 },
                 404: function () {
-                    toastr.error("Not found.");
+                	toastr.error(getMessage("E0004"));
                 },
                 400: function () {
-                    toastr.error("Bad request.");
+                	toastr.error(getMessage("E0003"));
                 }
             }
         });
@@ -273,10 +295,10 @@ function cmdCustomerEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.CUST_ID > 0) {
-                toastr.success('Successfully updated.');
+                toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {
-                toastr.error("Not updated.");
+                toastr.error(getMessage("E0006"));
             }
         }
     });
@@ -423,19 +445,13 @@ $(document).ready(function () {
 		}
 	});
 	
-	
- 	// Validation
-    $('#CmdCustomerEditOk').click(function () {
-        if (FormValidate() == true) {
-            cmdCustomerEditOkFunction();
-            $('#CustomerEdit').modal('hide');
-        }
-        else {
-            toastr.error("Fill the required field!");
+	$('#cmdCustomerEditOk').click(function () {
+        if (FormValidate() != true) {
+            toastr.error(getMessage("E0005"));
         }
     });
 
-    $('#CmdCustomerEditCancel, .close').click(function () {
+    $('#cmdCustomerEditCancel, .close').click(function () {
         $("form input").removeClass("errorHighlight");
         $('form')[0].reset();
         $('#CustomerEdit').modal('hide');

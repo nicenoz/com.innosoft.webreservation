@@ -4,56 +4,65 @@
 
 <!-- Charge List -->
 <div class="container">
-	<section id="chargeList">	
+	<section id="chargeList">
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Charge List</h4>
 			</div>
-		</div>		
+		</div>
 		<div class="row">
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button" readonly>
+						<button class="btn btn-default border-custom" type="button"
+							readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> 
-					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom"
+						id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddCharge" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdChargeAdd_OnClick()">Add</button>
+				<button id="cmdAddCharge" type="submit"
+					class="btn btn-primary pull-right border-custom"
+					onclick="cmdChargeAdd_OnClick()">Add</button>
 			</div>
-		</div>		
-		<br />		
+		</div>
+		<br />
 		<div class="row">
 			<div class="col-lg-12">
 				<div id="ChargeGrid" class="grid border-custom"></div>
 			</div>
 		</div>
-		<br />	
+		<br />
 		<div class="row">
-		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-		            <span class="glyphicon glyphicon-fast-backward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-		            <span class="glyphicon glyphicon-step-backward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-		            <span class="glyphicon glyphicon-step-forward"></span>
-		        </button>
-		        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-		            <span class="glyphicon glyphicon-fast-forward"></span>
-		        </button>
-		    </div>
+			<div class="btn-group col-md-7" id="naviagtionPageGrid">
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToFirstPageGrid">
+					<span class="glyphicon glyphicon-fast-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToPreviousPageGrid">
+					<span class="glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom" disabled
+					style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToNextPageGrid">
+					<span class="glyphicon glyphicon-step-forward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToLastPageGrid">
+					<span class="glyphicon glyphicon-fast-forward"></span>
+				</button>
+			</div>
 		</div>
 	</section>
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog"
+	aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -69,57 +78,62 @@
 <!-- Charge Edit Detail -->
 <div class="modal fade" id="ChargeEdit">
 	<div class="modal-dialog">
-		<div class="modal-content border-custom">	
+		<div class="modal-content border-custom">
 			<div class="modal-header">
 				<button type="button" class="close" aria-hidden="true">
 					&times;</button>
 				<h4 class="modal-title">Charge Edit</h4>
-			</div>		
+			</div>
 			<div class="modal-body">
 				<form id="chargeForm">
 					<dl class="dl-horizontal">
-						<dt id="CHARGE_NO_LABEL">Charge No: </dt>
+						<dt id="CHARGE_NO_LABEL">Charge No:</dt>
 						<dd>
-							<input id="EDIT_CHRG_ID" type="hidden" />
-							<input class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO" name="EDIT_CHRG_CHARGE_NO" type="text" readonly />
+							<input id="EDIT_CHRG_ID" type="hidden" /> <input
+								class="form-control border-custom" id="EDIT_CHRG_CHARGE_NO"
+								name="EDIT_CHRG_CHARGE_NO" type="text" readonly />
 						</dd>
-				
-						<dt>Customer: </dt>
+
+						<dt>Customer:</dt>
 						<dd>
-							<div id="EDIT_CHRG_CUST_ID"  class="autocomplete-wide"></div>	
-										
-							<input id="EDIT_CHRG_CUST_ID_DATA" name="EDIT_CHRG_CUST_ID_DATA" type="hidden" required />
-							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
+							<div id="EDIT_CHRG_CUST_ID" class="autocomplete-wide"></div>
+
+							<input id="EDIT_CHRG_CUST_ID_DATA" name="EDIT_CHRG_CUST_ID_DATA"
+								type="hidden" required /> <input id="EDIT_CUST_NAME"
+								name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
-						<dt>Charge Price: </dt>
+						<dt>Charge Price:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CHRG_PRICE" name="EDIT_CHRG_PRICE" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CHRG_PRICE"
+								name="EDIT_CHRG_PRICE" type="text" required />
 						</dd>
-						<dt>App Division: </dt>
+						<dt>App Division:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CHRG_APP_DIVISION" name="EDIT_CHRG_APP_DIVISION" type="text" required />
+							<input class="form-control border-custom"
+								id="EDIT_CHRG_APP_DIVISION" name="EDIT_CHRG_APP_DIVISION"
+								type="text" required />
 						</dd>
-						<dt>Start Date: </dt>
+						<dt>Start Date:</dt>
 						<dd>
 							<div id="EDIT_CHRG_APP_START_DATE" class="autocomplete-wide"></div>
 							<input id="EDIT_CHRG_APP_START_DATE_DATA" type="hidden" />
 						</dd>
-						<dt>End Date: </dt>
+						<dt>End Date:</dt>
 						<dd>
 							<div id="EDIT_CHRG_APP_END_DATE" class="autocomplete-wide"></div>
 							<input id="EDIT_CHRG_APP_END_DATE_DATA" type="hidden" />
 						</dd>
 					</dl>
 				</form>
-			</div>	
+			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom" id="cmdChargeEditOk" onclick="cmdChargeEditOk_OnClick()">
-					Ok
-				</button>
-				<button type="button" class="btn btn-danger border-custom" id="cmdChargeEditCancel" onclick="cmdChargeEditCancel_OnClick()">
-					Cancel
-				</button>
-			</div>	
+				<button type="button" class="btn btn-primary border-custom"
+					id="cmdChargeEditOk" onclick="cmdChargeEditOk_OnClick()">
+					Ok</button>
+				<button type="button" class="btn btn-danger border-custom"
+					id="cmdChargeEditCancel" onclick="cmdChargeEditCancel_OnClick()">
+					Cancel</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -309,7 +323,7 @@ function cmdChargeDelete_OnClick() {
 	var id = charges.currentEditItem.CHRG_ID;
 	var chargeNo = charges.currentEditItem.CHRG_CHARGE_NO;
 	
-    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> Are you sure you want to delete Charge No. " + chargeNo + "?", function (e) {
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
 	if (e) {
 		$.ajax({
 			type : "DELETE",
@@ -319,16 +333,16 @@ function cmdChargeDelete_OnClick() {
 			dataType : "json",
 			statusCode : {
 				200 : function() {
-					toastr.success('Successfully Deleted!');
+					toastr.success(getMessage("S0001"));
 					window.setTimeout(function() {
 						location.reload()
 					}, 1000);
 				},
 				404 : function() {
-					toastr.error("Not found!");
+					toastr.error(getMessage("E0004"));
 				},
 				400 : function() {
-					toastr.error("Bad request");
+					toastr.error(getMessage("E0003"));
 				}
 			}
 			});
@@ -373,12 +387,12 @@ function cmdChargeEditOk_OnClick() {
 		data : data,
 		success : function(data) {
 			if (data.CHRG_ID > 0) {
-				toastr.success('Successfully Added!');
+				toastr.success(getMessage("S0002"));
 				window.setTimeout(function() {
 					location.reload()
 				}, 1000);
 			} else {
-				toastr.error("Not added!");
+				toastr.error(getMessage("E0006"));
 			}
 		}
 	});
@@ -544,24 +558,25 @@ $(document).ready(function(){
 				format : 'MM/dd/yyyy',
 				value : new Date()
 			});
-
-	//validation
-	$('#CmdChargeEditOk').click(function() {
-		if (FormValidate() == true) {
-			cmdChargeEditOkFunction();
-			$('#ChargeEdit').modal('hide');
-		} else {
-			toastr.error("Fill the required field!");
-		}
-	});
-
-	$('#CmdChargeEditCancel, .close').click(function() {
-		$("form input").removeClass("errorHighlight");
-		$('form')[0].reset();
-		$('#ChargeEdit').modal('hide');
-	});
 	
-	$('.close-btn').hide();
+	// Validation
+    $('#cmdChargeEditOk').click(function () {
+        if (FormValidate() == true) {
+            cmdCodeEditOkFunction();
+            $('#ChargeEdit').modal('hide');
+        }
+        else {
+            toastr.error(getMessage("E0005"));
+        }
+    });
+	
+    $('#cmdChargeEditCancel, .close').click(function () {
+        $("form input").removeClass("errorHighlight");
+        $('form')[0].reset();
+        $('#ChargeEdit').modal('hide');
+    });
+    
+    $('.close-btn').hide();
 
 	// Collection View
 	charges = new wijmo.collections.CollectionView(getCharges());

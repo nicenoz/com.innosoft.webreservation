@@ -24,8 +24,8 @@ public class SoftwareController {
 		return "software_email";
 	}	
 	
-	@RequestMapping("/userPassword")
+	@RequestMapping("/notificationEmail")
 	public String userPassword(Model model) {
-		return "software_userPassword";
+		return "software_notificationEmail";
 	}		
 }

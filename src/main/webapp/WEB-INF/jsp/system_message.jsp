@@ -3,130 +3,140 @@
 <title>System - Message</title>
 
 <!-- Message List -->
-<div class="container"> 
-<section id="messageList">
-	<div class="row">
-	    <div class="col-lg-12">
-	        <h4>Message List</h4>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-lg-4">
-	        <div class="input-group">
-	            <span class="input-group-btn">
-	                <button class="btn btn-default border-custom" type="button" readonly>
-	                <i class="fa fa-search"></i>
-	                </button>
-	            </span>
-	            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
-	        </div>
-	    </div>
-	    <div class="col-lg-8">
-	        <button id="cmdAddMessage" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMessageAdd_OnClick()">Add</button>
-	    </div>
-	</div>
-	<br />
-	<div class="row">
-	    <div class="col-lg-12">
-	        <div id="messageGrid" class="grid border-custom"></div>
-	    </div>
-	</div>
-	
-	<br />
-	
-	<div class="row">
-	    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-	            <span class="glyphicon glyphicon-fast-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-	            <span class="glyphicon glyphicon-step-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-	            <span class="glyphicon glyphicon-step-forward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-	            <span class="glyphicon glyphicon-fast-forward"></span>
-	        </button>
-	    </div>
-	</div>
-</section>
+<div class="container">
+	<section id="messageList">
+		<div class="row">
+			<div class="col-lg-12">
+				<h4>Message List</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default border-custom" type="button"
+							readonly>
+							<i class="fa fa-search"></i>
+						</button>
+					</span> <input type="text" class="form-control border-custom"
+						id="InputFilter" placeholder="Search">
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<button id="cmdAddMessage" type="submit"
+					class="btn btn-primary pull-right border-custom"
+					onclick="cmdMessageAdd_OnClick()">Add</button>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="messageGrid" class="grid border-custom"></div>
+			</div>
+		</div>
+
+		<br />
+
+		<div class="row">
+			<div class="btn-group col-md-7" id="naviagtionPageGrid">
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToFirstPageGrid">
+					<span class="glyphicon glyphicon-fast-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToPreviousPageGrid">
+					<span class="glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom" disabled
+					style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToNextPageGrid">
+					<span class="glyphicon glyphicon-step-forward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToLastPageGrid">
+					<span class="glyphicon glyphicon-fast-forward"></span>
+				</button>
+			</div>
+		</div>
+	</section>
 
 
-<br/>
-<br/>
-<br/>
+	<br /> <br /> <br />
 
 
 
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
-    <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <h4 class="modal-title">Loading...</h4>
-            </div>
-            <div class="modal-body">
-                <img src="<c:url value='/img/progress_bar.gif' />"></img>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="loading" tabindex="-1" role="dialog"
+	aria-labelledby="Loading..." aria-hidden="true">
+	<div class="modal-dialog" style="width: 220px;">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<h4 class="modal-title">Loading...</h4>
+			</div>
+			<div class="modal-body">
+				<img src="<c:url value='/img/progress_bar.gif' />"></img>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Message Edit Detail -->
 <div class="modal fade" id="MessageEdit">
-    <div class="modal-dialog">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title">Message Edit</h4>
-            </div>
-            <div class="modal-body">
-                <form id="messageForm">
-                    <dl class="dl-horizontal">
-                        <dt>Code: </dt>
-                        <dd>
-                            <input id="EDIT_MESG_ID" type="hidden" />
-                            <input class="form-control border-custom" id="EDIT_MESG_CODE" name="EDIT_MESG_CODE" type="text" required />
-                        </dd>
-                        <dt>Level: </dt>
-                        <dd>
-                        	<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden" readonly required >
-                            <div id="EDIT_MESG_LEVEL" class="autocomplete-wide"></div>
-                        </dd>
-                        <dt>Note: </dt>
-                        <dd>
-                        	<textarea cols="*" rows="3" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" class="form-control border-custom textbox-size"  required ></textarea>
-                        </dd>                        
-                        <dt>Start Date: </dt>
-                        <dd>
-                            <!-- class="form-control border-custom" -->
+	<div class="modal-dialog">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true">
+					&times;</button>
+				<h4 class="modal-title">Message Edit</h4>
+			</div>
+			<div class="modal-body">
+				<form id="messageForm">
+					<dl class="dl-horizontal">
+						<dt>Code:</dt>
+						<dd>
+							<input id="EDIT_MESG_ID" type="hidden" /> <input
+								class="form-control border-custom" id="EDIT_MESG_CODE"
+								name="EDIT_MESG_CODE" type="text" required />
+						</dd>
+						<dt>Level:</dt>
+						<dd>
+							<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden"
+								readonly required>
+							<div id="EDIT_MESG_LEVEL" class="autocomplete-wide"></div>
+						</dd>
+						<dt>Note:</dt>
+						<dd>
+							<textarea cols="*" rows="3" id="EDIT_MESG_NOTE"
+								name="EDIT_MESG_NOTE"
+								class="form-control border-custom textbox-size" required></textarea>
+						</dd>
+						<dt>Start Date:</dt>
+						<dd>
+							<!-- class="form-control border-custom" -->
 							<div id="EDIT_MESG_START_DATE" class="autocomplete-wide"></div>
-                            <input id="EDIT_MESG_START_DATE_DATA" type="hidden" required/>  
-                        </dd>
-                        <dt>End Date: </dt>
-                        <dd>
+							<input id="EDIT_MESG_START_DATE_DATA" type="hidden" required />
+						</dd>
+						<dt>End Date:</dt>
+						<dd>
 							<div id="EDIT_MESG_END_DATE" class="autocomplete-wide"></div>
-                            <input id="EDIT_MESG_END_DATE_DATA" type="hidden" required/>                            
-                        </dd>                        
-                    </dl>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary border-custom"  id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">
-                    Ok
-                </button>
-                <button type="button" class="btn btn-danger border-custom" id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">
-                    Cancel
-                </button>
-            </div>
-        </div>
-    </div>
+							<input id="EDIT_MESG_END_DATE_DATA" type="hidden" required />
+						</dd>
+					</dl>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary border-custom"
+					id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">
+					Ok</button>
+				<button type="button" class="btn btn-danger border-custom"
+					id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">
+					Cancel</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -269,7 +279,7 @@ function cmdMessageDelete_OnClick() {
     var messageCode = messages.currentEditItem.MESG_CODE;
 
  	// confirm dialog
-    alertify.confirm("Are you sure you want to delete Message Code " + messageCode + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
         if (e) {
         	$.ajax({
                 type: "DELETE",
@@ -278,16 +288,16 @@ function cmdMessageDelete_OnClick() {
                 dataType: "json",
                 statusCode: {
                     200: function () {
-                    	toastr.success('Successfully Deleted!');
+                    	toastr.success(getMessage("S0001"));
     					window.setTimeout(function() {
     						location.reload()
     					}, 1000);
                     },
                     404: function () {
-                    	toastr.error("Not found!");
+                    	toastr.error(getMessage("E0004"));
                     },
                     400: function () {
-                    	toastr.error("Bad request");
+                    	toastr.error(getMessage("E0003"));
                     }
                 }
             });
@@ -329,10 +339,10 @@ function cmdMessageEditOk_OnClick() {
 	    data: data,
 	    success: function (data) {
 	        if (data.MESG_ID > 0) {
-	            toastr.success('Successfully updated.');
+	            toastr.success(getMessage("S0002"));
 	            window.setTimeout(function () { location.reload() }, 1000);
 	        } else {
-	            toastr.error("Not updated.");
+	            toastr.error(getMessage("E0006"));
 	        }
 	    }
 	});
@@ -401,7 +411,7 @@ function updateNavigateButtonsMessage() {
         btnNextPageGrid.removeAttribute('disabled');
         btnLastPageGrid.removeAttribute('disabled');
     }
-    else if (messages.pageIndex === (Messages.pageCount - 1)) {
+    else if (messages.pageIndex === (messages.pageCount - 1)) {
         btnFirstPageGrid.removeAttribute('disabled');
         btnPreviousPageGrid.removeAttribute('disabled');
         btnLastPageGrid.setAttribute('disabled', 'disabled');
@@ -427,35 +437,35 @@ function updateDetails() {
 	document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
 }
 
-// =====================
-// Detail Edit Validator
-// =====================     
+//=====================
+//Detail Edit Validator
+//=====================     
 function FormValidate() {
-    var validator = $('form').validate({
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-    var x = validator.form();
-    console.log(x);
-    return x;
+ var validator = $('form').validate({
+     submitHandler: function (form) {
+         form.submit();
+     }
+ });
+ var x = validator.form();
+ console.log(x);
+ return x;
 }
 
-// ==============================
-// Detail Edit Validator Defaults
-// ==============================    
+//==============================
+//Detail Edit Validator Defaults
+//==============================    
 $.validator.setDefaults({
-    errorPlacement: function (error, element) {
-        $(element).attr({ "title": error.append() });
-    },
-    highlight: function (element) {
-        $(element).removeClass("textinput");
-        $(element).addClass("errorHighlight");
-    },
-    unhighlight: function (element) {
-        $(element).removeClass("errorHighlight");
-        $(element).addClass("textinput");
-    }
+ errorPlacement: function (error, element) {
+     $(element).attr({ "title": error.append() });
+ },
+ highlight: function (element) {
+     $(element).removeClass("textinput");
+     $(element).addClass("errorHighlight");
+ },
+ unhighlight: function (element) {
+     $(element).removeClass("errorHighlight");
+     $(element).addClass("textinput");
+ }
 });
 
 // ============
@@ -486,16 +496,12 @@ $(document).ready(function () {
     });     	
 	
     // Validation
-    $('#CmdMessageEditOk').click(function () {
-        if (FormValidate() == true) {
-            cmdMessageEditOkFunction();
-            $('#MessageEdit').modal('hide');
-        }
-        else {
-            toastr.error("Fill the required field!");
+    $('#cmdMessageEditOk').click(function () {
+        if (FormValidate() != true) {
+            toastr.error(getMessage("E0005"));
         }
     });
-    $('#CmdMessageEditCancel, .close').click(function () {
+    $('#cmdMessageEditCancel, .close').click(function () {
         $("form input").removeClass("errorHighlight");
         $('form')[0].reset();
         $('#MessageEdit').modal('hide');

@@ -124,7 +124,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			updateCustomer.setCUST_ADDRESS1(customer.CUST_ADDRESS1);	
 			updateCustomer.setCUST_ADDRESS2(customer.CUST_ADDRESS2);	
 			updateCustomer.setCUST_ADDRESS3(customer.CUST_ADDRESS3);	
-			updateCustomer.setCUST_ISDELETED(customer.CUST_ISDELETED);	
+			updateCustomer.setCUST_ISDELETED(0);	
 			
 			updateCustomer.setUPDATED_BY_USER_ID(customer.UPDATED_BY_USER_ID);
 			updateCustomer.setUPDATED_DATE(customer.UPDATED_DATE);

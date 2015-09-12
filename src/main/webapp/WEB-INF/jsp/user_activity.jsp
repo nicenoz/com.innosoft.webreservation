@@ -3,140 +3,161 @@
 <title>User - Activity</title>
 
 <!-- Calendar Activity List -->
-<div class="container"> 
-<section id="calendarActivityList">
-	<div class="row">
-	    <div class="col-lg-12">
-	        <h4>Calendar Activity List</h4>
-	    </div>
-	</div>
-	<div class="row">
-	    <div class="col-lg-4">
-	        <div class="input-group">
-	            <span class="input-group-btn">
-	                <button class="btn btn-default border-custom" type="button" readonly>
-	                <i class="fa fa-search"></i>
-	                </button>
-	            </span>
-	            <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
-	        </div>
-	    </div>
-	    <div class="col-lg-8">
-	        <button id="cmdAddCalendarActivity" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCalendarActivityAdd_OnClick()">Add</button>
-	    </div>
-	</div>
-	<br />
-	<div class="row">
-	    <div class="col-lg-12">
-	        <div id="calendarActivityGrid" class="grid border-custom"></div>
-	    </div>
-	</div>
-	
-	<br />
-	
-	<div class="row">
-	    <div class="btn-group col-md-7" id="naviagtionPageGrid">
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-	            <span class="glyphicon glyphicon-fast-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-	            <span class="glyphicon glyphicon-step-backward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" disabled style="width:100px" id="btnCurrentPageGrid"></button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-	            <span class="glyphicon glyphicon-step-forward"></span>
-	        </button>
-	        <button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-	            <span class="glyphicon glyphicon-fast-forward"></span>
-	        </button>
-	    </div>
-	</div>
-</section>
+<div class="container">
+	<section id="calendarActivityList">
+		<div class="row">
+			<div class="col-lg-12">
+				<h4>Calendar Activity List</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default border-custom" type="button"
+							readonly>
+							<i class="fa fa-search"></i>
+						</button>
+					</span> <input type="text" class="form-control border-custom"
+						id="InputFilter" placeholder="Search">
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<button id="cmdAddCalendarActivity" type="submit"
+					class="btn btn-primary pull-right border-custom"
+					onclick="cmdCalendarActivityAdd_OnClick()">Add</button>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="calendarActivityGrid" class="grid border-custom"></div>
+			</div>
+		</div>
+
+		<br />
+
+		<div class="row">
+			<div class="btn-group col-md-7" id="naviagtionPageGrid">
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToFirstPageGrid">
+					<span class="glyphicon glyphicon-fast-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToPreviousPageGrid">
+					<span class="glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom" disabled
+					style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToNextPageGrid">
+					<span class="glyphicon glyphicon-step-forward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToLastPageGrid">
+					<span class="glyphicon glyphicon-fast-forward"></span>
+				</button>
+			</div>
+		</div>
+	</section>
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
-    <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <h4 class="modal-title">Loading...</h4>
-            </div>
-            <div class="modal-body">
-                <img src="<c:url value='/img/progress_bar.gif' />"></img>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="loading" tabindex="-1" role="dialog"
+	aria-labelledby="Loading..." aria-hidden="true">
+	<div class="modal-dialog" style="width: 220px;">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<h4 class="modal-title">Loading...</h4>
+			</div>
+			<div class="modal-body">
+				<img src="<c:url value='/img/progress_bar.gif' />"></img>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Calendar Edit Detail -->
 <div class="modal fade" id="CalendarActivityEdit">
-    <div class="modal-dialog">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Calendar Activity Edit</h4>
-            </div>
-            <div class="modal-body">
-                <form id="calendarActivityForm">
-                    <dl class="dl-horizontal">
-                        <dt>Calendar: </dt>
-                        <dd>
-                         	<input id="EDIT_CACT_ID" type="hidden" /> 
-                         	                      	      
-                            <div id="EDIT_CACT_CLDR_ID_DATE" class="autocomplete-wide"></div>
-                            <input id="EDIT_CACT_CLDR_ID_DATE_DATA" name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required />    
-                            <input id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required/>   
-                        </dd>
-                        <dt>Customer: </dt>
-                        <dd>                            
-                            <div id="EDIT_CACT_CUST_ID" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA" type="hidden" required />
-							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
-                        </dd>                      
-                        <dt>Details No: </dt>
-                        <dd>
-                            <div id="EDIT_CACT_DETAILS_NO" class="autocomplete-wide"></div>
-                        </dd>
-                        <dt>Activity Classification: </dt>
-                        <dd>
-                        	<input class="form-control border-custom" id="EDIT_CACT_ACTIVITY_CLASSIFICATION" name="EDIT_CACT_ACTIVITY_CLASSIFICATION" type="text" required />                          
-                        </dd>   
-                        <dt>Activity Contents: </dt>
-                        <dd>
-							<input class="form-control border-custom" id="EDIT_CACT_ACTIVITY_CONTENTS" name="EDIT_CACT_ACTIVITY_CONTENTS" type="text" required />                           
-                        </dd>   
-                        <dt>Start Time ID: </dt>
-                        <dd>
-                        	<div id="EDIT_CACT_START_TIME" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_START_TIME_ID" name="EDIT_CACT_START_TIME_ID" type="hidden" required />          
-							<input id="EDIT_CACT_START_TIME_ID_DATA" name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />                 
-                        </dd>    
-                        <dt>End Time ID: </dt>
-                        <dd>
-                        	<div id="EDIT_CACT_END_TIME" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID" type="hidden" required />  
-							<input id="EDIT_CACT_END_TIME_ID_DATA" name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />                                
-                        </dd> 
-                        <dt>Operation Flag: </dt>
-                        <dd>
-							<select class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" required >
-									  <option value="1">Yes</option>
-									  <option value="0">No</option>
-							</select>                            
-                        </dd>                        
-                    </dl>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary border-custom"  id="cmdCalendarActivityEditOk" onclick="cmdCalendarActivityEditOk_OnClick()">
-                    Ok
-                </button>
-                <button type="button" class="btn btn-danger border-custom" id="cmdCalendarActivityEditCancel" onclick="cmdCalendarActivityEditCancel_OnClick()">
-                    Cancel
-                </button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Calendar Activity Edit</h4>
+			</div>
+			<div class="modal-body">
+				<form id="calendarActivityForm">
+					<dl class="dl-horizontal">
+						<dt>Calendar:</dt>
+						<dd>
+							<input id="EDIT_CACT_ID" type="hidden" />
+
+							<div id="EDIT_CACT_CLDR_ID_DATE" class="autocomplete-wide"></div>
+							<input id="EDIT_CACT_CLDR_ID_DATE_DATA"
+								name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required /> <input
+								id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required />
+						</dd>
+						<dt>Customer:</dt>
+						<dd>
+							<div id="EDIT_CACT_CUST_ID" class="autocomplete-wide"></div>
+							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA"
+								type="hidden" required /> <input id="EDIT_CUST_NAME"
+								name="EDIT_CUST_NAME" type="hidden" required />
+						</dd>
+						<dt>Details No:</dt>
+						<dd>
+							<div id="EDIT_CACT_DETAILS_NO" class="autocomplete-wide"></div>
+						</dd>
+						<dt>Activity Classification:</dt>
+						<dd>
+							<input class="form-control border-custom"
+								id="EDIT_CACT_ACTIVITY_CLASSIFICATION"
+								name="EDIT_CACT_ACTIVITY_CLASSIFICATION" type="text" required />
+						</dd>
+						<dt>Activity Contents:</dt>
+						<dd>
+							<input class="form-control border-custom"
+								id="EDIT_CACT_ACTIVITY_CONTENTS"
+								name="EDIT_CACT_ACTIVITY_CONTENTS" type="text" required />
+						</dd>
+						<dt>Start Time ID:</dt>
+						<dd>
+							<div id="EDIT_CACT_START_TIME" class="autocomplete-wide"></div>
+							<input id="EDIT_CACT_START_TIME_ID"
+								name="EDIT_CACT_START_TIME_ID" type="hidden" required /> <input
+								id="EDIT_CACT_START_TIME_ID_DATA"
+								name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />
+						</dd>
+						<dt>End Time ID:</dt>
+						<dd>
+							<div id="EDIT_CACT_END_TIME" class="autocomplete-wide"></div>
+							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID"
+								type="hidden" required /> <input
+								id="EDIT_CACT_END_TIME_ID_DATA"
+								name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />
+						</dd>
+						<dt>Operation Flag:</dt>
+						<dd>
+							<select class="form-control border-custom"
+								id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG"
+								required>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</dd>
+					</dl>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary border-custom"
+					id="cmdCalendarActivityEditOk"
+					onclick="cmdCalendarActivityEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom"
+					id="cmdCalendarActivityEditCancel"
+					onclick="cmdCalendarActivityEditCancel_OnClick()">Cancel</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -398,7 +419,7 @@ function cmdCalendarActivityDelete_OnClick() {
     var id = calendarActivities.currentEditItem.CACT_ID;
     var calendarId = calendarActivities.currentEditItem.CACT_CLDR_ID;
 
-    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> Are you sure you want to delete Calendar ID " + calendarId + "?", function (e) {
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
         $.ajax({
             type: "DELETE",
@@ -407,14 +428,14 @@ function cmdCalendarActivityDelete_OnClick() {
             dataType: "json",
             statusCode: {
                 200: function () {
-                    toastr.success('Successfully Deleted.');
+                    toastr.success(getMessage("S0001"));
                     window.setTimeout(function () { location.reload() }, 1000);
                 },
                 404: function () {
-                    toastr.error("Not found.");
+                    toastr.error(getMessage("E0004"));
                 },
                 400: function () {
-                    toastr.error("Bad request.");
+                    toastr.error(getMessage("E0003"));
                 }
             }
         });
@@ -455,10 +476,10 @@ function cmdCalendarActivityEditOk_OnClick() {
 	    data: data,
 	    success: function (data) {
 	        if (data.CACT_ID > 0) {
-	        	 toastr.success('Successfully Updated.');
+	        	 toastr.success(getMessage("S0002"));
                  window.setTimeout(function () { location.reload() }, 1000);
 	        } else {
-	            toastr.error("Not updated.");
+	            toastr.error(getMessage("E0006"));
 	        }
 	    }
 	});
@@ -615,7 +636,7 @@ $(document).ready(function () {
     // Validation
     $('#cmdCalendarActivityEditOk').click(function () {
         if (FormValidate() != true) {
-            toastr.error("Fill the required field!");
+            toastr.error(getMessage("E0005"));
         }
     });
     $('#cmdCalendarActivityEditCancel, .close').click(function () {

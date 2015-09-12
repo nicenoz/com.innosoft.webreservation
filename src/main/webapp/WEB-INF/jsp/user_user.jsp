@@ -4,175 +4,217 @@
 
 <div class="container">
 
-<!-- Charge List -->
-<div class="container">
-	<section id="memberList">
-		<div class="row">
-			<div class="col-lg-12">
-				<h4>Member List</h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="input-group">
-					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button" readonly>
-							<i class="fa fa-search"></i>
-						</button>
-					</span> 
-					<input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
+	<!-- Charge List -->
+	<div class="container">
+		<section id="memberList">
+			<div class="row">
+				<div class="col-lg-12">
+					<h4>Member List</h4>
 				</div>
 			</div>
-			<div class="col-lg-8">
-		        <button id="cmdAddCustomer" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMemberAdd_OnClick()">Add</button>
-		    </div>
-		</div>
-		<br />
-		
-	<div class="row">
-		<div class="col-lg-12">
-			<div id="customerMemberGrid" class="grid border-custom"></div>
-		</div>
-	</div>
-
-		<br />
-	
-		<div class="row">
-			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-					<span class="glyphicon glyphicon-fast-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-					<span class="glyphicon glyphicon-step-backward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-					<span class="glyphicon glyphicon-step-forward"></span>
-				</button>
-				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-					<span class="glyphicon glyphicon-fast-forward"></span>
-				</button>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-default border-custom" type="button"
+								readonly>
+								<i class="fa fa-search"></i>
+							</button>
+						</span> <input type="text" class="form-control border-custom"
+							id="InputFilter" placeholder="Search">
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<button id="cmdAddCustomer" type="submit"
+						class="btn btn-primary pull-right border-custom"
+						onclick="cmdMemberAdd_OnClick()">Add</button>
+				</div>
 			</div>
-		</div>
-	</section>
-</div>
+			<br />
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="customerMemberGrid" class="grid border-custom"></div>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="row">
+				<div class="btn-group col-md-7" id="naviagtionPageGrid">
+					<button type="button" class="btn btn-default border-custom"
+						id="btnMoveToFirstPageGrid">
+						<span class="glyphicon glyphicon-fast-backward"></span>
+					</button>
+					<button type="button" class="btn btn-default border-custom"
+						id="btnMoveToPreviousPageGrid">
+						<span class="glyphicon glyphicon-step-backward"></span>
+					</button>
+					<button type="button" class="btn btn-default border-custom"
+						disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+					<button type="button" class="btn btn-default border-custom"
+						id="btnMoveToNextPageGrid">
+						<span class="glyphicon glyphicon-step-forward"></span>
+					</button>
+					<button type="button" class="btn btn-default border-custom"
+						id="btnMoveToLastPageGrid">
+						<span class="glyphicon glyphicon-fast-forward"></span>
+					</button>
+				</div>
+			</div>
+		</section>
+	</div>
 
 
 	<!-- Charge Edit Detail -->
 	<div class="modal fade" id="MemberEdit">
 		<div class="modal-dialog  modal-wide">
-				<div class="modal-content border-custom">
-					<div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                <h4 class="modal-title">Member Edit</h4>
-	            </div>
+			<div class="modal-content border-custom">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Member Edit</h4>
+				</div>
 				<div class="modal-body">
 					<form id="memberForm">
 						<div class="row">
 							<div class="col-sm-6">
 								<dl class="dl-horizontal">
-									<dt>Customer: </dt>
+									<dt>Customer:</dt>
 									<dd>
 										<input id="EDIT_MEBR_ID" type="hidden" />
-										
-			            				<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
-										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required />
-										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
+
+										<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
+										<input id="EDIT_MEBR_CUST_ID_DATA"
+											name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required /> <input
+											id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden"
+											required />
 									</dd>
-									<dt id="EDIT_MEBR_CUSTOMER_MEMBER_NO_LABEL">Member No: </dt>
+									<dt id="EDIT_MEBR_CUSTOMER_MEMBER_NO_LABEL">Member No:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" readonly/>
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_CUSTOMER_MEMBER_NO"
+											name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" readonly />
 									</dd>
-									<dt>User: </dt>
-									<dd>							
-										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" class="autocomplete-wide"></div>
-										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden" required />
-										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden" required />
-									</dd>
-									<dt>First Name: </dt>
+									<dt>User:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME"	type="text" required />
+										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID"
+											class="autocomplete-wide"></div>
+										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA"
+											name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden"
+											required /> <input
+											id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME"
+											name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden"
+											required />
 									</dd>
-									<dt>Last Name: </dt>
+									<dt>First Name:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME" type="text" required />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME"
+											type="text" required />
 									</dd>
-									<dt>Tel No: </dt>
+									<dt>Last Name:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME"
+											type="text" required />
 									</dd>
-									<dt>Address1: </dt>
+									<dt>Tel No:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text"
+											required />
 									</dd>
-									<dt>Address2: </dt>
+									<dt>Address1:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text" />
 									</dd>
-									<dt>Address3: </dt>
+									<dt>Address2:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text" />
+									</dd>
+									<dt>Address3:</dt>
+									<dd>
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text" />
 									</dd>
 								</dl>
 							</div>
-							<div class="col-sm-6">	
+							<div class="col-sm-6">
 								<dl class="dl-horizontal">
-									<dt>Zip Code: </dt>
+									<dt>Zip Code:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text"
+											required />
 									</dd>
-									<dt>Email Address: </dt>
+									<dt>Email Address:</dt>
 									<dd>
-										<input class="form-control border-custom"	id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS"
+											type="text" required />
 									</dd>
-									<dt>Birth Date: </dt>
+									<dt>Birth Date:</dt>
 									<dd>
-		                       		 	  <div id="EDIT_MEBR_DATE_OF_BIRTH" class="autocomplete-wide"></div>
-		                          		  <input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required/>    
+										<div id="EDIT_MEBR_DATE_OF_BIRTH" class="autocomplete-wide"></div>
+										<input id="EDIT_MEBR_DATE_OF_BIRTH_DATA"
+											name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required />
 									</dd>
-									<dt>Point: </dt>
+									<dt>Point:</dt>
 									<dd>
-										<select class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required >
-										  <option value="1">1</option>
-										  <option value="2">2</option>
-										  <option value="3">3</option>
-										  <option value="4">4</option>
-										  <option value="5">5</option>
-										  <option value="6">6</option>
-										  <option value="7">7</option>
-										  <option value="8">8</option>
-										  <option value="9">9</option>
-										  <option value="10">10</option>
+										<select class="form-control border-custom"
+											id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
 										</select>
 									</dd>
-									<dt>Custom Field 1: </dt>
+									<dt>Custom Field 1:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text" />
 									</dd>
-									<dt>Custom Field 2: </dt>
+									<dt>Custom Field 2:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text" />
 									</dd>
-									<dt>Custom Field 3: </dt>
+									<dt>Custom Field 3:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text" />
 									</dd>
-									<dt>Custom Field 4: </dt>
+									<dt>Custom Field 4:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text"  />
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text" />
 									</dd>
-									<dt>Custom Field 5: </dt>
+									<dt>Custom Field 5:</dt>
 									<dd>
-										<input class="form-control border-custom" id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text"  />
-									</dd>						
+										<input class="form-control border-custom"
+											id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text" />
+									</dd>
 								</dl>
 							</div>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary border-custom"	id="cmdChargeEditOk" onclick="cmdCustomerMemberEditOk_OnClick()">Ok</button>
-					<button type="button" class="btn btn-danger border-custom"	id="cmdChargeEditCancel" onclick="cmdCustomerMemberEditCancel_OnClick()">Cancel</button>
+					<button type="button" class="btn btn-primary border-custom"
+						id="cmdCustomerMemberEditOk"
+						onclick="cmdCustomerMemberEditOk_OnClick()">Ok</button>
+					<button type="button" class="btn btn-danger border-custom"
+						id="cmdCustomerMemberEditCancel"
+						onclick="cmdCustomerMemberEditCancel_OnClick()">Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -408,7 +450,7 @@ function cmdCustomerMemberDelete_OnClick() {
 	var id = customerMembers.currentEditItem.MEBR_ID;
 	var memberName = customerMembers.currentEditItem.MEBR_FIRST_NAME;
 	
-	alertify.confirm("Are you sure you want to delete member " + memberName + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+	alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
 	if (e) {
 		$.ajax({
 			type : "DELETE",
@@ -417,16 +459,16 @@ function cmdCustomerMemberDelete_OnClick() {
 			dataType : "json",
 			statusCode : {
 				200 : function() {
-					toastr.success('Successfully Deleted!');
+					toastr.success(getMessage("S0001"));
 					window.setTimeout(function() {
 						location.reload()
 					}, 1000);
 				},
 				404 : function() {
-					toastr.error("Not found!");
+					toastr.error(getMessage("E0004"));
 				},
 				400 : function() {
-					toastr.error("Bad request");
+					toastr.error(getMessage("E0003"));
 				}
 			}
 		});
@@ -475,10 +517,10 @@ function cmdCustomerMemberEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.MEBR_ID > 0) {
-                toastr.success('Successfully updated.');
+                toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {
-                toastr.error("Not updated.");
+                toastr.error(getMessage("E0006"));
             }
         }
     });
@@ -645,23 +687,23 @@ $(document).ready(function() {
 	    }); 
 
 		// Validation
-		$('#CmdCustomerMemberEditOk').click(function() {
-			if (FormValidate() == true) {
-				cmdCustomerEditOkFunction();
-				$('#MemberEdit').modal('hide');
-			} else {
-				toastr.error("Fill the required field!");
-			}
-		});
-
-		$('#CmdCustomerMemberEditCancel, .close').click(
-				function() {
-					$("form input").removeClass("errorHighlight");
-					$('form')[0].reset();
-					$('#MemberEdit').modal('hide');
-				});
-
-		$('.close-btn').hide();
+	    $('#cmdCustomerMemberEditOk').click(function () {
+	        if (FormValidate() == true) {
+	            cmdCodeEditOkFunction();
+	            $('#ChargeEdit').modal('hide');
+	        }
+	        else {
+	            toastr.error(getMessage("E0005"));
+	        }
+	    });
+		
+	    $('#cmdCustomerMemberEditCancel, .close').click(function () {
+	        $("form input").removeClass("errorHighlight");
+	        $('form')[0].reset();
+	        $('#ChargeEdit').modal('hide');
+	    });
+	    
+	    $('.close-btn').hide();
 
 		// Collection View
 		customerMembers = new wijmo.collections.CollectionView(getCustomerMembers());

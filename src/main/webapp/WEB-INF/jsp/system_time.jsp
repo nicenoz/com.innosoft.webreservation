@@ -5,50 +5,58 @@
 <!-- Time List -->
 <div class="container">
 	<section id="customerList">
-	<div class="row">
-		<div class="col-lg-12">
-			<h4>Customer Time List</h4>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-4">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn btn-default border-custom" type="button" readonly>
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-				 <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
+		<div class="row">
+			<div class="col-lg-12">
+				<h4>Customer Time List</h4>
 			</div>
 		</div>
-		<div class="col-lg-8">
-			<button id="cmdCustomerTimeAdd" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default border-custom" type="button"
+							readonly>
+							<i class="fa fa-search"></i>
+						</button>
+					</span> <input type="text" class="form-control border-custom"
+						id="InputFilter" placeholder="Search">
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<button id="cmdCustomerTimeAdd" type="submit"
+					class="btn btn-primary pull-right border-custom"
+					onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
+			</div>
 		</div>
-	</div>
-	<br />
-	<div class="row">
-		<div class="col-lg-12">
-			<div id="CustomerTimeGrid" class="grid border-custom"></div>
+		<br />
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="CustomerTimeGrid" class="grid border-custom"></div>
+			</div>
 		</div>
-	</div>
-	<br />
-	<div class="row">
-		<div class="btn-group col-md-7" id="naviagtionPageGrid">
-			<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
-				<span class="glyphicon glyphicon-fast-backward"></span>
-			</button>
-			<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
-				<span class="glyphicon glyphicon-step-backward"></span>
-			</button>
-			<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-			<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
-				<span class="glyphicon glyphicon-step-forward"></span>
-			</button>
-			<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
-				<span class="glyphicon glyphicon-fast-forward"></span>
-			</button>
+		<br />
+		<div class="row">
+			<div class="btn-group col-md-7" id="naviagtionPageGrid">
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToFirstPageGrid">
+					<span class="glyphicon glyphicon-fast-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToPreviousPageGrid">
+					<span class="glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom" disabled
+					style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToNextPageGrid">
+					<span class="glyphicon glyphicon-step-forward"></span>
+				</button>
+				<button type="button" class="btn btn-default border-custom"
+					id="btnMoveToLastPageGrid">
+					<span class="glyphicon glyphicon-fast-forward"></span>
+				</button>
+			</div>
 		</div>
-	</div>
 	</section>
 </div>
 
@@ -66,64 +74,76 @@
 		</div>
 	</div>
 </div>
-	
+
 <!-- Time Edit Detail -->
 <div class="modal fade" id="CustomerTimeEdit">
 	<div class="modal-dialog">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;</button>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Customer Time Edit</h4>
 			</div>
 			<div class="modal-body">
 				<form id="chargeForm">
 					<dl class="dl-horizontal">
-			
-						<dt>Customer: </dt>
-						<dd>						
+
+						<dt>Customer:</dt>
+						<dd>
 							<input id="EDIT_CTIM_ID" type="hidden" />
-							
+
 							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"></div>
-							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required />
-							<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
+							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA"
+								type="hidden" required /> <input id="EDIT_CUST_NAME"
+								name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
-				
-						<dt>Details No: </dt>
+
+						<dt>Details No:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CTIM_DETAILS_NO"	name="EDIT_CTIM_DETAILS_NO" type="text" required />
+							<input class="form-control border-custom"
+								id="EDIT_CTIM_DETAILS_NO" name="EDIT_CTIM_DETAILS_NO"
+								type="text" required />
 						</dd>
-						<dt>Interval of Times: </dt>
+						<dt>Interval of Times:</dt>
 						<dd>
-						    <div id="EDIT_CTIM_INTERVAL_OF_TIMES"  class="autocomplete-wide"></div>
-							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" class="form-control border-custom"  name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
+							<div id="EDIT_CTIM_INTERVAL_OF_TIMES" class="autocomplete-wide"></div>
+							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA"
+								class="form-control border-custom"
+								name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
 						</dd>
-						<dt>Max Unit No: </dt>
+						<dt>Max Unit No:</dt>
 						<dd>
-							<select class="form-control border-custom" id="EDIT_CTIM_MAX_UNIT_NO" name="EDIT_CTIM_MAX_UNIT_NO" required >
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
+							<select class="form-control border-custom"
+								id="EDIT_CTIM_MAX_UNIT_NO" name="EDIT_CTIM_MAX_UNIT_NO" required>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
 							</select>
 						</dd>
-						<dt>Max Parts No: </dt>
+						<dt>Max Parts No:</dt>
 						<dd>
-							<select class="form-control border-custom" id="EDIT_CTIM_MAX_PARTS_NO" name="EDIT_CTIM_MAX_PARTS_NO" required >
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
+							<select class="form-control border-custom"
+								id="EDIT_CTIM_MAX_PARTS_NO" name="EDIT_CTIM_MAX_PARTS_NO"
+								required>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
 							</select>
 						</dd>
 					</dl>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom" id="cmdCustomerTimeEditOk" onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
-				<button type="button" class="btn btn-danger border-custom" id="cmdCustomerTimeEditCancel" onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
+				<button type="button" class="btn btn-primary border-custom"
+					id="cmdCustomerTimeEditOk"
+					onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom"
+					id="cmdCustomerTimeEditCancel"
+					onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -282,7 +302,7 @@ function cmdCustomerTimeDelete_OnClick() {
 
 	
 	
-	alertify.confirm("Are you sure you want to delete Details No. " + detailNo + "? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+	alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
 	if (e) {
 		$.ajax({
 			type : "DELETE",
@@ -291,16 +311,16 @@ function cmdCustomerTimeDelete_OnClick() {
 			dataType : "json",
 			statusCode : {
 				200 : function() {
-					toastr.success('Successfully Deleted!');
+					toastr.success(getMessage("S0001"));
 					window.setTimeout(function() {
 						location.reload()
 					}, 1000);
 				},
 				404 : function() {
-					toastr.error("Not found!");
+					toastr.error(getMessage("E0004"));
 				},
 				400 : function() {
-					toastr.error("Bad request");
+					toastr.error(getMessage("E0003"));
 				}
 			}
 		});
@@ -336,12 +356,12 @@ function cmdCustomerTimeEditOk_OnClick() {
 		data : data,
 		success : function(data) {
 			if (data.CTIM_ID > 0) {
-				toastr.success('Successfully Added!');
+				toastr.success(getMessage("S0002"));
 				window.setTimeout(function() {
 					location.reload()
 				}, 1000);
 			} else {
-				toastr.error("Not added!");
+				toastr.error(getMessage("E0006"));
 			}
 		}
 	});
@@ -491,7 +511,7 @@ $(document).ready(function(){
 		if (FormValidate() == true) {
 			$('#ChargeEdit').modal('hide');
 		} else {
-			toastr.error("Fill the required field!");
+			toastr.error(getMessage("E0005"));
 		}
 	});
 
