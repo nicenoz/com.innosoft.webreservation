@@ -5,9 +5,7 @@
 <div class="container">
 
 	<!-- Loading -->
-	<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-		aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static"
-		data-keyboard="false">
+	<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog" style="width: 220px;">
 			<div class="modal-content border-custom">
 				<div class="modal-header">
@@ -33,27 +31,21 @@
 							</div>
 							<div class="panel-body">
 								<fieldset>
-									<input type="text" name="" class="form-control border-custom"
-										id="Email" size="30" maxlength="40" placeholder="Email" />
+									<input type="text" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email" />
 									<hr />
-									<input type="password" name=""
-										class="form-control border-custom" id="newpassword" size="30"
-										maxlength="32" placeholder="New Password" /> <br /> <input
-										type="password" name="" class="form-control border-custom"
-										id="confirmpassword" size="30" maxlength="32"
-										placeholder="Confirm Password" /> <br /> <input
-										type="button" value="Change Password"
-										class="btn btn-lg btn-danger btn-block border-custom"
-										onclick="check()" />
+									<input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password" />]
+									<br /> 
+									<input type="password" name="" class="form-control border-custom" id="confirmpassword" size="30" maxlength="32" placeholder="Confirm Password" /> 
+									<br /> 
+									<input type="button" value="Change Password" class="btn btn-lg btn-danger btn-block border-custom" onclick="check()" />
 								</fieldset>
 								<br>
 							</div>
-							<span class="footer-data-style" id="name"> <sec:authorize
-									access="isAuthenticated()">
+							<span class="footer-data-style" id="name"> 
+							<sec:authorize access="isAuthenticated()">
 									<sec:authentication var="principal" property="principal" />
-									<input id="usernamelogin" type="hidden"
-										value="${principal.username}"></input>
-								</sec:authorize>
+									<input id="usernamelogin" type="hidden" value="${principal.username}" />
+							</sec:authorize>
 							</span>
 						</div>
 					</div>
@@ -65,12 +57,10 @@
 
 <script type="text/javascript">
 	function check() {
-		if (document.getElementById("newpassword").value == document
-				.getElementById("confirmpassword").value) {
+		if (document.getElementById("newpassword").value == document.getElementById("confirmpassword").value) {
 			var passwordObject = new Object();
 			passwordObject.USER_LOGIN = document.getElementById('Email').value;
-			passwordObject.USER_PASSWORD = document
-					.getElementById('confirmpassword').value;
+			passwordObject.USER_PASSWORD = document.getElementById('confirmpassword').value;
 
 			var data = JSON.stringify(passwordObject);
 

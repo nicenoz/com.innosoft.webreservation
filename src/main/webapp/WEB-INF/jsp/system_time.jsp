@@ -14,18 +14,14 @@
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button"
-							readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> <input type="text" class="form-control border-custom"
-						id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdCustomerTimeAdd" type="submit"
-					class="btn btn-primary pull-right border-custom"
-					onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
+				<button id="cmdCustomerTimeAdd" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCustomerTimeAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
@@ -37,22 +33,17 @@
 		<br />
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom" disabled
-					style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -61,8 +52,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -93,28 +83,21 @@
 							<input id="EDIT_CTIM_ID" type="hidden" />
 
 							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"></div>
-							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA"
-								type="hidden" required /> <input id="EDIT_CUST_NAME"
-								name="EDIT_CUST_NAME" type="hidden" required />
+							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required /> <input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
 
 						<dt>Details No:</dt>
 						<dd>
-							<input class="form-control border-custom"
-								id="EDIT_CTIM_DETAILS_NO" name="EDIT_CTIM_DETAILS_NO"
-								type="text" required />
+							<input class="form-control border-custom" id="EDIT_CTIM_DETAILS_NO" name="EDIT_CTIM_DETAILS_NO" type="text" required />
 						</dd>
 						<dt>Interval of Times:</dt>
 						<dd>
 							<div id="EDIT_CTIM_INTERVAL_OF_TIMES" class="autocomplete-wide"></div>
-							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA"
-								class="form-control border-custom"
-								name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
+							<input id="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" class="form-control border-custom" name="EDIT_CTIM_INTERVAL_OF_TIMES_DATA" type="hidden" required />
 						</dd>
 						<dt>Max Unit No:</dt>
 						<dd>
-							<select class="form-control border-custom"
-								id="EDIT_CTIM_MAX_UNIT_NO" name="EDIT_CTIM_MAX_UNIT_NO" required>
+							<select class="form-control border-custom" id="EDIT_CTIM_MAX_UNIT_NO" name="EDIT_CTIM_MAX_UNIT_NO" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -124,9 +107,7 @@
 						</dd>
 						<dt>Max Parts No:</dt>
 						<dd>
-							<select class="form-control border-custom"
-								id="EDIT_CTIM_MAX_PARTS_NO" name="EDIT_CTIM_MAX_PARTS_NO"
-								required>
+							<select class="form-control border-custom" id="EDIT_CTIM_MAX_PARTS_NO" name="EDIT_CTIM_MAX_PARTS_NO" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -138,12 +119,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom"
-					id="cmdCustomerTimeEditOk"
-					onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
-				<button type="button" class="btn btn-danger border-custom"
-					id="cmdCustomerTimeEditCancel"
-					onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
+				<button type="button" class="btn btn-primary border-custom" id="cmdCustomerTimeEditOk" onclick="cmdCustomerTimeEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdCustomerTimeEditCancel" onclick="cmdCustomerTimeEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>

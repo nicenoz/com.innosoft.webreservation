@@ -14,18 +14,14 @@
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button"
-							readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> <input type="text" class="form-control border-custom"
-						id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddCustomer" type="submit"
-					class="btn btn-primary pull-right border-custom"
-					onclick="cmdCustomerAdd_OnClick()">Add</button>
+				<button id="cmdAddCustomer" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCustomerAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
@@ -37,22 +33,17 @@
 		<br />
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom" disabled
-					style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -61,8 +52,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -80,8 +70,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
-				<button type="button" class="close" aria-hidden="true">
-					&times;</button>
+				<button type="button" class="close" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Customer Edit</h4>
 			</div>
 			<div class="modal-body scroll">
@@ -89,52 +78,39 @@
 					<dl class="dl-horizontal">
 						<dt id="CUSTOMER_NO_LABEL">Customer No:</dt>
 						<dd>
-							<input id="EDIT_CUST_ID" type="hidden" /> <input
-								class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO"
-								name="EDIT_CUST_CUSTOMER_NO" type="text" readonly />
+							<input id="EDIT_CUST_ID" type="hidden" /> <input class="form-control border-custom" id="EDIT_CUST_CUSTOMER_NO" name="EDIT_CUST_CUSTOMER_NO" type="text" readonly />
 						</dd>
 						<dt>Name:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CUST_NAME"
-								name="EDIT_CUST_NAME" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="text" required />
 						</dd>
 						<dt>Phone No:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CUST_PHONENO"
-								name="EDIT_CUST_PHONENO" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CUST_PHONENO" name="EDIT_CUST_PHONENO" type="text" required />
 						</dd>
 						<dt>E-mail Address:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CUST_EMAIL"
-								name="EDIT_CUST_EMAIL" type="email" required />
+							<input class="form-control border-custom" id="EDIT_CUST_EMAIL" name="EDIT_CUST_EMAIL" type="email" required />
 						</dd>
 						<dt>ZIP Code:</dt>
 						<dd>
-							<input class="form-control border-custom" id="EDIT_CUST_ZIPCODE"
-								name="EDIT_CUST_ZIPCODE" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CUST_ZIPCODE" name="EDIT_CUST_ZIPCODE" type="text" required />
 						</dd>
 						<dt>Address 1:</dt>
 						<dd>
-							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1"
-								name="EDIT_CUST_ADDRESS1"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS1" name="EDIT_CUST_ADDRESS1" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<dt>Address 2:</dt>
 						<dd>
-							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2"
-								name="EDIT_CUST_ADDRESS2"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS2" name="EDIT_CUST_ADDRESS2" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<dt>Address 3:</dt>
 						<dd>
-							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3"
-								name="EDIT_CUST_ADDRESS3"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="2" id="EDIT_CUST_ADDRESS3" name="EDIT_CUST_ADDRESS3" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<!--                    <dt>Is Deleted?: </dt>
                         <dd> -->
-						<select class="form-control border-custom hidden"
-							id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required>
+						<select class="form-control border-custom hidden" id="EDIT_CUST_ISDELETED" name="EDIT_CUST_ISDELETED" required>
 							<option value="0">No</option>
 							<option value="1">Yes</option>
 						</select>
@@ -143,12 +119,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom"
-					id="cmdCustomerEditOk" onclick="cmdCustomerEditOk_OnClick()">
-					Ok</button>
-				<button type="button" class="btn btn-danger border-custom"
-					id="cmdCustomerEditCancel"
-					onclick="cmdCustomerEditCancel_OnClick()">Cancel</button>
+				<button type="button" class="btn btn-primary border-custom" id="cmdCustomerEditOk" onclick="cmdCustomerEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdCustomerEditCancel" onclick="cmdCustomerEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -168,10 +140,10 @@ var btnLastPageGrid;
 var btnCurrentPageGrid;
     
     
-	function pad (str, max) {
-	  str = str.toString();
-	  return str.length < max ? pad("0" + str, max) : str;
-	}
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
 // ===================
 // Edit Button Clicked
 // ===================
@@ -445,11 +417,15 @@ $(document).ready(function () {
 		}
 	});
 	
-	$('#cmdCustomerEditOk').click(function () {
-        if (FormValidate() != true) {
-            toastr.error(getMessage("E0005"));
-        }
-    });
+	 $('#cmdCustomerEditOk').click(function () {
+	        if (FormValidate() == true) {
+	            cmdCodeEditOkFunction();
+	            $('#CustomerEdit').modal('hide');
+	        }
+	        else {
+	            toastr.error(getMessage("E0005"));
+	        }
+	    });
 
     $('#cmdCustomerEditCancel, .close').click(function () {
         $("form input").removeClass("errorHighlight");

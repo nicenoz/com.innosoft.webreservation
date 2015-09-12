@@ -10,6 +10,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,17 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		List<TrnChargeCount> list = session.createQuery("from TrnChargeCount").list();	
 		return list;
 	}
+	
+	public TrnChargeCount getReservationById(int resvId){
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(TrnChargeCount.class);
+		criteria.add(Restrictions.eq("CUNT_RESV_ID", resvId));
+		
+		return (TrnChargeCount) criteria.list().get(0);
+	}
+
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<TrnChargeCount> getReport(String from, String to) {
@@ -81,6 +93,7 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 			newChargeCount.setCUNT_CUST_ID(chargeCount.CUNT_CUST_ID);
 			newChargeCount.setCUNT_MEBR_ID(chargeCount.CUNT_MEBR_ID);
 			newChargeCount.setCUNT_EMAIL_ADDRESS(chargeCount.CUNT_EMAIL_ADDRESS);
+			newChargeCount.setCUNT_RESV_ID(chargeCount.CUNT_RESV_ID);
 			
 			newChargeCount.setCREATED_BY_USER_ID(chargeCount.CREATED_BY_USER_ID);
 			newChargeCount.setCREATED_DATE(chargeCount.CREATED_DATE);
@@ -106,11 +119,16 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 			tx = session.beginTransaction();
 			TrnChargeCount updateChargeCount = (TrnChargeCount)session.get(TrnChargeCount.class, chargeCount.CUNT_ID); 
 			
-			updateChargeCount.setCUNT_TIME_STAMP(chargeCount.CUNT_TIME_STAMP);
-			updateChargeCount.setCUNT_CUST_ID(chargeCount.CUNT_CUST_ID);
-			updateChargeCount.setCUNT_MEBR_ID(chargeCount.CUNT_MEBR_ID);
-			updateChargeCount.setCUNT_EMAIL_ADDRESS(chargeCount.CUNT_EMAIL_ADDRESS);
-			
+			if(chargeCount.ISDELETED != 1){
+				updateChargeCount.setCUNT_TIME_STAMP(chargeCount.CUNT_TIME_STAMP);
+				updateChargeCount.setCUNT_CUST_ID(chargeCount.CUNT_CUST_ID);
+				updateChargeCount.setCUNT_MEBR_ID(chargeCount.CUNT_MEBR_ID);
+				updateChargeCount.setCUNT_EMAIL_ADDRESS(chargeCount.CUNT_EMAIL_ADDRESS);
+			}else{
+				updateChargeCount.setISDELETED(chargeCount.ISDELETED);
+				updateChargeCount.setISDELETED_BY_USER_ID(chargeCount.ISDELETED_BY_USER_ID);
+				updateChargeCount.setISDELETED_DATE(chargeCount.ISDELETED_DATE);
+			}
 			
 			updateChargeCount.setUPDATED_BY_USER_ID(chargeCount.UPDATED_BY_USER_ID);
 			updateChargeCount.setUPDATED_DATE(chargeCount.UPDATED_DATE);

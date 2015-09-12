@@ -14,18 +14,14 @@
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button"
-							readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> <input type="text" class="form-control border-custom"
-						id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddCode" type="submit"
-					class="btn btn-primary pull-right border-custom"
-					onclick="cmdCodeAdd_OnClick()">Add</button>
+				<button id="cmdAddCode" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCodeAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
@@ -37,22 +33,17 @@
 		<br />
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom" disabled
-					style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -61,8 +52,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -79,10 +69,8 @@
 <div class="modal fade" id="codeEdit">
 	<div class="modal-dialog">
 		<div class="modal-content border-custom">
-
 			<div class="modal-header">
-				<button type="button" class="close" aria-hidden="true">
-					&times;</button>
+				<button type="button" class="close" aria-hidden="true"> &times;</button>
 				<h4 class="modal-title">Code Edit</h4>
 			</div>
 			<div class="modal-body">
@@ -90,32 +78,24 @@
 					<dl class="dl-horizontal">
 						<dt>Code:</dt>
 						<dd>
-							<input id="EDIT_CODE_ID" type="hidden" /> <input
-								class="form-control border-custom" id="EDIT_CODE_KIND_CODE"
-								name="EDIT_CODE_KIND_CODE" type="text" required />
+							<input id="EDIT_CODE_ID" type="hidden" /> 
+							<input class="form-control border-custom" id="EDIT_CODE_KIND_CODE" name="EDIT_CODE_KIND_CODE" type="text" required />
 						</dd>
 						<dt>Value:</dt>
 						<dd>
-							<input class="form-control border-custom"
-								id="EDIT_CODE_CODE_VALUE" name="EDIT_CODE_CODE_VALUE"
-								type="text" required />
+							<input class="form-control border-custom" id="EDIT_CODE_CODE_VALUE" name="EDIT_CODE_CODE_VALUE" type="text" required />
 						</dd>
 						<dt>Note:</dt>
 						<dd>
-							<textarea cols="*" rows="3" id="EDIT_CODE_NOTE"
-								name="EDIT_CODE_NOTE"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="3" id="EDIT_CODE_NOTE" name="EDIT_CODE_NOTE" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<dt>Text:</dt>
 						<dd>
-							<textarea cols="*" rows="3" id="EDIT_CODE_TEXT"
-								name="EDIT_CODE_TEXT"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="3" id="EDIT_CODE_TEXT" name="EDIT_CODE_TEXT" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<dt>Is Displayed?:</dt>
 						<dd>
-							<select class="form-control border-custom"
-								id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" required>
+							<select class="form-control border-custom" id="EDIT_CODE_ISDISPLAY" name="EDIT_CODE_ISDISPLAY" required>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
@@ -124,11 +104,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom"
-					id="cmdCodeEditOk" onclick="cmdCodeEditOk_OnClick()">Ok</button>
-				<button type="button" class="btn btn-danger border-custom"
-					id="cmdCodeEditCancel" onclick="cmdCodeEditCancel_OnClick()">
-					Cancel</button>
+				<button type="button" class="btn btn-primary border-custom" id="cmdCodeEditOk" onclick="cmdCodeEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdCodeEditCancel" onclick="cmdCodeEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -159,17 +136,11 @@
 		});
 
 		var code = codes.currentEditItem;
-		document.getElementById('EDIT_CODE_ID').value = code.CODE_ID !== null
-				&& typeof (code.CODE_ID) != 'undefined' ? wijmo.Globalize
-				.format(code.CODE_ID) : 0;
-		document.getElementById('EDIT_CODE_KIND_CODE').value = code.CODE_KIND_CODE ? code.CODE_KIND_CODE
-				: '';
-		document.getElementById('EDIT_CODE_CODE_VALUE').value = code.CODE_CODE_VALUE ? code.CODE_CODE_VALUE
-				: '';
-		document.getElementById('EDIT_CODE_NOTE').value = code.CODE_NOTE ? code.CODE_NOTE
-				: '';
-		document.getElementById('EDIT_CODE_TEXT').value = code.CODE_TEXT ? code.CODE_TEXT
-				: '';
+		document.getElementById('EDIT_CODE_ID').value = code.CODE_ID !== null && typeof (code.CODE_ID) != 'undefined' ? wijmo.Globalize.format(code.CODE_ID) : 0;
+		document.getElementById('EDIT_CODE_KIND_CODE').value = code.CODE_KIND_CODE ? code.CODE_KIND_CODE: '';
+		document.getElementById('EDIT_CODE_CODE_VALUE').value = code.CODE_CODE_VALUE ? code.CODE_CODE_VALUE: '';
+		document.getElementById('EDIT_CODE_NOTE').value = code.CODE_NOTE ? code.CODE_NOTE: '';
+		document.getElementById('EDIT_CODE_TEXT').value = code.CODE_TEXT ? code.CODE_TEXT: '';
 		document.getElementById('EDIT_CODE_ISDISPLAY').selectedIndex = code.CODE_ISDISPLAY;
 	}
 
@@ -199,8 +170,7 @@
 		var id = codes.currentEditItem.CODE_ID;
 		var codeKindCode = codes.currentEditItem.CODE_KIND_CODE;
 
-		alertify.confirm("<span class='glyphicon glyphicon-trash'></span> "
-				+ getMessage("P0001"), function(e) {
+		alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function(e) {
 			if (e) {
 				$.ajax({
 					type : "DELETE",
@@ -241,15 +211,11 @@
 		var codeObject = new Object();
 
 		codeObject.CODE_ID = parseInt(document.getElementById('EDIT_CODE_ID').value);
-		codeObject.CODE_KIND_CODE = document
-				.getElementById('EDIT_CODE_KIND_CODE').value;
-		codeObject.CODE_CODE_VALUE = document
-				.getElementById('EDIT_CODE_CODE_VALUE').value;
+		codeObject.CODE_KIND_CODE = document.getElementById('EDIT_CODE_KIND_CODE').value;
+		codeObject.CODE_CODE_VALUE = document.getElementById('EDIT_CODE_CODE_VALUE').value;
 		codeObject.CODE_NOTE = document.getElementById('EDIT_CODE_NOTE').value;
 		codeObject.CODE_TEXT = document.getElementById('EDIT_CODE_TEXT').value;
-		codeObject.CODE_ISDISPLAY = document
-				.getElementById('EDIT_CODE_ISDISPLAY').options[document
-				.getElementById("EDIT_CODE_ISDISPLAY").selectedIndex].value;
+		codeObject.CODE_ISDISPLAY = document.getElementById('EDIT_CODE_ISDISPLAY').options[document.getElementById("EDIT_CODE_ISDISPLAY").selectedIndex].value;
 
 		var data = JSON.stringify(codeObject);
 
@@ -279,49 +245,45 @@
 		var codes = new wijmo.collections.ObservableArray();
 
 		$('#loading').modal('show');
-		$
-				.ajax(
-						{
-							url : '${pageContext.request.contextPath}/api/code/list',
-							cache : false,
-							type : 'GET',
-							contentType : 'application/json; charset=utf-8',
-							data : {},
-							success : function(Results) {
-								$('#loading').modal('hide');
-								if (Results.length > 0) {
-									for (i = 0; i < Results.length; i++) {
-										codes
-												.push({
-													EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCode' onclick='cmdCodeEdit_OnClick()'>Edit</button>",
-													DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCode' onclick='cmdCodeDelete_OnClick()'>Delete</button>",
-													CODE_ID : Results[i]["CODE_ID"],
-													CODE_KIND_CODE : Results[i]["CODE_KIND_CODE"],
-													CODE_CODE_VALUE : Results[i]["CODE_CODE_VALUE"],
-													CODE_NOTE : Results[i]["CODE_NOTE"],
-													CODE_TEXT : Results[i]["CODE_TEXT"],
-													CODE_ISDISPLAY : Results[i]["CODE_ISDISPLAY"],
-													CODE_ISDISPLAY_SHOW : Results[i]["CODE_ISDISPLAY"] == 1 ? "Yes"
-															: "No",
+		$.ajax({
+				url : '${pageContext.request.contextPath}/api/code/list',
+				cache : false,
+				type : 'GET',
+				contentType : 'application/json; charset=utf-8',
+				data : {},
+				success : function(Results) {
+					$('#loading').modal('hide');
+					if (Results.length > 0) {
+						for (i = 0; i < Results.length; i++) {
+							codes.push({
+								EditId : "<button class='btn btn-primary btn-xs border-custom' data-toggle='modal' id='cmdEditCode' onclick='cmdCodeEdit_OnClick()'>Edit</button>",
+								DeleteId : "<button class='btn btn-danger btn-xs border-custom' data-toggle='modal' id='cmdDeleteCode' onclick='cmdCodeDelete_OnClick()'>Delete</button>",
+								CODE_ID : Results[i]["CODE_ID"],
+								CODE_KIND_CODE : Results[i]["CODE_KIND_CODE"],
+								CODE_CODE_VALUE : Results[i]["CODE_CODE_VALUE"],
+								CODE_NOTE : Results[i]["CODE_NOTE"],
+								CODE_TEXT : Results[i]["CODE_TEXT"],
+								CODE_ISDISPLAY : Results[i]["CODE_ISDISPLAY"],
+								CODE_ISDISPLAY_SHOW : Results[i]["CODE_ISDISPLAY"] == 1 ? "Yes" : "No",
 
-													CREATED_DATE : Results[i]["created_DATE"],
-													CREATED_BY_USER_ID : Results[i]["created_BY_USER_ID"],
-													UPDATED_DATE : Results[i]["updated_DATE"],
-													UPDATED_BY_USER_ID : Results[i]["updated_BY_USER_ID"],
-													ISDELETED : Results[i]["isdeleted"],
-													ISDELETED_DATE : Results[i]["ISDELETED_DATE"],
-													ISDELETED_BY_USER_ID : Results[i]["ISDELETED_BY_USER_ID"],
-													CODE_CREATED_BY_USER_FK : Results[i]["CODE_CREATED_BY_USER_FK"],
-													CODE_UPDATED_BY_USER_FK : Results[i]["CODE_UPDATED_BY_USER_FK"]
-												});
-									}
-								} else {
-									/*   alert("No data."); */
-								}
-							}
-						}).fail(function(xhr, textStatus, err) {
-					alert(err);
-				});
+								CREATED_DATE : Results[i]["created_DATE"],
+								CREATED_BY_USER_ID : Results[i]["created_BY_USER_ID"],
+								UPDATED_DATE : Results[i]["updated_DATE"],
+								UPDATED_BY_USER_ID : Results[i]["updated_BY_USER_ID"],
+								ISDELETED : Results[i]["isdeleted"],
+								ISDELETED_DATE : Results[i]["ISDELETED_DATE"],
+								ISDELETED_BY_USER_ID : Results[i]["ISDELETED_BY_USER_ID"],
+								CODE_CREATED_BY_USER_FK : Results[i]["CODE_CREATED_BY_USER_FK"],
+								CODE_UPDATED_BY_USER_FK : Results[i]["CODE_UPDATED_BY_USER_FK"]
+							});
+						}
+					} else {
+						/*   alert("No data."); */
+					}
+				}
+			}).fail(function(xhr, textStatus, err) {
+		alert(err);
+		});
 		return codes;
 	}
 
@@ -329,8 +291,7 @@
 	// Navigation Buttons
 	// ==================   
 	function updateNavigateButtonsCode() {
-		if (codes.pageSize <= 0) {
-			document.getElementById('naviagtionPageGrid').style.display = 'none';
+		if (codes.pageSize <= 0) {document.getElementById('naviagtionPageGrid').style.display = 'none';
 			return;
 		}
 		document.getElementById('naviagtionPageGrid').style.display = 'block';
@@ -350,8 +311,7 @@
 			btnNextPageGrid.removeAttribute('disabled');
 			btnLastPageGrid.removeAttribute('disabled');
 		}
-		btnCurrentPageGrid.innerHTML = (codes.pageIndex + 1) + ' / '
-				+ codes.pageCount;
+		btnCurrentPageGrid.innerHTML = (codes.pageIndex + 1) + ' / ' + codes.pageCount;
 	}
 
 	// ===================
@@ -360,7 +320,6 @@
 	function updateDetails() {
 		var item = codes.currentItem;
 		document.getElementById('EDIT_CREATED_BY').innerHTML = item.CODE_CREATED_BY_USER_FK.USER_LOGIN;
-		;
 		document.getElementById('EDIT_CREATE_DATE').innerHTML = item.CREATED_DATE;
 		document.getElementById('EDIT_UPDATED_BY').innerHTML = item.CODE_UPDATED_BY_USER_FK.USER_LOGIN;
 		document.getElementById('EDIT_UPDATE_DATE').innerHTML = item.UPDATED_DATE;
@@ -402,131 +361,123 @@
 	// ============
 	// On Page Load
 	// ============
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
 
-				// Validation
-				$('#cmdCodeEditOk').click(function() {
-					if (FormValidate() == true) {
-						cmdCodeEditOkFunction();
-						$('#codeEdit').modal('hide');
-					} else {
-						toastr.error(getMessage("E0005"));
-					}
-				});
-
-				$('#cmdCodeEditCancel, .close').click(function() {
-					$("form input").removeClass("errorHighlight");
-					$('form')[0].reset();
+			// Validation
+			$('#cmdCodeEditOk').click(function() {
+				if (FormValidate() == true) {
+					cmdCodeEditOkFunction();
 					$('#codeEdit').modal('hide');
-				});
-
-				$('.close-btn').hide();
-
-				// Collection View
-				codes = new wijmo.collections.CollectionView(getCodes());
-				codes.canFilter = true;
-				codes.pageSize = 10;
-
-				var filterText = '';
-				$('#InputFilter').keyup(function() {
-					filterText = this.value.toLowerCase();
-					codes.refresh();
-				});
-				codes.filter = function(item) {
-					return !filterText
-							|| (item.CODE_KIND_CODE.toLowerCase().indexOf(
-									filterText) > -1);
+				} else {
+					toastr.error(getMessage("E0005"));
 				}
-
-				codes.collectionChanged.addHandler(function(sender, args) {
-					updateNavigateButtonsCode();
-				});
-
-				codes.currentChanged.addHandler(function(sender, args) {
-					updateDetails();
-				});
-
-				// Flex Grid
-				codeGrid = new wijmo.grid.FlexGrid('#codeGrid');
-				codeGrid.initialize({
-					columns : [ {
-						"header" : "Edit",
-						"binding" : "EditId",
-						"width" : 60,
-						"allowSorting" : false,
-						"isContentHtml" : true
-					}, {
-						"header" : "Delete",
-						"binding" : "DeleteId",
-						"width" : 60,
-						"allowSorting" : false,
-						"isContentHtml" : true
-					}, {
-						"header" : "Code",
-						"binding" : "CODE_KIND_CODE",
-						"allowSorting" : true,
-						"width" : 100
-					}, {
-						"header" : "Value",
-						"binding" : "CODE_CODE_VALUE",
-						"allowSorting" : true,
-						"width" : 100
-					}, {
-						"header" : "Note",
-						"binding" : "CODE_NOTE",
-						"allowSorting" : true,
-						"width" : "2*"
-					}, {
-						"header" : "Text",
-						"binding" : "CODE_TEXT",
-						"allowSorting" : true,
-						"width" : "2*"
-					}, {
-						"header" : "Displayed",
-						"binding" : "CODE_ISDISPLAY_SHOW",
-						"allowSorting" : true,
-						"width" : 100
-					} ],
-					autoGenerateColumns : false,
-					itemsSource : codes,
-					isReadOnly : true,
-					selectionMode : wijmo.grid.SelectionMode.Row
-				});
-
-				codeGrid.trackChanges = true;
-
-				// Navigation button
-				btnFirstPageGrid = document
-						.getElementById('btnMoveToFirstPageGrid');
-				btnPreviousPageGrid = document
-						.getElementById('btnMoveToPreviousPageGrid');
-				btnNextPageGrid = document
-						.getElementById('btnMoveToNextPageGrid');
-				btnLastPageGrid = document
-						.getElementById('btnMoveToLastPageGrid');
-				btnCurrentPageGrid = document
-						.getElementById('btnCurrentPageGrid');
-
-				updateNavigateButtonsCode();
-
-				btnFirstPageGrid.addEventListener('click', function() {
-					codes.moveToFirstPage();
-					updateNavigateButtonsCode();
-				});
-				btnPreviousPageGrid.addEventListener('click', function() {
-					codes.moveToPreviousPage();
-					updateNavigateButtonsCode();
-				});
-				btnNextPageGrid.addEventListener('click', function() {
-					codes.moveToNextPage();
-					updateNavigateButtonsCode();
-				});
-				btnLastPageGrid.addEventListener('click', function() {
-					codes.moveToLastPage();
-					updateNavigateButtonsCode();
-				});
 			});
+
+			$('#cmdCodeEditCancel, .close').click(function() {
+				$("form input").removeClass("errorHighlight");
+				$('form')[0].reset();
+				$('#codeEdit').modal('hide');
+			});
+
+			$('.close-btn').hide();
+
+			// Collection View
+			codes = new wijmo.collections.CollectionView(getCodes());
+			codes.canFilter = true;
+			codes.pageSize = 10;
+
+			var filterText = '';
+			$('#InputFilter').keyup(function() {
+				filterText = this.value.toLowerCase();
+				codes.refresh();
+			});
+			codes.filter = function(item) {
+				return !filterText || (item.CODE_KIND_CODE.toLowerCase().indexOf(filterText) > -1);
+			}
+
+			codes.collectionChanged.addHandler(function(sender, args) {
+				updateNavigateButtonsCode();
+			});
+
+			codes.currentChanged.addHandler(function(sender, args) {
+				updateDetails();
+			});
+
+			// Flex Grid
+			codeGrid = new wijmo.grid.FlexGrid('#codeGrid');
+			codeGrid.initialize({
+				columns : [ {
+					"header" : "Edit",
+					"binding" : "EditId",
+					"width" : 60,
+					"allowSorting" : false,
+					"isContentHtml" : true
+				}, {
+					"header" : "Delete",
+					"binding" : "DeleteId",
+					"width" : 60,
+					"allowSorting" : false,
+					"isContentHtml" : true
+				}, {
+					"header" : "Code",
+					"binding" : "CODE_KIND_CODE",
+					"allowSorting" : true,
+					"width" : 100
+				}, {
+					"header" : "Value",
+					"binding" : "CODE_CODE_VALUE",
+					"allowSorting" : true,
+					"width" : 100
+				}, {
+					"header" : "Note",
+					"binding" : "CODE_NOTE",
+					"allowSorting" : true,
+					"width" : "2*"
+				}, {
+					"header" : "Text",
+					"binding" : "CODE_TEXT",
+					"allowSorting" : true,
+					"width" : "2*"
+				}, {
+					"header" : "Displayed",
+					"binding" : "CODE_ISDISPLAY_SHOW",
+					"allowSorting" : true,
+					"width" : 100
+				} ],
+				autoGenerateColumns : false,
+				itemsSource : codes,
+				isReadOnly : true,
+				selectionMode : wijmo.grid.SelectionMode.Row
+			});
+
+			codeGrid.trackChanges = true;
+
+			// Navigation button
+			btnFirstPageGrid = document.getElementById('btnMoveToFirstPageGrid');
+			btnPreviousPageGrid = document.getElementById('btnMoveToPreviousPageGrid');
+			btnNextPageGrid = document.getElementById('btnMoveToNextPageGrid');
+			btnLastPageGrid = document.getElementById('btnMoveToLastPageGrid');
+			btnCurrentPageGrid = document.getElementById('btnCurrentPageGrid');
+
+			updateNavigateButtonsCode();
+
+			btnFirstPageGrid.addEventListener('click', function() {
+				codes.moveToFirstPage();
+				updateNavigateButtonsCode();
+			});
+			btnPreviousPageGrid.addEventListener('click', function() {
+				codes.moveToPreviousPage();
+				updateNavigateButtonsCode();
+			});
+			btnNextPageGrid.addEventListener('click', function() {
+				codes.moveToNextPage();
+				updateNavigateButtonsCode();
+			});
+			btnLastPageGrid.addEventListener('click', function() {
+				codes.moveToLastPage();
+				updateNavigateButtonsCode();
+			});
+		});
 </script>
 
 

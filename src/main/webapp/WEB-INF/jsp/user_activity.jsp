@@ -14,18 +14,14 @@
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button"
-							readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> <input type="text" class="form-control border-custom"
-						id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddCalendarActivity" type="submit"
-					class="btn btn-primary pull-right border-custom"
-					onclick="cmdCalendarActivityAdd_OnClick()">Add</button>
+				<button id="cmdAddCalendarActivity" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdCalendarActivityAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
@@ -39,22 +35,17 @@
 
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom" disabled
-					style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -63,8 +54,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -93,16 +83,13 @@
 							<input id="EDIT_CACT_ID" type="hidden" />
 
 							<div id="EDIT_CACT_CLDR_ID_DATE" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_CLDR_ID_DATE_DATA"
-								name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required /> <input
-								id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required />
+							<input id="EDIT_CACT_CLDR_ID_DATE_DATA" name="EDIT_CACT_CLDR_ID_DATE_DATA" type="hidden" required />
+							<input id="EDIT_CACT_DATE" name="EDIT_CACT_DATE" type="hidden" required />
 						</dd>
 						<dt>Customer:</dt>
 						<dd>
 							<div id="EDIT_CACT_CUST_ID" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA"
-								type="hidden" required /> <input id="EDIT_CUST_NAME"
-								name="EDIT_CUST_NAME" type="hidden" required />
+							<input id="EDIT_CACT_CUST_ID_DATA" name="EDIT_CACT_CUST_ID_DATA" type="hidden" required /> <input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
 						<dt>Details No:</dt>
 						<dd>
@@ -110,37 +97,27 @@
 						</dd>
 						<dt>Activity Classification:</dt>
 						<dd>
-							<input class="form-control border-custom"
-								id="EDIT_CACT_ACTIVITY_CLASSIFICATION"
-								name="EDIT_CACT_ACTIVITY_CLASSIFICATION" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CACT_ACTIVITY_CLASSIFICATION" name="EDIT_CACT_ACTIVITY_CLASSIFICATION" type="text" required />
 						</dd>
 						<dt>Activity Contents:</dt>
 						<dd>
-							<input class="form-control border-custom"
-								id="EDIT_CACT_ACTIVITY_CONTENTS"
-								name="EDIT_CACT_ACTIVITY_CONTENTS" type="text" required />
+							<input class="form-control border-custom" id="EDIT_CACT_ACTIVITY_CONTENTS" name="EDIT_CACT_ACTIVITY_CONTENTS" type="text" required />
 						</dd>
 						<dt>Start Time ID:</dt>
 						<dd>
 							<div id="EDIT_CACT_START_TIME" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_START_TIME_ID"
-								name="EDIT_CACT_START_TIME_ID" type="hidden" required /> <input
-								id="EDIT_CACT_START_TIME_ID_DATA"
-								name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />
+							<input id="EDIT_CACT_START_TIME_ID" name="EDIT_CACT_START_TIME_ID" type="hidden" required /> 
+							<input id="EDIT_CACT_START_TIME_ID_DATA" name="EDIT_CACT_START_TIME_ID_DATA" type="hidden" required />
 						</dd>
 						<dt>End Time ID:</dt>
 						<dd>
 							<div id="EDIT_CACT_END_TIME" class="autocomplete-wide"></div>
-							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID"
-								type="hidden" required /> <input
-								id="EDIT_CACT_END_TIME_ID_DATA"
-								name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />
+							<input id="EDIT_CACT_END_TIME_ID" name="EDIT_CACT_END_TIME_ID" type="hidden" required /> 
+							<input id="EDIT_CACT_END_TIME_ID_DATA" name="EDIT_CACT_END_TIME_ID_DATA" type="hidden" required />
 						</dd>
 						<dt>Operation Flag:</dt>
 						<dd>
-							<select class="form-control border-custom"
-								id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG"
-								required>
+							<select class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" required>
 								<option value="1">Yes</option>
 								<option value="0">No</option>
 							</select>
@@ -149,12 +126,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom"
-					id="cmdCalendarActivityEditOk"
-					onclick="cmdCalendarActivityEditOk_OnClick()">Ok</button>
-				<button type="button" class="btn btn-danger border-custom"
-					id="cmdCalendarActivityEditCancel"
-					onclick="cmdCalendarActivityEditCancel_OnClick()">Cancel</button>
+				<button type="button" class="btn btn-primary border-custom" id="cmdCalendarActivityEditOk" onclick="cmdCalendarActivityEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdCalendarActivityEditCancel" onclick="cmdCalendarActivityEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -378,7 +351,7 @@ function cmdCalendarActivityEdit_OnClick() {
     document.getElementById('EDIT_CACT_END_TIME_ID').value = calendarActivity.CACT_END_TIME_ID ? calendarActivity.CACT_END_TIME_ID : '';
     document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value = calendarActivity.CACT_START_TIME_FK ? calendarActivity.CACT_START_TIME_FK : '';
     document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value = calendarActivity.CACT_END_TIME_FK ? calendarActivity.CACT_END_TIME_FK : '';
-    document.getElementById('EDIT_CACT_OPERATION_FLAG').value = calendarActivity.CACT_OPERATION_FLAG ? calendarActivity.CACT_OPERATION_FLAG : '';
+    document.getElementById('EDIT_CACT_OPERATION_FLAG').value = calendarActivity.CACT_OPERATION_FLAG;
     
 	getCustomers();
 	getCalendarDate();

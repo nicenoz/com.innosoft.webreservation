@@ -16,18 +16,14 @@
 				<div class="col-lg-4">
 					<div class="input-group">
 						<span class="input-group-btn">
-							<button class="btn btn-default border-custom" type="button"
-								readonly>
+							<button class="btn btn-default border-custom" type="button" readonly>
 								<i class="fa fa-search"></i>
 							</button>
-						</span> <input type="text" class="form-control border-custom"
-							id="InputFilter" placeholder="Search">
+						</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<button id="cmdAddCustomer" type="submit"
-						class="btn btn-primary pull-right border-custom"
-						onclick="cmdMemberAdd_OnClick()">Add</button>
+					<button id="cmdAddCustomer" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMemberAdd_OnClick()">Add</button>
 				</div>
 			</div>
 			<br />
@@ -42,22 +38,17 @@
 
 			<div class="row">
 				<div class="btn-group col-md-7" id="naviagtionPageGrid">
-					<button type="button" class="btn btn-default border-custom"
-						id="btnMoveToFirstPageGrid">
+					<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 						<span class="glyphicon glyphicon-fast-backward"></span>
 					</button>
-					<button type="button" class="btn btn-default border-custom"
-						id="btnMoveToPreviousPageGrid">
+					<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 						<span class="glyphicon glyphicon-step-backward"></span>
 					</button>
-					<button type="button" class="btn btn-default border-custom"
-						disabled style="width: 100px" id="btnCurrentPageGrid"></button>
-					<button type="button" class="btn btn-default border-custom"
-						id="btnMoveToNextPageGrid">
+					<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+					<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 						<span class="glyphicon glyphicon-step-forward"></span>
 					</button>
-					<button type="button" class="btn btn-default border-custom"
-						id="btnMoveToLastPageGrid">
+					<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 						<span class="glyphicon glyphicon-fast-forward"></span>
 					</button>
 				</div>
@@ -85,60 +76,42 @@
 										<input id="EDIT_MEBR_ID" type="hidden" />
 
 										<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
-										<input id="EDIT_MEBR_CUST_ID_DATA"
-											name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required /> <input
-											id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden"
-											required />
+										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required /> 
+										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 									</dd>
 									<dt id="EDIT_MEBR_CUSTOMER_MEMBER_NO_LABEL">Member No:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_CUSTOMER_MEMBER_NO"
-											name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" readonly />
+										<input class="form-control border-custom" id="EDIT_MEBR_CUSTOMER_MEMBER_NO" name="EDIT_MEBR_CUSTOMER_MEMBER_NO" type="text" readonly />
 									</dd>
 									<dt>User:</dt>
 									<dd>
-										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID"
-											class="autocomplete-wide"></div>
-										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA"
-											name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden"
-											required /> <input
-											id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME"
-											name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden"
-											required />
+										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" class="autocomplete-wide"></div>
+										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden" required />
+										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden" required />
 									</dd>
 									<dt>First Name:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME"
-											type="text" required />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIRST_NAME" name="EDIT_MEBR_FIRST_NAME" type="text" required />
 									</dd>
 									<dt>Last Name:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME"
-											type="text" required />
+										<input class="form-control border-custom" id="EDIT_MEBR_LAST_NAME" name="EDIT_MEBR_LAST_NAME" type="text" required />
 									</dd>
 									<dt>Tel No:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text"
-											required />
+										<input class="form-control border-custom" id="EDIT_MEBR_TEL_NO" name="EDIT_MEBR_TEL_NO" type="text" required />
 									</dd>
 									<dt>Address1:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS1" name="EDIT_MEBR_ADDRESS1" type="text" />
 									</dd>
 									<dt>Address2:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS2" name="EDIT_MEBR_ADDRESS2" type="text" />
 									</dd>
 									<dt>Address3:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_ADDRESS3" name="EDIT_MEBR_ADDRESS3" type="text" />
 									</dd>
 								</dl>
 							</div>
@@ -146,26 +119,20 @@
 								<dl class="dl-horizontal">
 									<dt>Zip Code:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text"
-											required />
+										<input class="form-control border-custom" id="EDIT_MEBR_ZIP_CODE" name="EDIT_MEBR_ZIP_CODE" type="text" required />
 									</dd>
 									<dt>Email Address:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS"
-											type="text" required />
+										<input class="form-control border-custom" id="EDIT_MEBR_EMAIL_ADDRESS" name="EDIT_MEBR_EMAIL_ADDRESS" type="text" required />
 									</dd>
 									<dt>Birth Date:</dt>
 									<dd>
 										<div id="EDIT_MEBR_DATE_OF_BIRTH" class="autocomplete-wide"></div>
-										<input id="EDIT_MEBR_DATE_OF_BIRTH_DATA"
-											name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required />
+										<input id="EDIT_MEBR_DATE_OF_BIRTH_DATA" name="EDIT_MEBR_DATE_OF_BIRTH" type="hidden" required />
 									</dd>
 									<dt>Point:</dt>
 									<dd>
-										<select class="form-control border-custom"
-											id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required>
+										<select class="form-control border-custom" id="EDIT_MEBR_POINT" name="EDIT_MEBR_POINT" required>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -180,28 +147,23 @@
 									</dd>
 									<dt>Custom Field 1:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD1" name="EDIT_MEBR_FIELD1" type="text" />
 									</dd>
 									<dt>Custom Field 2:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD2" name="EDIT_MEBR_FIELD2" type="text" />
 									</dd>
 									<dt>Custom Field 3:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD3" name="EDIT_MEBR_FIELD3" type="text" />
 									</dd>
 									<dt>Custom Field 4:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD4" name="EDIT_MEBR_FIELD4" type="text" />
 									</dd>
 									<dt>Custom Field 5:</dt>
 									<dd>
-										<input class="form-control border-custom"
-											id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text" />
+										<input class="form-control border-custom" id="EDIT_MEBR_FIELD5" name="EDIT_MEBR_FIELD5" type="text" />
 									</dd>
 								</dl>
 							</div>
@@ -209,12 +171,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary border-custom"
-						id="cmdCustomerMemberEditOk"
-						onclick="cmdCustomerMemberEditOk_OnClick()">Ok</button>
-					<button type="button" class="btn btn-danger border-custom"
-						id="cmdCustomerMemberEditCancel"
-						onclick="cmdCustomerMemberEditCancel_OnClick()">Cancel</button>
+					<button type="button" class="btn btn-primary border-custom" id="cmdCustomerMemberEditOk" onclick="cmdCustomerMemberEditOk_OnClick()">Ok</button>
+					<button type="button" class="btn btn-danger border-custom" id="cmdCustomerMemberEditCancel" onclick="cmdCustomerMemberEditCancel_OnClick()">Cancel</button>
 				</div>
 			</div>
 		</div>

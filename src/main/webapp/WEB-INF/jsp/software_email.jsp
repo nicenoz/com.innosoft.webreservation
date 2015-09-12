@@ -18,20 +18,12 @@
 								</div>
 								<div class="panel-body">
 									<fieldset>
-										<input type="email" name="edit_email"
-											class="form-control border-custom" id="edit_email" size="40"
-											maxlength="40" placeholder="To:"
-											value="${SPRING_SECURITY_LAST_USERNAME}" /> <br /> <input
-											type="text" name="edit_subject"
-											class="form-control border-custom" id="edit_subject"
-											size="40" maxlength="32" placeholder="Subject:" /> <br />
-										<textarea cols="50" rows="10"
-											class="form-control border-custom message-not-resizable"
-											name="edit_message" id="edit_message"
-											placeholder="Message ..."></textarea>
-										<br /> <input type="button" value="Send E-mail"
-											onclick="cmdCalendarEditOk_OnClick()"
-											class="btn btn-lg btn-success border-custom pull-right" />
+										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" size="40" placeholder="To:" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
+										<br /> 
+										<input type="text" name="edit_subject" class="form-control border-custom" id="edit_subject" size="40" maxlength="32" placeholder="Subject:" /> <br />
+										<textarea cols="50" rows="10" class="form-control border-custom message-not-resizable" name="edit_message" id="edit_message" placeholder="Message ..."></textarea>
+										<br /> 
+										<input type="button" value="Send E-mail" onclick="cmdCalendarEditOk_OnClick()" class="btn btn-lg btn-success border-custom pull-right" />
 									</fieldset>
 									<br />
 								</div>
@@ -46,9 +38,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static"
-	data-keyboard="false">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -93,7 +83,6 @@
 				}
 			}
 		});
-
 	}
 </script>
 

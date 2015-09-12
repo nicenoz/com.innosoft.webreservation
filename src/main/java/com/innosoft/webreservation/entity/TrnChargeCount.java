@@ -28,6 +28,9 @@ public class TrnChargeCount {
 	@Column(name = "CUNT_MEBR_ID")
 	public Integer CUNT_MEBR_ID;
 	
+	@Column(name = "CUNT_RESV_ID")
+	public Integer CUNT_RESV_ID;
+
 	@Column(name = "CUNT_EMAIL_ADDRESS")
 	public String CUNT_EMAIL_ADDRESS;
 	
@@ -178,5 +181,13 @@ public class TrnChargeCount {
 
 	public void setISDELETED_BY_USER_ID(Integer iSDELETED_BY_USER_ID) {
 		ISDELETED_BY_USER_ID = iSDELETED_BY_USER_ID;
-	}	
+	}
+	
+	public Integer getCUNT_RESV_ID() {
+		return CUNT_RESV_ID;
+	}
+
+	public void setCUNT_RESV_ID(Integer cUNT_RESV_ID) {
+		CUNT_RESV_ID = cUNT_RESV_ID;
+	}
 }

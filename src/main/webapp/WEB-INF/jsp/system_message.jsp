@@ -14,18 +14,14 @@
 			<div class="col-lg-4">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default border-custom" type="button"
-							readonly>
+						<button class="btn btn-default border-custom" type="button" readonly>
 							<i class="fa fa-search"></i>
 						</button>
-					</span> <input type="text" class="form-control border-custom"
-						id="InputFilter" placeholder="Search">
+					</span> <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search">
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<button id="cmdAddMessage" type="submit"
-					class="btn btn-primary pull-right border-custom"
-					onclick="cmdMessageAdd_OnClick()">Add</button>
+				<button id="cmdAddMessage" type="submit" class="btn btn-primary pull-right border-custom" onclick="cmdMessageAdd_OnClick()">Add</button>
 			</div>
 		</div>
 		<br />
@@ -39,22 +35,17 @@
 
 		<div class="row">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToFirstPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToPreviousPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToPreviousPageGrid">
 					<span class="glyphicon glyphicon-step-backward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom" disabled
-					style="width: 100px" id="btnCurrentPageGrid"></button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToNextPageGrid">
+				<button type="button" class="btn btn-default border-custom" disabled style="width: 100px" id="btnCurrentPageGrid"></button>
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToNextPageGrid">
 					<span class="glyphicon glyphicon-step-forward"></span>
 				</button>
-				<button type="button" class="btn btn-default border-custom"
-					id="btnMoveToLastPageGrid">
+				<button type="button" class="btn btn-default border-custom" id="btnMoveToLastPageGrid">
 					<span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
 			</div>
@@ -69,8 +60,7 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog"
-	aria-labelledby="Loading..." aria-hidden="true">
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
 	<div class="modal-dialog" style="width: 220px;">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
@@ -88,8 +78,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content border-custom">
 			<div class="modal-header">
-				<button type="button" class="close" aria-hidden="true">
-					&times;</button>
+				<button type="button" class="close" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">Message Edit</h4>
 			</div>
 			<div class="modal-body">
@@ -97,21 +86,16 @@
 					<dl class="dl-horizontal">
 						<dt>Code:</dt>
 						<dd>
-							<input id="EDIT_MESG_ID" type="hidden" /> <input
-								class="form-control border-custom" id="EDIT_MESG_CODE"
-								name="EDIT_MESG_CODE" type="text" required />
+							<input id="EDIT_MESG_ID" type="hidden" /> <input class="form-control border-custom" id="EDIT_MESG_CODE" name="EDIT_MESG_CODE" type="text" required />
 						</dd>
 						<dt>Level:</dt>
 						<dd>
-							<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden"
-								readonly required>
+							<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden" readonly required>
 							<div id="EDIT_MESG_LEVEL" class="autocomplete-wide"></div>
 						</dd>
 						<dt>Note:</dt>
 						<dd>
-							<textarea cols="*" rows="3" id="EDIT_MESG_NOTE"
-								name="EDIT_MESG_NOTE"
-								class="form-control border-custom textbox-size" required></textarea>
+							<textarea cols="*" rows="3" id="EDIT_MESG_NOTE" name="EDIT_MESG_NOTE" class="form-control border-custom textbox-size" required></textarea>
 						</dd>
 						<dt>Start Date:</dt>
 						<dd>
@@ -128,12 +112,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary border-custom"
-					id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">
-					Ok</button>
-				<button type="button" class="btn btn-danger border-custom"
-					id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">
-					Cancel</button>
+				<button type="button" class="btn btn-primary border-custom" id="cmdMessageEditOk" onclick="cmdMessageEditOk_OnClick()">Ok</button>
+				<button type="button" class="btn btn-danger border-custom" id="cmdMessageEditCancel" onclick="cmdMessageEditCancel_OnClick()">Cancel</button>
 			</div>
 		</div>
 	</div>

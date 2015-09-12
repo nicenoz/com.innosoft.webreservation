@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
 
 	public boolean sendMail(SysEmail email) {
 		try {
-			String reciever = email.getEMAIL_EMAIL();
+			String[] reciever = email.getEMAIL_EMAIL().replaceAll("\\s","").split(",");
 			String subj = email.getEMAIL_SUBJECT();
 			String msg = email.getEMAIL_MESSAGE();
 

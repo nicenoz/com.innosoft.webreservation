@@ -20,10 +20,14 @@ public class ChargeCountServiceImpl implements ChargeCountService{
 	public List<TrnChargeCount> listChargeCount(){
 		return chargeCountDao.listChargeCount();
 	}
-	
 
 	public List<TrnChargeCount> getReport(String from, String to){
 		return chargeCountDao.getReport(from, to);
+	}
+	
+
+	public TrnChargeCount getReservationById(int resvId){
+		return chargeCountDao.getReservationById(resvId);
 	}
 	
 	public TrnChargeCount addChargeCount(TrnChargeCount chargeCount){
