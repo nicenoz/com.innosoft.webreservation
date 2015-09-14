@@ -1,22 +1,10 @@
-// ===============
-// Global Variable
-// ===============
-var message;
-var messagesFromServer;
-var code;
 
-var messageNote;
-var messageList;
-var messagesCollection;
+var messages = new wijmo.collections.ObservableArray();
 
-// ================
-// Get Message Data
-// ================
-function extractMessageFromServer() {
-	messagesFromServer = new wijmo.collections.ObservableArray();
-	
+
+function extractMessageFromServer(url) {
 	$.ajax({
-	  url: 'http://localhost:8082/webreservation/api/message/list',
+	  url: url,
 	  cache: false,
 	  type: 'GET',
 	  contentType: 'application/json; charset=utf-8',
@@ -24,45 +12,30 @@ function extractMessageFromServer() {
 	  success: function (results) {
 	      if (results.length > 0) {
 	          for (i = 0; i < results.length; i++) {
-	        	  messagesFromServer.push({
+	        	  messages.push({
 		          		MESG_ID : results[i]["MESG_ID"],
 		          		MESG_CODE : results[i]["MESG_CODE"],
 		          		MESG_NOTE : results[i]["MESG_NOTE"]
 	              });
-	          	}    	
-	      } else {
-	    	  alert('No data');
-	      }
+	          	}   
+	          
+	      } 
 	  	}
-	}).fail(function(xhr, textStatus, err) {
-		alert(err);
-	});
-	
-	return messagesFromServer;
+	})
 }
 
-// ===================
-// Create Message Note
-// ===================
 function getMessage(code) {
-	messageNote = new Array();
-	
-	for (var i = 0; i < messagesCollection.items.length; i++) {
-    	if(messagesCollection.items[i].MESG_CODE == code) {
-    		messageNote.push(messagesCollection.items[i].MESG_NOTE);
-    		console.log(messageNote);
-    	} 
-    }
-	
-	return messageNote;
+	var message = "";
+	if(messages.length > 0) {
+		for (var i = 0; i < messages.length; i++) {
+	    	if(messages.items[i].MESG_CODE == code) {
+	    		message = messages.items[i].MESG_NOTE;
+	    	} 
+	    }		
+	} else {
+		message = "Message Error";
+	}
+	return message;
 }
 
-// ============
-// On Load Page
-// ============
-$(document).ready(function () {
-	extractMessageFromServer();
-	
-	messagesCollection = new wijmo.collections.CollectionView(messagesFromServer);
-	getMessage(code);
-});
+
