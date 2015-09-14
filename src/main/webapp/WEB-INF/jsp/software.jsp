@@ -404,7 +404,7 @@ function cmdAddEditOk_OnClick() {
             200: function (data) {
             	if (data.RESV_ID > 0) {
                 	if(reservation.RESV_ID  == 0){
-    	                toastr.success('Successfully Added Reservation asd.');
+                		toastr.success(getMessage("S0002"));
     	                
     	                var emailObject = new Object();
     	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
@@ -427,19 +427,21 @@ function cmdAddEditOk_OnClick() {
     						data : email,
     						statusCode : {
     							200 : function() {
+    								$('#loading').modal('hide');
+    								toastr.info(getMessage("M001"));
     							},
     							404 : function() {
     								$('#loading').modal('hide');
-    								alertify.alert("Not found");
+    								toastr.info(getMessage("M002"));
     							},
     							400 : function() {
     								$('#loading').modal('hide');
-    								alertify.alert("Bad Request");
+    								toastr.error(getMessage("E0003"));
     							}
     						}
     	 				});
                 	}else{
-                		toastr.success('Successfully Updated Reservation.');
+                		toastr.success(getMessage("S0002"));
                 	}
                 	
                 	window.setTimeout(function () { 
@@ -450,23 +452,23 @@ function cmdAddEditOk_OnClick() {
                 	
                 } else {
                 	document.getElementById("CmdAddEditOk").disabled = false;
-                    toastr.error("Not updated.");
+                	toastr.error(getMessage("E0006"));
                 }
             },
             404: function () {
            		document.getElementById("CmdAddEditOk").disabled = false;
-               	toastr.error('Max units reserved.');
+           		toastr.success(getMessage("S0002"));
             },
             409: function () {
            		document.getElementById("CmdAddEditOk").disabled = false;
-               	toastr.error('Duplicate Reservation.');
+           		toastr.error(getMessage("E0006"));
             }
         }
     }); 
 }
 
 function cmdDelete_OnClick(){
-    alertify.confirm("Are you sure you want to cancel this reservation? <span class='glyphicon glyphicon-trash'></span>", function (e) {
+    alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
     	
     	var reservation = new Object();
@@ -481,7 +483,7 @@ function cmdDelete_OnClick(){
             data: data,
             statusCode: {
                 200: function () {
-                    toastr.success('Successfully Deleted.');
+                	toastr.success(getMessage("S0001"));
                     
                     var emailObject = new Object();
 	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
@@ -505,14 +507,15 @@ function cmdDelete_OnClick(){
 						data : data,
 						statusCode : {
 							200 : function() {
+								toastr.info(getMessage("M001"));
 							},
 							404 : function() {
 								$('#loading').modal('hide');
-								alertify.alert("Not found");
+								toastr.info(getMessage("M002"));
 							},
 							400 : function() {
 								$('#loading').modal('hide');
-								alertify.alert("Bad Request");
+								toastr.error(getMessage("E0003"));		
 							}
 						}
 	 				});
@@ -523,10 +526,10 @@ function cmdDelete_OnClick(){
                     }, 1000);
                 },
                 404: function () {
-                    toastr.error("Not found.");
+                	toastr.error(getMessage("E0003"));	
                 },
                 400: function () {
-                    toastr.error("Bad request.");
+                	toastr.error(getMessage("E0003"));	
                 }
             }
         });

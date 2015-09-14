@@ -31,13 +31,13 @@
 							</div>
 							<div class="panel-body">
 								<fieldset>
-									<input type="text" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email" />
+									<input type="text" name="" class="form-control border-custom" id="Email" size="30" maxlength="40" placeholder="Email" required/>
 									<hr />
-									<input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password" />]
+									<input type="password" name="" class="form-control border-custom" id="newpassword" size="30" maxlength="32" placeholder="New Password" required/>
 									<br /> 
-									<input type="password" name="" class="form-control border-custom" id="confirmpassword" size="30" maxlength="32" placeholder="Confirm Password" /> 
+									<input type="password" name="" class="form-control border-custom" id="confirmpassword" size="30" maxlength="32" placeholder="Confirm Password" required/> 
 									<br /> 
-									<input type="button" value="Change Password" class="btn btn-lg btn-danger btn-block border-custom" onclick="check()" />
+									<input type="button" value="Change Password" class="btn btn-lg btn-danger btn-block border-custom" id="cmdUserPassword" onclick="check()" />
 								</fieldset>
 								<br>
 							</div>
@@ -73,15 +73,18 @@
 				data : data,
 				statusCode : {
 					200 : function() {
+						$('#loading').modal('hide');
 						toastr.success(getMessage("S0003"));
 						window.setTimeout(function() {
 							location.reload()
 						}, 1000);
 					},
 					404 : function() {
+						$('#loading').modal('hide');
 						toastr.error(getMessage("E0007"));
 					},
 					400 : function() {
+						$('#loading').modal('hide');
 						toastr.error(getMessage("E0003"));
 					}
 				}
@@ -90,8 +93,10 @@
 			toastr.error(getMessage("E0008"));
 		}
 	}
-	$(document).ready(function() {
 
+	$(document).ready(function() {
+	
+	
 	});
 </script>
 

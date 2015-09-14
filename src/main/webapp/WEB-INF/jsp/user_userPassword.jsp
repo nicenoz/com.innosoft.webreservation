@@ -49,7 +49,8 @@
 			userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
 
 			var data = JSON.stringify(userObject);
-
+			
+			$('#loading').modal('show');
 			$.ajax({
 				type : "POST",
 				url : '${pageContext.request.contextPath}/api/user/update',
@@ -58,15 +59,18 @@
 				data : data,
 				statusCode : {
 					200 : function() {
+						$('#loading').modal('hide');
 						toastr.success(getMessage("S0003"));
 						window.setTimeout(function() {
 							location.reload()
 						}, 1000);
 					},
 					404 : function() {
+						$('#loading').modal('hide');
 						toastr.error(getMessage("E0009"));
 					},
 					400 : function() {
+						$('#loading').modal('hide');
 						toastr.error(getMessage("E0003"));
 					}
 				}
