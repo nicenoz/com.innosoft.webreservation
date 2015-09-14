@@ -18,9 +18,9 @@
 								</div>
 								<div class="panel-body">
 									<fieldset>
-										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" size="40" placeholder="To:" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
+										<input type="email" name="edit_email" class="form-control border-custom" id="edit_email" placeholder="To:" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
 										<br /> 
-										<input type="text" name="edit_subject" class="form-control border-custom" id="edit_subject" size="40" maxlength="32" placeholder="Subject:" /> <br />
+										<input type="text" name="edit_subject" class="form-control border-custom" id="edit_subject" maxlength="32" placeholder="Subject:" /> <br />
 										<textarea cols="50" rows="10" class="form-control border-custom message-not-resizable" name="edit_message" id="edit_message" placeholder="Message ..."></textarea>
 										<br /> 
 										<input type="button" value="Send E-mail" onclick="cmdCalendarEditOk_OnClick()" class="btn btn-lg btn-success border-custom pull-right" />
@@ -71,11 +71,11 @@
 			statusCode : {
 				200 : function() {
 					$('#loading').modal('hide');
-					toastr.info(getMessage("M001"));
+					toastr.info(getMessage("M0001"));
 				},
 				404 : function() {
 					$('#loading').modal('hide');
-					toastr.error(getMessage("E0012"));
+					toastr.error(getMessage("E0002"));
 				},
 				400 : function() {
 					$('#loading').modal('hide');
