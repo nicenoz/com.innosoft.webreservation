@@ -22,7 +22,7 @@
 										<input id="TIME_DATA" class="form-control border-custom" name="TIME_DATA" type="hidden" required />
 										<br />
 										<br /> 
-										<input type="button" value="Set" onclick="" class="btn btn-lg btn-primary btn-block border-custom pull-right" />
+										<input type="button" value="Set" onclick="postItem();" class="btn btn-lg btn-primary btn-block border-custom pull-right" />
 									</fieldset>
 									<br />
 								</div>
@@ -51,10 +51,11 @@
 </div>
 
 <script type="text/javascript">
+var cmb;
 	$(document).ready(
 		function() {
 	
-			var cmb = new wijmo.input.ComboBox('#TIME', {
+			 cmb = new wijmo.input.ComboBox('#TIME', {
 				itemsSource : getTimes(),
 				placeholder : 'select a country',
 				isEditable : false
@@ -69,6 +70,36 @@
 			}
 
 	});
+	
+	function postItem(){
+		var settingsObject = new Object();
+		
+		settingsObject.SSET_NOTIFICATION_TIME = cmb.selectedValue;
+		var data = JSON.stringify(settingsObject);
+		
+		$('#loading').modal('show');
+		$.ajax({
+			type : "POST",
+			url : '${pageContext.request.contextPath}/api/Settings/update',
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : data,
+			statusCode : {
+				200 : function() {
+					$('#loading').modal('hide');
+					toastr.info(getMessage("M0001"));
+				},
+				404 : function() {
+					$('#loading').modal('hide');
+					toastr.error(getMessage("E0002"));
+				},
+				400 : function() {
+					$('#loading').modal('hide');
+					toastr.error(getMessage("E0003"));
+				}
+			}
+		});
+	}
 </script>
 
 <!-- footer -->

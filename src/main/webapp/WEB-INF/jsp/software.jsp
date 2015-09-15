@@ -428,11 +428,11 @@ function cmdAddEditOk_OnClick() {
     						statusCode : {
     							200 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M001"));
+    								toastr.info(getMessage("M0001"));
     							},
     							404 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M002"));
+    								toastr.info(getMessage("M0002"));
     							},
     							400 : function() {
     								$('#loading').modal('hide');
@@ -507,11 +507,11 @@ function cmdDelete_OnClick(){
 						data : data,
 						statusCode : {
 							200 : function() {
-								toastr.info(getMessage("M001"));
+								toastr.info(getMessage("M0001"));
 							},
 							404 : function() {
 								$('#loading').modal('hide');
-								toastr.info(getMessage("M002"));
+								toastr.info(getMessage("M0002"));
 							},
 							400 : function() {
 								$('#loading').modal('hide');
