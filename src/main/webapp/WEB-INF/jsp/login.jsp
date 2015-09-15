@@ -134,16 +134,17 @@
 													Remember Me
 												</label>
 											</div>
-											<br /> <input type="submit" onclick="cmdLogin()" value="Log in" class="btn btn-lg btn-success btn-block border-custom" /> 
+											<br /> <input type="submit" value="Log in" class="btn btn-lg btn-success btn-block border-custom" /> 
 											<br />
 											<div id="errorMessage">
 												<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-													<c:out value="${loginError}" />
+													<script>
+														/* getMessage("E0002"); */
+														toastr.error("Invalid Login or Password");
+													</script>
 												</c:if>
 											</div>
-											<c:out value="${loginError2}" />
-
-											<%-- <strong class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password is incorrect')}"/></strong> --%>
+											<%-- <strong class="error"><c:out value="${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Invalid Login or Password')}"/></strong> --%>
 										</fieldset>
 									</form>
 								</div>
@@ -225,11 +226,9 @@
 	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 
 	<script type="text/javascript">
-		function cmdLogin() {
+		/* function cmdLogin() {
 			loginError = toastr.error("${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password is incorrect')}");
-		}
-
-		loginError2 = toastr.error("${fn:replace(SPRING_SECURITY_LAST_EXCEPTION.message, 'Bad credentials', 'Username/Password is incorrect')}");
+		} */
 
 		function cmdLoginFree_OnClick() {
 			var userEmailObject = new Object();
