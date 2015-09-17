@@ -7,11 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCode;
+import com.innosoft.webreservation.entity.MstCustomerMember;
 
 @Repository
 @Transactional
@@ -32,6 +34,17 @@ public class CodeDaoImpl implements CodeDao {
 	public List<MstCode> listCode() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstCode> list = session.createQuery("from MstCode").list();	
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MstCode> listCodeByKind(String kind) {
+		Session session = this.sessionFactory.getCurrentSession();	
+		
+		Criteria criteria = session.createCriteria(MstCode.class);
+		criteria.add(Restrictions.eq("CODE_KIND_CODE", kind));
+		
+		List<MstCode> list = criteria.list();	
 		return list;
 	}
 	

@@ -21,6 +21,10 @@ public class CodeServiceImpl implements CodeService {
 		return codeDao.listCode();
 	}
 	
+	public List<MstCode> listCodeByKind(String kind) {
+		return codeDao.listCodeByKind(kind);
+	}
+	
 	public MstCode addCode(MstCode code){
 		return codeDao.addCode(code);
 	}

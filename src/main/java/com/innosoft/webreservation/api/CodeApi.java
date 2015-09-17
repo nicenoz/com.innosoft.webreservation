@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.innosoft.webreservation.entity.MstCode;
+import com.innosoft.webreservation.entity.TrnReservation;
 import com.innosoft.webreservation.service.CodeService;
 import com.innosoft.webreservation.service.SecurityService;
 
@@ -26,6 +29,12 @@ public class CodeApi {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCode> listCode() {
 		List<MstCode> list = codeService.listCode();
+		return list;
+	}
+	
+	@RequestMapping(value = "/listByKind", method = RequestMethod.GET, produces = "application/json",  params = {"kind"})
+	public @ResponseBody List<MstCode> listByCustomer(@RequestParam(value="kind") String kind) {
+		List<MstCode> list = codeService.listCodeByKind(kind);
 		return list;
 	}
 	

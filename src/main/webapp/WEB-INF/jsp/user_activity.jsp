@@ -117,10 +117,11 @@
 						</dd>
 						<dt>Operation Flag:</dt>
 						<dd>
-							<select class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" required>
+<!-- 							<select class="form-control border-custom" id="EDIT_CACT_OPERATION_FLAG" name="EDIT_CACT_OPERATION_FLAG" required>
 								<option value="1">Yes</option>
 								<option value="0">No</option>
-							</select>
+							</select> -->
+							<div id="EDIT_CACT_OPERATION_FLAG" class="autocomplete-wide"></div>
 						</dd>
 					</dl>
 				</form>
@@ -145,6 +146,7 @@ var cboCalendarDate;
 var cboCustomerStartTimeId;
 var cboCustomerEndTimeId;
 var cboCalendarActivityDetailsNo;
+var cboOperation;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
@@ -153,6 +155,7 @@ var btnLastPageGrid;
 var btnCurrentPageGrid;
 
 var calendarActivityDetailsNo;
+var codeList = new wijmo.collections.ObservableArray();
 
 
 // ====================================
@@ -242,24 +245,26 @@ function getCustomerTime(customerId) {
 // Combo Boxes
 // ===========
 function createCboCustomer(customers) {
-	customerCollection = new wijmo.collections.CollectionView(customers);
- 
- var customerList = new Array();
- for (var i = 0; i < customerCollection.items.length; i++) {
- 	customerList.push(customerCollection.items[i].customerName);
- }
 	
- cboCustomer.dispose();
+	customerCollection = new wijmo.collections.CollectionView(customers);
+	
+	var customerList = new Array();
+	
+	for (var i = 0; i < customerCollection.items.length; i++) {
+		customerList.push(customerCollection.items[i].customerName);
+	}
+	
+	cboCustomer.dispose();
 	cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID', {
-     itemsSource: customerList,
-     placeholder: 'select a customer',
-     isEditable: false,
-     selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
-     onSelectedIndexChanged: function () {
-         $("#EDIT_CACT_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
-         getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
-     }
- });	
+		itemsSource: customerList,
+		placeholder: 'select a customer',
+		isEditable: false,
+		selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
+		onSelectedIndexChanged: function () {
+		    $("#EDIT_CACT_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
+		    getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
+		}
+	});	
 }
 
 function createCboCalendarDate(calendarDates) {
@@ -351,7 +356,18 @@ function cmdCalendarActivityEdit_OnClick() {
     document.getElementById('EDIT_CACT_END_TIME_ID').value = calendarActivity.CACT_END_TIME_ID ? calendarActivity.CACT_END_TIME_ID : '';
     document.getElementById('EDIT_CACT_START_TIME_ID_DATA').value = calendarActivity.CACT_START_TIME_FK ? calendarActivity.CACT_START_TIME_FK : '';
     document.getElementById('EDIT_CACT_END_TIME_ID_DATA').value = calendarActivity.CACT_END_TIME_FK ? calendarActivity.CACT_END_TIME_FK : '';
-    document.getElementById('EDIT_CACT_OPERATION_FLAG').value = calendarActivity.CACT_OPERATION_FLAG;
+    
+    for(a = 0; a < codeList.length; a++){
+    	if(codeList[a].CODE_ID == calendarActivity.CACT_OPERATION_FLAG){
+		    cboOperation.dispose();
+		    cboOperation = new wijmo.input.ComboBox('#EDIT_CACT_OPERATION_FLAG', {
+				itemsSource: codeList,
+				displayMemberPath:"CODE_TEXT",
+				selectedIndex: a
+			});
+		    break;
+    	}
+    }
     
 	getCustomers();
 	getCalendarDate();
@@ -437,7 +453,7 @@ function cmdCalendarActivityEditOk_OnClick() {
 	calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
 	calendarActivityObject.CACT_START_TIME_ID = document.getElementById('EDIT_CACT_START_TIME_ID').value;
 	calendarActivityObject.CACT_END_TIME_ID = document.getElementById('EDIT_CACT_END_TIME_ID').value;
-	calendarActivityObject.CACT_OPERATION_FLAG = document.getElementById('EDIT_CACT_OPERATION_FLAG').options[document.getElementById("EDIT_CACT_OPERATION_FLAG").selectedIndex].value;	
+	calendarActivityObject.CACT_OPERATION_FLAG = cboOperation.selectedValue.CODE_ID;	
 	
 	var data = JSON.stringify(calendarActivityObject);
 	
@@ -618,6 +634,34 @@ $(document).ready(function () {
         $('#CalendarActivityEdit').modal('hide');
     });
     $('.close-btn').hide();
+    
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/code/listByKind',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"kind" : "CACT"},
+        success: function (results) {
+            if (results.length > 0) {
+                codeList = new wijmo.collections.ObservableArray();
+                for (i = 0; i < results.length; i++) {
+                	codeList.push({
+                		CODE_ID: results[i]["CODE_ID"],
+                		CODE_TEXT: results[i]["CODE_TEXT"]
+                    });
+                }
+                
+                cboOperation = new wijmo.input.ComboBox('#EDIT_CACT_OPERATION_FLAG', {
+            		itemsSource: codeList,
+					displayMemberPath:"CODE_TEXT"
+            	});	
+            }
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );
 
     // Collection View
     calendarActivities = new wijmo.collections.CollectionView(getCalendarActivities());
