@@ -51,7 +51,8 @@
 				<value>com.innosoft.webreservation.entity.TrnSendLog</value>
 				<value>com.innosoft.webreservation.entity.MstCalendarActivity</value>	
 				<value>com.innosoft.webreservation.entity.MstCustomerMember</value>		
-				<value>com.innosoft.webreservation.entity.MstSecurityUserPassword</value>						
+				<value>com.innosoft.webreservation.entity.MstSecurityUserPassword</value>	
+				<value>com.innosoft.webreservation.entity.SysSetting</value>					
 			</list>
 		</property>
 

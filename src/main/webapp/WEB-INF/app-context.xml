@@ -28,7 +28,7 @@
  	<!-- Timer -->
     <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="notificationReservationJob" />
-        <property name="cronExpression" value="0/5 * * ? * MON-FRI" />
+        <property name="cronExpression" value="0 0 0/1 * * ?" />
     </bean> 
 
  	<!-- Trigger -->
