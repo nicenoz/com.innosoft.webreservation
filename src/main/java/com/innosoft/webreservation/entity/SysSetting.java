@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,17 @@ public class SysSetting {
 	
     @Column(name="SSET_NOTIFICATION_TIME")
 	public String SSET_NOTIFICATION_TIME;
+    
+    @Column(name="SSET_NOTIFICATION_DATE")
+    public Date SSET_NOTIFICATION_DATE;
+
+	public Date getSSET_NOTIFICATION_DATE() {
+		return SSET_NOTIFICATION_DATE;
+	}
+
+	public void setSSET_NOTIFICATION_DATE(Date sSET_NOTIFICATION_DATE) {
+		SSET_NOTIFICATION_DATE = sSET_NOTIFICATION_DATE;
+	}
 
 	public int getSSET_ID() {
 		return SSET_ID;

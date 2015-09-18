@@ -9,6 +9,7 @@ public interface ReservationService {
 	public List<TrnReservation> listByCustomer(int customerId);
 	public List<TrnReservation> scheduleReservation(int customerId, int calendarActivityId);
 	public List<TrnReservation> reportReservation(String from, String to);
+	public List<TrnReservation> notificationReservation(String systemDate);
 	public TrnReservation addReservation(TrnReservation reservation);
 	public TrnReservation editReservation(TrnReservation reservation);
 	public boolean deleteReservation(int id);

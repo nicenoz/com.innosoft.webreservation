@@ -62,11 +62,11 @@ var cmb;
 			});
 	
 			function getTimes() {
-				return [ '1 am', '2 am', '3 am', '4 am', '5 am',
-						'6 am', '7 am', '8 am', '9 am', '10 am',
-						'11 am', '12 am', '1 pm', '2 pm', '3 pm',
-						'4 pm', '5 pm', '6 pm', '7 pm', '8 pm',
-						'9 pm', '10 pm', '11 pm', '12 pm', ];
+				return [ '1 AM', '2 AM', '3 AM', '4 AM', '5 AM',
+						'6 AM', '7 AM', '8 AM', '9 AM', '10 AM',
+						'11 AM', '12 AM', '1 PM', '2 PM', '3 PM',
+						'4 PM', '5 PM', '6 PM', '7 PM', '8 PM',
+						'9 PM', '10 PM', '11 PM', '12 PM', ];
 			}
 
 	});
@@ -80,7 +80,7 @@ var cmb;
 		$('#loading').modal('show');
 		$.ajax({
 			type : "POST",
-			url : '${pageContext.request.contextPath}/api/Settings/update',
+			url : '${pageContext.request.contextPath}/api/settings/update',
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			data : data,

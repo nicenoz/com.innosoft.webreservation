@@ -12,117 +12,124 @@ import com.innosoft.webreservation.entity.SysSetting;
 import com.innosoft.webreservation.service.SysSettingService;
 
 @Controller
-@RequestMapping("api/Settings")
+@RequestMapping("api/settings")
 public class SettingApi {
 	
 	@Autowired
 	private SysSettingService sysSettingService;
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<String> updateSetting(@RequestBody SysSetting time) {
+	public ResponseEntity<String> updateSetting(@RequestBody SysSetting setting) {
 		try {	
 			String valTime = null;
-			if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("1 am"))
+			
+			if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("1 AM"))
 			{
-				valTime = "1:00:00";
+				valTime = "01";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("2 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("2 AM"))
 			{
-				valTime = "2:00:00";
+				valTime = "02";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("3 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("3 AM"))
 			{
-				valTime = "3:00:00";
+				valTime = "03";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("4 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("4 AM"))
 			{
-				valTime = "4:00:00";
+				valTime = "04";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("5 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("5 AM"))
 			{
-				valTime = "5:00:00";
+				valTime = "05";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("6 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("6 AM"))
 			{
-				valTime = "6:00:00";
+				valTime = "06";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("7 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("7 AM"))
 			{
-				valTime = "7:00:00";
+				valTime = "07";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("8 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("8 AM"))
 			{
-				valTime = "8:00:00";
+				valTime = "08";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("9 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("9 AM"))
 			{
-				valTime = "9:00:00";
+				valTime = "09";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("10 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("10 AM"))
 			{
-				valTime = "10:00:00";
+				valTime = "10";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("11 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("11 AM"))
 			{
-				valTime = "11:00:00";
+				valTime = "11";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("12 PM"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("12 PM"))
 			{
-				valTime = "12:00:00";
+				valTime = "12";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("1 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("1 PM"))
 			{
-				valTime = "13:00:00";
+				valTime = "13";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("2 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("2 PM"))
 			{
-				valTime = "14:00:00";
+				valTime = "14";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("3 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("3 PM"))
 			{
-				valTime = "15:00:00";
+				valTime = "15";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("4 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("4 PM"))
 			{
-				valTime = "16:00:00";
+				valTime = "16";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("5 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("5 PM"))
 			{
-				valTime = "17:00:00";
+				valTime = "17";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("6 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("6 PM"))
 			{
-				valTime = "18:00:00";
+				valTime = "18";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("7 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("7 PM"))
 			{
-				valTime = "19:00:00";
+				valTime = "19";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("8 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("8 PM"))
 			{
-				valTime = "20:00:00";
+				valTime = "20";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("9 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("9 PM"))
 			{
-				valTime = "21:00:00";
+				valTime = "21";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("10 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("10 PM"))
 			{
-				valTime = "22:00:00";
+				valTime = "22";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("11 pm"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("11 PM"))
 			{
-				valTime = "23:00:00";
+				valTime = "23";
 			}
-			else if(time.SSET_NOTIFICATION_TIME.equalsIgnoreCase("12 am"))
+			else if(setting.SSET_NOTIFICATION_TIME.equalsIgnoreCase("12 AM"))
 			{
-				valTime = "00:00:00";
+				valTime = "00";
 			}
 			
-			time.setSSET_NOTIFICATION_TIME(valTime);
-			sysSettingService.addSetting(time);
+			setting.setSSET_ID(sysSettingService.getMaxId());
+			setting.setSSET_NOTIFICATION_TIME(valTime);
+			setting.setSSET_NOTIFICATION_DATE(null);
+			
+			sysSettingService.editSetting(setting);
+			
 			return new ResponseEntity<String>(HttpStatus.OK);
+			
 		} catch(Exception e) {
+			
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
