@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,32 +37,21 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
-//		Criteria criteria = session.createCriteria(MstCalendarActivity.class)
-//				.add(Restrictions.eq("CACT_CUST_ID", customerId))
-//				.addOrder(Order.asc("CACT_ID"))
-//				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-////				.setProjection(Projections.projectionList()
-		
-//			      .add(Projections.property("CACT_ID"), "CACT_ID")
-//			      .add(Projections.property("CACT_CLDR_ID"), "CACT_CLDR_ID")
-//			      
-//			      .add(Projections.property("CREATED_DATE"), "CREATED_DATE")
-//			      .add(Projections.property("CACT_CUST_ID"), "CACT_CUST_ID"))
-//			    .setResultTransformer(Transformers.aliasToBean(MstCalendarActivity.class));
-//		List<MstCalendarActivity> list = session.createSQLQuery("SELECT CACT_ID FROM WR_CALENDAR_ACTIVITY")
-//				.addEntity(MstCalendarActivity.class).list();
-	
+
 		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity where CACT_CUST_ID=" + customerId).list();	
-//		return this.sessionFactory.getCurrentSession().createCriteria(MstCalendarActivity.class)
-//				.setProjection( Projections.distinct( Projections.projectionList()
-//						.add( Projections.property("CACT_ID"), "CACT_ID")
-//						.add( Projections.property("RESV_CACT"), "RESV_CACT")))
-////						.add( Restrictions.eq("CACT_CUST_ID", "customerId"))
-////						.setResultTransformer(Transformers.aliasToBean(MstCalendarActivity.class))
-//						.list();
-		
+
 		return list;
-	}	
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	public List<MstCalendarActivity> listCalendarActivityByCalendarDate(MstCalendarActivity calendarAct){
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCalendarActivity.class)
+				.add(Restrictions.eq("CACT_CLDR_ID", calendarAct.getCACT_CLDR_ID()))
+				.add(Restrictions.eq("CACT_CUST_ID", calendarAct.getCACT_CUST_ID()));
+		return criteria.list();
+	}
 	
 	public int getMaxId()
 	{
