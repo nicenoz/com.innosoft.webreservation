@@ -15,17 +15,19 @@ public class SysSettingServiceImpl implements SysSettingService {
 	@Autowired
     private SysSettingDao sysSettingDao;
 	
-	public SysSetting addSetting(SysSetting time) {
-		return sysSettingDao.addSetting(time);
+	public SysSetting addSetting(SysSetting setting) {
+		return sysSettingDao.addSetting(setting);
 	}
 
-	public SysSetting getSetting(SysSetting time) {
-		// TODO Auto-generated method stub
-		return sysSettingDao.getSetting(time);
+	public SysSetting editSetting(SysSetting setting) {
+		return sysSettingDao.editSetting(setting);
+	}
+	
+	public SysSetting getSetting(int id) {
+		return sysSettingDao.getSetting(id);
 	}
 
 	public int getMaxId() {
-		// TODO Auto-generated method stub
 		return sysSettingDao.getMaxId();
 	}
 

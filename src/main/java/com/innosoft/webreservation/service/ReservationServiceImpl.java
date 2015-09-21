@@ -41,6 +41,8 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.deleteReservation(id);
 	}
 
-
+	public List<TrnReservation> notificationReservation(String systemDate) {
+		return reservationDao.notificationReservation(systemDate);
+	}
 
 }

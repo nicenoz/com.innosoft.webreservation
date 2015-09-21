@@ -46,7 +46,7 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	
-	<bean id="sysSettingDao" class="com.innosoft.webreservation.dao.SysSettingImpl">
+	<bean id="sysSettingDao" class="com.innosoft.webreservation.dao.SysSettingDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
