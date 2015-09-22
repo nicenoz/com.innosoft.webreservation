@@ -40,17 +40,22 @@ public class CalendarActivityApi {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {
 		try {
-			if(calendarActivity.getCACT_ID()==0) {
-				calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
-				MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
-				return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
-			} else {
-				calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
-				MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
-				return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+			System.out.print(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size());
+			if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
+				if(calendarActivity.getCACT_ID()==0) {
+					calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
+					MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
+					return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
+				} else {
+					calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
+					MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
+					return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+				}
+			}else{
+				return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
 			}
 		} catch(Exception e) {
-			return new ResponseEntity<MstCalendarActivity>(calendarActivity, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
 		}	
 	}	
 	

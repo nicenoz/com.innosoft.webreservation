@@ -3,8 +3,11 @@ package com.innosoft.webreservation.dao;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.entity.TrnReservation;
 
@@ -307,6 +311,40 @@ public class ReservationDaoImpl implements ReservationDao {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TrnReservation> notificationReservation(String parameterDate) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		List<TrnReservation> list = session.createQuery("from TrnReservation").list();
+		List<TrnReservation> returnList = new ArrayList<TrnReservation>();
+		
+		try {
+			for (int i = 0; i < list.size(); i++) {
+				long calendarId = list.get(i).RESV_CACT_ID;
+				
+				Criteria criteria = session.createCriteria(MstCalendarActivity.class);
+				criteria.add(Restrictions.eq("CACT_ID",calendarId));
+				MstCalendarActivity calendarActivity = (MstCalendarActivity)criteria.list().get(0);
+				
+				Date reservationDate = calendarActivity.CACT_CLDR_FK.CLDR_DATE;
+				Date systemDate = dateFormat.parse(parameterDate);
+				
+				long diff = reservationDate.getTime() - systemDate.getTime();
+			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			    
+			    if (days >= 0 && days <= 3) {
+			    	returnList.add(list.get(i));
+			    }
+			}			
+		} catch(Exception e) {
+			
+		}
+	
+		return returnList;
 	}
 
 }

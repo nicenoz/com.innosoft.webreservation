@@ -293,7 +293,7 @@
 									success : function(data) {
 										if (data.MEBR_ID > 0) {
 											$('#loading').modal('hide');
-											toastr.info(getMessage("M001"));
+											toastr.info(getMessage("M0001"));
 										} else {
 											toastr.error(getMessage("E0002"));
 										}

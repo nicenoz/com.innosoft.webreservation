@@ -140,6 +140,8 @@ var loggedInCustomerId;
 var isScheduleUpdated;
 var loggedInCustomerEmail;
 
+var codeList;
+
 var cboCustomer;
 var cboCalendarActivityStart;
 var cboCalendarActivityEnd;
@@ -428,11 +430,11 @@ function cmdAddEditOk_OnClick() {
     						statusCode : {
     							200 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M001"));
+    								toastr.info(getMessage("M0001"));
     							},
     							404 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M002"));
+    								toastr.info(getMessage("M0002"));
     							},
     							400 : function() {
     								$('#loading').modal('hide');
@@ -507,11 +509,11 @@ function cmdDelete_OnClick(){
 						data : data,
 						statusCode : {
 							200 : function() {
-								toastr.info(getMessage("M001"));
+								toastr.info(getMessage("M0001"));
 							},
 							404 : function() {
 								$('#loading').modal('hide');
-								toastr.info(getMessage("M002"));
+								toastr.info(getMessage("M0002"));
 							},
 							400 : function() {
 								$('#loading').modal('hide');
@@ -772,67 +774,110 @@ function getCustomers() {
     );
 }
 
-
-
 function getCalendarActivities(customerId) {
     calendarActivities = new wijmo.collections.ObservableArray();
-    $.ajax({
-        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
-        cache: false,
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        data: {"customerId":customerId},
-        success: function (results) {
-        	reservationsList = new Array();
-            if (results.length > 0) {
-                results.forEach(function(result){
-                	if(result.CACT_OPERATION_FLAG == 1){
-	                	calendarActivities.push({
-	                        id: result.CACT_ID,
-	                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
-	                    });
-                	}
-                });
-                createCboCalendarActivity(calendarActivities);
-            }
-            $.ajax({
-                url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
-                cache: false,
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                data: {"customerId":customerId},
-                success: function (results) {
-                	//GET ALL RESERVATIONS
-                	results.forEach(function (reservation){
-                		reservationsList.push({
-                			RESV_ID: reservation.RESV_ID,
-                			RESV_CUST_ID: reservation.RESV_CUST_ID,
-                			RESV_CACT_ID: reservation.RESV_CACT_ID,
-                			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
-                			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
-                			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
-                			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
-                			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
-                			RESV_NOTE: reservation.RESV_NOTE,
-                			RESV_ISDELETED: reservation.ISDELETED,
-                			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
-                	    });
-                	});
+    
+    $.when(getListByCustomer()).done(function(a1){
+        // the code here will be executed when all four ajax requests resolve.
+        // a1 and a2 are lists of length 3 containing the response text,
+        // status, and jqXHR object for each of the two ajax calls respectively.
+        console.log(" " + a1);
+    });
+    
+    function getListByCustomer() {
+        // NOTE:  This function must return the value 
+        //        from calling the $.ajax() method.
+        return $.ajax({
+            url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
+            cache: false,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            data: {"customerId":customerId},
+            success: function (results) {
+            	reservationsList = new Array();
+                if (results.length > 0) {
                 	
-                	cmdGetSchedule_OnClick();
+                	$.ajax({
+                        url: '${pageContext.request.contextPath}/api/code/listByKind',
+                        cache: false,
+                        type: 'GET',
+                        contentType: 'application/json; charset=utf-8',
+                        data: {"kind" : "CACT"},
+                        success: function (cactOpts) {
+                            
+                        	codeList = new wijmo.collections.ObservableArray();
+                            for (i = 0; i < cactOpts.length; i++) {
+                            	codeList.push({
+                            		CODE_ID: cactOpts[i]["CODE_ID"],
+                            		CODE_ISDISPLAY: cactOpts[i]["CODE_ISDISPLAY"]
+                                });
+                            }
+
+                            
+                            results.forEach(function(result){
+                            	for(a = 0; a < codeList.length; a++){
+    	                        	if(result.CACT_OPERATION_FLAG == codeList[a].CODE_ID){
+    	                        		if(codeList[a].CODE_ISDISPLAY == 1){
+    		        	                	calendarActivities.push({
+    		        	                        id: result.CACT_ID,
+    		        	                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+    		        	                    });
+    		        	                	break;
+    	                        		}else{
+    	                        			break;
+    	                        		}
+    	                        	}
+                            	}
+                            });
+                            createCboCalendarActivity(calendarActivities);
+                        }
+                    }).fail(
+                        function (xhr, textStatus, err) {
+                            alert(err);
+                        }
+                    );
                 }
-            }).fail(
-                function (xhr, textStatus, err) {
-                    alert(err);
-                }
-            );	
-            
-        }
-    }).fail(
-        function (xhr, textStatus, err) {
-            alert(err);
-        }
-    );	
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
+                    cache: false,
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    data: {"customerId":customerId},
+                    success: function (results) {
+                    	//GET ALL RESERVATIONS
+                    	results.forEach(function (reservation){
+                    		reservationsList.push({
+                    			RESV_ID: reservation.RESV_ID,
+                    			RESV_CUST_ID: reservation.RESV_CUST_ID,
+                    			RESV_CACT_ID: reservation.RESV_CACT_ID,
+                    			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+                    			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
+                    			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+                    			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+                    			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
+                    			RESV_NOTE: reservation.RESV_NOTE,
+                    			RESV_ISDELETED: reservation.ISDELETED,
+                    			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
+                    	    });
+                    	});
+                    	
+                    	cmdGetSchedule_OnClick();
+                    }
+                }).fail(
+                    function (xhr, textStatus, err) {
+                        alert(err);
+                    }
+                );
+                
+            }
+        }).fail(
+            function (xhr, textStatus, err) {
+                alert(err);
+            }
+        );	
+    }
+    
+
 }
 
 

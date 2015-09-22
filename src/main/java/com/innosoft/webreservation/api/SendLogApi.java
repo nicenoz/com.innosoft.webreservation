@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.SendLogService;
 
 @Controller
-@RequestMapping("api/sendLogApi")
+@RequestMapping("api/sendLog")
 public class SendLogApi {
 	@Autowired
 	private SendLogService sendLogService;
