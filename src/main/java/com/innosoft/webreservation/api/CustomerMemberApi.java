@@ -20,38 +20,62 @@ import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.SecurityService;
 import com.innosoft.webreservation.service.SendLogService;
 
-
+/**
+ *Customer Member(user) CRUD API
+ */
 @Controller
 @RequestMapping("api/customerMember")
 public class CustomerMemberApi {
+	/**
+	 * CustomerMember service property
+	 */
 	@Autowired
 	private CustomerMemberService customerMemberService;
+	/**
+	 * Security service property	
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Send log service variable
+	 */
 	@Autowired
 	private SendLogService sendLogService;
-	
+	/**
+	 * Return list of customer member
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerMember> listCustomerMember() {
 		List<MstCustomerMember> list = customerMemberService.listCustomerMember();
 		return list;
 	}
-	
+	/**
+	 * Return list of report of customer member
+	 * @param customerId
+	 * @return
+	 */
 	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"customerId"})
 	public @ResponseBody List<MstCustomerMember> reportCustomerMember(@RequestParam(value="customerId") int customerId) {
 		List<MstCustomerMember> list = customerMemberService.reportCustomerMember(customerId);
 		return list;
 	}
-	
+	/**
+	 * Return list of customer member login 
+	 * @return
+	 */
 	@RequestMapping(value = "/getloggedinmember", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerMember> getLoggedInCustomerMember() {
 		List<MstCustomerMember> list = customerMemberService.getMemberByUserId(securityService.getCurrentUser().getUSER_ID());
 		return list;
 	}
-	
+	/**
+	 * Update customer member
+	 * @param member
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<MstCustomerMember> updateCharge(@RequestBody MstCustomerMember member) {
+	public ResponseEntity<MstCustomerMember> updatecustomerMember(@RequestBody MstCustomerMember member) {
 		try {
 			if(member.getMEBR_ID() == 0) {
 				member = (MstCustomerMember)securityService.stampCreated(member);
@@ -76,7 +100,11 @@ public class CustomerMemberApi {
 			return new ResponseEntity<MstCustomerMember>(member, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	/**
+	 * Delete customer member
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCharge(@PathVariable("id") int id) {
 		try {

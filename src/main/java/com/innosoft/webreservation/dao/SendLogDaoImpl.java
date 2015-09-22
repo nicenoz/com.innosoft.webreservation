@@ -12,25 +12,44 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.TrnSendLog;
-
+/**
+ * CRUD implementation for send log data object
+ */
 @Repository
 @Transactional
 public class SendLogDaoImpl implements SendLogDao {
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}	
+	/**
+	 * List send log method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnSendLog> listSendLog(){
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TrnSendLog> list = session.createQuery("from TrnSendLog").list();	
 		return list;		
 	}
-	
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -42,7 +61,9 @@ public class SendLogDaoImpl implements SendLogDao {
 		return 	maxId;
 	}
 	
-	
+	/**
+	 * Add send log method
+	 */
 	public TrnSendLog addSendLog(TrnSendLog sendLog){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -65,6 +86,9 @@ public class SendLogDaoImpl implements SendLogDao {
 			return sendLog;	
 		}		
 	}
+	/**
+	 * Edit send log method
+	 */
 	public TrnSendLog editSendLog(TrnSendLog sendLog){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -88,6 +112,9 @@ public class SendLogDaoImpl implements SendLogDao {
 			return new TrnSendLog();
 		}		
 	}
+	/**
+	 * Delete send log method
+	 */
 	public boolean deleteSendLog(int id){
 	    try {
 			Session session = this.sessionFactory.openSession();

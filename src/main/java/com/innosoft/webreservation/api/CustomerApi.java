@@ -15,21 +15,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.innosoft.webreservation.entity.MstCustomer;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ * Customer CRUD API
+ */
 @Controller
 @RequestMapping("api/customer")
 public class CustomerApi {
+	/**
+	 * Customer service property
+	 */
 	@Autowired
 	private CustomerService customerService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Return list of customer
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomer> listCustomer() {
 		List<MstCustomer> list = customerService.listCustomer();
 		return list;
 	}
-	
+	/**
+	 * Update Customer
+	 * @param customer
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCustomer> updateCustomer(@RequestBody MstCustomer customer) {
 		try {
@@ -46,7 +61,11 @@ public class CustomerApi {
 			return new ResponseEntity<MstCustomer>(customer, HttpStatus.BAD_REQUEST);
 		}	
 	}	
-	
+	/**
+	 * Delete customer
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCustomer(@PathVariable("id") int id) {
 		try {

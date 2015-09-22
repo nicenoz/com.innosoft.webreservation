@@ -19,41 +19,64 @@ import com.innosoft.webreservation.entity.TrnReservation;
 import com.innosoft.webreservation.service.ChargeCountService;
 import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ *Reservation CRUD API (This API is used for CRUD and other reporting functions)
+ */
 @Controller
 @RequestMapping("api/reservation")
 public class ReservationApi {
+	/**
+	 * Reservation service property	
+	 */
 	@Autowired
 	private ReservationService reservationService;
+	/**
+	 *Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	@Autowired
+	
+	/**
+	 * Charge count service property
+	 * @Autowired
+	 */
 	private ChargeCountService chargeCountService;
-
+	/**
+	 *return list of reservation
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<TrnReservation> listReservation() {
 		List<TrnReservation> list = reservationService.listReservation();
 		return list;
 	}
-	
+	/**
+	 * Return list of reservation by customer
+	 * @param customerId
+	 * @return
+	 */
 	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json",  params = {"customerId"})
-	public @ResponseBody List<TrnReservation> listByCustomer(@RequestParam(value="customerId") int customerId) {
+	public @ResponseBody List<TrnReservation> listReservationByCustomer(@RequestParam(value="customerId") int customerId) {
 		List<TrnReservation> list = reservationService.listByCustomer(customerId);
 		return list;
 	}
 	
-	@RequestMapping(value = "/schedule", method = RequestMethod.GET, produces = "application/json",  params = {"customerId", "calendarActivityId"})
-	public @ResponseBody List<TrnReservation> scheduleReservation(@RequestParam(value="customerId") int customerId, @RequestParam(value="calendarActivityId") int calendarActivityId) {
-		List<TrnReservation> list = reservationService.scheduleReservation(customerId,calendarActivityId);
-		return list;
-	}
-	
+	/**
+	 * List of reservation between dates
+	 * @param from
+	 * @param to
+	 * @return
+	 */
 	@RequestMapping(value = "/report", method = RequestMethod.GET, produces = "application/json",  params = {"from", "to"})
 	public @ResponseBody List<TrnReservation> reportReservation(@RequestParam(value="from") String from, @RequestParam(value="to") String to) {
 		List<TrnReservation> list = reservationService.reportReservation(from, to);
 		return list;
 	}
-
+	/**
+	 * Update reservation
+	 * @param reservation
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<TrnReservation> updateReservation(@RequestBody TrnReservation reservation) {
 		try {
@@ -95,6 +118,11 @@ public class ReservationApi {
 			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);
 		}
 	}
+	/**
+	 * Change isDeleted column from 0 to 1
+	 * @param reservation
+	 * @return
+	 */
 	@RequestMapping(value = "/sdelete", method = RequestMethod.POST)
 	public ResponseEntity<TrnReservation> softDeleteReservation(@RequestBody TrnReservation reservation) {
 		try {
@@ -111,7 +139,11 @@ public class ReservationApi {
 			return new ResponseEntity<TrnReservation>(reservation, HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	/**
+	 * Delete reservation
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteReservation(@PathVariable("id") int id) {
 		try {

@@ -11,22 +11,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.innosoft.webreservation.entity.MstSecurityUserPassword;
-
+/**
+ *CRUD implementation for password data object.
+ */
 @Repository
 @Transactional
 public class UserPasswordDaoImpl implements UserPasswordDao {
-	
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session Factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -37,7 +50,9 @@ public class UserPasswordDaoImpl implements UserPasswordDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Insert password method
+	 */
 	public MstSecurityUserPassword insertPassword(String password, int id) {
 		try {
 			Session session = this.sessionFactory.openSession();

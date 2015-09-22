@@ -14,21 +14,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.SendLogService;
-
+/**
+ *Send log CRUD API
+ */
 @Controller
 @RequestMapping("api/sendLog")
 public class SendLogApi {
+	/**
+	 * Send log service property
+	 */
 	@Autowired
 	private SendLogService sendLogService;
-	
+	/**
+	 * Return list of send log
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<TrnSendLog> listSendLog() {
 		List<TrnSendLog> list = sendLogService.listSendLog();
 		return list;
 	}
-	
+	/**
+	 * Update send log
+	 * @param sendLog
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<TrnSendLog> updateCharge(@RequestBody TrnSendLog sendLog) {
+	public ResponseEntity<TrnSendLog> updateSendLog(@RequestBody TrnSendLog sendLog) {
 		try {
 			if(sendLog.getSLOG_ID() == 0) {
 				TrnSendLog newSendLog = sendLogService.addSendLog(sendLog);
@@ -41,7 +53,11 @@ public class SendLogApi {
 			return new ResponseEntity<TrnSendLog>(sendLog, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	/**
+	 * Delete send log
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteSendLog(@PathVariable("id") int id) {
 		try {

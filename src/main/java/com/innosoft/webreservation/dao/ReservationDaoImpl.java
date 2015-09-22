@@ -21,24 +21,35 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
-import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.entity.TrnReservation;
-
+/**
+ * CRUD implementation for reservation data object.
+ */
 @Repository
 @Transactional
 public class ReservationDaoImpl implements ReservationDao {
-
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	/**
+	 * List reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> listReservation() {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -46,7 +57,9 @@ public class ReservationDaoImpl implements ReservationDao {
 				.list();
 		return list;
 	}
-
+	/**
+	 * List by customer method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> listByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -56,7 +69,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Scheduled reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> scheduleReservation(int customerId,
 			int calendarActivityId) {
@@ -67,7 +82,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Report reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> reportReservation(String from, String to) {
 		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss",
@@ -85,7 +102,10 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId() {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnReservation.class)
@@ -210,7 +230,9 @@ public class ReservationDaoImpl implements ReservationDao {
 //		return reservation;
 //
 //	}
-
+	/**
+	 * Add reservation method
+	 */
 	public TrnReservation addReservation(TrnReservation reservation) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -252,7 +274,9 @@ public class ReservationDaoImpl implements ReservationDao {
 			return reservation;
 		}
 	}
-
+	/**
+	 * Edit reservation
+	 */
 	public TrnReservation editReservation(TrnReservation reservation) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -292,7 +316,10 @@ public class ReservationDaoImpl implements ReservationDao {
 			return new TrnReservation();
 		}
 	}
-
+	
+	/**
+	 * Delete reservation method
+	 */
 	public boolean deleteReservation(int id) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -312,7 +339,9 @@ public class ReservationDaoImpl implements ReservationDao {
 			return false;
 		}
 	}
-	
+	/**
+	 * Nitification reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> notificationReservation(String parameterDate) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
@@ -326,22 +355,22 @@ public class ReservationDaoImpl implements ReservationDao {
 			for (int i = 0; i < list.size(); i++) {
 				long calendarId = list.get(i).RESV_CACT_ID;
 				
-				Criteria criteria = session.createCriteria(MstCalendarActivity.class);
-				criteria.add(Restrictions.eq("CACT_ID",calendarId));
-				MstCalendarActivity calendarActivity = (MstCalendarActivity)criteria.list().get(0);
+				List<MstCalendarActivity> query = session.createQuery("from MstCalendarActivity where CACT_ID =" + calendarId)
+				.list();
+				
+				MstCalendarActivity calendarActivity = query.get(0);
 				
 				Date reservationDate = calendarActivity.CACT_CLDR_FK.CLDR_DATE;
 				Date systemDate = dateFormat.parse(parameterDate);
-				
 				long diff = reservationDate.getTime() - systemDate.getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 			    
-			    if (days >= 0 && days <= 3) {
+				if (days >= 0 && days <= 3) {
 			    	returnList.add(list.get(i));
 			    }
 			}			
 		} catch(Exception e) {
-			
+			System.out.print(e);
 		}
 	
 		return returnList;

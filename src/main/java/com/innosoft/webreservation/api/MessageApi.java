@@ -15,21 +15,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.innosoft.webreservation.entity.MstMessage;
 import com.innosoft.webreservation.service.MessageService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ *Message CRUD API
+ */
 @Controller
 @RequestMapping("api/message")
 public class MessageApi {
+	/**
+	 * Message service property		
+	 */
 	@Autowired
 	private MessageService messageService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 *Return list of message 
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstMessage> listMessage() {
 		List<MstMessage> list = messageService.listMessage(); 
 		return list;
 	}
-	
+	/**
+	 * Update message
+	 * @param message
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstMessage> updateMessage(@RequestBody MstMessage message) {
 		try {
@@ -47,7 +62,11 @@ public class MessageApi {
 			return new ResponseEntity<MstMessage>(message, HttpStatus.BAD_REQUEST);
 		}	
 	}	
-	
+	/**
+	 * Delete message
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteMessage(@PathVariable("id") int id) {
 		try {

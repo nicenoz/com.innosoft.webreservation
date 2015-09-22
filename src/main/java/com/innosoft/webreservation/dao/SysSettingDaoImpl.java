@@ -13,24 +13,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.entity.SysSetting;
-
+/**
+ *CRUD implementation for setting data object
+ */
 @Repository
 @Transactional
 public class SysSettingDaoImpl implements SysSettingDao{
-	
+	/**
+	 * Session gactory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * St session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * Get Maximum id method
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -41,7 +52,9 @@ public class SysSettingDaoImpl implements SysSettingDao{
 		}
 		return 	maxId;
 	}
-
+	/**
+	 * Add setting method
+	 */
 	public SysSetting addSetting(SysSetting setting) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -60,7 +73,9 @@ public class SysSettingDaoImpl implements SysSettingDao{
 			return setting;	
 		}
 	}
-
+	/**
+	 * Get setting method
+	 */
 	@SuppressWarnings("unchecked")
 	public SysSetting getSetting(int id) {
 		List<SysSetting> timVal = new ArrayList<SysSetting>();
@@ -74,7 +89,9 @@ public class SysSettingDaoImpl implements SysSettingDao{
 			return new SysSetting();
 		
 	}
-	
+	/**
+	 * Edit setting method
+	 */
 	public SysSetting editSetting(SysSetting setting) {
 		try {
 			Session session = this.sessionFactory.openSession();

@@ -10,14 +10,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.innosoft.webreservation.entity.SysSetting;
 import com.innosoft.webreservation.service.SysSettingService;
-
+/**
+ * Settings CRUD API (Use to define server jobs, e.g., email notification)
+ */
 @Controller
 @RequestMapping("api/settings")
 public class SettingApi {
-	
+	/**
+	 * System setting service property
+	 */
 	@Autowired
 	private SysSettingService sysSettingService;
-
+	/**
+	 * Update setting
+	 * @param setting
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<String> updateSetting(@RequestBody SysSetting setting) {
 		try {	

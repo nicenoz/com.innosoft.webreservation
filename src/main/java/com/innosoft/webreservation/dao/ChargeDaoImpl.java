@@ -12,29 +12,44 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCharge;
-
+/**
+ *CRUD implementation for charge data object
+ */
 @Repository
 @Transactional
 public class ChargeDaoImpl implements ChargeDao {
-
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get Session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List charge method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCharge> listCharge() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstCharge> list = session.createQuery("from MstCharge").list();	
 		return list;
 	}
-	
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -45,7 +60,10 @@ public class ChargeDaoImpl implements ChargeDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Get max charge number method
+	 * @return
+	 */
 	public String getMaxChrgNum()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -56,7 +74,9 @@ public class ChargeDaoImpl implements ChargeDao {
 		}
 		return 	maxNo;
 	}
-	
+	/**
+	 * Add charge method
+	 */
 	public MstCharge addCharge(MstCharge charge) {
 		
 		try {
@@ -91,7 +111,9 @@ public class ChargeDaoImpl implements ChargeDao {
 			return charge;	
 		}
 	}
-
+	/**
+	 * Edit charge method
+	 */
 	public MstCharge editCharge(MstCharge charge) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -120,7 +142,9 @@ public class ChargeDaoImpl implements ChargeDao {
 			return new MstCharge();
 		}	
 	}
-
+	/**
+	 * Delete charge method
+	 */
 	public boolean deleteCharge(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

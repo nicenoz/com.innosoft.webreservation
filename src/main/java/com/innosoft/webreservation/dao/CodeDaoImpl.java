@@ -13,30 +13,44 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCode;
-import com.innosoft.webreservation.entity.MstCustomerMember;
-
+/**
+ * CRUD implementation for code data object.
+ */
 @Repository
 @Transactional
 public class CodeDaoImpl implements CodeDao {
-	
+	/**
+	 * Session factory method
+	 * 
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session facttory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List of code method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCode> listCode() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstCode> list = session.createQuery("from MstCode").list();	
 		return list;
 	}
-	
+	/**
+	 * List of code by kind method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCode> listCodeByKind(String kind) {
 		Session session = this.sessionFactory.getCurrentSession();	
@@ -47,7 +61,10 @@ public class CodeDaoImpl implements CodeDao {
 		List<MstCode> list = criteria.list();	
 		return list;
 	}
-	
+	/**
+	 * get Max Id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -58,7 +75,9 @@ public class CodeDaoImpl implements CodeDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add code method
+	 */
 	public MstCode addCode(MstCode code) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -88,7 +107,9 @@ public class CodeDaoImpl implements CodeDao {
 			return code;	
 		}		
 	}
-
+	/**
+	 * Edit code method
+	 */
 	public MstCode editCode(MstCode code) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -116,7 +137,9 @@ public class CodeDaoImpl implements CodeDao {
 			return new MstCode();
 		}		
 	}
-	
+	/**
+	 * Delete code method
+	 */
 	public boolean deleteCode(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

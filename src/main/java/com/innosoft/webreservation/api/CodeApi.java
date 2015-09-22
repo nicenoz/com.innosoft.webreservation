@@ -14,30 +14,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCode;
-import com.innosoft.webreservation.entity.TrnReservation;
 import com.innosoft.webreservation.service.CodeService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ * 
+ * Code CRUD API
+ *
+ */
 @Controller
 @RequestMapping("api/code")
 public class CodeApi {
+	/**
+	 * Code service property
+	 */
 	@Autowired
 	private CodeService codeService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Return list of code 
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCode> listCode() {
 		List<MstCode> list = codeService.listCode();
 		return list;
 	}
-	
+	/**
+	 * Return list of code by customer
+	 * @param kind
+	 * @return
+	 */
 	@RequestMapping(value = "/listByKind", method = RequestMethod.GET, produces = "application/json",  params = {"kind"})
 	public @ResponseBody List<MstCode> listByCustomer(@RequestParam(value="kind") String kind) {
 		List<MstCode> list = codeService.listCodeByKind(kind);
 		return list;
 	}
-	
+	/**
+	 * Update code 
+	 * @param code
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCode> updateCode(@RequestBody MstCode code) {
 		try {
@@ -54,7 +74,11 @@ public class CodeApi {
 			return new ResponseEntity<MstCode>(code, HttpStatus.BAD_REQUEST);
 		}
 	}	
-	
+	/**
+	 * Delete Code
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCode(@PathVariable("id") int id) {
 		try {

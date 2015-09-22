@@ -14,16 +14,27 @@ import com.innosoft.webreservation.entity.SysEmail;
 import com.innosoft.webreservation.entity.TrnSendLog;
 import com.innosoft.webreservation.service.EmailService;
 import com.innosoft.webreservation.service.SendLogService;
-
+/**
+ *Email API (Email sending API)
+ */
 @Controller
 @RequestMapping("api/email")
 public class EmailApi {
+	/**
+	 * Email service property
+	 */
 	@Autowired
 	private EmailService emailService;
-	
+	/**
+	 * Send log service variable
+	 */
 	@Autowired
 	private SendLogService sendLogService;
-			
+	/**
+	 * Send mails		
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping(value = "/send", method = RequestMethod.POST)		
 	public ResponseEntity<String> sendMail(@RequestBody SysEmail email) {
 		try {

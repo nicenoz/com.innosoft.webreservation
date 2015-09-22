@@ -14,21 +14,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.service.ChargeService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ * Charge CRUD API
+ */
 @Controller
 @RequestMapping("api/charge")
 public class ChargeApi {
+	/**
+	 * Charge service property
+	 */
 	@Autowired
 	private ChargeService chargeService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-
+	/**
+	 * Return list of charge
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCharge> listCharge() {
 		List<MstCharge> list = chargeService.listCharge();
 		return list;
 	}
-
+	/**
+	 * Update Charge
+	 * @param charge
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCharge> updateCharge(@RequestBody MstCharge charge) {
 		try {
@@ -45,7 +60,11 @@ public class ChargeApi {
 			return new ResponseEntity<MstCharge>(charge, HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	/**
+	 * Delete Charge
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCharge(@PathVariable("id") int id) {
 		try {
