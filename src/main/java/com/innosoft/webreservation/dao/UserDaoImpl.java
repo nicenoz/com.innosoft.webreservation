@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,8 +121,13 @@ public class UserDaoImpl implements UserDao {
 			MstSecurityUser newUser = new MstSecurityUser();
 			newUser.setUSER_ID(getMaxId()+1);
 			newUser.setUSER_LOGIN(user.USER_LOGIN);
-			newUser.setUSER_PASSWORD(user.USER_PASSWORD);
-
+			
+			String password = user.USER_PASSWORD;
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(password);
+			
+			newUser.setUSER_PASSWORD(hashedPassword);
+			
 			session.save(newUser);
 			tx.commit();
 			session.close();
@@ -142,7 +148,14 @@ public class UserDaoImpl implements UserDao {
 			MstSecurityUser updateUser = (MstSecurityUser) session.get(MstSecurityUser.class, user.USER_ID);
 
 			updateUser.setUSER_LOGIN(user.USER_LOGIN);
-			updateUser.setUSER_PASSWORD(user.USER_PASSWORD);
+
+			String password = user.USER_PASSWORD;
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(password);
+			
+			passwordEncoder.matches(password, hashedPassword);
+			
+			updateUser.setUSER_PASSWORD(hashedPassword);
 
 			session.update(updateUser);
 			tx.commit();
