@@ -8,14 +8,20 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.innosoft.webreservation.entity.SysEmail;
-
+/**
+ *Service implementation for emails
+ */
 @Service
 @Transactional
 public class EmailServiceImpl implements EmailService {
-
+	/**
+	 * Mail sender method
+	 */
 	@Autowired
 	private MailSender mailSender;
-
+	/**
+	 * send mail method
+	 */
 	public boolean sendMail(SysEmail email) {
 		try {
 			String[] reciever = email.getEMAIL_EMAIL().replaceAll("\\s","").split(",");

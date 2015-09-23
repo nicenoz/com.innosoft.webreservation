@@ -14,23 +14,35 @@ import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.EmailService;
 import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SysSettingService;
-
+/**
+ * Notification of reservation service
+ */
 @Component("notificationReservationService")
 public class NotificationReservationService {
-	
+	/**
+	 * Email service property
+	 */
 	@Autowired
 	private EmailService emailService;
-	
+	/**
+	 * system setting service property
+	 */
 	@Autowired
 	private SysSettingService sysSettingService;
-	
+	/**
+	 * Reservation service property
+	 */
 	@Autowired
 	private ReservationService reservationService;
-	
+	/**
+	 * Customer member service property
+	 */
 	@Autowired
 	private CustomerMemberService customerMemberService;
 
-
+	/**
+	 * process method
+	 */
 	public void process() {
 		try {
 
@@ -75,10 +87,6 @@ public class NotificationReservationService {
 					updateSetting.setSSET_NOTIFICATION_TIME(setTime);
 					
 					sysSettingService.addSetting(updateSetting);
-					System.out.println("SysSetting Has been Updated");
-		    	}else
-		    	{
-		    		System.out.println("Error Here!");
 		    	}
 		  }
 		    

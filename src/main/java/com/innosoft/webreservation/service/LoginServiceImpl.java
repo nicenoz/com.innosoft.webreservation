@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
- 
-
-
-
-
-import javax.persistence.Column;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,19 +20,32 @@ import com.innosoft.webreservation.dao.UserDao;
 import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.entity.TrnAccessLog;
- 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Service("loginServiceImpl")
 @Transactional(readOnly = true)
 public class LoginServiceImpl implements UserDetailsService {
+	/**
+	 * 
+	 */
 	@Autowired
 	private UserDao userDao;
-	
+	/**
+	 * 
+	 */
 	@Autowired
 	private CustomerMemberDao customerMemberDao;
-	
+	/**
+	 * 
+	 */
 	@Autowired
 	private AccessLogService accessLogService;
-	
+	/**
+	 * 
+	 */
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException {
 
@@ -74,12 +81,20 @@ public class LoginServiceImpl implements UserDetailsService {
 	        );
         }
     }
-     
+    /**
+     * 
+     * @param role
+     * @return
+     */
     public Collection<? extends GrantedAuthority> getAuthorities(int role) {
         List<GrantedAuthority> authList = getGrantedAuthorities(getRoles(role));
         return authList;
     }
-     
+    /**
+     * 
+     * @param role
+     * @return
+     */
     public List<String> getRoles(int role) {
  
         List<String> roles = new ArrayList<String>();
@@ -92,7 +107,11 @@ public class LoginServiceImpl implements UserDetailsService {
         }
         return roles;
     }
-     
+    /**
+     * 
+     * @param roles
+     * @return
+     */
     public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
