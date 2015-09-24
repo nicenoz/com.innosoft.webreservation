@@ -179,7 +179,7 @@ function createCboCustomer() {
 		displayMemberPath: "CUST_NAME",
 		placeholder: 'Select a Customer',
 		onSelectedIndexChanged: function () {
-			$("#EDIT_CTIM_CUST_ID_DATA").val(customers.items[this.selectedIndex].id);
+			$("#EDIT_CTIM_CUST_ID_DATA").val(customers[this.selectedIndex].CUST_ID);
 		}
 	});	 		
 }
