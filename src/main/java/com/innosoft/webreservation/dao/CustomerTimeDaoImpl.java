@@ -45,7 +45,12 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerTime> listCustomerTime() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<MstCustomerTime> list = session.createQuery("from MstCustomerTime").list();	
+//		List<MstCustomerTime> list = session.createQuery("from MstCustomerTime").list();
+		Criteria criteria = session.createCriteria(MstCustomerTime.class);
+		criteria.addOrder(Order.asc("CTIM_CUST_ID"));
+		criteria.addOrder(Order.asc("CTIM_DETAILS_NO_INT"));
+		List<MstCustomerTime> list = criteria.list();
+
 		return list;
 	}
 	/**
