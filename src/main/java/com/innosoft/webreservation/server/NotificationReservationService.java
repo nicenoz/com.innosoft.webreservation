@@ -60,16 +60,16 @@ public class NotificationReservationService {
 		    
 		    if(setTime.equals(currentTime) && !setDate.equals(currentDate))
 		    {
-		    	System.out.println("Succes Equal");
+		    	//System.out.println("Succes Equal");
 		    	String emailServe = "";
 		    	List<TrnReservation> list = reservationService.notificationReservation(currentDate);    	
 		    	for (int i = 0; i < list.size(); i++) {
 
 		    		if(list.size() != 0)
 		    		{	
-		    			System.out.println("getting item Now Please Wait A while");
+		    			//System.out.println("getting item Now Please Wait A while");
 		    			emailServe = list.get(i).RESV_MEBR_FK.MEBR_EMAIL_ADDRESS + "," + emailServe;
-		    			System.out.println(emailServe);
+		    			//System.out.println(emailServe);
 		    		}
 		    	}
 		    	if(emailServe != null){

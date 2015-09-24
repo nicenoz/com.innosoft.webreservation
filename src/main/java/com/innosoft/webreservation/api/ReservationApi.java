@@ -38,8 +38,8 @@ public class ReservationApi {
 	
 	/**
 	 * Charge count service property
-	 * @Autowired
 	 */
+	@Autowired
 	private ChargeCountService chargeCountService;
 	/**
 	 *return list of reservation
@@ -60,7 +60,6 @@ public class ReservationApi {
 		List<TrnReservation> list = reservationService.listByCustomer(customerId);
 		return list;
 	}
-	
 	/**
 	 * List of reservation between dates
 	 * @param from
