@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.MstCustomer;
 @Transactional
 public class CustomerServiceImpl implements CustomerService{
 	/**
-	 * Customer method
+	 * Customer property
 	 */
 	@Autowired
     private CustomerDao customerDao;

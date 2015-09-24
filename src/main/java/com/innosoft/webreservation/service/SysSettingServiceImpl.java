@@ -14,7 +14,7 @@ import com.innosoft.webreservation.entity.SysSetting;
 @Transactional
 public class SysSettingServiceImpl implements SysSettingService {
 	/**
-	 * System setting method
+	 * System setting property
 	 */
 	@Autowired
     private SysSettingDao sysSettingDao;

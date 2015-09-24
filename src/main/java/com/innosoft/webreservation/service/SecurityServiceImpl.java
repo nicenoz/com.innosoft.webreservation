@@ -19,7 +19,7 @@ import com.innosoft.webreservation.entity.MstSecurityUser;
 @Transactional
 public class SecurityServiceImpl implements SecurityService{
 	/**
-	 * User Dao property
+	 * User property
 	 */
 	@Autowired
 	private UserDao userDao;

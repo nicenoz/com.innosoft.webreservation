@@ -16,10 +16,13 @@ import com.innosoft.webreservation.entity.MstCustomerMember;
 @Transactional
 public class CustomerMemberServiceImpl implements CustomerMemberService {
 	/**
-	 * List customer member method
+	 *Customer member  Doa property
 	 */
 	@Autowired
-    private CustomerMemberDao customerMemberDao;	
+    private CustomerMemberDao customerMemberDao;
+	/**
+	 * List customer member method
+	 */
 	public List<MstCustomerMember> listCustomerMember(){
 		return customerMemberDao.listCustomerMember();
 	}

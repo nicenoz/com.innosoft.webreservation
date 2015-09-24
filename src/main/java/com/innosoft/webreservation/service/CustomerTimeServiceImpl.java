@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.MstCustomerTime;
 @Transactional
 public class CustomerTimeServiceImpl implements CustomerTimeService {
 	/**
-	 * Customer time method
+	 * Customer time property
 	 */
 	@Autowired
     private CustomerTimeDao customerTimeDao;

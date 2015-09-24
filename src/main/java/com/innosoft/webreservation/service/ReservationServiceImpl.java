@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.TrnReservation;
 @Transactional
 public class ReservationServiceImpl implements ReservationService{
 	/**
-	 * Reservation method
+	 * Reservation property
 	 */
 	@Autowired
     private ReservationDao reservationDao;

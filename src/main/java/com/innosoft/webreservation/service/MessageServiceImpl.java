@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.MstMessage;
 @Transactional
 public class MessageServiceImpl implements MessageService{
 	/**
-	 * Message method
+	 * Message property
 	 */
 	@Autowired
     private MessageDao messageDao;

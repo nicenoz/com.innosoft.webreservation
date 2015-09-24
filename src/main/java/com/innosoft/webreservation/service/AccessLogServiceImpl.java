@@ -13,10 +13,13 @@ import com.innosoft.webreservation.entity.TrnAccessLog;
 @Transactional
 public class AccessLogServiceImpl implements AccessLogService {
 	/**
-	 * List access log method
+	 * Access log property
 	 */
 	@Autowired
-    private AccessLogDao accessLogDao;	
+    private AccessLogDao accessLogDao;
+	/**
+	 * List access log method
+	 */
 	public List<TrnAccessLog> listAccessLog(){
 		return accessLogDao.listAccessLog();
 	}

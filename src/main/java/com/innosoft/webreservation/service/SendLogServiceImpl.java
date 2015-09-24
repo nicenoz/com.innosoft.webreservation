@@ -15,7 +15,7 @@ import com.innosoft.webreservation.entity.TrnSendLog;
 @Transactional
 public class SendLogServiceImpl implements SendLogService {
 	/**
-	 * Send log method
+	 * Send log property
 	 */
 	@Autowired
     private SendLogDao sendLogDao;	

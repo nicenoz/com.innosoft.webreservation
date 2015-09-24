@@ -17,7 +17,7 @@ import com.innosoft.webreservation.entity.MstCode;
 @Transactional
 public class CodeServiceImpl implements CodeService {
 	/**
-	 * Code method
+	 * Code property
 	 */
 	@Autowired
     private CodeDao codeDao;

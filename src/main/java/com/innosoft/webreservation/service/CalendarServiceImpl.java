@@ -15,7 +15,7 @@ import com.innosoft.webreservation.entity.MstCalendar;
 @Transactional
 public class CalendarServiceImpl implements CalendarService {
 	/**
-	 * Calendar  method
+	 * Calendar Doa property
 	 */
 	@Autowired
     private CalendarDao calendarDao;

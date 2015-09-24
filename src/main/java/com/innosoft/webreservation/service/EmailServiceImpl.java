@@ -15,7 +15,7 @@ import com.innosoft.webreservation.entity.SysEmail;
 @Transactional
 public class EmailServiceImpl implements EmailService {
 	/**
-	 * Mail sender method
+	 * Mail sender property
 	 */
 	@Autowired
 	private MailSender mailSender;

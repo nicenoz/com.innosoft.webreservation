@@ -21,30 +21,28 @@ import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.entity.TrnAccessLog;
 /**
- * 
- * @author Administrator
- *
+ * Spring security login service implementation
  */
 @Service("loginServiceImpl")
 @Transactional(readOnly = true)
 public class LoginServiceImpl implements UserDetailsService {
 	/**
-	 * 
+	 * User dao property
 	 */
 	@Autowired
 	private UserDao userDao;
 	/**
-	 * 
+	 * Customer member dao method
 	 */
 	@Autowired
 	private CustomerMemberDao customerMemberDao;
 	/**
-	 * 
+	 * Access log service method
 	 */
 	@Autowired
 	private AccessLogService accessLogService;
 	/**
-	 * 
+	 * Load user by username method
 	 */
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException {
@@ -82,7 +80,7 @@ public class LoginServiceImpl implements UserDetailsService {
         }
     }
     /**
-     * 
+     * Get authorities method
      * @param role
      * @return
      */
@@ -91,7 +89,7 @@ public class LoginServiceImpl implements UserDetailsService {
         return authList;
     }
     /**
-     * 
+     * Get roles method
      * @param role
      * @return
      */
@@ -108,7 +106,7 @@ public class LoginServiceImpl implements UserDetailsService {
         return roles;
     }
     /**
-     * 
+     * Get granted authorities method
      * @param roles
      * @return
      */

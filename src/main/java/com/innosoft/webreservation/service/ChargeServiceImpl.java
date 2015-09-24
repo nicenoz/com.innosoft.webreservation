@@ -17,7 +17,7 @@ import com.innosoft.webreservation.entity.MstCharge;
 @Transactional
 public class ChargeServiceImpl implements ChargeService{
 	/**
-	 * Charge method
+	 * Charge Doa property
 	 */
 	@Autowired
     private ChargeDao chargeDao;

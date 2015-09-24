@@ -16,7 +16,7 @@ import com.innosoft.webreservation.entity.MstCalendarActivity;
 @Transactional
 public class CalendarActivityServiceImpl implements CalendarActivityService{
 	/**
-	 * Calendar activity method 
+	 * Calendar activity property
 	 */
 	@Autowired
     private CalendarActivityDao calendarActivityDao;

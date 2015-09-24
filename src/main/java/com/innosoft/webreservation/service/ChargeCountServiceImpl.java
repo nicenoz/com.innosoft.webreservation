@@ -17,7 +17,7 @@ import com.innosoft.webreservation.entity.TrnChargeCount;
 @Transactional
 public class ChargeCountServiceImpl implements ChargeCountService{
 	/**
-	 * Charge count method
+	 * Charge count Doa property
 	 */
 	@Autowired
     private ChargeCountDao chargeCountDao;
