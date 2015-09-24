@@ -60,7 +60,6 @@ public class CalendarActivityApi {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {
 		try {
-			System.out.print(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size());
 				if(calendarActivity.getCACT_ID()==0) {
 					if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
 						calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);

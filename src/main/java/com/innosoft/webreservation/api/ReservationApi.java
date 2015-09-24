@@ -60,7 +60,6 @@ public class ReservationApi {
 		List<TrnReservation> list = reservationService.listByCustomer(customerId);
 		return list;
 	}
-	
 	/**
 	 * List of reservation between dates
 	 * @param from

@@ -399,13 +399,14 @@ function cmdCalendarActivityAdd_OnClick() {
 // =====================   
 function cmdCalendarActivityDelete_OnClick() {
 	calendarActivities.editItem(calendarActivities.currentItem);
-
+	var id = calendarActivities.currentEditItem.CACT_ID;
+	
     alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
     	console.log("Delete: " + calendarActivities.currentEditItem.CACT_ID);
         $.ajax({
             type: "DELETE",
-            url: '${pageContext.request.contextPath}/api/calendarActivity/delete/' + calendarActivities.currentEditItem.CACT_ID,
+            url: '${pageContext.request.contextPath}/api/calendarActivity/delete/' + id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             statusCode: {

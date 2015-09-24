@@ -130,7 +130,8 @@
 // ================	
 // Global Variables
 // ================	
-var customerTimes;
+var customerTimes; 
+var customers;
 var customerGrid;
 
 var btnFirstPageGrid;
@@ -142,59 +143,46 @@ var btnCurrentPageGrid;
 var cboTimeInterval;
 var timeIntervalValue;
 
-
-//===================
+//============
 //Get Customer
-//===================
+//============
 function getCustomers() {
- var customers = new wijmo.collections.ObservableArray();
- $.ajax({
-     url: '${pageContext.request.contextPath}/api/customer/list',
-     cache: false,
-     type: 'GET',
-     contentType: 'application/json; charset=utf-8',
-     data: {},
-     success: function (results) {
-         if (results.length > 0) {
-             for (i = 0; i < results.length; i++) {
-             	customers.push({
-                     id: results[i]["CUST_ID"],
-                     customerName: results[i]["CUST_NAME"]
-                 });
-             }
-             createCboCustomer(customers);
-         }
-     }
- }).fail(
-     function (xhr, textStatus, err) {
-         alert(err);
-     }
- );
+	customers = new wijmo.collections.ObservableArray();
+	$.ajax({
+	    url: '${pageContext.request.contextPath}/api/customer/list',
+	    cache: false,
+	    type: 'GET',
+	    contentType: 'application/json; charset=utf-8',
+	    success: function (results) {
+	        if (results.length > 0) {
+	            for (i = 0; i < results.length; i++) {
+	            	customers.push({
+	            		CUST_ID: results[i]["CUST_ID"],
+	            		CUST_NAME: results[i]["CUST_NAME"]
+	                });
+	            }
+	            createCboCustomer();
+	        }
+	    }
+	}).fail(
+		// Fail message
+	);
 }
 
-//===================
-//Combo Box
-//===================
-function createCboCustomer(customers) {
-	customerCollection = new wijmo.collections.CollectionView(customers);
- 
- var customerList = new Array();
- for (var i = 0; i < customerCollection.items.length; i++) {
- 	customerList.push(customerCollection.items[i].customerName);
- }
-	
-cboCustomer.dispose();
-cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
-     itemsSource: customerList,
-     placeholder: 'select a customer',
-     isEditable: false,
-     selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
-     onSelectedIndexChanged: function () {
-         $("#EDIT_CTIM_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].id);
-     }
- });	
+//==================
+//Customer Combo Box
+//==================
+function createCboCustomer() {
+	cboCustomer.dispose();
+	 cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
+		itemsSource: customers,
+		displayMemberPath: "CUST_NAME",
+		placeholder: 'Select a Customer',
+		onSelectedIndexChanged: function () {
+			$("#EDIT_CTIM_CUST_ID_DATA").val(customers.items[this.selectedIndex].id);
+		}
+	});	 		
 }
-
 
 // ===================
 // Edit Button Clicked
@@ -208,15 +196,15 @@ function cmdCustomerTimeEdit_OnClick() {
     });
 
     var customerTime = customerTimes.currentEditItem;   
+    
     document.getElementById('EDIT_CTIM_ID').value = customerTime.CTIM_ID !== null && typeof (customerTime.CTIM_ID) != 'undefined' ? wijmo.Globalize.format(customerTime.CTIM_ID) : '';
     document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = customerTime.CTIM_CUST_ID ? customerTime.CTIM_CUST_ID : '';
     document.getElementById('EDIT_CUST_NAME').value = customerTime.CTIM_CUST_FK ? customerTime.CTIM_CUST_FK : '';
     document.getElementById('EDIT_CTIM_DETAILS_NO').value = customerTime.CTIM_DETAILS_NO ? customerTime.CTIM_DETAILS_NO : '';
     document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = customerTime.CTIM_MAX_UNIT_NO ? customerTime.CTIM_MAX_UNIT_NO : '';
     document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = customerTime.CTIM_MAX_PARTS_NO ? customerTime.CTIM_MAX_PARTS_NO : '';
-    
     document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = customerTime.CTIM_INTERVAL_OF_TIMES;
-    console.log(customerTime.CTIM_INTERVAL_OF_TIMES);
+
     cboTimeInterval.dispose();
     var selectedValue =  customerTime.CTIM_INTERVAL_OF_TIMES == 60? 0:1;
 	cboTimeInterval = new wijmo.input.ComboBox('#EDIT_CTIM_INTERVAL_OF_TIMES', {
@@ -244,13 +232,13 @@ function cmdCustomerTimeAdd_OnClick() {
 		backdrop : 'static'
 	});
 
-	document.getElementById('EDIT_CTIM_ID').value = "0.0";
-	document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = "0.0";
+	document.getElementById('EDIT_CTIM_ID').value = "0";
+	document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = "0";
 	document.getElementById('EDIT_CTIM_DETAILS_NO').value = "0";
-	document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = "0.0";
-	document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = "0.0";
-	
+	document.getElementById('EDIT_CTIM_MAX_UNIT_NO').value = "0";
+	document.getElementById('EDIT_CTIM_MAX_PARTS_NO').value = "0";
     document.getElementById('EDIT_CTIM_INTERVAL_OF_TIMES_DATA').value = 60; 
+    
     cboTimeInterval.dispose();
 	cboTimeInterval = new wijmo.input.ComboBox('#EDIT_CTIM_INTERVAL_OF_TIMES', {
 	     itemsSource: ["60 Minutes","30 Minutes"],
@@ -277,8 +265,6 @@ function cmdCustomerTimeDelete_OnClick() {
 	var id = customerTimes.currentEditItem.CTIM_ID;
 	var detailNo = customerTimes.currentEditItem.CTIM_DETAILS_NO;
 
-	
-	
 	alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
 	if (e) {
 		$.ajax({

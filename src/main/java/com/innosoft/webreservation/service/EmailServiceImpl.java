@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 
 			return true;
 		} catch (Exception ex) {
-			System.out.println(ex);
+			// System.out.println(ex);
 			return false;
 		}
 
