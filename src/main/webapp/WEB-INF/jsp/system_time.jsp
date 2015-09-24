@@ -174,14 +174,15 @@ function getCustomers() {
 //==================
 function createCboCustomer() {
 	cboCustomer.dispose();
-	 cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
+	cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
 		itemsSource: customers,
 		displayMemberPath: "CUST_NAME",
 		placeholder: 'Select a Customer',
 		onSelectedIndexChanged: function () {
-			$("#EDIT_CTIM_CUST_ID_DATA").val(customers.items[this.selectedIndex].id);
+			$("#EDIT_CTIM_CUST_ID_DATA").val(customers[this.selectedIndex].CUST_ID);
 		}
-	});	 		
+	});	 
+	$("#EDIT_CTIM_CUST_ID_DATA").val(customers[0].CUST_ID)
 }
 
 // ===================

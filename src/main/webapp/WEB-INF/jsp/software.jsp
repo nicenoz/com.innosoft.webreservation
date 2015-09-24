@@ -388,7 +388,7 @@ function cmdAddEditOk_OnClick() {
  	reservation.RESV_CUST_ID = parseInt(document.getElementById('AE_CUST_ID').value);
  	reservation.RESV_MEBR_ID = parseInt(document.getElementById('AE_MEBR_ID').value);
  	reservation.RESV_CACT_ID = parseInt(document.getElementById('AE_CACT_ID').value);
- 	reservation.RESV_UNIT_NO = /* parseInt(document.getElementById('AE_UNIT_NO').value) */ 1;
+ 	reservation.RESV_UNIT_NO = 1;
  	reservation.RESV_PARTS_NO = parseInt(document.getElementById('AE_PARTS_NO').value);
  	reservation.RESV_START_TIME_ID = parseInt(document.getElementById('AE_START_TIME_ID').value);
  	reservation.RESV_END_TIME_ID = parseInt(document.getElementById('AE_END_TIME_ID').value);
@@ -563,7 +563,8 @@ function cmdAddReservation_OnClick() {
 	    document.getElementById("AE_CUST_NAME").value = cboCustomer.selectedValue.customerName;
 	    
 	    
-	    document.getElementById("AE_CACT_ID").value = calendarActivities[0].id;
+	    /* document.getElementById("AE_CACT_ID").value = calendarActivities[0].id; */
+	    document.getElementById("AE_CACT_ID").value = calendarActivities[startDateIndex].id; 
 	    cboAECalenderDate.dispose();
 	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
 	        itemsSource: calendarActivityList.slice(startDateIndex, endDateIndex + 1),
