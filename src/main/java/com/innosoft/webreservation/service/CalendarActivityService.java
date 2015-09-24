@@ -25,6 +25,12 @@ public interface CalendarActivityService {
 	 */
 	public List<MstCalendarActivity> listCalendarActivityByCalendarDate(MstCalendarActivity calendarAct);
 	/**
+	 * List calendar activity by calendar date method 
+	 * @param calendarAct
+	 * @return
+	 */
+	public MstCalendarActivity getCalendarActivityById(int cactId);
+	/**
 	 * Add calendar activity method 
 	 * @param calendarActivity
 	 * @return

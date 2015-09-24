@@ -61,19 +61,32 @@ public class CalendarActivityApi {
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {
 		try {
 			System.out.print(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size());
-			if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
 				if(calendarActivity.getCACT_ID()==0) {
-					calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
-					MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
-					return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
+					if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
+						calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
+						MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
+						return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
+					}else{
+						return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
+					}
 				} else {
-					calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
-					MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
-					return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+					MstCalendarActivity old = calendarActivityService.getCalendarActivityById(calendarActivity.getCACT_ID());
+					
+					if(old.CACT_CLDR_ID == calendarActivity.getCACT_CLDR_ID()){
+						calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
+						MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
+						return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+					}else{
+						if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
+							calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
+							MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
+							return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+						}else{
+							return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
+						}
+					}
 				}
-			}else{
-				return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
-			}
+			
 		} catch(Exception e) {
 			return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
 		}	

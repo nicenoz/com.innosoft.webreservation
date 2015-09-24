@@ -39,6 +39,12 @@ public class CalendarActivityServiceImpl implements CalendarActivityService{
 		return calendarActivityDao.listCalendarActivityByCalendarDate(calendarAct);
 	}
 	/**
+	 * List calendar activity by calendar date method 
+	 */
+	public MstCalendarActivity getCalendarActivityById(int cactId){
+		return calendarActivityDao.getCalendarActivityById(cactId);
+	}
+	/**
 	 * Add calendar activity method 
 	 */
 	public MstCalendarActivity addCalendarActivity(MstCalendarActivity calendarActivity){

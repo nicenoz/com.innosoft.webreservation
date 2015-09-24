@@ -25,6 +25,12 @@ public interface CalendarActivityDao {
 	 */
 	public List<MstCalendarActivity> listCalendarActivityByCalendarDate(MstCalendarActivity calendarAct);
 	/**
+	 * List calendar activity by id method
+	 * @param calendarAct
+	 * @return
+	 */
+	public MstCalendarActivity getCalendarActivityById(int cactId);
+	/**
 	 * Add calendar activity method
 	 * @param calendarActivity
 	 * @return

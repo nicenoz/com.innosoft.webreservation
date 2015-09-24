@@ -38,8 +38,8 @@ public class ReservationApi {
 	
 	/**
 	 * Charge count service property
-	 * @Autowired
 	 */
+	@Autowired
 	private ChargeCountService chargeCountService;
 	/**
 	 *return list of reservation

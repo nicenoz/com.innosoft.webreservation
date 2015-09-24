@@ -54,9 +54,7 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
-
 		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity where CACT_CUST_ID=" + customerId).list();	
-
 		return list;
 	}
 	
@@ -70,6 +68,15 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 				.add(Restrictions.eq("CACT_CLDR_ID", calendarAct.getCACT_CLDR_ID()))
 				.add(Restrictions.eq("CACT_CUST_ID", calendarAct.getCACT_CUST_ID()));
 		return criteria.list();
+	}
+	/**
+	 * Get current session method
+	 */
+	public MstCalendarActivity getCalendarActivityById(int cactId){
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCalendarActivity.class)
+				.add(Restrictions.eq("CACT_ID", cactId));
+		return (MstCalendarActivity)criteria.list().get(0);
 	}
 	/**
 	 * Get current session method
