@@ -146,6 +146,7 @@ public class UserDaoImpl implements UserDao {
 			MstSecurityUser newUser = new MstSecurityUser();
 			newUser.setUSER_ID(getMaxId()+1);
 			newUser.setUSER_LOGIN(user.USER_LOGIN);
+			newUser.setUSER_ROLES(3); //Default role "ROLE_USER"
 			
 			String password = user.USER_PASSWORD;
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

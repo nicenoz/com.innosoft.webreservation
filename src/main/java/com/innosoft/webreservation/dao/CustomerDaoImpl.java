@@ -47,7 +47,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Session session = this.sessionFactory.openSession();
 		
 		Criteria criteria = session.createCriteria(MstCustomer.class);
-		criteria.add(Restrictions.ne("CUST_CUSTOMER_NO", "000000"));
+		criteria.add(Restrictions.ne("CUST_CUSTOMER_NO", "0"));
 		
 		List<MstCustomer> list = criteria.list();	
 

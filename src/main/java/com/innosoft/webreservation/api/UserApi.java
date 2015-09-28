@@ -104,7 +104,7 @@ public class UserApi {
 	 */
 	@RequestMapping(value = "/loginFreeUser", method = RequestMethod.POST)
 	public ResponseEntity<String> loginFreeUser(@RequestBody MstSecurityUser user) {
-		int freeCustomerId = customerService.listCustomerWithNo("000000").get(0).getCUST_ID();
+		int freeCustomerId = customerService.listCustomerWithNo("0").get(0).getCUST_ID();
 		int memberId = 0;
 		try {
 			String password = this.generatePassword();

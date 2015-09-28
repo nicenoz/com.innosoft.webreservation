@@ -75,7 +75,7 @@ public class LoginServiceImpl implements UserDetailsService {
 	                accountNonExpired, 
 	                credentialsNonExpired, 
 	                accountNonLocked,
-	                getAuthorities(1)
+	                getAuthorities(domainUser.getUSER_ROLES())
 	        );
         }
     }
@@ -98,10 +98,11 @@ public class LoginServiceImpl implements UserDetailsService {
         List<String> roles = new ArrayList<String>();
  
         if (role == 1) {
-            roles.add("ROLE_USER");
             roles.add("ROLE_ADMIN");
         } else if (role == 2) {
-            roles.add("ROLE_USER");
+            roles.add("ROLE_CUSTOMER");
+        }else if (role == 3){
+        	roles.add("ROLE_USER");
         }
         return roles;
     }
