@@ -36,7 +36,7 @@
 	    <intercept-url pattern="/api/chargeCount/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
 	    <intercept-url pattern="/api/code/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
 	    <intercept-url pattern="/api/customer/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
-	    <intercept-url pattern="/api/customerMember/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
+	    <!-- <intercept-url pattern="/api/customerMember/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/> -->
 	    <intercept-url pattern="/api/customerTime/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
 	    <intercept-url pattern="/api/emai/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
 	    <!-- <intercept-url pattern="/api/message/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/> -->
