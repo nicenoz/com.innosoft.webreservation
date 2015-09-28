@@ -14,12 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.innosoft.webreservation.entity.MstCharge;
 import com.innosoft.webreservation.service.ChargeService;
 import com.innosoft.webreservation.service.SecurityService;
-
+/**
+ * Charge CRUD API
+ **/
 @Controller
 @RequestMapping("api/charge")
 public class ChargeApi {
+	/**
+	 * Charge service properties 
+	 */
 	@Autowired
 	private ChargeService chargeService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
 
