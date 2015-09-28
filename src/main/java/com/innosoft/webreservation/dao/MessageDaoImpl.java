@@ -12,29 +12,44 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstMessage;
-
+/**
+ * CRUD implementation for message data object.
+ */
 @Repository
 @Transactional
 public class MessageDaoImpl implements MessageDao {
-
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 *Set session factory method 
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List message methos
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstMessage> listMessage() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstMessage> list = session.createQuery("from MstMessage").list();	
 		return list;
 	}
-	
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -45,7 +60,9 @@ public class MessageDaoImpl implements MessageDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add message method
+	 */
 	public MstMessage addMessage(MstMessage message) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -75,7 +92,9 @@ public class MessageDaoImpl implements MessageDao {
 			return message;	
 		}
 	}	
-	
+	/**
+	 * Edit message method
+	 */
 	public MstMessage editMessage(MstMessage message) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -103,7 +122,9 @@ public class MessageDaoImpl implements MessageDao {
 			return new MstMessage();
 		}		
 	}
-	
+	/**
+	 * Delete message method
+	 */
 	public boolean deleteMessage(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

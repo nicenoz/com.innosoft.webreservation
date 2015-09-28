@@ -2,7 +2,6 @@ package com.innosoft.webreservation.server;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,33 +14,45 @@ import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.EmailService;
 import com.innosoft.webreservation.service.ReservationService;
 import com.innosoft.webreservation.service.SysSettingService;
-import com.innosoft.webreservation.service.UserService;
-
+/**
+ * Notification of reservation service
+ */
 @Component("notificationReservationService")
 public class NotificationReservationService {
-	
+	/**
+	 * Email service property
+	 */
 	@Autowired
 	private EmailService emailService;
-	
+	/**
+	 * system setting service property
+	 */
 	@Autowired
 	private SysSettingService sysSettingService;
-	
+	/**
+	 * Reservation service property
+	 */
 	@Autowired
 	private ReservationService reservationService;
-	
+	/**
+	 * Customer member service property
+	 */
 	@Autowired
 	private CustomerMemberService customerMemberService;
 
+	/**
+	 * process method
+	 */
 	public void process() {
 		try {
+
+			Calendar systemDate = Calendar.getInstance();
 			SimpleDateFormat timeFormat = new SimpleDateFormat("HH");
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Calendar systemDate = Calendar.getInstance();
 
 		    String currentTime = timeFormat.format(systemDate.getTime());
-		    String currentDate = dateFormat.format(systemDate);
-
+		    String currentDate = dateFormat.format(systemDate.getTime());
+		    
 		    SysSetting setting = sysSettingService.getSetting(sysSettingService.getMaxId());
 		    
 		    String setTime = setting.getSSET_NOTIFICATION_TIME();
@@ -49,25 +60,35 @@ public class NotificationReservationService {
 		    
 		    if(setTime.equals(currentTime) && !setDate.equals(currentDate))
 		    {
-		    	List<TrnReservation> list = reservationService.notificationReservation(currentDate);
+		    	//System.out.println("Succes Equal");
+		    	String emailServe = "";
+		    	List<TrnReservation> list = reservationService.notificationReservation(currentDate);    	
 		    	for (int i = 0; i < list.size(); i++) {
-					SysEmail email = new SysEmail();
-					
-					/*String email = customerMemberService.
-					
-					email.setEMAIL_EMAIL("hgminerva@gmail.com,oliverrigonan@gmail.com,nathan.3rds@gmail.com");
+
+		    		if(list.size() != 0)
+		    		{	
+		    			//System.out.println("getting item Now Please Wait A while");
+		    			emailServe = list.get(i).RESV_MEBR_FK.MEBR_EMAIL_ADDRESS + "," + emailServe;
+		    			//System.out.println(emailServe);
+		    		}
+		    	}
+		    	if(emailServe != null){
+		    		SysEmail email = new SysEmail();
+									
+					email.setEMAIL_EMAIL(emailServe);
 					email.setEMAIL_MESSAGE("Notification Email");
 					email.setEMAIL_SUBJECT("You reservation is near.");
-
-					emailService.sendMail(email);	*/	    	
+	
+					emailService.sendMail(email);	
+					
+					SysSetting updateSetting = new SysSetting();
+					updateSetting.setSSET_ID(1);
+					updateSetting.setSSET_NOTIFICATION_DATE(systemDate.getTime());
+					updateSetting.setSSET_NOTIFICATION_TIME(setTime);
+					
+					sysSettingService.addSetting(updateSetting);
 		    	}
-				SysSetting updateSetting = new SysSetting();
-				updateSetting.setSSET_ID(sysSettingService.getMaxId());
-				updateSetting.setSSET_NOTIFICATION_DATE(systemDate.getTime());
-				updateSetting.setSSET_NOTIFICATION_TIME(null);
-				
-				sysSettingService.addSetting(updateSetting);
-		    }
+		  }
 		    
 		} catch (Exception e) {
 			

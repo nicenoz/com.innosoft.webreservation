@@ -15,23 +15,40 @@ import com.innosoft.webreservation.entity.MstCalendar;
 import com.innosoft.webreservation.service.CalendarService;
 import com.innosoft.webreservation.service.SecurityService;
 
-
+/**
+ * Calendar CRUD API
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("api/calendar")
 public class CalendarApi {	
+	/**
+	 * Calendar service property
+	 */
 	@Autowired
 	private CalendarService calendarService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Return list of calendar
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCalendar> listCalendar() {
 		List<MstCalendar> list = calendarService.listCalendar();
 		return list;
 	}
-	
+	/**
+	 * Update Calendar
+	 * @param calendar
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<MstCalendar> updateMessage(@RequestBody MstCalendar calendar) {
+	public ResponseEntity<MstCalendar> updateCalendar(@RequestBody MstCalendar calendar) {
 		try {
 			if(calendar.getCLDR_ID()==0) {
 				calendar = (MstCalendar)securityService.stampCreated(calendar);
@@ -46,7 +63,11 @@ public class CalendarApi {
 			return new ResponseEntity<MstCalendar>(calendar, HttpStatus.BAD_REQUEST);
 		}	
 	}	
-	
+	/**
+	 * Delete calendar
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCalendar(@PathVariable("id") int id) {
 		try {

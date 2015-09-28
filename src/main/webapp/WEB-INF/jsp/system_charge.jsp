@@ -165,24 +165,21 @@ $.ajax({
 //Combo Box
 //===========
 function createCboCustomer(customers) {
-	customerCollection = new wijmo.collections.CollectionView(customers);
-
-var customerList = new Array();
-for (var i = 0; i < customerCollection.items.length; i++) {
-	customerList.push(customerCollection.items[i].customerName);
-}
-	
-cboCustomer.dispose();
-	  cboCustomer = new wijmo.input.ComboBox('#EDIT_CHRG_CUST_ID', {
-	  itemsSource: customerList,
-	  placeholder: 'select a customer',
-	  isEditable: false,
-	  selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
-	  onSelectedIndexChanged: function () {
-	      $("#EDIT_CHRG_CUST_ID_DATA").val(customerCollection.items[this.selectedIndex].customerId);
-	      getCustomerTime(customerCollection.items[this.selectedIndex].customerId)
-	  }
-});	
+	cboCustomer.dispose();
+		  cboCustomer = new wijmo.input.ComboBox('#EDIT_CHRG_CUST_ID', {
+		  itemsSource: customers,
+		  displayMemberPath: "customerName",
+		  placeholder: "Select a Customer",
+		  isEditable: false,
+		  selectedValue: document.getElementById('EDIT_CUST_NAME').value.toString(),
+		  onSelectedIndexChanged: function () {
+		      $("#EDIT_CHRG_CUST_ID_DATA").val(customers[this.selectedIndex].customerId);
+		      getCustomerTime(customers[this.selectedIndex].customerId);
+		  }
+	});	
+		  
+      $("#EDIT_CHRG_CUST_ID_DATA").val(customers[0].customerId);
+      getCustomerTime(customers[0].customerId);
 }
 
 

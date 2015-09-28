@@ -291,22 +291,21 @@ function createCboCustomer(customers) {
 	cboCustomer.dispose();
 	cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID', {
 		itemsSource: customers,
-		displayMemberPath: "CUST_NAME",
 		placeholder: 'Select a Customer',
+		displayMemberPath: "CUST_NAME",
 		onSelectedIndexChanged: function () {
-		   getCustomerTime(this.selectedValue.CUST_ID)
+			getCustomerTime(this.selectedValue.CUST_ID) 
 		}
 	});	
 }
 
 function createCboCalendarDate(calendarDates) {
- 	 cboCalendarDate.dispose();
- 	 cboCalendarDate = new wijmo.input.ComboBox('#EDIT_CACT_CLDR_DATE', {
-	     itemsSource: calendarDates,
-	     placeholder: 'Select a Calendar Date',
-	     placeholder: "Select a Calendar Date", 
-	     displayMemberPath: "CLDR_DAYCODE",
- 	 });	
+	cboCalendarDate.dispose();
+	cboCalendarDate = new wijmo.input.ComboBox('#EDIT_CACT_CLDR_DATE', {
+		itemsSource: calendarDates,
+		placeholder: 'Select a Calendar Date',
+		displayMemberPath: "CLDR_DAYCODE",
+	});	
 }
 
 function createCboCustomerTime(customerTimes) {
@@ -329,9 +328,10 @@ function createCboCustomerTime(customerTimes) {
 // Edit Button Clicked
 // ===================
 function cmdCalendarActivityEdit_OnClick() {
+	
 	calendarActivities.editItem(calendarActivities.currentItem);
     var calendarActivity = calendarActivities.currentEditItem;
-    
+		
     $('#CalendarActivityEdit').modal({
         show: true,
         backdrop: 'static'
@@ -375,22 +375,23 @@ function cmdCalendarActivityEdit_OnClick() {
 // Add Button Clicked
 // ==================   
 function cmdCalendarActivityAdd_OnClick() {
-    $('#CalendarActivityEdit').modal({
-        show: true,
-        backdrop: 'static'
-    });
-        
     document.getElementById('EDIT_CACT_ID').value = 0;
     document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value = 'NA';
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = 'NA';
     
 	cboCustomer.disabled = false;
-	cboCustomer.selectedIndex = -1;
-	cboCalendarDate.selectedIndex = -1;
-	cboCustomerStartTime.selectedIndex = -1;
-	cboCustomerEndTime.selectedIndex = -1;
-	cboCalendarActivityDetailsNo.selectedIndex = -1;
-	cboOperation.selectedIndex = -1;
+	cboCustomer.selectedValue = null;
+	cboCalendarDate.selectedValue = null;
+	cboCustomerStartTime.selectedValue = null;
+	cboCustomerEndTime.selectedValue = null;
+	cboCalendarActivityDetailsNo.selectedValue = null;
+	cboOperation.selectedValue = null;
+
+    console.log("done");
+    $('#CalendarActivityEdit').modal({
+        show: true,
+        backdrop: 'static'
+    });
 }
 
 // =====================
@@ -398,12 +399,14 @@ function cmdCalendarActivityAdd_OnClick() {
 // =====================   
 function cmdCalendarActivityDelete_OnClick() {
 	calendarActivities.editItem(calendarActivities.currentItem);
-
+	var id = calendarActivities.currentEditItem.CACT_ID;
+	
     alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
+    	console.log("Delete: " + calendarActivities.currentEditItem.CACT_ID);
         $.ajax({
             type: "DELETE",
-            url: '${pageContext.request.contextPath}/api/calendarActivity/delete/' + calendarActivities.currentEditItem.CACT_ID,
+            url: '${pageContext.request.contextPath}/api/calendarActivity/delete/' + id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             statusCode: {
@@ -444,7 +447,7 @@ function cmdCalendarActivityEditOk_OnClick() {
 	calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
 	calendarActivityObject.CACT_START_TIME_ID = cboCustomerStartTime.selectedValue.CTIM_ID;
 	calendarActivityObject.CACT_END_TIME_ID = cboCustomerEndTime.selectedValue.CTIM_ID;
-	calendarActivityObject.CACT_OPERATION_FLAG = cboOperation.selectedValue.CODE_ID;	
+	calendarActivityObject.CACT_OPERATION_FLAG = cboOperation.selectedValue.CODE_ID;
 	
 	var data = JSON.stringify(calendarActivityObject);
 	$.ajax({

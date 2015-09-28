@@ -14,20 +14,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.innosoft.webreservation.entity.TrnAccessLog;
 import com.innosoft.webreservation.service.AccessLogService;
 
+/**
+ * Access log CRUD API
+ */
 @Controller
 @RequestMapping("api/accessLog")
 public class AccessLogApi {
+	
+	/**
+	 * Access log service variable
+	 */
 	@Autowired
 	private AccessLogService accessLogService;
 	
+	/**
+	 * Return access log list
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<TrnAccessLog> listAccessLog() {
 		List<TrnAccessLog> list = accessLogService.listAccessLog();
 		return list;
 	}
 	
+	/**
+	 * Update access log
+	 * @param accessLog
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<TrnAccessLog> updateCharge(@RequestBody TrnAccessLog accessLog) {
+	public ResponseEntity<TrnAccessLog> updateAccessLog(@RequestBody TrnAccessLog accessLog) {
 		try {
 			if(accessLog.getALOG_ID() == 0) {
 				TrnAccessLog newAccessLog = accessLogService.addAccessLog(accessLog);
@@ -41,6 +57,11 @@ public class AccessLogApi {
 		}
 	}
 	
+	/**
+	 * Delete access log
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteAccessLog(@PathVariable("id") int id) {
 		try {

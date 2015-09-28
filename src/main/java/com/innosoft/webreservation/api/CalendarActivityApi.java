@@ -17,48 +17,84 @@ import com.innosoft.webreservation.entity.MstCalendarActivity;
 import com.innosoft.webreservation.service.CalendarActivityService;
 import com.innosoft.webreservation.service.SecurityService;
 
+/**
+ * Calendar activity CRUD API
+ */
 @Controller
 @RequestMapping("api/calendarActivity")
 public class CalendarActivityApi {
+	/**
+	 * Calendar activity service property
+	 */
 	@Autowired
 	private CalendarActivityService calendarActivityService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Return list of calendar activities
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivity() {
 		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivity();
 		return list;
 	}	
-	
+	/**
+	 * Return list of calendar activity per customer
+	 * @param customerId
+	 * @return
+	 */
 	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivityByCustomer(@RequestParam(value="customerId") int customerId) {
 		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivityByCustomer(customerId);
 		return list;
 	}
-	
+	/**
+	 * Update calendar activity
+	 * @param calendarActivity
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<MstCalendarActivity> updateCalendarActivity(@RequestBody MstCalendarActivity calendarActivity) {
 		try {
-			System.out.print(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size());
-			if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
 				if(calendarActivity.getCACT_ID()==0) {
-					calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
-					MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
-					return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
+					if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
+						calendarActivity = (MstCalendarActivity)securityService.stampCreated(calendarActivity);
+						MstCalendarActivity newCalendarActivity = calendarActivityService.addCalendarActivity(calendarActivity);
+						return new ResponseEntity<MstCalendarActivity>(newCalendarActivity, HttpStatus.OK);
+					}else{
+						return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
+					}
 				} else {
-					calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
-					MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
-					return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+					MstCalendarActivity old = calendarActivityService.getCalendarActivityById(calendarActivity.getCACT_ID());
+					
+					if(old.CACT_CLDR_ID == calendarActivity.getCACT_CLDR_ID()){
+						calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
+						MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
+						return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+					}else{
+						if(calendarActivityService.listCalendarActivityByCalendarDate(calendarActivity).size() == 0){
+							calendarActivity = (MstCalendarActivity)securityService.stampUpdated(calendarActivity);
+							MstCalendarActivity editCalendarActivity = calendarActivityService.editCalendarActivity(calendarActivity);
+							return new ResponseEntity<MstCalendarActivity>(editCalendarActivity, HttpStatus.OK);
+						}else{
+							return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
+						}
+					}
 				}
-			}else{
-				return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
-			}
+			
 		} catch(Exception e) {
 			return new ResponseEntity<MstCalendarActivity>(HttpStatus.BAD_REQUEST);
 		}	
 	}	
-	
+	/**
+	 * Delete calendar activity
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteCalendarActivity(@PathVariable("id") int id) {
 		try {

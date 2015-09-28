@@ -14,29 +14,48 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomerTime;
-
+/**
+ * CRUD implementation for customer time data object.
+ */
 @Repository
 @Transactional
 public class CustomerTimeDaoImpl implements CustomerTimeDao {
-	
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List customer time method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerTime> listCustomerTime() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<MstCustomerTime> list = session.createQuery("from MstCustomerTime").list();	
+//		List<MstCustomerTime> list = session.createQuery("from MstCustomerTime").list();
+		Criteria criteria = session.createCriteria(MstCustomerTime.class);
+		criteria.addOrder(Order.asc("CTIM_CUST_ID"));
+		criteria.addOrder(Order.asc("CTIM_DETAILS_NO_INT"));
+		List<MstCustomerTime> list = criteria.list();
+
 		return list;
 	}
-
+	/**
+	 * List customer time by customer method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerTime> listCustomerTimeByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -46,7 +65,10 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 		List<MstCustomerTime> list = criteria.list();	
 		return list;		
 	}
-	
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -57,7 +79,9 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add customer time method
+	 */
 	public MstCustomerTime addCustomerTime(MstCustomerTime time) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -87,7 +111,9 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 			return time;	
 		}
 	}
-
+	/**
+	 * Edit customer time method
+	 */
 	public MstCustomerTime editCustomerTime(MstCustomerTime time) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -115,7 +141,8 @@ public class CustomerTimeDaoImpl implements CustomerTimeDao {
 			return new MstCustomerTime();
 		}	
 	}
-
+	/**
+	 */
 	public boolean deleteCustomerTime(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

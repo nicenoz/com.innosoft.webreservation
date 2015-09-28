@@ -16,23 +16,28 @@
 			 <div class="col-lg-2">
 	            <div id="cboCustomer"></div>
             </div>
-            <div class="col-lg-2">
-	            <div id="cboCalendarActivityStart"></div>
+            <div class="col-lg-3">
+				<div class="input-group">
+	            	<span class="input-group-addon" id="sizing-addon3">From</span>
+		            <div id="cboCalendarActivityStart"></div>
+	            </div>
             </div>
-            <div class="col-lg-2">
-	            <div id="cboCalendarActivityEnd"></div>
+            <div class="col-lg-3">
+				<div class="input-group">
+	            	<span class="input-group-addon" id="sizing-addon3"> To </span>
+		            <div id="cboCalendarActivityEnd"></div>
+	            </div>
             </div>            
 			
-			<div class="col-lg-6 btn-group">
-				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
-				
+			<div class="col-lg-4">
+				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
+				<!-- <button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button> -->
 			</div>
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row">
+		<div class="row hidden">
 			<div class="col-lg-12">
 				<div id="reportGrid" class="grid border-custom"></div>
 			</div>
@@ -41,7 +46,7 @@
 		<br />
 	
 		<!-- Table Navigation -->
-		<div class="row">
+		<div class="row hidden">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
 				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
@@ -305,12 +310,12 @@ function getReport(){
                 	}         
                 }
                 
-                if(reports.length > 0){
-                    document.getElementById("cmdSaveReport").style.display='block';
-                }else{
-                	document.getElementById("cmdSaveReport").style.display='none';
-                }
+                /* document.getElementById("cmdSaveReport").style.display='block'; */
                 ScreenerSaveData = reports;
+            	CmdSaveXLS_OnClick();
+            }else{
+            	/* document.getElementById("cmdSaveReport").style.display='none'; */
+            	 alertify.alert("No data."); 
             }
         }
     }).fail(

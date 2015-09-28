@@ -14,36 +14,53 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
-
+/**
+ * CRUD implementation for calendar activity data object.
+ */
 @Repository
 @Transactional
 public class CalendarActivityDaoImpl implements CalendarActivityDao{
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}	
+	/**
+	 * List calendar activity method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivity() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity").list();	
 		return list;		
 	}
+	/**
+	 * List calendar activity by customer method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
-
 		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity where CACT_CUST_ID=" + customerId).list();	
-
 		return list;
 	}
 	
-
+	/**
+	 * Get current session method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivityByCalendarDate(MstCalendarActivity calendarAct){
 		Session session = this.sessionFactory.getCurrentSession();
@@ -52,7 +69,19 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 				.add(Restrictions.eq("CACT_CUST_ID", calendarAct.getCACT_CUST_ID()));
 		return criteria.list();
 	}
-	
+	/**
+	 * Get current session method
+	 */
+	public MstCalendarActivity getCalendarActivityById(int cactId){
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(MstCalendarActivity.class)
+				.add(Restrictions.eq("CACT_ID", cactId));
+		return (MstCalendarActivity)criteria.list().get(0);
+	}
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -63,7 +92,9 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add calendar activity method
+	 */
 	public MstCalendarActivity addCalendarActivity(MstCalendarActivity calendarActivity){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -99,6 +130,11 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 			return calendarActivity;	
 		}		
 	}
+	/**
+	 * Edit calendar activity
+	 * @param calendarActivity
+	 * @return
+	 */
 	public MstCalendarActivity editCalendarActivity(MstCalendarActivity calendarActivity){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -131,6 +167,9 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 			return new MstCalendarActivity();
 		}		
 	}
+	/**
+	 * Delete calendar activity
+	 */
 	public boolean deleteCalendarActivity(int id){
 	    try {
 			Session session = this.sessionFactory.openSession();

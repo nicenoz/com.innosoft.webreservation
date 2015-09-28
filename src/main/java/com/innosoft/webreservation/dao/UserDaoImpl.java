@@ -15,22 +15,34 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstSecurityUser;
-
+/**
+ * CRUD implementation for user data object
+ */
 @Repository
 @Transactional
 public class UserDaoImpl implements UserDao {
-
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List user method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstSecurityUser> listUser() {
 		Session session = this.sessionFactory.openSession();
@@ -38,7 +50,9 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return list;
 	}
-
+	/**
+	 * Get user method
+	 */
 	@SuppressWarnings("unchecked")
 	public MstSecurityUser getUser(String login) {
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
@@ -54,7 +68,9 @@ public class UserDaoImpl implements UserDao {
 			return new MstSecurityUser();
 		}
 	}
-	
+	/**
+	 * Get user method
+	 */
 	@SuppressWarnings("unchecked")
 	public MstSecurityUser getUser(int id) {
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
@@ -67,7 +83,9 @@ public class UserDaoImpl implements UserDao {
 		else
 			return new MstSecurityUser();
 	}	
-	
+	/**
+	 * Get user email method
+	 */
 	@SuppressWarnings("unchecked")
 	public MstSecurityUser getUserEmail(String userEmail) {
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
@@ -83,7 +101,9 @@ public class UserDaoImpl implements UserDao {
 			return new MstSecurityUser();
 		}
 	}
-	
+	/**
+	 * Get user id (email esits) method
+	 */
 	@SuppressWarnings("unchecked")
 	public int getUserIdIfEmailExist(String userEmail){
 		List<MstSecurityUser> userList = new ArrayList<MstSecurityUser>();
@@ -100,7 +120,10 @@ public class UserDaoImpl implements UserDao {
 			return 0;
 		}
 	}
-	
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -111,7 +134,9 @@ public class UserDaoImpl implements UserDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add user method
+	 */
 	public MstSecurityUser addUser(MstSecurityUser user) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -138,7 +163,9 @@ public class UserDaoImpl implements UserDao {
 			return user;
 		}
 	}
-
+	/**
+	 * Edit user method
+	 */
 	public MstSecurityUser editUser(MstSecurityUser user) {
 		try {
 			Session session = this.sessionFactory.openSession();

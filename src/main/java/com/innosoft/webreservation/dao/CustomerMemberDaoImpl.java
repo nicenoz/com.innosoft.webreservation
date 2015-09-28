@@ -13,19 +13,34 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomerMember;
-
+/**
+ * CRUD implementation for customer member (user) data object.
+ */
 @Repository
 @Transactional
 public class CustomerMemberDaoImpl implements CustomerMemberDao {
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * Get member by user id method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerMember> getMemberByUserId(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -37,7 +52,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		
 		return list;
 	}
-	
+	/**Get member by email method
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerMember> getMemberByEmail(String email) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -49,7 +66,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		
 		return list;
 	}
-	
+	/**
+	 * Free User method
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean isAlreadyFreeUser(int freeCustomerId, String email){
 		Session session = this.sessionFactory.getCurrentSession();
@@ -63,14 +82,18 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		return list.size() > 0;
 	}
 	
-	
+	/**
+	 * List customer member method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerMember> listCustomerMember(){
 		Session session = this.sessionFactory.getCurrentSession();
 		List<MstCustomerMember> list = session.createQuery("from MstCustomerMember").list();	
 		return list;		
 	}
-	
+	/**
+	 * report customer member method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomerMember> reportCustomerMember(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -79,7 +102,10 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		List<MstCustomerMember> list = criteria.list();	
 		return list;
 	}
-	
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -90,7 +116,10 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public String getNewMemberNo()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -101,7 +130,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 		}
 		return String.format("%06d", Integer.parseInt("" + (maxId + 1)));
 	}
-	
+	/**
+	 * Add customer member method
+	 */
 	public MstCustomerMember addCustomerMember(MstCustomerMember member){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -145,6 +176,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 			return member;	
 		}		
 	}
+	/**
+	 * Edit customer member method
+	 */
 	public MstCustomerMember editCustomerMember(MstCustomerMember member){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -186,6 +220,9 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 			return new MstCustomerMember();
 		}		
 	}
+	/**
+	 * De
+	 */
 	public boolean deleteCustomerMember(int id){
 	    try {
 			Session session = this.sessionFactory.openSession();

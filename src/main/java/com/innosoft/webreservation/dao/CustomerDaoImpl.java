@@ -7,38 +7,57 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCustomer;
-
+import com.innosoft.webreservation.entity.TrnReservation;
+/**
+ * CRUD implementation for customer data object
+ */
 @Repository
 @Transactional
 public class CustomerDaoImpl implements CustomerDao {
-	
+	/**
+	 * Session Factory Method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**get session factory method
+	 * 
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List customer method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomer> listCustomer() {
 		Session session = this.sessionFactory.openSession();
-
-		List<MstCustomer> list = session.createQuery("from MstCustomer").list();	
 		
+		Criteria criteria = session.createCriteria(MstCustomer.class);
+		criteria.add(Restrictions.ne("CUST_CUSTOMER_NO", "000000"));
+		
+		List<MstCustomer> list = criteria.list();	
+
 		session.close();
 		
 		return list;
 	}
-	
+	/**
+	 * List customer with number method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<MstCustomer> listCustomerWithNo(String custNo){
 		Session session = this.sessionFactory.openSession();
@@ -49,7 +68,10 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return list;
 	}
-	
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -60,7 +82,10 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Get maximum customer number method
+	 * @return
+	 */
 	public String getMaxCustNum()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -71,7 +96,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return 	maxNo;
 	}
-	
+	/**
+	 * Add customer method
+	 */
 	public MstCustomer addCustomer(MstCustomer customer) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -107,7 +134,9 @@ public class CustomerDaoImpl implements CustomerDao {
 			return customer;	
 		}
 	}	
-	
+	/**
+	 *Edit customer method
+	 */
 	public MstCustomer editCustomer(MstCustomer customer) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -140,7 +169,9 @@ public class CustomerDaoImpl implements CustomerDao {
 			return new MstCustomer();
 		}		
 	}
-	
+	/**
+	 * Delete Customer method
+	 */
 	public boolean deleteCustomer(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

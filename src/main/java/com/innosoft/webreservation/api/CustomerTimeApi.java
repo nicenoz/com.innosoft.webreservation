@@ -17,29 +17,48 @@ import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.service.CustomerTimeService;
 import com.innosoft.webreservation.service.SecurityService;
 
-
+/**
+ *Customer time CRUD API
+ */
 @Controller
 @RequestMapping("api/customerTime")
 public class CustomerTimeApi {
+	/**
+	 * Customer time service property
+	 */
 	@Autowired
 	private CustomerTimeService customerTimeService;
+	/**
+	 * Security service property
+	 */
 	@Autowired
 	private SecurityService securityService;
-	
+	/**
+	 * Return list of customer
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerTime> listCustomerTime() {
 		List<MstCustomerTime> list = customerTimeService.listCustomerTime();
 		return list;
 	}
-	
+	/**
+	 * Return list of customer time by customer
+	 * @param customerId
+	 * @return
+	 */
 	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
 	public @ResponseBody List<MstCustomerTime> listCustomerTimeByCustomer(@RequestParam(value="customerId") int customerId) {
 		List<MstCustomerTime> list = customerTimeService.listCustomerTimeByCustomer(customerId);
 		return list;
 	}	
-	
+	/**
+	 * Update Customer Time 
+	 * @param time
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<MstCustomerTime> updateCharge(@RequestBody MstCustomerTime time) {
+	public ResponseEntity<MstCustomerTime> updateCustomerTime(@RequestBody MstCustomerTime time) {
 		try {
 			if(time.getCTIM_ID() == 0) {
 				time = (MstCustomerTime)securityService.stampCreated(time);
@@ -54,9 +73,13 @@ public class CustomerTimeApi {
 			return new ResponseEntity<MstCustomerTime>(time, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	/**
+	 * Delete customer time
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteCharge(@PathVariable("id") int id) {
+	public ResponseEntity<String> deleteCustomerTime(@PathVariable("id") int id) {
 		try {
 			boolean deleteReturn = customerTimeService.deleteCustomerTime(id);
 			if (deleteReturn == true) {

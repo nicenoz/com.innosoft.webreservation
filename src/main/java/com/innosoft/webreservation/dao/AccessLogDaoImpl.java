@@ -12,25 +12,44 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.TrnAccessLog;
-
+/**
+ * CRUD implementation for access log data object.
+ */
 @Repository
 @Transactional
 public class AccessLogDaoImpl implements AccessLogDao {
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}	
+	}
+	/**
+	 * List access log method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnAccessLog> listAccessLog(){
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TrnAccessLog> list = session.createQuery("from TrnAccessLog").list();	
 		return list;		
 	}
-	
+	/**
+	 * Get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -41,7 +60,9 @@ public class AccessLogDaoImpl implements AccessLogDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * Add access log method
+	 */
 	public TrnAccessLog addAccessLog(TrnAccessLog accessLog){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -65,6 +86,9 @@ public class AccessLogDaoImpl implements AccessLogDao {
 			return accessLog;	
 		}		
 	}
+	/**
+	 * Edit access log method
+	 */
 	public TrnAccessLog editAccessLog(TrnAccessLog accessLog){
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -89,6 +113,9 @@ public class AccessLogDaoImpl implements AccessLogDao {
 			return new TrnAccessLog();
 		}		
 	}
+	/**
+	 * Delete access log method
+	 */
 	public boolean deleteAccessLog(int id){
 	    try {
 			Session session = this.sessionFactory.openSession();

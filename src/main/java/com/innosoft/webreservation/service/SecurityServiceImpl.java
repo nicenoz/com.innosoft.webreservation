@@ -12,13 +12,24 @@ import org.springframework.stereotype.Service;
 
 import com.innosoft.webreservation.dao.UserDao;
 import com.innosoft.webreservation.entity.MstSecurityUser;
-
+/**
+ * CRUD service implementation for security
+ */
 @Service
 @Transactional
 public class SecurityServiceImpl implements SecurityService{
+	/**
+	 * User property
+	 */
 	@Autowired
 	private UserDao userDao;
-
+	/**
+	 * Set stamp method
+	 * @param object
+	 * @param fieldName
+	 * @param fieldValue
+	 * @return
+	 */
 	private boolean set(Object object, String fieldName, Object fieldValue) {
 	    Class<?> clazz = object.getClass();
 	    while (clazz != null) {
@@ -33,13 +44,17 @@ public class SecurityServiceImpl implements SecurityService{
 	    }
 	    return false;
 	}
-	
+	/**
+	 * Get current user method
+	 */
     public MstSecurityUser getCurrentUser() {
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername(); 
         return userDao.getUser(login);
     }
-    
+    /**
+     * Stamp date and time for created method
+     */
     public Object stampCreated(Object object) {
     	try {
     		this.set(object, "CREATED_DATE", new Date());
@@ -52,7 +67,9 @@ public class SecurityServiceImpl implements SecurityService{
     	
     	return object;
     }
-    
+    /**
+     * Stamp date and time for updated method
+     */
     public Object stampUpdated(Object object) {
     	try {
     		this.set(object, "UPDATED_DATE", new Date());
@@ -62,7 +79,9 @@ public class SecurityServiceImpl implements SecurityService{
     	}
     	return object;
     }
-    
+    /**
+     * Stamp date and time for deleted method
+     */
 
 	public Object stampDeleted(Object object){
 		try {

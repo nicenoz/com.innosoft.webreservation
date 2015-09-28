@@ -10,7 +10,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +17,43 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.TrnChargeCount;
-import com.innosoft.webreservation.entity.TrnReservation;
-
+/**
+ * CRUD implementation for charge count data object.
+ */
 @Repository
 @Transactional
 public class ChargeCountDaoImpl implements ChargeCountDao {
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+	/**
+	 * List charge count method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnChargeCount> listChargeCount() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TrnChargeCount> list = session.createQuery("from TrnChargeCount").list();	
 		return list;
 	}
-	
+	/**
+	 * Get reservation by id  method
+	 */
 	public TrnChargeCount getReservationById(int resvId){
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -49,9 +62,9 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		
 		return (TrnChargeCount) criteria.list().get(0);
 	}
-
-	
-	
+	/**
+	 * get report method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnChargeCount> getReport(String from, String to) {
 		
@@ -69,7 +82,10 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		
 		return list;
 	}
-	
+	/**
+	 * get current session method
+	 * @return
+	 */
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
@@ -80,7 +96,9 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 		}
 		return 	maxId;
 	}
-	
+	/**
+	 * add  charge count method
+	 */
 	public TrnChargeCount addChargeCount(TrnChargeCount chargeCount) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -110,7 +128,9 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 			return chargeCount;	
 		}
 	}
-
+	/**
+	 *Edit charge count method
+	 */
 	public TrnChargeCount editChargeCount(TrnChargeCount chargeCount) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -143,7 +163,9 @@ public class ChargeCountDaoImpl implements ChargeCountDao {
 			return new TrnChargeCount();
 		}	
 	}
-
+	/**
+	 * Delete  charge count method
+	 */
 	public boolean deleteChargeCount(int id) {
 	    try {
 			Session session = this.sessionFactory.openSession();

@@ -19,23 +19,35 @@ import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
 import com.innosoft.webreservation.service.UserPasswordService;
 import com.innosoft.webreservation.service.UserService;
-
+/**
+ * User CRUD API
+ */
 @Controller
 @RequestMapping("api/user")
 public class UserApi {
-
+	/**
+	 * User  service property
+	 */
 	@Autowired
 	private UserService userService;
-
+	/**
+	 * Email service property
+	 */
 	@Autowired
 	private EmailService emailService;
-	
+	/**
+	 * Customer service property
+	 */
 	@Autowired
 	private CustomerService customerService;
-	
+	/**
+	 * User password service property
+	 */
 	@Autowired
 	private UserPasswordService userPasswordService;
-	
+	/**
+	 * Customer member service property
+	 */
 	@Autowired
 	private CustomerMemberService customerMemberService;
 
@@ -49,13 +61,20 @@ public class UserApi {
 		}		
 		return password;
 	}
-	
+	/**
+	 * Return list of send log
+	 * @return
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstSecurityUser> listSendLog() {
 		List<MstSecurityUser> list = userService.listUser();
 		return list;
 	}
-	
+	/**
+	 * Update user
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<String> updateUser(@RequestBody MstSecurityUser user) {
 		try {
@@ -78,7 +97,11 @@ public class UserApi {
 		}
 	}
 	
-
+	/**
+	 * Return list of customer with customer no
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/loginFreeUser", method = RequestMethod.POST)
 	public ResponseEntity<String> loginFreeUser(@RequestBody MstSecurityUser user) {
 		int freeCustomerId = customerService.listCustomerWithNo("000000").get(0).getCUST_ID();

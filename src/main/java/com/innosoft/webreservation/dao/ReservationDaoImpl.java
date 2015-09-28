@@ -21,24 +21,35 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
-import com.innosoft.webreservation.entity.MstCustomerTime;
 import com.innosoft.webreservation.entity.TrnReservation;
-
+/**
+ * CRUD implementation for reservation data object.
+ */
 @Repository
 @Transactional
 public class ReservationDaoImpl implements ReservationDao {
-
+	/**
+	 * Session factory method
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	/**
+	 * Get session factory method
+	 * @return
+	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-
+	/**
+	 * Set session factory method
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	/**
+	 * List reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> listReservation() {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -46,7 +57,9 @@ public class ReservationDaoImpl implements ReservationDao {
 				.list();
 		return list;
 	}
-
+	/**
+	 * List by customer method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> listByCustomer(int customerId) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -56,7 +69,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Scheduled reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> scheduleReservation(int customerId,
 			int calendarActivityId) {
@@ -67,7 +82,9 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Report reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> reportReservation(String from, String to) {
 		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss",
@@ -85,7 +102,10 @@ public class ReservationDaoImpl implements ReservationDao {
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}
-
+	/**
+	 * Get max id method
+	 * @return
+	 */
 	public int getMaxId() {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnReservation.class)
@@ -97,127 +117,13 @@ public class ReservationDaoImpl implements ReservationDao {
 		return maxId;
 	}
 
-//  Fek
-//	@SuppressWarnings("unchecked")
-//	public TrnReservation validateReservation(TrnReservation reservation,
-//			Session session) {
-//
-//		Criteria getAllCustomerTime = session
-//				.createCriteria(MstCustomerTime.class);
-//		getAllCustomerTime.add(Restrictions.eq("CTIM_CUST_ID",
-//				reservation.RESV_CUST_ID));
-//		getAllCustomerTime.addOrder(Order.asc("CTIM_DETAILS_NO_INT"));
-//		List<MstCustomerTime> customerTimeList = getAllCustomerTime.list();
-//
-//		int startTime = 0;
-//		for (int a = 0; a < customerTimeList.size(); a++) {
-//			if (reservation.RESV_START_TIME_ID == ((MstCustomerTime) customerTimeList
-//					.get(a)).getCTIM_ID()) {
-//				startTime = ((MstCustomerTime) customerTimeList.get(a))
-//						.getCTIM_DETAILS_NO_INT();
-//				break;
-//			}
-//		}
-//
-//		int endTime = 0;
-//		for (int a = 0; a < customerTimeList.size(); a++) {
-//			if (reservation.RESV_END_TIME_ID == ((MstCustomerTime) customerTimeList
-//					.get(a)).getCTIM_ID()) {
-//				endTime = ((MstCustomerTime) customerTimeList.get(a))
-//						.getCTIM_DETAILS_NO_INT();
-//				break;
-//			}
-//		}
-//
-//		Criteria getReservationsByDate = session
-//				.createCriteria(TrnReservation.class);
-//		getReservationsByDate.add(Restrictions.eq("RESV_CUST_ID",
-//				reservation.RESV_CUST_ID));
-//		getReservationsByDate.add(Restrictions.eq("RESV_CACT_ID",
-//				reservation.RESV_CACT_ID));
-//		List<TrnReservation> reservationList = getReservationsByDate.list();
-//
-//		// MultipleChecker:
-//		for (int x = 0; x < customerTimeList.size(); x++) {
-//			if (customerTimeList.get(x).getCTIM_DETAILS_NO_INT() >= startTime
-//					&& customerTimeList.get(x).getCTIM_DETAILS_NO_INT() <= endTime) {
-//
-//				int reservationCount = 0;
-//
-//				for (int a = 0; a < reservationList.size(); a++) {
-//					if (reservationList.get(a).getRESV_PARTS_NO() == reservation
-//							.getRESV_PARTS_NO()) {
-//
-//						int checkReservationStartTimeIndex = -1;
-//						int checkReservationEndTimeIndex = -1;
-//
-//						for (int b = 0; b < customerTimeList.size(); b++) {
-//							if (reservationList.get(a).getRESV_START_TIME_ID() == customerTimeList
-//									.get(b).getCTIM_ID()) {
-//								checkReservationStartTimeIndex = b;
-//							}
-//
-//							if (reservationList.get(a).getRESV_END_TIME_ID() == customerTimeList
-//									.get(b).getCTIM_ID()) {
-//								checkReservationEndTimeIndex = b;
-//							}
-//
-//							if (checkReservationStartTimeIndex != -1
-//									&& checkReservationEndTimeIndex != -1) {
-//								break;
-//							}
-//						}
-//
-//						List<MstCustomerTime> searchList = customerTimeList
-//								.subList(checkReservationStartTimeIndex,
-//										checkReservationEndTimeIndex + 1);
-//						for (int c = 0; c < searchList.size(); c++) {
-//							if (searchList.get(c).getCTIM_ID() == customerTimeList
-//									.get(x).getCTIM_ID()) {
-//
-//								// IF: No duplicate reservations for single day
-//								// if(reservationList.get(a).getRESV_MEBR_ID()
-//								// == reservation.getRESV_MEBR_ID()){
-//								// isValid = false;
-//								// newReservation.setRESV_ID(-2);
-//								// break MultipleChecker;
-//								// }
-//
-//								// IF: Allow duplicate for day but not for same
-//								// time
-//								// if(reservationList.get(a).getRESV_MEBR_ID()
-//								// == reservation.getRESV_MEBR_ID()){
-//								// isValid = false;
-//								// newReservation.setRESV_ID(-2);
-//								// break MultipleChecker;
-//								// }
-//
-//								reservationCount++;
-//							}
-//
-//						}
-//					}
-//				}
-//
-//				if (reservationCount >= customerTimeList.get(x)
-//						.getCTIM_MAX_UNIT_NO()) {
-//					reservation.setRESV_ID(-1);
-//					break;
-//				}
-//			}
-//		}
-//
-//		return reservation;
-//
-//	}
 
+	/**
+	 * Add reservation method
+	 */
 	public TrnReservation addReservation(TrnReservation reservation) {
 		try {
 			Session session = this.sessionFactory.openSession();
-//			TrnReservation newReservation = validateReservation(reservation,
-//					session);
-//
-//			if (newReservation.getRESV_ID() != -1) {
 			TrnReservation newReservation = reservation;
 
 			Transaction tx = null;
@@ -252,13 +158,12 @@ public class ReservationDaoImpl implements ReservationDao {
 			return reservation;
 		}
 	}
-
+	/**
+	 * Edit reservation
+	 */
 	public TrnReservation editReservation(TrnReservation reservation) {
 		try {
 			Session session = this.sessionFactory.openSession();
-//			TrnReservation updateReservation = validateReservation(
-//					(TrnReservation) session.get(TrnReservation.class,
-//							reservation.RESV_ID), session);
 
 			TrnReservation updateReservation = (TrnReservation) session.get(TrnReservation.class,
 					reservation.RESV_ID);
@@ -292,7 +197,10 @@ public class ReservationDaoImpl implements ReservationDao {
 			return new TrnReservation();
 		}
 	}
-
+	
+	/**
+	 * Delete reservation method
+	 */
 	public boolean deleteReservation(int id) {
 		try {
 			Session session = this.sessionFactory.openSession();
@@ -312,7 +220,9 @@ public class ReservationDaoImpl implements ReservationDao {
 			return false;
 		}
 	}
-	
+	/**
+	 * Notification reservation method
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> notificationReservation(String parameterDate) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
@@ -326,22 +236,22 @@ public class ReservationDaoImpl implements ReservationDao {
 			for (int i = 0; i < list.size(); i++) {
 				long calendarId = list.get(i).RESV_CACT_ID;
 				
-				Criteria criteria = session.createCriteria(MstCalendarActivity.class);
-				criteria.add(Restrictions.eq("CACT_ID",calendarId));
-				MstCalendarActivity calendarActivity = (MstCalendarActivity)criteria.list().get(0);
+				List<MstCalendarActivity> query = session.createQuery("from MstCalendarActivity where CACT_ID =" + calendarId)
+				.list();
+				
+				MstCalendarActivity calendarActivity = query.get(0);
 				
 				Date reservationDate = calendarActivity.CACT_CLDR_FK.CLDR_DATE;
 				Date systemDate = dateFormat.parse(parameterDate);
-				
 				long diff = reservationDate.getTime() - systemDate.getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 			    
-			    if (days >= 0 && days <= 3) {
+				if (days >= 0 && days <= 3) {
 			    	returnList.add(list.get(i));
 			    }
 			}			
 		} catch(Exception e) {
-			
+			System.out.print(e);
 		}
 	
 		return returnList;
