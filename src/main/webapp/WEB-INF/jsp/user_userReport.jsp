@@ -23,16 +23,15 @@
 		        </div>
 	    	</div>
 			
-			<div class="col-lg-8 btn-group">
-				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
-				
+			<div class="col-lg-8">
+				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
+				<!-- <button id="cmdSaveReport" type="submit" class="btn btn-success border-custom" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button> -->
 			</div>
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row">
+		<div class="row hidden">
 			<div class="col-lg-12">
 				<div id="reportGrid" class="grid border-custom"></div>
 			</div>
@@ -41,7 +40,7 @@
 		<br />
 	
 		<!-- Table Navigation -->
-		<div class="row">
+		<div class="row hidden">
 		    <div class="btn-group col-md-7" id="naviagtionPageGrid">
 		        <button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 		            <span class="glyphicon glyphicon-fast-backward"></span>
@@ -273,10 +272,9 @@ function getReport() {
  	 data: {"customerId" : cboCustomer.selectedValue.id},
  	 contentType: 'application/json; charset=utf-8',
  	 success: function (Results) {
-    	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
-             document.getElementById("cmdSaveReport").style.display='block';
+             /* document.getElementById("cmdSaveReport").style.display='block'; */
              for (i = 0; i < Results.length; i++) {
                  reports.push({
                 	 MEBR_NO: Results[i]["mebr_CUSTOMER_MEMBER_NO"],
@@ -297,11 +295,12 @@ function getReport() {
                      ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
                      ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
                  });
-             	 
              }
+             ScreenerSaveData = Results;
+        	 CmdSaveXLS_OnClick();
          } else {
-             document.getElementById("cmdSaveReport").style.display='none';
-        	/*  alertify.alert("No data."); */
+             /* document.getElementById("cmdSaveReport").style.display='none'; */
+        	 alertify.alert("No data."); 
          }
      }
  }).fail(
