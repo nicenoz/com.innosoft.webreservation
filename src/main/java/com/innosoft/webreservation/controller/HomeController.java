@@ -2,6 +2,7 @@ package com.innosoft.webreservation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -123,4 +124,11 @@ public class HomeController {
 		ModelAndView model = new ModelAndView("register_secure");
 		return model;
 	}
+	
+	@RequestMapping("/403_page")
+	public ModelAndView error403() {
+		ModelAndView model = new ModelAndView("403_page");
+		return model;
+	}
+	
 }

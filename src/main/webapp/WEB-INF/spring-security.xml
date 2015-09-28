@@ -9,6 +9,7 @@
 	<beans:bean id="loginServiceImpl" class="com.innosoft.webreservation.service.LoginServiceImpl"/>
 	
 	<http auto-config="true">  
+		<access-denied-handler error-page="/403_page" />
 		<intercept-url pattern="/user/chargingReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
 		<intercept-url pattern="/user/reservationReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
 		<intercept-url pattern="/user/userReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
@@ -29,6 +30,7 @@
 	    <intercept-url pattern="/software/" access="ROLE_USER"/>
 	    <intercept-url pattern="/software/*" access="ROLE_ADMIN,ROLE_CUSTOMER"/>  
 	    <intercept-url pattern="/api/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>  
+	    
 	    <form-login login-page="/login/"></form-login>
 		<form-login 
 		    login-page="/login/" 

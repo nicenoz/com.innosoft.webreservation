@@ -14,29 +14,28 @@
 
 			<!-- Search Calendar -->
 			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
-			  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
-			</div>
+				<div class="input-group">
+				  <span class="input-group-addon border-custom" id="sizing-addon3">From</span>
+				  <div id="SEARCH_REPORT_FROM_DATE" class="border-custom btn-block"></div>
+				</div>
 			</div>
 			
 			<div class="col-lg-3">
-			<div class="input-group">
-			  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
-			  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
-			</div>
+				<div class="input-group">
+				  <span class="input-group-addon border-custom" id="sizing-addon3"> To </span>
+				  <div id="SEARCH_REPORT_TO_DATE" class="border-custom btn-block"></div>
+				</div>
 			</div>
 			
-			<div class="col-lg-6 btn-group">
-				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom pull-right" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				<button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button>
-				
+			<div class="col-lg-6">
+				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
+				<!-- <button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button> -->
 			</div>
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row">
+		<div class="row hidden">
 			<div class="col-lg-12">
 				<div id="reportGrid" class="grid border-custom"></div>
 			</div>
@@ -45,7 +44,7 @@
 		<br />
 	
 		<!-- Table Navigation -->
-		<div class="row">
+		<div class="row hidden">
 			<div class="btn-group col-md-7" id="naviagtionPageGrid">
 				<button type="button" class="btn btn-default border-custom" id="btnMoveToFirstPageGrid">
 					<span class="glyphicon glyphicon-fast-backward"></span>
@@ -215,36 +214,38 @@ function getReport() {
      },
      contentType: 'application/json; charset=utf-8',
      success: function (Results) {
-    	 ScreenerSaveData = Results;
          $('#loading').modal('hide');
          if (Results.length > 0) {
-             document.getElementById("cmdSaveReport").style.display='block';
-             var counter = 0;
-             for (i = 0; i < Results.length; i++) {
-                 reports.push({
-                     CUNT_TIMESTAMP : Results[i]["cunt_TIME_STAMP"],
-                     CUNT_CUSTOMER_NAME: Results[i]["CUNT_CUST_FK"]["cust_NAME"],
-                     CUNT_MEMBER_NAME: Results[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
-                     CUNT_EMAIL : Results[i]["cunt_EMAIL_ADDRESS"],
-                     CUNT_ISDELETED : Results[i]["isdeleted"] == 0 ? "No":"Yes",
+            /* document.getElementById("cmdSaveReport").style.display='block'; */
+            var counter = 0;
+            for (i = 0; i < Results.length; i++) {
+                reports.push({
+                    CUNT_TIMESTAMP : Results[i]["cunt_TIME_STAMP"],
+                    CUNT_CUSTOMER_NAME: Results[i]["CUNT_CUST_FK"]["cust_NAME"],
+                    CUNT_MEMBER_NAME: Results[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
+                    CUNT_EMAIL : Results[i]["cunt_EMAIL_ADDRESS"],
+                    CUNT_ISDELETED : Results[i]["isdeleted"] == 0 ? "No":"Yes",
 
-                     CREATED_DATE: Results[i]["created_DATE"],
-                     CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                     UPDATED_DATE: Results[i]["updated_DATE"],
-                     UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                     ISDELETED: Results[i]["ISDELETED"],
-                     ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-                     ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
-                 });
-                 if( Results[i]["isdeleted"] == 0){
-                	 counter++;
-                 }
-             }
-             document.getElementById('counter').textContent = "Count: " + counter;
+                    CREATED_DATE: Results[i]["created_DATE"],
+                    CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+                    UPDATED_DATE: Results[i]["updated_DATE"],
+                    UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+                    ISDELETED: Results[i]["ISDELETED"],
+                    ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+                    ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+                });
+                if( Results[i]["isdeleted"] == 0){
+               	 counter++;
+                }
+            }
+            document.getElementById('counter').textContent = "Count: " + counter;
+
+        	ScreenerSaveData = Results;
+         	CmdSaveXLS_OnClick();
              
          } else {
-             document.getElementById("cmdSaveReport").style.display='none';
-      /*   	 alertify.alert("No data."); */
+             /* document.getElementById("cmdSaveReport").style.display='none'; */
+         	 alertify.alert("No data."); 
          }
      }
  }).fail(
@@ -361,7 +362,7 @@ function CmdSaveXLS_OnClick() {
         screener.push({
         	TimeStamp : ScreenerSaveData[i]["cunt_TIME_STAMP"],
             CustomerName: ScreenerSaveData[i]["CUNT_CUST_FK"]["cust_NAME"],
-            CustomerMemberName: ScreenerSaveData[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +Results[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
+            CustomerMemberName: ScreenerSaveData[i]["CUNT_MEBR_FK"]["MEBR_LAST_NAME"] + ", " +ScreenerSaveData[i]["CUNT_MEBR_FK"]["MEBR_FIRST_NAME"],
             MemberEmail : ScreenerSaveData[i]["cunt_EMAIL_ADDRESS"],
             IsDeleted : ScreenerSaveData[i]["isdeleted"] == 0 ? "No":"Yes",
 
