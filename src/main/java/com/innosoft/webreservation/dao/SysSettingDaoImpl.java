@@ -33,7 +33,7 @@ public class SysSettingDaoImpl implements SysSettingDao{
 		return sessionFactory;
 	}
 	/**
-	 * St session factory method
+	 * Set session factory method
 	 * @param sessionFactory
 	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {

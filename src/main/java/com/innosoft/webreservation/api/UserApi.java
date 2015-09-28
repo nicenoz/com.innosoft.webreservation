@@ -54,10 +54,11 @@ public class UserApi {
 	private String generatePassword() {
 		String password = "";
 		Random rand = new Random();
+		char val[] = {'a','b','c','d','e','f','A','B','C','D','E','F'};
 		for(int i = 0; i < 5; i++)
 		{
 			Integer randomNumber =  rand.nextInt(9);
-			password = password + randomNumber.toString();
+			password = password + randomNumber.toString() + val[i+3];
 		}		
 		return password;
 	}

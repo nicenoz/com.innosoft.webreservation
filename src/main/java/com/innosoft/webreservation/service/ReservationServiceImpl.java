@@ -65,8 +65,8 @@ public class ReservationServiceImpl implements ReservationService{
 	/**
 	 * Notification method
 	 */
-	public List<TrnReservation> notificationReservation(String systemDate) {
-		return reservationDao.notificationReservation(systemDate);
+	public List<TrnReservation> notificationReservation(String systemDate, int noOfDays) {
+		return reservationDao.notificationReservation(systemDate, noOfDays);
 	}
  
 }

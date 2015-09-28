@@ -468,13 +468,13 @@ $(document).ready(function () {
                         "allowSorting": false,
                         "isContentHtml": true
                     },
-                    {
+                    /* {
                         "header": "Delete",
                         "binding": "DeleteId",
                         "width": 60,
                         "allowSorting": false,
                         "isContentHtml": true
-                    },
+                    }, */
                     {
                         "header": "Customer No",
                         "binding": "CUST_CUSTOMER_NO",
