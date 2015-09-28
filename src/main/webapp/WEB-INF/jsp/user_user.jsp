@@ -709,6 +709,12 @@ $(document).ready(function() {
 						"isContentHtml" : true
 					}, 
 					{
+						"header" : "Member No",
+						"binding" : "MEBR_CUSTOMER_MEMBER_NO",
+						"allowSorting" : true,
+						"width" : "2*"
+					}, 					
+					{
 						"header" : "Firstname",
 						"binding" : "MEBR_FIRST_NAME",
 						"allowSorting" : true,
@@ -727,23 +733,11 @@ $(document).ready(function() {
 						"width" : "2*"
 					},
 					{
-						"header" : "Code",
-						"binding" : "MEBR_ID",
-						"allowSorting" : true,
-						"width" : "2*"
-					}, 
-					{
-						"header" : "Name",
+						"header" : "Customer",
 						"binding" : "MEBR_CUST_FK",
 						"allowSorting" : true,
 						"width" : "2*"
 					},
-					{
-						"header" : "Member No",
-						"binding" : "MEBR_CUSTOMER_MEMBER_NO",
-						"allowSorting" : true,
-						"width" : "2*"
-					}, 
 					{
 						"header" : "Email Address",
 						"binding" : "MEBR_EMAIL_ADDRESS",
