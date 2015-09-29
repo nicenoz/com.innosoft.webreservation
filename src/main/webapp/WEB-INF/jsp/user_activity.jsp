@@ -403,7 +403,6 @@ function cmdCalendarActivityDelete_OnClick() {
 	
     alertify.confirm("<span class='glyphicon glyphicon-trash'></span> " + getMessage("P0001"), function (e) {
     if (e) {
-    	console.log("Delete: " + calendarActivities.currentEditItem.CACT_ID);
         $.ajax({
             type: "DELETE",
             url: '${pageContext.request.contextPath}/api/calendarActivity/delete/' + id,
