@@ -69,4 +69,14 @@ public class MstSecurityUser {
 	public void setUSER_PASSWORD(String uSER_PASSWORD) {
 		USER_PASSWORD = uSER_PASSWORD;
 	}	
+	
+	@Column(name="USER_ROLES")
+	public Integer USER_ROLES;
+
+	public Integer getUSER_ROLES() {
+		return USER_ROLES;
+	}
+	public void setUSER_ROLES(Integer uSER_ROLES) {
+		USER_ROLES = uSER_ROLES;
+	}
 }

@@ -37,7 +37,7 @@ public interface ReservationDao {
 	 * @param systemDate
 	 * @return
 	 */
-	public List<TrnReservation> notificationReservation(String systemDate);
+	public List<TrnReservation> notificationReservation(String systemDate, int noOfDays);
 	/**
 	 * Add reservation method
 	 * @param reservation

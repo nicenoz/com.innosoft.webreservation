@@ -224,7 +224,7 @@ public class ReservationDaoImpl implements ReservationDao {
 	 * Notification reservation method
 	 */
 	@SuppressWarnings("unchecked")
-	public List<TrnReservation> notificationReservation(String parameterDate) {
+	public List<TrnReservation> notificationReservation(String parameterDate, int noOfDays) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
 		
 		Session session = this.sessionFactory.getCurrentSession();
@@ -246,7 +246,7 @@ public class ReservationDaoImpl implements ReservationDao {
 				long diff = reservationDate.getTime() - systemDate.getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 			    
-				if (days >= 0 && days <= 3) {
+				if (days >= 0 && days <= noOfDays) {
 			    	returnList.add(list.get(i));
 			    }
 			}			

@@ -31,7 +31,6 @@
 <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 <script src="<c:url value='/js/jquery.validate.js' />"></script>
 <script src="<c:url value='/js/toastr.js' />"></script>
-<script src="<c:url value='/js/message.js'/>"></script>
 <script src="<c:url value='/js/style.js'/>"></script>
 <script src="<c:url value='/js/jquery.easing.min.js'/>"></script>
 <script src="<c:url value='/js/date.js' />"></script>
@@ -42,6 +41,7 @@
 <script src="<c:url value='/wijmo/controls/wijmo.grid.min.js' />" type="text/javascript"></script>
 <script src="<c:url value='/wijmo/controls/wijmo.chart.min.js' />"></script>
 <link href="<c:url value='/wijmo/styles/wijmo.min.css' />" rel="stylesheet" />
+<script src="<c:url value='/js/message.js'/>"></script>
 </head>
 <body class="bodytopindent">
 

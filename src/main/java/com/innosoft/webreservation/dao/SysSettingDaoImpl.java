@@ -33,7 +33,7 @@ public class SysSettingDaoImpl implements SysSettingDao{
 		return sessionFactory;
 	}
 	/**
-	 * St session factory method
+	 * Set session factory method
 	 * @param sessionFactory
 	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -64,6 +64,7 @@ public class SysSettingDaoImpl implements SysSettingDao{
 			SysSetting updateSettings = (SysSetting)session.get(SysSetting.class, setting.SSET_ID); 
 			updateSettings.setSSET_NOTIFICATION_TIME(setting.SSET_NOTIFICATION_TIME);
 			updateSettings.setSSET_NOTIFICATION_DATE(setting.SSET_NOTIFICATION_DATE);
+			updateSettings.setSSET_NOTIFICATION_NO_OF_DAYS(setting.SSET_NOTIFICATION_NO_OF_DAYS);
 			session.update(updateSettings); 
 			tx.commit();
 			session.close();
@@ -108,6 +109,8 @@ public class SysSettingDaoImpl implements SysSettingDao{
 				updateSetting.setSSET_NOTIFICATION_DATE(setting.SSET_NOTIFICATION_DATE);
 			}
 			
+			updateSetting.setSSET_NOTIFICATION_NO_OF_DAYS(setting.SSET_NOTIFICATION_NO_OF_DAYS);
+
 			session.update(updateSetting); 
 			tx.commit();
 			session.close();

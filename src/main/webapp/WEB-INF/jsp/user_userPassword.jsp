@@ -42,47 +42,66 @@
 
 <script type="text/javascript">
 	function ChangePassword_Onclick() {
-		if (document.getElementById("OLD_PASSWORD").value != document.getElementById("USER_PASSWORD").value && document.getElementById("USER_PASSWORD").value == document.getElementById("CONFIRMED_USER_PASSWORD").value) {
-			var userObject = new Object();
+		var password = document.getElementById("USER_PASSWORD");
+		var passwordRestriction =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;  
+		
+		if ((document.getElementById("OLD_PASSWORD").value == "") || (document.getElementById("OLD_PASSWORD").value == null)) {
+			toastr.warning('Current Password field is empty');
+		} 
+		else if((document.getElementById("USER_PASSWORD").value == "") || (document.getElementById("USER_PASSWORD").value == null)) {
+			toastr.warning('New Password field is empty');
+		} 
+		else if((document.getElementById("CONFIRMED_USER_PASSWORD").value == "") || (document.getElementById("CONFIRMED_USER_PASSWORD").value == null)) {
+			toastr.warning('Confirm Password field is empty');
+		}
+		else {
+			if(password.value.match(passwordRestriction))   
+			{   
+				if (document.getElementById("OLD_PASSWORD").value != document.getElementById("USER_PASSWORD").value && document.getElementById("USER_PASSWORD").value == document.getElementById("CONFIRMED_USER_PASSWORD").value) {
+					var userObject = new Object();
 
-			userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
-			userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
+					userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
+					userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
 
-			var data = JSON.stringify(userObject);
-			
-			$('#loading').modal('show');
-			$.ajax({
-				type : "POST",
-				url : '${pageContext.request.contextPath}/api/user/update',
-				contentType : "application/json; charset=utf-8",
-				dataType : "json",
-				data : data,
-				statusCode : {
-					200 : function() {
-						$('#loading').modal('hide');
-						toastr.success(getMessage("S0003"));
-						window.setTimeout(function() {
-							location.reload()
-						}, 1000);
-					},
-					404 : function() {
-						$('#loading').modal('hide');
-						toastr.error(getMessage("E0009"));
-					},
-					400 : function() {
-						$('#loading').modal('hide');
-						toastr.error(getMessage("E0003"));
-					}
+					var data = JSON.stringify(userObject);
+					
+					$('#loading').modal('show');
+					$.ajax({
+						type : "POST",
+						url : '${pageContext.request.contextPath}/api/user/update',
+						contentType : "application/json; charset=utf-8",
+						dataType : "json",
+						data : data,
+						statusCode : {
+							200 : function() {
+								$('#loading').modal('hide');
+								toastr.success(getMessage("S0003"));
+								window.setTimeout(function() {
+									location.reload()
+								}, 1000);
+							},
+							404 : function() {
+								$('#loading').modal('hide');
+								toastr.error(getMessage("E0009"));
+							},
+							400 : function() {
+								$('#loading').modal('hide');
+								toastr.error(getMessage("E0003"));
+							}
+						}
+					});
+				} else {
+					toastr.error(getMessage("E0008"));
 				}
-			});
-		} else {
-			toastr.error(getMessage("E0008"));
+				return true;  
+			}  
+			else  
+			{   
+				toastr.error('the password must contain between 8 to 15 characters with at least one lowercase letter, one uppercase letter, one numeric digit, and one special character');
+				return false; 
+			}  
 		}
 	}
-
-	$(document).ready(function() {
-
-	});
 </script>
 
 <!-- footer -->

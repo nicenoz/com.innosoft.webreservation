@@ -28,10 +28,15 @@ public class SysSetting {
      */
     @Column(name="SSET_NOTIFICATION_DATE")
     public Date SSET_NOTIFICATION_DATE;
+
+    @Column(name="SSET_NOTIFICATION_NO_OF_DAYS")
+    public int SSET_NOTIFICATION_NO_OF_DAYS;
+
     /**
      * Get SSET_NOTIFICATION_DATE property
      * @return
      */
+
 	public Date getSSET_NOTIFICATION_DATE() {
 		return SSET_NOTIFICATION_DATE;
 	}
@@ -71,6 +76,15 @@ public class SysSetting {
 	public void setSSET_NOTIFICATION_TIME(String sSET_NOTIFICATION_TIME) {
 		SSET_NOTIFICATION_TIME = sSET_NOTIFICATION_TIME;
 	}
+	
+	public int getSSET_NOTIFICATION_NO_OF_DAYS() {
+		return SSET_NOTIFICATION_NO_OF_DAYS;
+	}
+
+	public void setSSET_NOTIFICATION_NO_OF_DAYS(int sSET_NOTIFICATION_NO_OF_DAYS) {
+		SSET_NOTIFICATION_NO_OF_DAYS = sSET_NOTIFICATION_NO_OF_DAYS;
+	}
+
 	/**
 	 * 
 	 */

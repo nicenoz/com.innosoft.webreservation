@@ -57,12 +57,13 @@ public class NotificationReservationService {
 		    
 		    String setTime = setting.getSSET_NOTIFICATION_TIME();
 		    String setDate = dateFormat.format(setting.getSSET_NOTIFICATION_DATE());	
+		    int setNoOfDays = setting.getSSET_NOTIFICATION_NO_OF_DAYS();
 		    
 		    if(setTime.equals(currentTime) && !setDate.equals(currentDate))
 		    {
-		    	//System.out.println("Succes Equal");
+		    	//System.out.println("Success Equal");
 		    	String emailServe = "";
-		    	List<TrnReservation> list = reservationService.notificationReservation(currentDate);    	
+		    	List<TrnReservation> list = reservationService.notificationReservation(currentDate,setNoOfDays);    	
 		    	for (int i = 0; i < list.size(); i++) {
 
 		    		if(list.size() != 0)
