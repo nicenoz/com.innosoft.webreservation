@@ -45,17 +45,17 @@
 </div>
 
 <!-- Loading -->
-<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true">
-    <div class="modal-dialog" style="width: 220px;">
-        <div class="modal-content border-custom">
-            <div class="modal-header">
-                <h4 class="modal-title">Loading...</h4>
-            </div>
-            <div class="modal-body">
-                <img src="<c:url value='/img/progress_bar.gif' />"></img>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="Loading..." aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog" style="width: 220px;">
+		<div class="modal-content border-custom">
+			<div class="modal-header">
+				<h4 class="modal-title">Loading...</h4>
+			</div>
+			<div class="modal-body">
+				<img src="<c:url value='/img/progress_bar.gif' />"></img>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Reservation Add/Edit Window -->
@@ -171,6 +171,7 @@ var scheduleGrid;
 // ======
 	
 function updateTable(){
+	$('#loading').modal('show');
 	calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
@@ -179,6 +180,7 @@ function updateTable(){
         contentType: 'application/json; charset=utf-8',
         data: {"customerId":cboCustomer.selectedValue.id},
         success: function (results) {
+        	$('#loading').modal('hide');
         	reservationsList = new Array();
             if (results.length > 0) {
                 results.forEach(function(result){
@@ -430,7 +432,7 @@ function cmdAddEditOk_OnClick() {
     						statusCode : {
     							200 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M0001"));
+    								/* toastr.info(getMessage("M0001")); */
     							},
     							404 : function() {
     								$('#loading').modal('hide');
@@ -509,7 +511,8 @@ function cmdDelete_OnClick(){
 						data : data,
 						statusCode : {
 							200 : function() {
-								toastr.info(getMessage("M0001"));
+								$('#loading').modal('hide');
+								/* toastr.info(getMessage("M0001")); */
 							},
 							404 : function() {
 								$('#loading').modal('hide');
