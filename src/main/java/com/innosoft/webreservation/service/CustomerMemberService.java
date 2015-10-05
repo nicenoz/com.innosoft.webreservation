@@ -17,7 +17,7 @@ public interface CustomerMemberService {
 	 * @param customerId
 	 * @return
 	 */
-	public List<MstCustomerMember> reportCustomerMember(int customerId);
+	public List<MstCustomerMember> reportCustomerMember(int customerId, String from, String to);
 	/**
 	 * Free user method
 	 * @param freeCustomerId

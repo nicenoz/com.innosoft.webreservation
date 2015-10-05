@@ -11,9 +11,7 @@
 			</div>
 		</div>
 		<div class="row">
-
-			<!-- Search Calendar -->
-			 <div class="col-lg-2">
+			<div class="col-lg-2">
 	            <div id="cboCustomer"></div>
             </div>
             <div class="col-lg-3">
@@ -271,6 +269,31 @@ function getCalendarActivities(customerId) {
     );	
 }
 
+function createCboCalendarActivity(calendarActivities) {
+	
+    cboCalendarActivityStart.dispose();
+    cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
+        itemsSource: calendarActivities,
+        displayMemberPath: "dayCode",
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
+        		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
+        	}
+        }
+    });		
+    
+    cboCalendarActivityEnd.dispose();
+    cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
+        itemsSource: calendarActivities,
+        displayMemberPath: "dayCode",
+        onSelectedIndexChanged: function () {
+        	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
+        		cboCalendarActivityStart.selectedIndex = this.selectedIndex;
+        	}
+        }
+    });	    
+}
+
 function getReport(){
 	var reports = new wijmo.collections.ObservableArray();
 	$.ajax({
@@ -325,31 +348,6 @@ function getReport(){
     );
 	
 	return reports;
-}
-
-function createCboCalendarActivity(calendarActivities) {
-	
-    cboCalendarActivityStart.dispose();
-    cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart', {
-        itemsSource: calendarActivities,
-        displayMemberPath: "dayCode",
-        onSelectedIndexChanged: function () {
-        	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
-        		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
-        	}
-        }
-    });		
-    
-    cboCalendarActivityEnd.dispose();
-    cboCalendarActivityEnd = new wijmo.input.AutoComplete('#cboCalendarActivityEnd', {
-        itemsSource: calendarActivities,
-        displayMemberPath: "dayCode",
-        onSelectedIndexChanged: function () {
-        	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
-        		cboCalendarActivityStart.selectedIndex = this.selectedIndex;
-        	}
-        }
-    });	    
 }
 
 //==================

@@ -1,6 +1,10 @@
 package com.innosoft.webreservation.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -95,10 +99,23 @@ public class CustomerMemberDaoImpl implements CustomerMemberDao {
 	 * report customer member method
 	 */
 	@SuppressWarnings("unchecked")
-	public List<MstCustomerMember> reportCustomerMember(int customerId) {
+	public List<MstCustomerMember> reportCustomerMember(int customerId, String from, String to) {
+		DateFormat format = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss",
+				Locale.ENGLISH);
+		
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(MstCustomerMember.class);
 		criteria.add(Restrictions.eq("MEBR_CUST_ID", customerId));
+		try {
+
+
+			criteria.add(Restrictions.between("UPDATED_DATE",
+							format.parse(from + " 00:00:00"),
+							format.parse(to + " 23:59:59")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<MstCustomerMember> list = criteria.list();	
 		return list;
 	}

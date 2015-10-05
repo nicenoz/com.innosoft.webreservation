@@ -11,28 +11,35 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-4">
-		        <div class="input-group">
-		            <!-- <span class="input-group-btn">
-		                <button class="btn btn-default border-custom" type="button" readonly>
-		                <i class="fa fa-search"></i>
-		                </button>
-		            </span> -->
-		            <!-- <input type="text" class="form-control border-custom" id="InputFilter" placeholder="Search"> -->
-		            <div id="cboCustomer"></div>
-		        </div>
-	    	</div>
+
+			<div class="col-lg-2">
+	            <div id="cboCustomer"></div>
+            </div>
+            
+            <div class="col-lg-3">
+				<div class="input-group">
+	            	<span class="input-group-addon" id="sizing-addon3">From</span>
+		            <div id="cboCalendarActivityStart"></div>
+	            </div>
+            </div>
+            <div class="col-lg-3">
+				<div class="input-group">
+	            	<span class="input-group-addon" id="sizing-addon3"> To </span>
+		            <div id="cboCalendarActivityEnd"></div>
+	            </div>
+            </div>            
 			
-			<div class="col-lg-8">
+			<div class="col-lg-4">
 				<button id="cmdGenerateReport" type="submit" class="btn btn-primary  border-custom" onclick="cmdGenerateReport_OnClick()">Generate</button>
-				<!-- <button id="cmdSaveReport" type="submit" class="btn btn-success border-custom" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button> -->
+				<!-- <button id="cmdSaveReport" type="submit" class="btn btn-success border-custom pull-right" style="display:none; margin-right:12px" onclick="cmdSaveReport_OnClick()">Save</button> -->
 			</div>
+		
 		</div>
 		<br />
 		
 		<!-- Table -->
-		<div class="row hidden">
-			<div class="col-lg-12">
+		<div class="row">
+			<div class="col-lg-12 hidden">
 				<div id="reportGrid" class="grid border-custom"></div>
 			</div>
 		</div>
@@ -83,6 +90,8 @@ var reports;
 var reportGrid;
 
 var cboCustomer;
+var cboCalendarActivityStart;
+var cboCalendarActivityEnd;
 
 var btnFirstPageGrid;
 var btnPreviousPageGrid;
@@ -262,54 +271,60 @@ function cmdSaveReport_OnClick(){
 //   Get Report
 //==================   
 function getReport() {
- var reports = new wijmo.collections.ObservableArray();
- /* EDIT LATER */
- $('#loading').modal('show');
- $.ajax({
+	var reports = new wijmo.collections.ObservableArray();
+	
+	var dateFrom = new Date(cboCalendarActivityStart.value);
+	var dateTo = new Date(cboCalendarActivityEnd.value);
+	
+	/* EDIT LATER */
+	$('#loading').modal('show');
+	$.ajax({
 	 url: '${pageContext.request.contextPath}/api/customerMember/report',
- 	 cache: false,
- 	 type: 'GET',     
- 	 data: {"customerId" : cboCustomer.selectedValue.id},
- 	 contentType: 'application/json; charset=utf-8',
- 	 success: function (Results) {
-         $('#loading').modal('hide');
-         if (Results.length > 0) {
-             /* document.getElementById("cmdSaveReport").style.display='block'; */
-             for (i = 0; i < Results.length; i++) {
-                 reports.push({
-                	 MEBR_NO: Results[i]["mebr_CUSTOMER_MEMBER_NO"],
-                	 MEBR_CUSTOMER: Results[i]["MEBR_CUST_FK"]["cust_NAME"],
-                	 MEBR_USER_ID: Results[i]["mebr_USER_ID"],
-                	 MEBR_FULLNAME: Results[i]["mebr_LAST_NAME"] + ", " + Results[i]["mebr_FIRST_NAME"],
-                     MEBR_CONTACT: Results[i]["mebr_TEL_NO"],
-                     MEBR_ADDRESS: Results[i]["mebr_ADDRESS1"],
-                     MEBR_ZIP: Results[i]["mebr_ZIP_CODE"],
-                     MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
-                     MEBR_BDAY: Results[i]["mebr_DATE_OF_BIRTH"],
-                     
-                     CREATED_DATE: Results[i]["created_DATE"],
-                     CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
-                     UPDATED_DATE: Results[i]["updated_DATE"],
-                     UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
-                     ISDELETED: Results[i]["ISDELETED"],
-                     ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
-                     ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
-                 });
-             }
-             ScreenerSaveData = Results;
-        	 CmdSaveXLS_OnClick();
-         } else {
-             /* document.getElementById("cmdSaveReport").style.display='none'; */
-        	 alertify.alert("No data."); 
-         }
-     }
- }).fail(
-     function (xhr, textStatus, err) {
-    	 alertify.alert(err);
-     }
- );
- 
- return reports;
+		 cache: false,
+		 type: 'GET',     
+		 data: {"customerId" : cboCustomer.selectedValue.id,
+			    "from" : dateFrom.toString("dd-MMM-yyyy"),
+			    "to" : dateTo.toString("dd-MMM-yyyy")},
+		 contentType: 'application/json; charset=utf-8',
+		 success: function (Results) {
+	        $('#loading').modal('hide');
+	        if (Results.length > 0) {
+	            /* document.getElementById("cmdSaveReport").style.display='block'; */
+	            for (i = 0; i < Results.length; i++) {
+	                reports.push({
+		           	    MEBR_NO: Results[i]["mebr_CUSTOMER_MEMBER_NO"],
+		           	    MEBR_CUSTOMER: Results[i]["MEBR_CUST_FK"]["cust_NAME"],
+		           	    MEBR_USER_ID: Results[i]["mebr_USER_ID"],
+		           	    MEBR_FULLNAME: Results[i]["mebr_LAST_NAME"] + ", " + Results[i]["mebr_FIRST_NAME"],
+		                MEBR_CONTACT: Results[i]["mebr_TEL_NO"],
+		                MEBR_ADDRESS: Results[i]["mebr_ADDRESS1"],
+		                MEBR_ZIP: Results[i]["mebr_ZIP_CODE"],
+		                MEBR_EMAIL: Results[i]["mebr_EMAIL_ADDRESS"],
+		                MEBR_BDAY: Results[i]["mebr_DATE_OF_BIRTH"],
+		                
+		                CREATED_DATE: Results[i]["created_DATE"],
+		                CREATED_BY_USER_ID: Results[i]["CREATED_BY_USER_ID"],
+		                UPDATED_DATE: Results[i]["updated_DATE"],
+		                UPDATED_BY_USER_ID: Results[i]["UPDATED_BY_USER_ID"],
+		                ISDELETED: Results[i]["ISDELETED"],
+		                ISDELETED_DATE: Results[i]["ISDELETED_DATE"],
+		                ISDELETED_BY_USER_ID: Results[i]["ISDELETED_BY_USER_ID"]
+		            });
+	            }
+	            ScreenerSaveData = Results;
+	       		CmdSaveXLS_OnClick(); 
+	        } else {
+	        	/* document.getElementById("cmdSaveReport").style.display='none'; */
+	       		alertify.alert("No data."); 
+	        }
+	    }
+	}).fail(
+	    function (xhr, textStatus, err) {
+	   	 alertify.alert(err);
+	    }
+	);
+	
+	return reports;
 }
 
 //==================
@@ -350,6 +365,30 @@ function updateNavigateButtonsReport() {
 $(document).ready(function(){	
 	// Flex Grid
 	generateTable();
+	
+	 cboCalendarActivityStart = new wijmo.input.InputDate('#cboCalendarActivityStart',
+	{
+		format : 'dd-MMM-yyyy',
+		value : new Date(),
+		mask : '99-AAA-9999',
+		onValueChanged : function() {
+			if(this.value > cboCalendarActivityEnd.value){
+				cboCalendarActivityEnd.value = this.value;
+			}
+		}
+	});
+	
+	cboCalendarActivityEnd = new wijmo.input.InputDate('#cboCalendarActivityEnd',
+	{
+		format : 'dd-MMM-yyyy',
+		value : new Date(),
+		mask : '99-AAA-9999',
+		onValueChanged : function() {
+			if(this.value < cboCalendarActivityStart.value){
+				cboCalendarActivityStart.value = this.value;
+			}
+		}
+	}); 
     
 	reportGrid.trackChanges = true;
 	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer');
@@ -408,8 +447,8 @@ function CmdSaveXLS_OnClick() {
     }
 
     // Create filename
-     var today = new Date();
-    var fileName = 'CustomerMemberReportAsOf-' +today.toString("dd-MMM-yyyy") + '.CSV';
+    var today = new Date();
+    var fileName = 'CustomerMemberReportFrom-' +cboCalendarActivityStart.value.toString("dd-MMM-yyyy") + '-to-'+ cboCalendarActivityEnd.value.toString("dd-MMM-yyyy") +'.CSV';
     // Download via <a> link
 
     var link = document.createElement("a");
