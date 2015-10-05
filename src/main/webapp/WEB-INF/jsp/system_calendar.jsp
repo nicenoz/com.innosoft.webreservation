@@ -243,6 +243,8 @@
 			data : data,
 			success : function(data) {
 				if (data.CLDR_ID > 0) {
+					document.getElementById("CmdCalendarEditOk").disabled = true;
+					document.getElementById("CmdCalendarEditCancel").disabled = true;
 					toastr.success(getMessage("S0002"));
 					window.setTimeout(function() {
 						location.reload()

@@ -319,6 +319,8 @@ function cmdMessageEditOk_OnClick() {
 	    data: data,
 	    success: function (data) {
 	        if (data.MESG_ID > 0) {
+	        	document.getElementById("cmdMessageEditOk").disabled = true;
+				document.getElementById("cmdMessageEditCancel").disabled = true;
 	            toastr.success(getMessage("S0002"));
 	            window.setTimeout(function () { location.reload() }, 1000);
 	        } else {

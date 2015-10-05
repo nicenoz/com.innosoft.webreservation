@@ -362,6 +362,8 @@ function cmdChargeEditOk_OnClick() {
 		data : data,
 		success : function(data) {
 			if (data.CHRG_ID > 0) {
+				document.getElementById("cmdChargeEditOk").disabled = true;
+				document.getElementById("cmdChargeEditCancel").disabled = true;
 				toastr.success(getMessage("S0002"));
 				window.setTimeout(function() {
 					location.reload()

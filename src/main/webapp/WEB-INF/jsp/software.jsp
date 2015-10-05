@@ -384,8 +384,6 @@ function cmdGetSchedule_OnClick() {
 function cmdAddEditOk_OnClick() {
  	var reservation = new Object();
  	
- 	document.getElementById("CmdAddEditOk").disabled = true;
-
  	reservation.RESV_ID      = parseInt(document.getElementById('AE_RESV_ID').value);
  	reservation.RESV_CUST_ID = parseInt(document.getElementById('AE_CUST_ID').value);
  	reservation.RESV_MEBR_ID = parseInt(document.getElementById('AE_MEBR_ID').value);
@@ -408,6 +406,8 @@ function cmdAddEditOk_OnClick() {
             200: function (data) {
             	if (data.RESV_ID > 0) {
                 	if(reservation.RESV_ID  == 0){
+                	 	document.getElementById("CmdAddEditOk").disabled = true;
+                	 	document.getElementById("CmdAddEditCancel").disabled = true;
                 		toastr.success(getMessage("S0002"));
     	                
     	                var emailObject = new Object();
@@ -628,7 +628,8 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	var reservation = reservationsList[customerId];
 	
 	document.getElementById("CmdAddEditOk").disabled = false;
-
+ 	document.getElementById("CmdAddEditCancel").disabled = false;
+	
 	if(isScheduleUpdated){
 	    $('#ReservationAddEdit').modal({
 	        show: true,

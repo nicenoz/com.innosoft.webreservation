@@ -227,6 +227,8 @@
 			data : data,
 			success : function(data) {
 				if (data.CODE_ID > 0) {
+					document.getElementById("cmdCodeEditOk").disabled = true;
+					document.getElementById("cmdCodeEditCancel").disabled = true;
 					toastr.success(getMessage("S0002"));
 					window.setTimeout(function() {
 						location.reload()

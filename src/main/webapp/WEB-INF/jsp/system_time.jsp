@@ -320,6 +320,8 @@ function cmdCustomerTimeEditOk_OnClick() {
 		data : data,
 		success : function(data) {
 			if (data.CTIM_ID > 0) {
+				document.getElementById("cmdCustomerTimeEditOk").disabled = true;
+				document.getElementById("cmdCustomerTimeEditCancel").disabled = true;
 				toastr.success(getMessage("S0002"));
 				window.setTimeout(function() {
 					location.reload()
