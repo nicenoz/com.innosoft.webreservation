@@ -24,7 +24,7 @@ public interface CustomerMemberDao {
 	 * @param customerId
 	 * @return
 	 */
-	public List<MstCustomerMember> reportCustomerMember(int customerId);
+	public List<MstCustomerMember> reportCustomerMember(int customerId, String from, String to);
 	/**
 	 * Get member by user id method
 	 * @param id

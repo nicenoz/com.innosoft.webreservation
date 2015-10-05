@@ -278,7 +278,7 @@ function cmdGetSchedule_OnClick() {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {
                 	// --- CREATE PARTS ROWS --------------------------------------
-                	var counter = new Array(ceilParts);
+                	
                 	customerTimeFlat.push({
                 		id: results[i]["CTIM_ID"],
                 		time: results[i]["CTIM_DETAILS_NO"].toString()
@@ -288,6 +288,7 @@ function cmdGetSchedule_OnClick() {
                		{
                 		ceilParts = results[i]["CTIM_MAX_PARTS_NO"];
                		}
+                	
                 	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
                 		var newObj = {
                 				time: results[i]["CTIM_DETAILS_NO"].toString(), 
@@ -297,6 +298,7 @@ function cmdGetSchedule_OnClick() {
                 		// --- CREATE BUTTONS --------------------------------------
                 		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
                 		for (k = startDateIndex; k <= endDateIndex; k++) {
+                			var counter = new Array(ceilParts);
                 			var slotHolder = "";
                 			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
                 			for(a = 0; a < reservationsList.length; a++){
@@ -307,21 +309,21 @@ function cmdGetSchedule_OnClick() {
 	                					//CHECK IF RESERVATION IS FOR THIS TIME
 	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
 			                				//CHECK IF RESERVATION IS FOR THIS PART
+		                					var x = i;
+	                						var y = k - startDateIndex;
+
+		                					if(counter[x] == null){
+		                						counter[x] = new Array(endDateIndex - startDateIndex + 1);
+		                						counter[x][y] = 1;
+		                					}else{
+		                						if(counter[x][y] == null){
+		                							counter[x][y] = 1;
+		                						}else{
+		                							counter[x][y]++;
+		                						}
+		                					}
 			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
-		                						var x = reservationsList[a]["RESV_PARTS_NO"] - 1;
-		                						var y = k - startDateIndex;
-		                						
-			                					if(counter[x] == null){
-			                						counter[x] = new Array(endDateIndex - startDateIndex + 1);
-			                						counter[x][y] = 1;
-			                					}else{
-			                						if(counter[x][y] == null){
-			                							counter[x][y] = 1;
-			                						}else{
-			                							counter[x][y]++;
-			                						}
-			                					}
-			                					
+			                					console.log(reservationsList[a]["RESV_ID"]);
 			                					if(counter[x][y] <= results[i]["CTIM_MAX_UNIT_NO"]){
 		                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
 			                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
@@ -822,6 +824,7 @@ function getCalendarActivities(customerId) {
     		        	                	calendarActivities.push({
     		        	                        id: result.CACT_ID,
     		        	                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+    		        	                        date: result.CACT_CLDR_FK.CLDR_DATE,
     		        	                    });
     		        	                	break;
     	                        		}else{
@@ -907,11 +910,37 @@ function createCboCalendarActivity(calendarActivities) {
     for (var i = 0; i < calendarActivityCollection.items.length; i++) {
     	calendarActivityList.push(calendarActivityCollection.items[i].dayCode);
     }
-	
+     var tod = new Date(Date.now());
+    var tom = new Date(tod.getTime() + 86399999);
+    
+    var currentDateIndex;
+    var advancedDateIndex;
+    
+    var count = calendarActivities.length;
+    
+    for(i = 0; i < count; i++){
+    	if(calendarActivities[i].date >= tod.getTime() && calendarActivities[i].date <= tom.getTime()){
+    		console.log("TRUE");
+    		currentDateIndex = i;
+    		advancedDateIndex = currentDateIndex + 2;
+    		if(advancedDateIndex >= count){
+    			advancedDateIndex = count - 1;
+    		}
+    		break;
+    	}
+    	
+    	if(i == count - 1){
+    		currentDateIndex = count - 1;
+    		advancedDateIndex = currentDateIndex;
+    		console.log("END");
+    	}
+    } 
+    
     cboCalendarActivityStart.dispose();
     cboCalendarActivityStart = new wijmo.input.ComboBox('#cboCalendarActivityStart', {
         itemsSource: calendarActivityList,
         isEditable: false,
+        selectedIndex: currentDateIndex,
         onSelectedIndexChanged: function () {
         	if(this.selectedIndex > cboCalendarActivityEnd.selectedIndex){
         		cboCalendarActivityEnd.selectedIndex = this.selectedIndex;
@@ -923,6 +952,7 @@ function createCboCalendarActivity(calendarActivities) {
     cboCalendarActivityEnd = new wijmo.input.ComboBox('#cboCalendarActivityEnd', {
         itemsSource: calendarActivityList,
         isEditable: false,
+        selectedIndex: advancedDateIndex,
         onSelectedIndexChanged: function () {
         	if(this.selectedIndex < cboCalendarActivityStart.selectedIndex){
         		cboCalendarActivityStart.selectedIndex = this.selectedIndex;

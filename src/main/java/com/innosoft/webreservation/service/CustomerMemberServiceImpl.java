@@ -65,7 +65,7 @@ public class CustomerMemberServiceImpl implements CustomerMemberService {
 	/**
 	 * Report customer member method
 	 */
-	public List<MstCustomerMember> reportCustomerMember(int customerId) {
-		return customerMemberDao.reportCustomerMember(customerId);
+	public List<MstCustomerMember> reportCustomerMember(int customerId, String from, String to) {
+		return customerMemberDao.reportCustomerMember(customerId, from, to);
 	}
 }

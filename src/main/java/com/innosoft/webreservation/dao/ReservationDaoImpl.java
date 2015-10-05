@@ -93,7 +93,7 @@ public class ReservationDaoImpl implements ReservationDao {
 		Criteria criteria = session.createCriteria(TrnReservation.class);
 
 		try {
-			criteria.add(Restrictions.between("CREATED_DATE",
+			criteria.add(Restrictions.between("UPDATED_DATE",
 					format.parse(from + " 00:00:00"),
 					format.parse(to + " 23:59:59")));
 		} catch (ParseException e) {

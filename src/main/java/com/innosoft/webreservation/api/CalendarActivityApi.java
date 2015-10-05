@@ -50,6 +50,7 @@ public class CalendarActivityApi {
 	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivityByCustomer(@RequestParam(value="customerId") int customerId) {
 		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivityByCustomer(customerId);
+		
 		return list;
 	}
 	/**
