@@ -475,6 +475,8 @@ function cmdCustomerMemberEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.MEBR_ID > 0) {
+            	document.getElementById("cmdCustomerMemberEditOk").disabled = true;
+            	document.getElementById("cmdCustomerMemberEditCancel").disabled = true;
                 toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {

@@ -458,6 +458,8 @@ function cmdCalendarActivityEditOk_OnClick() {
 	    statusCode: {
             200: function (data) {
             	if (data.CACT_ID > 0) {
+            		document.getElementById("cmdCalendarActivityEditOk").disabled = true;
+            		document.getElementById("cmdCalendarActivityEditCancel").disabled = true;
    	        	 	toastr.success(getMessage("S0002"));
                     window.setTimeout(function () { location.reload() }, 1000);
 	   	        } else {

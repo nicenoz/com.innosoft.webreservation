@@ -267,6 +267,8 @@ function cmdCustomerEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.CUST_ID > 0) {
+            	document.getElementById("cmdCustomerEditOk").disabled = true;
+				document.getElementById("cmdCustomerEditCancel").disabled = true;
                 toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {
