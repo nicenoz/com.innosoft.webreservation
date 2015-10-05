@@ -910,7 +910,23 @@ function createCboCalendarActivity(calendarActivities) {
     for (var i = 0; i < calendarActivityCollection.items.length; i++) {
     	calendarActivityList.push(calendarActivityCollection.items[i].dayCode);
     }
-     var tod = new Date(Date.now());
+    
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+
+    today = mm+'/'+dd+'/'+yyyy;
+    
+    var tod = new Date(today);
     var tom = new Date(tod.getTime() + 86399999);
     
     var currentDateIndex;
