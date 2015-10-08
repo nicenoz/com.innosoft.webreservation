@@ -153,11 +153,14 @@ var calendarDates;
 // ====================================	
 function getCustomers() {
 	customers = new wijmo.collections.ObservableArray();
+	var user = $('#currentUserName span').text();
+	console.log(user);
 	$.ajax({
 	    url: '${pageContext.request.contextPath}/api/customer/list',
 	    cache: false,
 	    type: 'GET',
-	    contentType: 'application/json; charset=utf-8',
+	    data: {'user':user},
+	    contentType: 'application/json; charset=utf-8', 
 	    success: function (results) {
 	        if (results.length > 0) {
 	            for (i = 0; i < results.length; i++) {
@@ -478,6 +481,8 @@ function cmdCalendarActivityEditOk_OnClick() {
 // Get Calendar Activities Data
 // =================   
 function getCalendarActivities() {
+	var user = $('#currentUserName span').text();
+	console.log(user);
     var calendarActivities = new wijmo.collections.ObservableArray();
     $('#loading').modal('show');
     $.ajax({
@@ -485,7 +490,7 @@ function getCalendarActivities() {
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
-        data: {},
+        data: {'user':user},
         success: function (Results) {
             $('#loading').modal('hide');
             if (Results.length > 0) {

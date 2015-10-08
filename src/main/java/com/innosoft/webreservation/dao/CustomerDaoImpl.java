@@ -55,6 +55,19 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return list;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<MstCustomer> listCustomerByName(int id) {
+		Session session = this.sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(MstCustomer.class);
+		criteria.add(Restrictions.ne("CUST_CUSTOMER_NO", "0"));
+		criteria.add(Restrictions.eq("CUST_ID", id));
+		List<MstCustomer> list = criteria.list();	
+
+		session.close();
+		
+		return list;
+	}
 	/**
 	 * List customer with number method
 	 */

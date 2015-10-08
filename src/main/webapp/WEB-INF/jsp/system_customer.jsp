@@ -245,7 +245,7 @@ function cmdCustomerEditCancel_OnClick() {
 // =============================     
 function cmdCustomerEditOk_OnClick() {
  	var customerObject = new Object();
-
+ 	document.getElementById("cmdCustomerEditOk").disabled = true;
 	customerObject.CUST_ID = parseInt(document.getElementById('EDIT_CUST_ID').value);
 	customerObject.CUST_CUSTOMER_NO = document.getElementById('EDIT_CUST_CUSTOMER_NO').value;	
 	customerObject.CUST_NAME = document.getElementById('EDIT_CUST_NAME').value;	
@@ -267,11 +267,12 @@ function cmdCustomerEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.CUST_ID > 0) {
-            	document.getElementById("cmdCustomerEditOk").disabled = true;
+           
 				document.getElementById("cmdCustomerEditCancel").disabled = true;
                 toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {
+            	document.getElementById("cmdCustomerEditOk").disabled = false;
                 toastr.error(getMessage("E0006"));
             }
         }

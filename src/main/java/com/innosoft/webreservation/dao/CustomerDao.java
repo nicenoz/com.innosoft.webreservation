@@ -36,5 +36,7 @@ public interface CustomerDao {
 	 * @param id
 	 * @return
 	 */
-	public boolean deleteCustomer(int id);	
+	public boolean deleteCustomer(int id);
+	
+	public List<MstCustomer> listCustomerByName(int id);	
 }

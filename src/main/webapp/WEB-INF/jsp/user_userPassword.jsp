@@ -16,6 +16,7 @@
 							</div>
 							<div class="panel-body">
 								<fieldset>
+									<!-- <input type="text" name="" class="form-control border-custom" id="DATABASE_PASSWORD" size="30" maxlength="40" placeholder="Database Password" /> -->
 									<input type="password" name="" class="form-control border-custom" id="OLD_PASSWORD" size="30" maxlength="40" placeholder="Current Password" />
 									<hr />
 									<input type="password" name="" class="form-control border-custom" id="USER_PASSWORD" size="30" maxlength="32" placeholder="New Password" /> 
@@ -40,8 +41,12 @@
 	</section>
 </div>
 
+
+<!-- footer -->
+<%@include file="include_secure_footer.jsp"%>
+
 <script type="text/javascript">
-	function ChangePassword_Onclick() {
+	function ChangePassword_Onclick() {					
 		var password = document.getElementById("USER_PASSWORD");
 		var passwordRestriction =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;  
 		
@@ -58,27 +63,51 @@
 			if(password.value.match(passwordRestriction))   
 			{   
 				if (document.getElementById("OLD_PASSWORD").value != document.getElementById("USER_PASSWORD").value && document.getElementById("USER_PASSWORD").value == document.getElementById("CONFIRMED_USER_PASSWORD").value) {
-					var userObject = new Object();
-
-					userObject.USER_LOGIN = document.getElementById('USER_LOGIN').value;
-					userObject.USER_PASSWORD = document.getElementById('CONFIRMED_USER_PASSWORD').value;
-
-					var data = JSON.stringify(userObject);
+					var userObject = {}; 
+					var userLogin = document.getElementById('USER_LOGIN').value;
+					var currentPassword = document.getElementById("OLD_PASSWORD").value;
+					var newConfirmPassword = document.getElementById('CONFIRMED_USER_PASSWORD').value;
 					
+					userObject.USER_LOGIN = userLogin;
+					userObject.USER_PASSWORD = newConfirmPassword;
+					var data = JSON.stringify(userObject);  
 					$('#loading').modal('show');
 					$.ajax({
-						type : "POST",
-						url : '${pageContext.request.contextPath}/api/user/update',
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/api/user/checkCurrentPassword',
 						contentType : "application/json; charset=utf-8",
 						dataType : "json",
-						data : data,
+						data : {'currentPassword':currentPassword},
 						statusCode : {
 							200 : function() {
-								$('#loading').modal('hide');
-								toastr.success(getMessage("S0003"));
-								window.setTimeout(function() {
-									location.reload()
-								}, 1000);
+								$.ajax({
+									type : 'POST',
+									url : '${pageContext.request.contextPath}/api/user/update',
+									contentType : "application/json; charset=utf-8",
+									dataType : "json",
+									data : data,
+									statusCode : {
+										200 : function() {
+											$('#loading').modal('hide');
+											toastr.success(getMessage("S0003"));
+											window.setTimeout(function() {
+												location.reload()
+											}, 1000);
+										},
+										404 : function() {
+											$('#loading').modal('hide');
+											toastr.error(getMessage("E0009"));
+										},
+										400 : function() {
+											$('#loading').modal('hide');
+											toastr.error(getMessage("E0003"));
+										},
+										409 : function(){
+											$('#loading').modal('hide');
+											toastr.error(getMessage("E0008"));
+										}
+									}
+								});
 							},
 							404 : function() {
 								$('#loading').modal('hide');
@@ -87,6 +116,10 @@
 							400 : function() {
 								$('#loading').modal('hide');
 								toastr.error(getMessage("E0003"));
+							},
+							409 : function() {
+								$('#loading').modal('hide');
+								toastr.error(getMessage("E0008"));
 							}
 						}
 					});
@@ -104,6 +137,4 @@
 	}
 </script>
 
-<!-- footer -->
-<%@include file="include_secure_footer.jsp"%>
 

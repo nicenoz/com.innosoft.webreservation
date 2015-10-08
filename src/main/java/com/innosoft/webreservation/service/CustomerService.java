@@ -12,6 +12,8 @@ public interface CustomerService {
 	 * @return
 	 */
 	public List<MstCustomer> listCustomer();
+	
+	public List<MstCustomer> listCustomerByName(int id);
 	/**
 	 * List customer with no method
 	 * @param custNo

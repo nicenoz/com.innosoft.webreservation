@@ -102,7 +102,7 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 	/**
-	 * Get user id (email esits) method
+	 * Get user id (email exist) method
 	 */
 	@SuppressWarnings("unchecked")
 	public int getUserIdIfEmailExist(String userEmail){

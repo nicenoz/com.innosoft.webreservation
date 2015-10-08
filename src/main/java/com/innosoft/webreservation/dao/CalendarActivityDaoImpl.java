@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.MstSecurityUser;
 /**
  * CRUD implementation for calendar activity data object.
  */
@@ -43,6 +44,7 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	/**
 	 * List calendar activity method
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivity() {
 		Session session = this.sessionFactory.getCurrentSession();

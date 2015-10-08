@@ -6,17 +6,21 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstSecurityUser;
+import com.innosoft.webreservation.entity.MstSecurityUserPassword;
 import com.innosoft.webreservation.entity.SysEmail;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.CustomerService;
 import com.innosoft.webreservation.service.EmailService;
+import com.innosoft.webreservation.service.SecurityService;
 import com.innosoft.webreservation.service.UserPasswordService;
 import com.innosoft.webreservation.service.UserService;
 /**
@@ -50,6 +54,9 @@ public class UserApi {
 	 */
 	@Autowired
 	private CustomerMemberService customerMemberService;
+	
+	@Autowired
+	private SecurityService securityService;
 
 	private String generatePassword() {
 		String password = "";
@@ -70,7 +77,8 @@ public class UserApi {
 	public @ResponseBody List<MstSecurityUser> listSendLog() {
 		List<MstSecurityUser> list = userService.listUser();
 		return list;
-	}
+	}	
+	
 	/**
 	 * Update user
 	 * @param user
@@ -78,15 +86,38 @@ public class UserApi {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<String> updateUser(@RequestBody MstSecurityUser user) {
-		try {
+		try {	
+			boolean flag = false;
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			
+			// Check existing user
 			MstSecurityUser searchUser = userService.getUser(user.getUSER_LOGIN());
-
 			if (searchUser.getUSER_ID() != 0) 
-			{
-				user.setUSER_ID(searchUser.getUSER_ID());
-				userService.editUser(user);
-				userPasswordService.insertPassword(searchUser.getUSER_PASSWORD(), searchUser.getUSER_ID());
-				return new ResponseEntity<String>(HttpStatus.OK);
+			{	
+				// Check existing password
+				List<MstSecurityUserPassword> list = userPasswordService.getExistingPassword(searchUser.getUSER_ID());
+				if (list.size() > 0) {
+					for(int i = 0; i < list.size(); i++)
+					{
+						System.out.println(list.get(i).getUPWD_PASSWORD());
+						if(passwordEncoder.matches(user.USER_PASSWORD, list.get(i).getUPWD_PASSWORD())){
+							flag = true;
+						}
+					}
+				}
+				
+				if(flag == true)
+				{	
+					return new ResponseEntity<String>(HttpStatus.CONFLICT);
+				}else{
+					// Edit current password
+					user.setUSER_ID(searchUser.getUSER_ID());
+					userService.editUser(user);
+					
+					// Insert old password
+					userPasswordService.insertPassword(searchUser.getUSER_ID(), searchUser.getUSER_PASSWORD());
+					return new ResponseEntity<String>(HttpStatus.OK);
+				}
 			} 
 			else
 			{
@@ -111,7 +142,7 @@ public class UserApi {
 			String password = this.generatePassword();
 
 			int userId = userService.getUserIdIfEmailExist(user.USER_LOGIN);
-			System.out.println("" + userId);
+			//System.out.println("" + userId);
 			if (userId == 0) {
 				user.setUSER_PASSWORD(password);
 				userId = userService.addUser(user).getUSER_ID();
@@ -146,4 +177,33 @@ public class UserApi {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	/**
+	 * Check the current password of the user
+	 * @param currentPassword
+	 * @return returns Http Status (OK, CONFLICT)
+	 */
+	@RequestMapping(value = "/checkCurrentPassword", method = RequestMethod.GET, params={"currentPassword"})
+	public ResponseEntity<String> checkCurrentPassword(@RequestParam(value="currentPassword")String currentPassword) {
+		try {		
+			MstSecurityUser currentUser = securityService.getCurrentUser();
+			MstSecurityUser searchUser = userService.getUser(currentUser.getUSER_LOGIN());
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+			//System.out.println(currentPassword);
+			//System.out.println(searchUser.getUSER_PASSWORD());
+			
+			if(passwordEncoder.matches(currentPassword, searchUser.getUSER_PASSWORD())){
+				//System.out.println("OK");
+				return new ResponseEntity<String>(HttpStatus.OK);
+			}else{
+				//System.out.println("CONFLICT");
+				return new ResponseEntity<String>(HttpStatus.CONFLICT);
+			}
+			
+		} catch (Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+		
 }

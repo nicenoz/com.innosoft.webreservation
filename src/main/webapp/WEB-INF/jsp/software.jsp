@@ -757,7 +757,6 @@ function getCustomers() {
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
-        data: {},
         success: function (results) {
             if (results.length > 0) {
                 for (i = 0; i < results.length; i++) {

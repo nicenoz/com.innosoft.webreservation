@@ -49,5 +49,9 @@ public class CustomerServiceImpl implements CustomerService{
 	 */
 	public boolean deleteCustomer(int id){
 		return customerDao.deleteCustomer(id);
+	}
+	
+	public List<MstCustomer> listCustomerByName(int id) {
+		return customerDao.listCustomerByName(id);
 	}	
 }

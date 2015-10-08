@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
@@ -43,7 +45,7 @@ public class UserPasswordDaoImpl implements UserPasswordDao {
 	public int getMaxId()
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(MstSecurityUserPassword.class).setProjection(Projections.max("CHRG_ID"));
+		Criteria criteria = session.createCriteria(MstSecurityUserPassword.class).setProjection(Projections.max("UPWD_ID"));
 	    Integer maxId = (Integer)criteria.uniqueResult();
 		if(maxId == null){
 			maxId = 0;
@@ -53,7 +55,7 @@ public class UserPasswordDaoImpl implements UserPasswordDao {
 	/**
 	 * Insert password method
 	 */
-	public MstSecurityUserPassword insertPassword(String password, int id) {
+	public MstSecurityUserPassword insertPassword(int userId, String password) {
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction tx = null;
@@ -61,7 +63,7 @@ public class UserPasswordDaoImpl implements UserPasswordDao {
 			tx = session.beginTransaction();
 			MstSecurityUserPassword newOldPassword = new MstSecurityUserPassword();
             newOldPassword.setUPWD_ID(getMaxId()+1); 
-			newOldPassword.setUPWD_USER_ID(id);
+			newOldPassword.setUPWD_USER_ID(userId);
 			newOldPassword.setUPWD_PASSWORD(password);
 
 			session.save(newOldPassword);
@@ -74,5 +76,16 @@ public class UserPasswordDaoImpl implements UserPasswordDao {
 			return use;
 		}
 	}
-
+	
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public List<MstSecurityUserPassword> getExistingPassword(int userId) {
+		Session session = this.sessionFactory.openSession();
+		List<MstSecurityUserPassword> list = session.createQuery("from MstSecurityUserPassword WHERE UPWD_USER_ID = "+ userId +" ").list();	
+		session.close();
+		return list;
+	}
+	
 }

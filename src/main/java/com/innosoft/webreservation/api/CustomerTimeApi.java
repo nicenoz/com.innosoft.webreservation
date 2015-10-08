@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstCustomerTime;
+import com.innosoft.webreservation.entity.MstSecurityUser;
+import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.CustomerTimeService;
 import com.innosoft.webreservation.service.SecurityService;
 
@@ -23,6 +27,11 @@ import com.innosoft.webreservation.service.SecurityService;
 @Controller
 @RequestMapping("api/customerTime")
 public class CustomerTimeApi {
+	/**
+	 * Customer member service property
+	 */
+	@Autowired
+	private CustomerMemberService customerMemberService;
 	/**
 	 * Customer time service property
 	 */
@@ -39,7 +48,21 @@ public class CustomerTimeApi {
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCustomerTime> listCustomerTime() {
-		List<MstCustomerTime> list = customerTimeService.listCustomerTime();
+		List<MstCustomerTime> list = null;
+		
+		MstSecurityUser currentUser = securityService.getCurrentUser();
+		if(currentUser.getUSER_ROLES() == 2)
+		{
+			//System.out.println(currentUser.getUSER_ID());
+			MstCustomerMember currentUserMember = (customerMemberService.getMemberByUserId(currentUser.getUSER_ID())).get(0);
+			
+			//System.out.println(currentUserMember.getMEBR_CUST_ID());
+			list = customerTimeService.listCustomerTimeByCustomer(currentUserMember.getMEBR_CUST_ID());
+		}
+		else
+		{
+			list = customerTimeService.listCustomerTime();
+		}		
 		return list;
 	}
 	/**

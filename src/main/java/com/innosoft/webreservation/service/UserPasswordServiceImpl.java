@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,15 @@ public class UserPasswordServiceImpl implements UserPasswordService {
 	 * User password property
 	 */
 	@Autowired
-	private UserPasswordDao userPassDao;
+	private UserPasswordDao UserPasswordDao;
+	
 	/**
 	 * insert password method
 	 */
-	public MstSecurityUserPassword insertPassword(String password, int id) {
-		// TODO Auto-generated method stub
-		return userPassDao.insertPassword(password, id);
+	public MstSecurityUserPassword insertPassword( int id,String password) {
+		return UserPasswordDao.insertPassword(id,password);
 	}
-
-	
+	public List<MstSecurityUserPassword> getExistingPassword(int userId){
+		return UserPasswordDao.getExistingPassword(userId);
+	}
 }

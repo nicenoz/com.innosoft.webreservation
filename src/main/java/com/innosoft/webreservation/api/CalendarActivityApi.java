@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.MstCustomerMember;
+import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.service.CalendarActivityService;
+import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.SecurityService;
+import com.innosoft.webreservation.service.UserService;
 
 /**
  * Calendar activity CRUD API
@@ -23,6 +27,11 @@ import com.innosoft.webreservation.service.SecurityService;
 @Controller
 @RequestMapping("api/calendarActivity")
 public class CalendarActivityApi {
+	/**
+	 * Customer member service property
+	 */
+	@Autowired
+	private CustomerMemberService customerMemberService;	
 	/**
 	 * Calendar activity service property
 	 */
@@ -37,9 +46,24 @@ public class CalendarActivityApi {
 	 * Return list of calendar activities
 	 * @return
 	 */
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivity() {
-		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivity();
+		List<MstCalendarActivity> list = null;
+		
+		MstSecurityUser currentUser = securityService.getCurrentUser();
+		if(currentUser.getUSER_ROLES() == 2)
+		{
+			MstCustomerMember currentUserMember = (customerMemberService.getMemberByUserId(currentUser.getUSER_ID())).get(0);
+			
+			list = calendarActivityService.listCalendarActivityByCustomer(currentUserMember.getMEBR_CUST_ID());
+		}
+		else
+		{
+			 list = calendarActivityService.listCalendarActivity();
+		}
 		return list;
 	}	
 	/**

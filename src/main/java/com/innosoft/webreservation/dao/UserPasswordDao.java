@@ -1,5 +1,7 @@
 package com.innosoft.webreservation.dao;
 
+import java.util.List;
+
 import com.innosoft.webreservation.entity.MstSecurityUserPassword;
 /**
  * CRUD interface for password data object
@@ -7,9 +9,16 @@ import com.innosoft.webreservation.entity.MstSecurityUserPassword;
 public interface UserPasswordDao {
 	/**
 	 * Insert password method
-	 * @param password
 	 * @param id
+	 * @return 
+	 */
+	public MstSecurityUserPassword insertPassword( int userId ,String password);
+	
+	/**
+	 * Get the password record 
+	 * @param userId
+	 * @param password
 	 * @return
 	 */
-	public MstSecurityUserPassword insertPassword(String password, int id);
+	public List<MstSecurityUserPassword> getExistingPassword(int userId);
 }
