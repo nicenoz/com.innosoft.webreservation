@@ -60,6 +60,17 @@ public class ReservationApi {
 		List<TrnReservation> list = reservationService.listByCustomer(customerId);
 		return list;
 	}
+	
+	/**
+	 * Return list of reservation by customer
+	 * @param customerId
+	 * @return
+	 */
+	@RequestMapping(value = "/listByDates", method = RequestMethod.GET, produces = "application/json",  params = {"customerId", "calendarActivityIds"})
+	public @ResponseBody List<TrnReservation> listReservationsByDates(@RequestParam(value="customerId") int customerId, @RequestParam(value="calendarActivityIds") String calendarActivityIds) {
+		List<TrnReservation> list = reservationService.scheduleReservation(customerId, calendarActivityIds);
+		return list;
+	}
 	/**
 	 * List of reservation between dates
 	 * @param from

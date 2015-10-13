@@ -1,5 +1,6 @@
 package com.innosoft.webreservation.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.innosoft.webreservation.entity.MstCalendarActivity;
+import com.innosoft.webreservation.entity.MstCode;
 import com.innosoft.webreservation.entity.MstCustomerMember;
 import com.innosoft.webreservation.entity.MstSecurityUser;
 import com.innosoft.webreservation.service.CalendarActivityService;
+import com.innosoft.webreservation.service.CodeService;
 import com.innosoft.webreservation.service.CustomerMemberService;
 import com.innosoft.webreservation.service.SecurityService;
 import com.innosoft.webreservation.service.UserService;
@@ -27,6 +30,12 @@ import com.innosoft.webreservation.service.UserService;
 @Controller
 @RequestMapping("api/calendarActivity")
 public class CalendarActivityApi {
+	/**
+	 * Code service property
+	 */
+	@Autowired
+	private CodeService codeService;
+	
 	/**
 	 * Customer member service property
 	 */
@@ -74,8 +83,36 @@ public class CalendarActivityApi {
 	@RequestMapping(value = "/listByCustomer", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
 	public @ResponseBody List<MstCalendarActivity> listCalendarActivityByCustomer(@RequestParam(value="customerId") int customerId) {
 		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivityByCustomer(customerId);
-		
 		return list;
+	}
+	
+	/**
+	 * Return list of calendar activity per customer
+	 * @param customerId
+	 * @return
+	 */
+	@RequestMapping(value = "/listByCustomerWithRestrictions", method = RequestMethod.GET, produces = "application/json", params = {"customerId"})
+	public @ResponseBody List<MstCalendarActivity> listCalendarActivityByCustomerWithRestrictions(@RequestParam(value="customerId") int customerId) {
+		List<MstCalendarActivity> list = calendarActivityService.listCalendarActivityByCustomer(customerId);
+		List<MstCode> codeList = codeService.listCodeByKind("CACT");
+		
+		List<MstCalendarActivity> result = new ArrayList<MstCalendarActivity>();
+		
+		for(MstCalendarActivity item: list){
+			for(int a = 0; a < codeList.size(); a++){
+	        	if(item.CACT_OPERATION_FLAG == codeList.get(a).CODE_ID){
+	        		if(codeList.get(a).CODE_ISDISPLAY == 1){
+	        			result.add(item);
+	                	break;
+	        		}else{
+	        			break;
+	        		}
+	        	}
+	    	}
+		}
+		
+		
+		return result;
 	}
 	/**
 	 * Update calendar activity

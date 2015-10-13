@@ -35,8 +35,8 @@ public class ReservationServiceImpl implements ReservationService{
 	/**
 	 * Schedule reservation method
 	 */
-	public List<TrnReservation> scheduleReservation(int customerId, int calendarActivityId) {
-		return reservationDao.scheduleReservation(customerId, calendarActivityId);
+	public List<TrnReservation> scheduleReservation(int customerId, String calendarActivityIds) {
+		return reservationDao.scheduleReservation(customerId, calendarActivityIds);
 	}
 	/**
 	 * report reservation method

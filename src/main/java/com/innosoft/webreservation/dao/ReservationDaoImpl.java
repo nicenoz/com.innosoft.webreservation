@@ -13,6 +13,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -74,11 +75,19 @@ public class ReservationDaoImpl implements ReservationDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<TrnReservation> scheduleReservation(int customerId,
-			int calendarActivityId) {
+			String calendarActivityIds) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(TrnReservation.class);
 		criteria.add(Restrictions.eq("RESV_CUST_ID", customerId));
-		criteria.add(Restrictions.eq("RESV_CACT_ID", calendarActivityId));
+		String[] cactIds = calendarActivityIds.split(",");
+		
+		Disjunction res = Restrictions.disjunction();
+		for(int a = 0; a < cactIds.length; a++){
+			res.add(Restrictions.eq("RESV_CACT_ID", Integer.valueOf(cactIds[a])));
+		}
+		
+		criteria.add(res);
+		criteria.addOrder(Order.asc("RESV_ID"));
 		List<TrnReservation> list = criteria.list();
 		return list;
 	}

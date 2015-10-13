@@ -65,6 +65,8 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 		return criteria.list();
 	}
 	
+	
+	
 	/**
 	 * Get current session method
 	 */

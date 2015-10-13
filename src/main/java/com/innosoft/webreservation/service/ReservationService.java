@@ -24,7 +24,7 @@ public interface ReservationService {
 	 * @param calendarActivityId
 	 * @return
 	 */
-	public List<TrnReservation> scheduleReservation(int customerId, int calendarActivityId);
+	public List<TrnReservation> scheduleReservation(int customerId, String calendarActivityIds);
 	/**
 	 * Report reservation method
 	 * @param from

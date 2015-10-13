@@ -139,7 +139,6 @@ var ceilParts = 0;
 var loggedInCustomerId;
 var isScheduleUpdated;
 var loggedInCustomerEmail;
-
 var codeList;
 
 var cboCustomer;
@@ -173,7 +172,7 @@ var scheduleGrid;
 function updateTable(){
 	calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
-        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
+        url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomerWithRestrictions',
         cache: false,
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
@@ -188,12 +187,18 @@ function updateTable(){
                     });
                 });
             }
+            var selectedDates = "";
+            for(i = cboCalendarActivityStart.selectedIndex; i <= cboCalendarActivityEnd.selectedIndex; i++){
+            	selectedDates = selectedDates + calendarActivityCollection.items[i].id + ",";
+            }
+            
             $.ajax({
-                url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
+                url: '${pageContext.request.contextPath}/api/reservation/listByDates',
                 cache: false,
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
-                data: {"customerId":cboCustomer.selectedValue.id},
+                data: {"customerId":cboCustomer.selectedValue.id,
+                	   "calendarActivityIds": selectedDates},
                 success: function (results) {
                 	//GET ALL RESERVATIONS
                 	results.forEach(function (reservation){
@@ -780,18 +785,8 @@ function getCustomers() {
 function getCalendarActivities(customerId) {
     calendarActivities = new wijmo.collections.ObservableArray();
     
-    $.when(getListByCustomer()).done(function(a1){
-        // the code here will be executed when all four ajax requests resolve.
-        // a1 and a2 are lists of length 3 containing the response text,
-        // status, and jqXHR object for each of the two ajax calls respectively.
-        console.log(" " + a1);
-    });
-    
-    function getListByCustomer() {
-        // NOTE:  This function must return the value 
-        //        from calling the $.ajax() method.
-        return $.ajax({
-            url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomer',
+    $.ajax({
+            url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomerWithRestrictions',
             cache: false,
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
@@ -799,89 +794,22 @@ function getCalendarActivities(customerId) {
             success: function (results) {
             	reservationsList = new Array();
                 if (results.length > 0) {
-                	
-                	$.ajax({
-                        url: '${pageContext.request.contextPath}/api/code/listByKind',
-                        cache: false,
-                        type: 'GET',
-                        contentType: 'application/json; charset=utf-8',
-                        data: {"kind" : "CACT"},
-                        success: function (cactOpts) {
                             
-                        	codeList = new wijmo.collections.ObservableArray();
-                            for (i = 0; i < cactOpts.length; i++) {
-                            	codeList.push({
-                            		CODE_ID: cactOpts[i]["CODE_ID"],
-                            		CODE_ISDISPLAY: cactOpts[i]["CODE_ISDISPLAY"]
-                                });
-                            }
-
-                            
-                            results.forEach(function(result){
-                            	for(a = 0; a < codeList.length; a++){
-    	                        	if(result.CACT_OPERATION_FLAG == codeList[a].CODE_ID){
-    	                        		if(codeList[a].CODE_ISDISPLAY == 1){
-    		        	                	calendarActivities.push({
-    		        	                        id: result.CACT_ID,
-    		        	                        dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
-    		        	                        date: result.CACT_CLDR_FK.CLDR_DATE,
-    		        	                    });
-    		        	                	break;
-    	                        		}else{
-    	                        			break;
-    	                        		}
-    	                        	}
-                            	}
-                            });
-                            createCboCalendarActivity(calendarActivities);
-                        }
-                    }).fail(
-                        function (xhr, textStatus, err) {
-                            alert(err);
-                        }
-                    );
+                results.forEach(function(result){
+	             	calendarActivities.push({
+	                     id: result.CACT_ID,
+	                     dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+	                     date: result.CACT_CLDR_FK.CLDR_DATE,
+	                });
+	            });
+                createCboCalendarActivity(calendarActivities);
                 }
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/api/reservation/listByCustomer',
-                    cache: false,
-                    type: 'GET',
-                    contentType: 'application/json; charset=utf-8',
-                    data: {"customerId":customerId},
-                    success: function (results) {
-                    	//GET ALL RESERVATIONS
-                    	results.forEach(function (reservation){
-                    		reservationsList.push({
-                    			RESV_ID: reservation.RESV_ID,
-                    			RESV_CUST_ID: reservation.RESV_CUST_ID,
-                    			RESV_CACT_ID: reservation.RESV_CACT_ID,
-                    			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
-                    			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
-                    			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
-                    			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
-                    			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
-                    			RESV_NOTE: reservation.RESV_NOTE,
-                    			RESV_ISDELETED: reservation.ISDELETED,
-                    			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
-                    	    });
-                    	});
-                    	
-                    	cmdGetSchedule_OnClick();
-                    }
-                }).fail(
-                    function (xhr, textStatus, err) {
-                        alert(err);
-                    }
-                );
-                
             }
         }).fail(
             function (xhr, textStatus, err) {
                 alert(err);
             }
         );	
-    }
-    
-
 }
 
 
@@ -936,7 +864,6 @@ function createCboCalendarActivity(calendarActivities) {
     
     for(i = 0; i < count; i++){
     	if(calendarActivities[i].date >= tod.getTime() && calendarActivities[i].date <= tom.getTime()){
-    		console.log("TRUE");
     		currentDateIndex = i;
     		advancedDateIndex = currentDateIndex + 2;
     		if(advancedDateIndex >= count){
@@ -948,7 +875,6 @@ function createCboCalendarActivity(calendarActivities) {
     	if(i == count - 1){
     		currentDateIndex = count - 1;
     		advancedDateIndex = currentDateIndex;
-    		console.log("END");
     	}
     } 
     
@@ -975,6 +901,45 @@ function createCboCalendarActivity(calendarActivities) {
         	}
         }
     });	    
+    
+    
+    var selectedDates = "";
+    for(i = cboCalendarActivityStart.selectedIndex; i <= cboCalendarActivityEnd.selectedIndex; i++){
+    	selectedDates = selectedDates + calendarActivityCollection.items[i].id + ",";
+    }
+    
+    $.ajax({
+        url: '${pageContext.request.contextPath}/api/reservation/listByDates',
+        cache: false,
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: {"customerId":cboCustomer.selectedValue.id,
+        	   "calendarActivityIds": selectedDates},
+        success: function (results) {
+        	//GET ALL RESERVATIONS
+        	results.forEach(function (reservation){
+        		reservationsList.push({
+        			RESV_ID: reservation.RESV_ID,
+        			RESV_CUST_ID: reservation.RESV_CUST_ID,
+        			RESV_CACT_ID: reservation.RESV_CACT_ID,
+        			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+        			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
+        			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
+        			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
+        			RESV_END_TIME_ID: reservation.RESV_END_TIME_ID,
+        			RESV_NOTE: reservation.RESV_NOTE,
+        			RESV_ISDELETED: reservation.ISDELETED,
+        			RESV_MEBR_NAME: reservation.RESV_MEBR_FK["MEBR_LAST_NAME"] + ", " + reservation.RESV_MEBR_FK["MEBR_FIRST_NAME"]
+        	    });
+        	});
+        	
+        	cmdGetSchedule_OnClick();
+        }
+    }).fail(
+        function (xhr, textStatus, err) {
+            alert(err);
+        }
+    );	
 }
 
 //=========

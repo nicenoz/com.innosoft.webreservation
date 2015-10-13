@@ -31,7 +31,8 @@ public class CalendarActivityServiceImpl implements CalendarActivityService{
 	 */
 	public List<MstCalendarActivity> listCalendarActivityByCustomer(int customerId){
 		return calendarActivityDao.listCalendarActivityByCustomer(customerId);
-	}	
+	}
+
 	/**
 	 * List calendar activity by calendar date method 
 	 */
