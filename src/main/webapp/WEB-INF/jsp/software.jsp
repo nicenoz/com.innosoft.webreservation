@@ -457,19 +457,23 @@ function cmdAddEditOk_OnClick() {
                     	updateTable();
                     	closeWindow();
                     	document.getElementById("CmdAddEditOk").disabled = false;
+                	 	document.getElementById("CmdAddEditCancel").disabled = false;
                     }, 1000);
                 	
                 } else {
                 	document.getElementById("CmdAddEditOk").disabled = false;
+            	 	document.getElementById("CmdAddEditCancel").disabled = false;
                 	toastr.error(getMessage("E0006"));
                 }
             },
             404: function () {
            		document.getElementById("CmdAddEditOk").disabled = false;
+        	 	document.getElementById("CmdAddEditCancel").disabled = false;
            		toastr.success(getMessage("S0002"));
             },
             409: function () {
            		document.getElementById("CmdAddEditOk").disabled = false;
+        	 	document.getElementById("CmdAddEditCancel").disabled = false;
            		toastr.error(getMessage("E0006"));
             }
         }
@@ -548,6 +552,7 @@ function cmdDelete_OnClick(){
 
 function cmdAddReservation_OnClick() {
 	document.getElementById("CmdAddEditOk").disabled = false;
+ 	document.getElementById("CmdAddEditCancel").disabled = false;
 	if(isScheduleUpdated){
 	    $('#ReservationAddEdit').modal({
 	        show: true,
