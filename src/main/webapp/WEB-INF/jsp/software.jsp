@@ -134,6 +134,12 @@
 //===========================
 //Schedule - Global Variables
 //===========================
+
+var hasDeleted = false;
+var deleteDate;
+var deletePart;
+var deleteTime;
+
 var currentLookup;
 var ceilParts = 0;
 var loggedInCustomerId;
@@ -170,6 +176,7 @@ var scheduleGrid;
 // ======
 	
 function updateTable(){
+	
 	calendarActivities = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/calendarActivity/listByCustomerWithRestrictions',
@@ -207,6 +214,7 @@ function updateTable(){
                 			RESV_CUST_ID: reservation.RESV_CUST_ID,
                 			RESV_CACT_ID: reservation.RESV_CACT_ID,
                 			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+                			RESV_MEBR_EMAIL: reservation.RESV_MEBR_FK["MEBR_EMAIL_ADDRESS"],
                 			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
                 			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
                 			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
@@ -340,6 +348,71 @@ function cmdGetSchedule_OnClick() {
 					                					slotHolder = slotHolder + 
 					                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
 			                						}
+		                							
+			                						if(hasDeleted)
+                										if(counter[x][y] == results[i]["CTIM_MAX_UNIT_NO"])
+				                							if(deleteDate == reservationsList[a].RESV_CACT_ID)
+				                								/* if(deletePart == reservationsList[a]["RESV_PARTS_NO"]) */
+				                									if(deleteTime == reservationsList[a]["RESV_START_TIME_ID"]){
+				                										
+				                										hasDeleted = false;
+				                										
+				                										var emailObject = new Object();
+				                										var timeStart;
+				                										var timeEnd;
+				                										
+				                										for(var ab = 0; ab < customerTimeFlat.length; ab++){
+				                											if(customerTimeFlat[ab].id == reservationsList[a]["RESV_START_TIME_ID"]){
+				                												timeStart = customerTimeFlat[ab].time;
+				                												break;
+				                											}
+				                										}
+				                										
+				                										for(var ab = 0; ab < customerTimeFlat.length; ab++){
+				                											if(customerTimeFlat[ab].id == reservationsList[a]["RESV_END_TIME_ID"]){
+				                												timeEnd = customerTimeFlat[ab].time;
+				                												break;
+				                											}
+				                										}
+				                										
+				                										var message = reservationsList[a]["RESV_NOTE"]?reservationsList[a]["RESV_NOTE"]:" ";
+				                										
+				                				    	    			emailObject.EMAIL_EMAIL = reservationsList[a]["RESV_MEBR_EMAIL"];
+				                				    	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Activated Reservation";
+				                				    	    			emailObject.EMAIL_MESSAGE = "Your Reservation has been moved from Waiting to Active:\n\nReservation Date: " + calendarActivities[k].dayCode +
+				                				    	    				"\nPart No.: " + reservationsList[a]["RESV_PARTS_NO"] + 
+				                				    	    				"\nTime Start: "+ timeStart +
+				                				    	    				"\nTime End: "+  timeEnd +
+				                				    	    				"\nNote: " + message;
+				                				    	    				
+				                				        				emailObject.EMAIL_RECEIVER_ID =  reservationsList[a]["RESV_MEBR_ID"];
+				                				    	    			emailObject.EMAIL_PURPOSE = "Activated Reservation";
+				                				    	    				
+				                				    	    			var email = JSON.stringify(emailObject);
+				                				    	    			$.ajax({
+				                				    						type : "POST",
+				                				    						url : '${pageContext.request.contextPath}/api/email/send',
+				                				    						contentType : "application/json; charset=utf-8",
+				                				    						dataType : "json",
+				                				    						data : email,
+				                				    						statusCode : {
+				                				    							200 : function() {
+				                				    								$('#loading').modal('hide');
+				                				    								toastr.info(getMessage("M0001"));
+				                				    							},
+				                				    							404 : function() {
+				                				    								$('#loading').modal('hide');
+				                				    								toastr.info(getMessage("M0002"));
+				                				    							},
+				                				    							400 : function() {
+				                				    								$('#loading').modal('hide');
+				                				    								toastr.error(getMessage("E0003"));
+				                				    							}
+				                				    						}
+				                				    	 				});
+				                										
+				                									}
+		                							
 		                						}else{
 		                							if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
 				                						//CAN EDIT IF RESERVED BY CUSTOMER
@@ -418,7 +491,7 @@ function cmdAddEditOk_OnClick() {
     	                var emailObject = new Object();
     	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
     	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
-    	    			emailObject.EMAIL_MESSAGE = "Reservation Date: " + cboAECalenderDate.selectedValue +
+    	    			emailObject.EMAIL_MESSAGE = "You have made a reservation in " +cboCustomer.selectedValue.customerName +":\n\nReservation Date: " + cboAECalenderDate.selectedValue +
     	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
     	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
     	    				"\nTime End: "+  cboAEEndTime.selectedValue +
@@ -495,21 +568,25 @@ function cmdDelete_OnClick(){
             dataType: "json",
             data: data,
             statusCode: {
-                200: function () {
+                200: function (result) {
                 	toastr.success(getMessage("S0001"));
                     
                     var emailObject = new Object();
 	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
 	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Canceled Reservation";
-	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation: \nReservation Date: " + cboAECalenderDate.selectedValue +
+	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation:\n\nReservation Date: " + cboAECalenderDate.selectedValue +
 	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
 	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
 	    				"\nTime End: "+  cboAEEndTime.selectedValue +
 	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
-	    				
 
 	    			emailObject.EMAIL_RECEIVER_ID = loggedInCustomerId;
 	    			emailObject.EMAIL_PURPOSE = "Delete Reservation";
+	    			
+	    			hasDeleted = true;
+	    			deleteDate = result.RESV_CACT_ID;
+	    			deletePart = result.RESV_UNIT_NO;
+	    			deleteTime = result.RESV_START_TIME_ID;
 	
 	    			var data = JSON.stringify(emailObject);
 	    			$.ajax({
@@ -928,6 +1005,7 @@ function createCboCalendarActivity(calendarActivities) {
         			RESV_CUST_ID: reservation.RESV_CUST_ID,
         			RESV_CACT_ID: reservation.RESV_CACT_ID,
         			RESV_MEBR_ID: reservation.RESV_MEBR_FK["MEBR_ID"],
+        			RESV_MEBR_EMAIL: reservation.RESV_MEBR_FK["MEBR_EMAIL_ADDRESS"],
         			RESV_UNIT_NO: reservation.RESV_UNIT_NO,
         			RESV_PARTS_NO: reservation.RESV_PARTS_NO,
         			RESV_START_TIME_ID: reservation.RESV_START_TIME_ID,
