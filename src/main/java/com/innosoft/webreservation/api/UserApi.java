@@ -61,11 +61,12 @@ public class UserApi {
 	private String generatePassword() {
 		String password = "";
 		Random rand = new Random();
-		char val[] = {'a','b','c','d','e','f','A','B','C','D','E','F'};
-		for(int i = 0; i < 5; i++)
+		char achar[] = {'a','b','c','d','e','f','A','B','C','D','E','F'};
+		char schar[] = {'@','#','%','!'};
+		char nchar[] = {'1','2','3','4','5','6','7','8','9','0'};
+		for(int i = 0; i < 3; i++)
 		{
-			Integer randomNumber =  rand.nextInt(9);
-			password = password + randomNumber.toString() + val[i+3];
+			password = password + achar[rand.nextInt(11)] + schar[rand.nextInt(3)] + nchar[rand.nextInt(9)];
 		}		
 		return password;
 	}
