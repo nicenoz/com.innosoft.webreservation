@@ -140,24 +140,24 @@ public class UserApi {
 		int freeCustomerId = customerService.listCustomerWithNo("0").get(0).getCUST_ID();
 		int memberId = 0;
 		try {
-			String password = this.generatePassword();
+			String password = generatePassword();
 
 			int userId = userService.getUserIdIfEmailExist(user.USER_LOGIN);
-			//System.out.println("" + userId);
 			if (userId == 0) {
 				user.setUSER_PASSWORD(password);
 				userId = userService.addUser(user).getUSER_ID();
-			} 
-			else {
-				if(customerMemberService.isAlreadyFreeUser(freeCustomerId, user.USER_LOGIN)){
-					user.setUSER_ID(userId);
-					user.setUSER_PASSWORD(password);
-					userService.editUser(user);	
-					memberId = customerMemberService.getMemberByEmail(user.USER_LOGIN).get(0).getMEBR_ID();
-				}
-				else{
-					return new ResponseEntity<String>(HttpStatus.CONFLICT);
-				}
+			} else {
+//				if(customerMemberService.isAlreadyFreeUser(freeCustomerId, user.USER_LOGIN)){
+//					user.setUSER_ID(userId);
+//					user.setUSER_PASSWORD(password);
+//					userService.editUser(user);	
+//					memberId = customerMemberService.getMemberByEmail(user.USER_LOGIN).get(0).getMEBR_ID();
+//					return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+//				}
+//				else{
+				System.out.print("CONFLICT");
+				return new ResponseEntity<String>(HttpStatus.CONFLICT);
+//				}
 			}
 			
 			// Email

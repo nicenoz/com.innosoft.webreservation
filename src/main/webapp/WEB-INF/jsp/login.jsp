@@ -302,13 +302,10 @@
 						},
 						409 : function() {
 							$('#loading').modal('hide');
-							alertify.alert("Already a member, redirecting to login...");
-							window.setTimeout(
-								function() {
-									document.location.href = "/webreservation/login"
-								}, 2000);
-
-						},
+							toastr.error(getMessage("E0002"));
+							
+						}
+						/* ,
 						404 : function() {
 							$('#loading').modal('hide');
 							toastr.error(getMessage("E0002"));
@@ -316,7 +313,7 @@
 						400 : function() {
 							$('#loading').modal('hide');
 							toastr.error(getMessage("E0003"));
-						}
+						} */
 					}
 				});
 
