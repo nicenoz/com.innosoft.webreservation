@@ -318,6 +318,11 @@
 				});
 
 		}
+		
+		$(document).ready(function () {
+			var url = '${pageContext.request.contextPath}/api/message/list/'
+			extractMessageFromServer(url);
+		});			
 	</script>
 
 </body>
