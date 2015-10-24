@@ -96,7 +96,7 @@
 		                </div>
 		                
 		                <div class="col-lg-4 col-md-4">
-		                    <a href="/webreservation/user/activity/">
+		                    <a href="/webreservation/system/activity/">
 		                        <div class="panel panel-brown">
 		                            <div class="panel-heading">
 		                                <div class="row">
@@ -142,7 +142,7 @@
 		                                    </div>
 		                                    <div class="col-xs-9 text-right">
 		                                        <div class="huge" id="EventsCounts">&nbsp;</div>
-		                                        <div>Messege</div>
+		                                        <div>Message</div>
 		                                    </div>
 		                                </div>
 		                            </div>
