@@ -1,22 +1,39 @@
 package com.innosoft.webreservation.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.innosoft.webreservation.service.SecurityService;
 /**
  * Software page controller includes schedule, notification settings and email magazine
  */
 @Controller
 @RequestMapping("software")
 public class SoftwareController {
+	
+	@Autowired
+	private SecurityService securityService;
+	
 	/**
 	 * Software controller
 	 * @return
 	 */
 	@RequestMapping("/")
 	public ModelAndView index() {
-		ModelAndView model = new ModelAndView("software");
+		int userRole = securityService.getCurrentUser().getUSER_ROLES();
+		ModelAndView model;
+		
+		if(userRole == 1){
+			model = new ModelAndView("system");
+		}else if(userRole == 2){
+			model = new ModelAndView("software");
+		}else{ //3
+			model = new ModelAndView("software");
+		}
+		
 		return model;
 	}
 	/**
