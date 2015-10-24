@@ -82,10 +82,9 @@
 						<dd>
 							<input id="EDIT_CTIM_ID" type="hidden" />
 
-							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"></div>
+							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"><span id='loadingCustomer'></span></div>
 							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required /> <input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
-
 						<dt>Details No:</dt>
 						<dd>
 							<input class="form-control border-custom" id="EDIT_CTIM_DETAILS_NO" name="EDIT_CTIM_DETAILS_NO" type="text" required />
@@ -148,6 +147,7 @@ var timeIntervalValue;
 //============
 function getCustomers() {
 	customers = new wijmo.collections.ObservableArray();
+	document.getElementById('loadingCustomer').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
 	$.ajax({
 	    url: '${pageContext.request.contextPath}/api/customer/list',
 	    cache: false,
@@ -157,8 +157,8 @@ function getCustomers() {
 	        if (results.length > 0) {
 	            for (i = 0; i < results.length; i++) {
 	            	customers.push({
-	            		CUST_ID: results[i]["CUST_ID"],
-	            		CUST_NAME: results[i]["CUST_NAME"]
+	            		CUST_ID: results[i]["CUST_IDs"],
+	            		CUST_NAME: results[i]["CUST_NAMEs"]
 	                });
 	            }
 	            createCboCustomer();
@@ -232,7 +232,6 @@ function cmdCustomerTimeAdd_OnClick() {
 		show : true,
 		backdrop : 'static'
 	});
-
 	document.getElementById('EDIT_CTIM_ID').value = "0";
 	document.getElementById('EDIT_CTIM_CUST_ID_DATA').value = "0";
 	document.getElementById('EDIT_CTIM_DETAILS_NO').value = "0";
