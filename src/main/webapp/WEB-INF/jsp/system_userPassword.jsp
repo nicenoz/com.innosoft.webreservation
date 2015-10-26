@@ -64,6 +64,15 @@
 
 			var data = JSON.stringify(passwordObject);
 
+			var email = document.getElementById('Email');
+			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+			if (!filter.test(email.value)) {
+				toastr.error(getMessage("E0007"));
+				email.focus;
+				return false;
+			}
+			
 			$('#loading').modal('show');
 			$.ajax({
 				type : "POST",
