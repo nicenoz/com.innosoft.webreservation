@@ -59,6 +59,15 @@
 		emailObject.EMAIL_MESSAGE = document.getElementById('edit_message').value;
 		emailObject.EMAIL_SUBJECT = document.getElementById('edit_subject').value;
 
+		var email = document.getElementById('edit_email');
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+		if (!filter.test(email.value)) {
+			toastr.error(getMessage("E0007"));
+			email.focus;
+			return false;
+		}
+		
 		var data = JSON.stringify(emailObject);
 
 		$('#loading').modal('show');

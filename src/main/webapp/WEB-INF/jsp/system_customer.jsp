@@ -245,7 +245,7 @@ function cmdCustomerEditCancel_OnClick() {
 // =============================     
 function cmdCustomerEditOk_OnClick() {
  	var customerObject = new Object();
- 	document.getElementById("cmdCustomerEditOk").disabled = true;
+
 	customerObject.CUST_ID = parseInt(document.getElementById('EDIT_CUST_ID').value);
 	customerObject.CUST_CUSTOMER_NO = document.getElementById('EDIT_CUST_CUSTOMER_NO').value;	
 	customerObject.CUST_NAME = document.getElementById('EDIT_CUST_NAME').value;	
@@ -256,9 +256,16 @@ function cmdCustomerEditOk_OnClick() {
 	customerObject.CUST_ADDRESS2 = document.getElementById('EDIT_CUST_ADDRESS2').value;	
 	customerObject.CUST_ADDRESS3 = document.getElementById('EDIT_CUST_ADDRESS3').value;	
 	/* customerObject.CUST_ISDELETED = document.getElementById('EDIT_CUST_ISDELETED').options[document.getElementById("EDIT_CUST_ISDELETED").selectedIndex].value; */	
+	
+	var email = document.getElementById('EDIT_CUST_EMAIL');
+	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
  	var data = JSON.stringify(customerObject);
-
+	if (!filter.test(email.value)) {
+		toastr.error(getMessage("E0007"));
+		email.focus;
+		return false;
+	}
     $.ajax({
         type: "POST",
         url: '${pageContext.request.contextPath}/api/customer/update',
@@ -267,16 +274,17 @@ function cmdCustomerEditOk_OnClick() {
         data: data,
         success: function (data) {
             if (data.CUST_ID > 0) {
-           
+            	document.getElementById("cmdCustomerEditOk").disabled = true;
 				document.getElementById("cmdCustomerEditCancel").disabled = true;
                 toastr.success(getMessage("S0002"));
                 window.setTimeout(function () { location.reload() }, 1000);
             } else {
-            	document.getElementById("cmdCustomerEditOk").disabled = false;
+             	document.getElementById("cmdCustomerEditOk").disabled = false;
                 toastr.error(getMessage("E0006"));
             }
         }
     });
+
 }
 
 // =================

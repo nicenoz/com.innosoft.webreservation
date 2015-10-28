@@ -461,6 +461,16 @@ function cmdCustomerMemberEditOk_OnClick() {
 	customerMemberObject.MEBR_FIELD5 = document.getElementById('EDIT_MEBR_FIELD5').value;
 
 
+	var email = document.getElementById('EDIT_MEBR_EMAIL_ADDRESS');
+	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+	if (!filter.test(email.value)) {
+		/* alertify.alert('Invalid Email in Email Address Field'); */
+		toastr.error(getMessage("E0007"));
+		email.focus;
+		return false;
+	}
+	
 	var splitDate = document.getElementById('EDIT_MEBR_DATE_OF_BIRTH_DATA').value.split("-");
 
 	customerMemberObject.MEBR_DATE_OF_BIRTH = new Date(splitDate[0], splitDate[1] - 1, splitDate[2]);

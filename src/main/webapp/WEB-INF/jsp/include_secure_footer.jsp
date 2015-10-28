@@ -7,7 +7,7 @@
          	<div data-toggle="collapse" data-target=".navbar-ex1-collapse"></div>
           	<div class="col-sm-6">
           		<p class="footer-title-style">Web Reservation</p>
-          		<p class="footer-details-style">Version: <span class="footer-data-style"> Test 1.7 </span></p>
+          		<p class="footer-details-style">Version: <span class="footer-data-style"> Test 1.8 </span></p>
           		<p class="footer-details-style">
           			Current User:
           			<span class="footer-data-style" id="currentUserName">
