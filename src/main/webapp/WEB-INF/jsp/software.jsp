@@ -89,7 +89,6 @@
                         </dd>
                         <dt>Parts no: </dt>
                         <dd>
-                            <input type="text" id="AE_PARTS_NO" class="hidden" readonly>
                             <div id="AE_PARTS" class="autocomplete-wide"></div>
                         </dd>
                         
@@ -146,6 +145,8 @@ var loggedInCustomerId;
 var isScheduleUpdated;
 var loggedInCustomerEmail;
 var codeList;
+
+var partNames;
 
 var cboCustomer;
 var cboCalendarActivityStart;
@@ -305,7 +306,7 @@ function cmdGetSchedule_OnClick() {
                 	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
                 		var newObj = {
                 				time: results[i]["CTIM_DETAILS_NO"].toString(), 
-                				parts: p + 1
+                				parts: partNames[p].name
                 		};
                 		
                 		// --- CREATE BUTTONS --------------------------------------
@@ -336,7 +337,6 @@ function cmdGetSchedule_OnClick() {
 		                						}
 		                					}
 			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
-			                					console.log(reservationsList[a]["RESV_ID"]);
 			                					if(counter[x][y] <= results[i]["CTIM_MAX_UNIT_NO"]){
 		                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
 			                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
@@ -467,7 +467,7 @@ function cmdAddEditOk_OnClick() {
  	reservation.RESV_MEBR_ID = parseInt(document.getElementById('AE_MEBR_ID').value);
  	reservation.RESV_CACT_ID = parseInt(document.getElementById('AE_CACT_ID').value);
  	reservation.RESV_UNIT_NO = 1;
- 	reservation.RESV_PARTS_NO = parseInt(document.getElementById('AE_PARTS_NO').value);
+ 	reservation.RESV_PARTS_NO = parseInt(cboAEPartsNo.selectedValue.id);
  	reservation.RESV_START_TIME_ID = parseInt(document.getElementById('AE_START_TIME_ID').value);
  	reservation.RESV_END_TIME_ID = parseInt(document.getElementById('AE_END_TIME_ID').value);
  	reservation.RESV_NOTE = document.getElementById('AE_RESV_NOTES').value;
@@ -492,7 +492,7 @@ function cmdAddEditOk_OnClick() {
     	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
     	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
     	    			emailObject.EMAIL_MESSAGE = "You have made a reservation in " +cboCustomer.selectedValue.customerName +":\n\nReservation Date: " + cboAECalenderDate.selectedValue +
-    	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+    	    				"\nPart No.: " + parseInt(cboAEPartsNo.selectedValue.id) + 
     	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
     	    				"\nTime End: "+  cboAEEndTime.selectedValue +
     	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
@@ -575,7 +575,7 @@ function cmdDelete_OnClick(){
 	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
 	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Canceled Reservation";
 	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation:\n\nReservation Date: " + cboAECalenderDate.selectedValue +
-	    				"\nPart No.: " + document.getElementById('AE_PARTS_NO').value + 
+	    				"\nPart No.: " + parseInt(cboAEPartsNo.selectedValue.id) + 
 	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
 	    				"\nTime End: "+  cboAEEndTime.selectedValue +
 	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
@@ -641,10 +641,6 @@ function cmdAddReservation_OnClick() {
 	    	customerTimeList.push(customerTimeFlat[i].time);
 	    }
 	    
-	    var partsList = new Array();
-	    for (var i = 1; i <= ceilParts; i++) {
-	    	partsList.push(i);
-	    }
 	    
 	    document.getElementById("AE_RESV_ID").value = 0;
 	    document.getElementById("AE_MEBR_ID").value = loggedInCustomerId;
@@ -662,16 +658,12 @@ function cmdAddReservation_OnClick() {
 	        	document.getElementById("AE_CACT_ID").value = calendarActivities[cboAECalenderDate.selectedIndex + startDateIndex].id;
 	        }
 	    });
-
-    	document.getElementById("AE_PARTS_NO").value = partsList[0];
 	    cboAEPartsNo.dispose();
 	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
-	        itemsSource: partsList,
+	        itemsSource: partNames,
 	        isEditable: false,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_PARTS_NO").value = partsList[cboAEPartsNo.selectedIndex];
-	        }
-	    });	
+	        displayMemberPath: "name"
+	    });
 	    
 	    document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[0].id;
 	    cboAEStartTime.dispose();
@@ -727,11 +719,6 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    	customerTimeList.push(customerTimeFlat[i].time);
 	    }
 	    
-	    var partsList = new Array();
-	    for (var i = 1; i <= ceilParts; i++) {
-	    	partsList.push(i);
-	    }
-	    
 	    currentLookup = reservation.RESV_ID;
 	    
 	    document.getElementById("AE_RESV_ID").value = reservation.RESV_ID;
@@ -759,15 +746,12 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	        }
 	    });
 	    
-    	document.getElementById("AE_PARTS_NO").value = partsList[reservation.RESV_PARTS_NO - 1];
 	    cboAEPartsNo.dispose();
 	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
-	        itemsSource: partsList,
+	        itemsSource: partNames,
+	        displayMemberPath: "name",
 	        disabled: !isUser,
-	        selectedIndex: reservation.RESV_PARTS_NO - 1,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_PARTS_NO").value = partsList[cboAEPartsNo.selectedIndex];
-	        }
+	        selectedIndex: reservation.RESV_PARTS_NO - 1
 	    });	
 	    
 	    startTimeIndex = 0;
@@ -850,10 +834,12 @@ function getCustomers() {
                 	if(results[i]["CUST_CUSTOMER_NO"] != "000000"){
 	                	customerList.push({
 	                        id: results[i]["CUST_ID"],
+	                        customerNumber: results[i]["CUST_CUSTOMER_NO"],
 	                        customerName: results[i]["CUST_NAME"]
 	                    });
                 	}
                 }
+                
                 createCboCustomer(customerList);
             }
         }
@@ -864,7 +850,7 @@ function getCustomers() {
     );
 }
 
-function getCalendarActivities(customerId) {
+function getCalendarActivities(customerId, customerNumber) {
     calendarActivities = new wijmo.collections.ObservableArray();
     
     $.ajax({
@@ -877,14 +863,40 @@ function getCalendarActivities(customerId) {
             	reservationsList = new Array();
                 if (results.length > 0) {
                             
-                results.forEach(function(result){
-	             	calendarActivities.push({
-	                     id: result.CACT_ID,
-	                     dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
-	                     date: result.CACT_CLDR_FK.CLDR_DATE,
-	                });
-	            });
-                createCboCalendarActivity(calendarActivities);
+	                results.forEach(function(result){
+		             	calendarActivities.push({
+		                     id: result.CACT_ID,
+		                     dayCode: result.CACT_CLDR_FK.CLDR_DAYCODE,
+		                     date: result.CACT_CLDR_FK.CLDR_DATE,
+		                });
+		            });
+	                
+	                $.ajax({
+	                    url: '${pageContext.request.contextPath}/api/code/listByKind',
+	                    cache: false,
+	                    type: 'GET',
+	                    contentType: 'application/json; charset=utf-8',
+	                    data: {"kind" : "RESV"},
+	                    success: function (results) {
+	                    	partNames = new Array();
+	
+	            	        results.forEach(function (part){
+	            	        	code = part["CODE_CODE_VALUE"].split("-");
+	            	        	if(code[0] == customerNumber)
+	            	        		partNames.push({
+	            	        			id: code[1],
+	            	        			name: part["CODE_TEXT"]
+	            	        		});
+	            	    	});
+	
+	                        createCboCalendarActivity(calendarActivities);
+	                    }
+	                }).fail(
+	                    function (xhr, textStatus, err) {
+	                        alert(err);
+	                    }
+	                );
+               
                 }
             }
         }).fail(
@@ -905,12 +917,13 @@ function createCboCustomer(customers) {
         displayMemberPath:"customerName",
         isEditable: false,
         onSelectedIndexChanged: function () {
-            getCalendarActivities(this.selectedValue.id);
+            getCalendarActivities(this.selectedValue.id, this.selectedValue.customerNumber);
             isScheduleUpdated = false;
         }
-    });	
+    });
+
+    getCalendarActivities(customers[0].id, customers[0].customerNumber);
 	
-    getCalendarActivities(customers[0].id)
 }
 
 function createCboCalendarActivity(calendarActivities) {
@@ -1053,6 +1066,7 @@ $(document).ready(function () {
         $('form')[0].reset();
         $('#ReservationAddEdit').modal('hide');
     });
+	
 	
 	cboCustomer = new wijmo.input.AutoComplete('#cboCustomer');
 	cboCalendarActivityStart = new wijmo.input.AutoComplete('#cboCalendarActivityStart');
