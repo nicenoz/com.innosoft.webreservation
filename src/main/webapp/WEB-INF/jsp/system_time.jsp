@@ -82,7 +82,8 @@
 						<dd>
 							<input id="EDIT_CTIM_ID" type="hidden" />
 
-							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"><span id='loadingCustomer'></span></div>
+							<div id="EDIT_CTIM_CUST_ID" class="autocomplete-wide"></div>
+							<div id='loadingCustomer' class="span-Custom"></div>
 							<input id="EDIT_CTIM_CUST_ID_DATA" name="EDIT_CTIM_CUST_ID_DATA" type="hidden" required /> <input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 						</dd>
 						<dt>Details No:</dt>
@@ -148,6 +149,8 @@ var timeIntervalValue;
 function getCustomers() {
 	customers = new wijmo.collections.ObservableArray();
 	document.getElementById('loadingCustomer').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCustomer').show();
+	cboCustomer.dispose();
 	$.ajax({
 	    url: '${pageContext.request.contextPath}/api/customer/list',
 	    cache: false,
@@ -157,11 +160,12 @@ function getCustomers() {
 	        if (results.length > 0) {
 	            for (i = 0; i < results.length; i++) {
 	            	customers.push({
-	            		CUST_ID: results[i]["CUST_IDs"],
-	            		CUST_NAME: results[i]["CUST_NAMEs"]
+	            		CUST_ID: results[i]["CUST_ID"],
+	            		CUST_NAME: results[i]["CUST_NAME"]
 	                });
 	            }
-	            createCboCustomer();
+	            setTimeout(createCboCustomer, 1000);
+/* 	            createCboCustomer(); */
 	        }
 	    }
 	}).fail(
@@ -173,7 +177,7 @@ function getCustomers() {
 //Customer Combo Box
 //==================
 function createCboCustomer() {
-	cboCustomer.dispose();
+	$('#loadingCustomer').hide();
 	cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
 		itemsSource: customers,
 		displayMemberPath: "CUST_NAME",
