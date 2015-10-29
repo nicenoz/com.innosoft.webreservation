@@ -140,7 +140,6 @@ var deletePart;
 var deleteTime;
 
 var currentLookup;
-var ceilParts = 0;
 var loggedInCustomerId;
 var isScheduleUpdated;
 var loggedInCustomerEmail;
@@ -287,6 +286,8 @@ function cmdGetSchedule_OnClick() {
     	        });	
     	    }     
         	
+            
+            
             // --- END CREATE COLUMNS ----------------------------------
             // --- CREATE DATA -----------------------------------------
             if (results.length > 0) {
@@ -298,61 +299,58 @@ function cmdGetSchedule_OnClick() {
                 		time: results[i]["CTIM_DETAILS_NO"].toString()
                 	});
                 	
-                	if(results[i]["CTIM_MAX_PARTS_NO"] > ceilParts)
-               		{
-                		ceilParts = results[i]["CTIM_MAX_PARTS_NO"];
-               		}
-                	
-                	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"]; p++) {
-                		var newObj = {
-                				time: results[i]["CTIM_DETAILS_NO"].toString(), 
-                				parts: partNames[p].name
-                		};
+                	for(p = 0; p < results[i]["CTIM_MAX_PARTS_NO"] ; p++) {
+                		var newObj;
                 		
-                		// --- CREATE BUTTONS --------------------------------------
-                		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
-                		for (k = startDateIndex; k <= endDateIndex; k++) {
-                			var counter = new Array(ceilParts);
-                			var slotHolder = "";
-                			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
-                			for(a = 0; a < reservationsList.length; a++){
-                				//CHECK IF IS DELETED
-                				if(reservationsList[a].RESV_ISDELETED == 0){
-	                				//CHECK IF RESERVATION IS FOR THIS DAY
-	                				if(calendarActivities[k].id == reservationsList[a].RESV_CACT_ID){
-	                					//CHECK IF RESERVATION IS FOR THIS TIME
-	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
-			                				//CHECK IF RESERVATION IS FOR THIS PART
-		                					var x = i;
-	                						var y = k - startDateIndex;
+                		if(results[i]["CTIM_MAX_PARTS_NO"] == 1){
+	                		newObj = {
+	                				time: results[i]["CTIM_DETAILS_NO"].toString(), 
+	                				parts: partNames[p].name
+	                		};
+	                		
+	                		// --- CREATE BUTTONS --------------------------------------
+	                		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
+	                		for (k = startDateIndex; k <= endDateIndex; k++) {
+	                			var counter = new Array(results[i]["CTIM_MAX_PARTS_NO"]);
+	                			var slotHolder = "";
+	                			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
+	                			for(a = 0; a < reservationsList.length; a++){
+	                				//CHECK IF IS DELETED
+	                				if(reservationsList[a].RESV_ISDELETED == 0){
+		                				//CHECK IF RESERVATION IS FOR THIS DAY
+		                				if(calendarActivities[k].id == reservationsList[a].RESV_CACT_ID){
+		                					//CHECK IF RESERVATION IS FOR THIS TIME
+		                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
+				                				//CHECK IF RESERVATION IS FOR THIS PART
+		                						var y = k - startDateIndex;
 
-		                					if(counter[x] == null){
-		                						counter[x] = new Array(endDateIndex - startDateIndex + 1);
-		                						counter[x][y] = 1;
-		                					}else{
-		                						if(counter[x][y] == null){
-		                							counter[x][y] = 1;
-		                						}else{
-		                							counter[x][y]++;
-		                						}
-		                					}
-			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
-			                					if(counter[x][y] <= results[i]["CTIM_MAX_UNIT_NO"]){
-		                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
-			                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
-				                						//CAN EDIT IF RESERVED BY CUSTOMER
-			                							slotHolder = slotHolder + 
-					                					"<button class='btn btn-success btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+			                					if(counter[i] == null){
+			                						counter[i] = new Array(endDateIndex - startDateIndex + 1);
+			                						counter[i][y] = 1;
+			                					}else{
+			                						if(counter[i][y] == null){
+			                							counter[i][y] = 1;
 			                						}else{
-			                							//VIEW ONLY IF NOT
-					                					slotHolder = slotHolder + 
-					                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+			                							counter[i][y]++;
 			                						}
-		                							
-			                						if(hasDeleted)
-                										if(counter[x][y] == results[i]["CTIM_MAX_UNIT_NO"])
-				                							if(deleteDate == reservationsList[a].RESV_CACT_ID)
-				                								/* if(deletePart == reservationsList[a]["RESV_PARTS_NO"]) */
+			                					}
+			                					
+				                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+				                					if(counter[i][y] <= results[i]["CTIM_MAX_UNIT_NO"]){
+			                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
+				                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
+					                						//CAN EDIT IF RESERVED BY CUSTOMER
+				                							slotHolder = slotHolder + 
+						                					"<button class='btn btn-success btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+				                						} else {
+				                							//VIEW ONLY IF NOT
+						                					slotHolder = slotHolder + 
+						                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+				                						}
+			                							
+				                						if(hasDeleted){
+		            										if(counter[i][y] == results[i]["CTIM_MAX_UNIT_NO"]){
+					                							if(deleteDate == reservationsList[a].RESV_CACT_ID){
 				                									if(deleteTime == reservationsList[a]["RESV_START_TIME_ID"]){
 				                										
 				                										hasDeleted = false;
@@ -402,7 +400,7 @@ function cmdGetSchedule_OnClick() {
 				                				    							},
 				                				    							404 : function() {
 				                				    								$('#loading').modal('hide');
-				                				    								toastr.info(getMessage("M0002"));
+				                				    								toastr.info(getMessage("E0010"));
 				                				    							},
 				                				    							400 : function() {
 				                				    								$('#loading').modal('hide');
@@ -412,7 +410,74 @@ function cmdGetSchedule_OnClick() {
 				                				    	 				});
 				                										
 				                									}
-		                							
+					                							}
+					                						}
+				                						}
+			                						}else{
+			                							if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
+					                						//CAN EDIT IF RESERVED BY CUSTOMER
+				                							slotHolder = slotHolder + 
+						                					"<button class='btn btn-warning btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+				                						} else {
+				                							//VIEW ONLY IF NOT
+						                					slotHolder = slotHolder + 
+						                					"<button class='btn btn-danger btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+				                						}
+			                						}
+			                					}
+			                				}
+		                				}
+	                				}
+	                			}
+	                			newObj[calendarActivityList[k]] = slotHolder;
+	                 	    }  
+	                		
+                		} else {
+                			newObj = {
+	                				time: results[i]["CTIM_DETAILS_NO"].toString(), 
+	                				parts: partNames[p].name
+	                		};
+
+                    		// --- CREATE BUTTONS --------------------------------------
+                    		//TRAVERSE FROM SELECTED FROM DATE TO SELECTED TO DATE
+                    		for (k = startDateIndex; k <= endDateIndex; k++) {
+                    			var counter = new Array(results[i]["CTIM_MAX_PARTS_NO"]);
+                    			var slotHolder = "";
+                    			//TRAVERSE FROM ALL RESERVATIONS (to be improved, query)
+                    			for(a = 0; a < reservationsList.length; a++){
+                				//CHECK IF IS DELETED
+                				if(reservationsList[a].RESV_ISDELETED == 0){
+	                				//CHECK IF RESERVATION IS FOR THIS DAY
+	                				if(calendarActivities[k].id == reservationsList[a].RESV_CACT_ID){
+	                					//CHECK IF RESERVATION IS FOR THIS TIME
+	                					if((results[i]["CTIM_ID"] >= reservationsList[a]["RESV_START_TIME_ID"]) && ((results[i]["CTIM_ID"] <= reservationsList[a]["RESV_END_TIME_ID"]))){
+			                				//CHECK IF RESERVATION IS FOR THIS PART
+			                				if(reservationsList[a]["RESV_PARTS_NO"] == (p + 1)){
+		                						var x = reservationsList[a]["RESV_PARTS_NO"] - 1;
+		                						var y = k - startDateIndex;
+		                						
+			                					if(counter[x] == null){
+			                						counter[x] = new Array(endDateIndex - startDateIndex + 1);
+			                						counter[x][y] = 1;
+			                					}else{
+			                						if(counter[x][y] == null){
+			                							counter[x][y] = 1;
+			                						}else{
+			                							counter[x][y]++;
+			                						}
+			                					}
+			                					
+			                					if(counter[x][y] <= 1){
+		                							//ADD BUTTON THAT SHOWS WHO RESERVED THE TIME
+			                						if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
+				                						//CAN EDIT IF RESERVED BY CUSTOMER
+			                							slotHolder = slotHolder + 
+					                					"<button class='btn btn-success btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", true)'>x</button> ";
+			                						}else{
+			                							//VIEW ONLY IF NOT
+					                					slotHolder = slotHolder + 
+					                					"<button class='btn btn-primary btn-xs border-custom' onclick='cmdEditReservation_OnClick(\""+ a +"\", false)'>x</button> ";
+			                						}
 		                						}else{
 		                							if(reservationsList[a]["RESV_MEBR_ID"] == loggedInCustomerId){
 				                						//CAN EDIT IF RESERVED BY CUSTOMER
@@ -430,8 +495,10 @@ function cmdGetSchedule_OnClick() {
 	                				}
                 				}
                 			}
-                			newObj[calendarActivityList[k]] = slotHolder;
-                 	    }  
+                    			newObj[calendarActivityList[k]] = slotHolder;
+                     	    }  
+                		}
+                		
                     	customerTime.push(newObj);                		
                 	}
                 }
@@ -514,7 +581,7 @@ function cmdAddEditOk_OnClick() {
     							},
     							404 : function() {
     								$('#loading').modal('hide');
-    								toastr.info(getMessage("M0002"));
+    								toastr.info(getMessage("E0010"));
     							},
     							400 : function() {
     								$('#loading').modal('hide');
@@ -578,7 +645,8 @@ function cmdDelete_OnClick(){
 	    				"\nPart No.: " + parseInt(cboAEPartsNo.selectedValue.id) + 
 	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
 	    				"\nTime End: "+  cboAEEndTime.selectedValue +
-	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value;
+	    				"\nNote: " + document.getElementById('AE_RESV_NOTES').value +
+	    				"\n\nPlease visit the link: http://magentatest.cloudapp.net/webreservation/software/";
 
 	    			emailObject.EMAIL_RECEIVER_ID = loggedInCustomerId;
 	    			emailObject.EMAIL_PURPOSE = "Delete Reservation";
@@ -601,7 +669,7 @@ function cmdDelete_OnClick(){
 							},
 							404 : function() {
 								$('#loading').modal('hide');
-								toastr.info(getMessage("M0002"));
+								toastr.info(getMessage("E0010"));
 							},
 							400 : function() {
 								$('#loading').modal('hide');
