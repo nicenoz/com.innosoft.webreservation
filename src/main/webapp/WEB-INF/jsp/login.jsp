@@ -140,6 +140,7 @@
 												<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 													<script>
 														/* getMessage("E0002"); */
+														/* toastr.error(getMessage("E0002")); */
 														toastr.error("Invalid Login or Password");
 													</script>
 												</c:if>
@@ -241,7 +242,9 @@
 			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 			if (!filter.test(email.value)) {
-				toastr.error('Please provide a valid email address. Include "@" once.');
+				toastr.error(getMessage("E
+2"));
+				/* toastr.error('Please provide a valid email address. Include "@" once.'); */
 				email.focus;
 				return false;
 			}
