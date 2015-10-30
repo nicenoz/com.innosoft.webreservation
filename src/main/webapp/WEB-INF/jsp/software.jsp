@@ -84,7 +84,6 @@
                         </dd>
                         <dt>Calendar Date: </dt>
                         <dd>
-                        	<input type="text" id="AE_CACT_ID" class="hidden" readonly>
                             <div id="AE_CALENDAR_DATE" class="autocomplete-wide"></div>
                         </dd>
                         <dt>Parts no: </dt>
@@ -532,7 +531,7 @@ function cmdAddEditOk_OnClick() {
  	reservation.RESV_ID      = parseInt(document.getElementById('AE_RESV_ID').value);
  	reservation.RESV_CUST_ID = parseInt(document.getElementById('AE_CUST_ID').value);
  	reservation.RESV_MEBR_ID = parseInt(document.getElementById('AE_MEBR_ID').value);
- 	reservation.RESV_CACT_ID = parseInt(document.getElementById('AE_CACT_ID').value);
+ 	reservation.RESV_CACT_ID = parseInt(cboAECalenderDate.selectedValue.id);
  	reservation.RESV_UNIT_NO = 1;
  	reservation.RESV_PARTS_NO = parseInt(cboAEPartsNo.selectedValue.id);
  	reservation.RESV_START_TIME_ID = parseInt(document.getElementById('AE_START_TIME_ID').value);
@@ -558,7 +557,7 @@ function cmdAddEditOk_OnClick() {
     	                var emailObject = new Object();
     	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
     	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Reservation";
-    	    			emailObject.EMAIL_MESSAGE = "You have made a reservation in " +cboCustomer.selectedValue.customerName +":\n\nReservation Date: " + cboAECalenderDate.selectedValue +
+    	    			emailObject.EMAIL_MESSAGE = "You have made a reservation in " +cboCustomer.selectedValue.customerName +":\n\nReservation Date: " + cboAECalenderDate.selectedValue.dayCode +
     	    				"\nPart No.: " + parseInt(cboAEPartsNo.selectedValue.id) + 
     	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
     	    				"\nTime End: "+  cboAEEndTime.selectedValue +
@@ -641,7 +640,7 @@ function cmdDelete_OnClick(){
                     var emailObject = new Object();
 	    			emailObject.EMAIL_EMAIL = loggedInCustomerEmail;
 	    			emailObject.EMAIL_SUBJECT =  cboCustomer.selectedValue.customerName + " Canceled Reservation";
-	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation:\n\nReservation Date: " + cboAECalenderDate.selectedValue +
+	    			emailObject.EMAIL_MESSAGE = "You have cancelled this reservation:\n\nReservation Date: " + cboAECalenderDate.selectedValue.dayCode +
 	    				"\nPart No.: " + parseInt(cboAEPartsNo.selectedValue.id) + 
 	    				"\nTime Start: "+ cboAEStartTime.selectedValue +
 	    				"\nTime End: "+  cboAEEndTime.selectedValue +
@@ -716,15 +715,24 @@ function cmdAddReservation_OnClick() {
 	    document.getElementById("AE_CUST_NAME").value = cboCustomer.selectedValue.customerName;
 	    
 	    
-	    /* document.getElementById("AE_CACT_ID").value = calendarActivities[0].id; */
-	    document.getElementById("AE_CACT_ID").value = calendarActivities[startDateIndex].id; 
+	    var dates = calendarActivities.slice(startDateIndex, endDateIndex + 1);
+	    var newDates = new Array();
+	    var currentDate = new Date(new Date().toJSON().slice(0,10));
+
+	    for(a = 0; a < dates.length; a++){
+	    	mydate = new Date(dates[a].dayCode);
+		    
+	    	if(mydate >= currentDate){
+		    	newDates.push(dates[a]);
+		    }
+	    }
+	    
+	    
 	    cboAECalenderDate.dispose();
 	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
-	        itemsSource: calendarActivityList.slice(startDateIndex, endDateIndex + 1),
-	        isEditable: false,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_CACT_ID").value = calendarActivities[cboAECalenderDate.selectedIndex + startDateIndex].id;
-	        }
+	        itemsSource: newDates,
+	        displayMemberPath:"dayCode",
+	        isEditable: false
 	    });
 	    cboAEPartsNo.dispose();
 	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
@@ -775,6 +783,22 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	
 	document.getElementById("CmdAddEditOk").disabled = false;
  	document.getElementById("CmdAddEditCancel").disabled = false;
+ 	
+ 	var onDate = false;
+ 	var regDate;
+ 	
+	for(a = 0; a < calendarActivities.slice(startDateIndex, endDateIndex + 1).length; a++)
+	{
+		if(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].id == reservation.RESV_CACT_ID){
+			regDate = new Date(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].dayCode);
+		}
+	}
+	
+	var currentDate = new Date(new Date().toJSON().slice(0,10));
+	
+ 	if(regDate > currentDate){
+ 		onDate = true;
+ 	}
 	
 	if(isScheduleUpdated){
 	    $('#ReservationAddEdit').modal({
@@ -794,31 +818,60 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    document.getElementById("AE_CUST_ID").value = cboCustomer.selectedValue.id;
 	    document.getElementById("AE_CUST_NAME").value = cboCustomer.selectedValue.customerName;
 	    
-		/* reservation.RESV_CACT_ID */
-		var calendarDateIndex = 0;
-		//INDEXOF DOES NOT WORK, USING FOR LOOPS FOR NOW (DAFUQ)
-		for(a = 0; a < calendarActivities.slice(startDateIndex, endDateIndex + 1).length; a++)
-		{
-			if(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].id == reservation.RESV_CACT_ID){
-				calendarDateIndex = a;
+	    
+	    if(onDate){
+		    var dates = calendarActivities.slice(startDateIndex, endDateIndex + 1);
+		    var newDates = new Array();
+		    var currentDate = new Date(new Date().toJSON().slice(0,10));
+		    
+		    for(a = 0; a < dates.length; a++){
+		    	mydate = new Date(dates[a].dayCode);
+			    
+		    	if(mydate >= currentDate){
+			    	newDates.push(dates[a]);
+			    }
+		    }
+		    
+		    var calendarDateIndex = 0;
+			//INDEX OF DOES NOT WORK, USING FOR LOOPS FOR NOW (DAFUQ)
+			for(a = 0; a < newDates.length; a++)
+			{
+				if(newDates[a].id == reservation.RESV_CACT_ID){
+					calendarDateIndex = a;
+				}
 			}
-		}
-	    document.getElementById("AE_CACT_ID").value = calendarActivities[calendarDateIndex].id;
-	    cboAECalenderDate.dispose();
-	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
-	        itemsSource: calendarActivityList.slice(startDateIndex, endDateIndex + 1),
-	        disabled: !isUser,
-	        selectedIndex: calendarDateIndex,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_CACT_ID").value = calendarActivities[cboAECalenderDate.selectedIndex + startDateIndex].id;
-	        }
-	    });
+			
+		    cboAECalenderDate.dispose();
+		    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
+		        itemsSource: newDates,
+		        disabled: !isUser,
+		        displayMemberPath:"dayCode",
+		        selectedIndex: calendarDateIndex
+		    });
+	    } else {
+	    	var calendarDateIndex = 0;
+			//INDEX OF DOES NOT WORK, USING FOR LOOPS FOR NOW (DAFUQ)
+			for(a = 0; a < calendarActivities.slice(startDateIndex, endDateIndex + 1).length; a++)
+			{
+				if(calendarActivities.slice(startDateIndex, endDateIndex + 1)[a].id == reservation.RESV_CACT_ID){
+					calendarDateIndex = a;
+				}
+			}
+			
+		    cboAECalenderDate.dispose();
+		    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
+		        itemsSource: calendarActivities.slice(startDateIndex, endDateIndex + 1),
+		        disabled: true,
+		        displayMemberPath:"dayCode",
+		        selectedIndex: calendarDateIndex
+		    });
+	    }
 	    
 	    cboAEPartsNo.dispose();
 	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
 	        itemsSource: partNames,
 	        displayMemberPath: "name",
-	        disabled: !isUser,
+	        disabled: !(isUser && onDate),
 	        selectedIndex: reservation.RESV_PARTS_NO - 1
 	    });	
 	    
@@ -835,7 +888,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    cboAEStartTime.dispose();
 	    cboAEStartTime = new wijmo.input.ComboBox('#AE_START_TIME', {
 	        itemsSource: customerTimeList,
-	        disabled: !isUser,
+	        disabled: !(isUser && onDate),
 	        selectedIndex: startTimeIndex,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
@@ -859,7 +912,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    cboAEEndTime.dispose();
 	    cboAEEndTime = new wijmo.input.ComboBox('#AE_END_TIME', {
 	        itemsSource: customerTimeList,
-	        disabled: !isUser,
+	        disabled: !(isUser && onDate),
 	        selectedIndex: endTimeIndex,
 	        onSelectedIndexChanged: function () {
 	        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
@@ -871,14 +924,14 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	    });
 	    
 	    document.getElementById("AE_RESV_NOTES").value = reservation.RESV_NOTE;
-	    document.getElementById("AE_RESV_NOTES").disabled = !isUser;
+	    document.getElementById("AE_RESV_NOTES").disabled = !(isUser && onDate);
 	    
-	    if(!isUser){
-	    	document.getElementById("CmdDelete").style.visibility = "hidden";
-	    	document.getElementById("CmdAddEditOk").style.visibility = "hidden";
-	    }else{
+	    if(isUser && onDate){
 	    	document.getElementById("CmdDelete").style.visibility = "visible";
 	    	document.getElementById("CmdAddEditOk").style.visibility = "visible";
+	    }else{
+	    	document.getElementById("CmdDelete").style.visibility = "hidden";
+	    	document.getElementById("CmdAddEditOk").style.visibility = "hidden";
 	    }
 	    
 	}else{
@@ -1002,22 +1055,7 @@ function createCboCalendarActivity(calendarActivities) {
     	calendarActivityList.push(calendarActivityCollection.items[i].dayCode);
     }
     
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd='0'+dd
-    } 
-
-    if(mm<10) {
-        mm='0'+mm
-    } 
-
-    today = mm+'/'+dd+'/'+yyyy;
-    
-    var tod = new Date(today);
+    var tod = new Date(new Date().toJSON().slice(0,10));
     var tom = new Date(tod.getTime() + 86399999);
     
     var currentDateIndex;
