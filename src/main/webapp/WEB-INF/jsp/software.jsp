@@ -695,27 +695,11 @@ function cmdDelete_OnClick(){
 }
 
 function cmdAddReservation_OnClick() {
+	
 	document.getElementById("CmdAddEditOk").disabled = false;
  	document.getElementById("CmdAddEditCancel").disabled = false;
 	if(isScheduleUpdated){
-	    $('#ReservationAddEdit').modal({
-	        show: true,
-	        backdrop: false
-	    });
-
-	    var customerTimeList = new Array();
-	    for (var i = 0; i < customerTimeFlat.length; i++) {
-	    	customerTimeList.push(customerTimeFlat[i].time);
-	    }
-	    
-	    
-	    document.getElementById("AE_RESV_ID").value = 0;
-	    document.getElementById("AE_MEBR_ID").value = loggedInCustomerId;
-	    document.getElementById("AE_CUST_ID").value = cboCustomer.selectedValue.id;
-	    document.getElementById("AE_CUST_NAME").value = cboCustomer.selectedValue.customerName;
-	    
-	    
-	    var dates = calendarActivities.slice(startDateIndex, endDateIndex + 1);
+		var dates = calendarActivities.slice(startDateIndex, endDateIndex + 1);
 	    var newDates = new Array();
 	    var currentDate = new Date(new Date().toJSON().slice(0,10));
 
@@ -727,54 +711,74 @@ function cmdAddReservation_OnClick() {
 		    }
 	    }
 	    
-	    
-	    cboAECalenderDate.dispose();
-	    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
-	        itemsSource: newDates,
-	        displayMemberPath:"dayCode",
-	        isEditable: false
-	    });
-	    cboAEPartsNo.dispose();
-	    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
-	        itemsSource: partNames,
-	        isEditable: false,
-	        displayMemberPath: "name"
-	    });
-	    
-	    document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[0].id;
-	    cboAEStartTime.dispose();
-	    cboAEStartTime = new wijmo.input.ComboBox('#AE_START_TIME', {
-	        itemsSource: customerTimeList,
-	        isEditable: false,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
-	        	if(this.selectedIndex > cboAEEndTime.selectedIndex){
-	        		cboAEEndTime.selectedIndex = this.selectedIndex;
-	        		document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
-	        	}
-	        }
-	    });	
-	    
-	    document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[0].id;
-	    cboAEEndTime.dispose();
-	    cboAEEndTime = new wijmo.input.ComboBox('#AE_END_TIME', {
-	        itemsSource: customerTimeList,
-	        isEditable: false,
-	        onSelectedIndexChanged: function () {
-	        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
-	        	if(this.selectedIndex < cboAEStartTime.selectedIndex){
-	        		cboAEStartTime.selectedIndex = this.selectedIndex;
-	        		document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
-	        	}
-	        }
-	    });
-	    
-	    document.getElementById("AE_RESV_NOTES").disabled = false;
-    	document.getElementById("CmdDelete").style.visibility = "hidden";
-    	document.getElementById("CmdAddEditOk").style.visibility = "visible";
-
+	    if(newDates.length != 0){
+		    $('#ReservationAddEdit').modal({
+		        show: true,
+		        backdrop: false
+		    });
+	
+		    var customerTimeList = new Array();
+		    for (var i = 0; i < customerTimeFlat.length; i++) {
+		    	customerTimeList.push(customerTimeFlat[i].time);
+		    }
+		    
+		    
+		    document.getElementById("AE_RESV_ID").value = 0;
+		    document.getElementById("AE_MEBR_ID").value = loggedInCustomerId;
+		    document.getElementById("AE_CUST_ID").value = cboCustomer.selectedValue.id;
+		    document.getElementById("AE_CUST_NAME").value = cboCustomer.selectedValue.customerName;
+		    
+		    cboAECalenderDate.dispose();
+		    cboAECalenderDate = new wijmo.input.ComboBox('#AE_CALENDAR_DATE', {
+		        itemsSource: newDates,
+		        displayMemberPath:"dayCode",
+		        isEditable: false
+		    });
+		    cboAEPartsNo.dispose();
+		    cboAEPartsNo = new wijmo.input.ComboBox('#AE_PARTS', {
+		        itemsSource: partNames,
+		        isEditable: false,
+		        displayMemberPath: "name"
+		    });
+		    
+		    document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[0].id;
+		    cboAEStartTime.dispose();
+		    cboAEStartTime = new wijmo.input.ComboBox('#AE_START_TIME', {
+		        itemsSource: customerTimeList,
+		        isEditable: false,
+		        onSelectedIndexChanged: function () {
+		        	document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+		        	if(this.selectedIndex > cboAEEndTime.selectedIndex){
+		        		cboAEEndTime.selectedIndex = this.selectedIndex;
+		        		document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+		        	}
+		        }
+		    });	
+		    
+		    document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[0].id;
+		    cboAEEndTime.dispose();
+		    cboAEEndTime = new wijmo.input.ComboBox('#AE_END_TIME', {
+		        itemsSource: customerTimeList,
+		        isEditable: false,
+		        onSelectedIndexChanged: function () {
+		        	document.getElementById("AE_END_TIME_ID").value = customerTimeFlat[cboAEEndTime.selectedIndex].id;
+		        	if(this.selectedIndex < cboAEStartTime.selectedIndex){
+		        		cboAEStartTime.selectedIndex = this.selectedIndex;
+		        		document.getElementById("AE_START_TIME_ID").value = customerTimeFlat[cboAEStartTime.selectedIndex].id;
+		        	}
+		        }
+		    });
+		    
+		    document.getElementById("AE_RESV_NOTES").disabled = false;
+	    	document.getElementById("CmdDelete").style.visibility = "hidden";
+	    	document.getElementById("CmdAddEditOk").style.visibility = "visible";
+		}else{
+			/* alertify.alert("Update Schedules first.") */
+			toastr.error(getMessage("E0005"));
+		}
+		    
 	}else{
-		alertify.alert("Update Schedules first.")
+		alertify.alert("Update Schedules first.");
 	}
 }
 
