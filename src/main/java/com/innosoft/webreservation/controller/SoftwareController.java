@@ -31,7 +31,7 @@ public class SoftwareController {
 		} else if(userRole == 2){
 			model = new ModelAndView("software");
 		} else if(userRole == 3){
-			model = new ModelAndView("software");
+			model = new ModelAndView("system");
 		} else{ //3
 			model = new ModelAndView("home");
 		}
