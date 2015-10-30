@@ -28,10 +28,12 @@ public class SoftwareController {
 		
 		if(userRole == 1){
 			model = new ModelAndView("system");
-		}else if(userRole == 2){
+		} else if(userRole == 2){
 			model = new ModelAndView("software");
-		}else{ //3
-			model = new ModelAndView("software");
+		} else if(userRole == 3){
+			model = new ModelAndView("system");
+		} else{ //3
+			model = new ModelAndView("home");
 		}
 		
 		return model;

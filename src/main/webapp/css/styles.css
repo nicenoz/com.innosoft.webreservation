@@ -367,3 +367,10 @@ dt {
 .textbox-size {
 	resize: none;
 }
+
+.span-Custom {
+	border: 1px solid #CCCCCC;
+	padding: 4px;
+	width: 100%;
+	height: 30px;
+}

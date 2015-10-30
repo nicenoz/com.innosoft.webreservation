@@ -10,24 +10,25 @@
 	
 	<http auto-config="true">  
 		<access-denied-handler error-page="/403_page" />
-		<intercept-url pattern="/user/chargingReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/user/reservationReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
+		<intercept-url pattern="/user/chargingReport/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/user/reservationReport/" access="ROLE_ADMIN"/>
 		<intercept-url pattern="/user/userReport/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
 		<intercept-url pattern="/user/user/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/user/userPassword**" access="ROLE_USER,ROLE_ADMIN,ROLE_CUSTOMER"/>
+		<intercept-url pattern="/user/userPassword**" access="ROLE_USER,ROLE_ADMIN"/>
 		<intercept-url pattern="/user/*" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
 		<intercept-url pattern="/software/email/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/software/notificationEmail/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/customer/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/calendar/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
+		<intercept-url pattern="/software/notificationEmail/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/customer/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/calendar/" access="ROLE_ADMIN"/>
 		<intercept-url pattern="/system/time/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
 		<intercept-url pattern="/system/activity/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/message/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/code/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/charge/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
-		<intercept-url pattern="/system/userPassword/" access="ROLE_ADMIN,ROLE_CUSTOMER"/>
+		<intercept-url pattern="/system/message/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/code/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/charge/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/userPassword/" access="ROLE_ADMIN"/>
+		<intercept-url pattern="/system/" access="ROLE_CUSTOMER,ROLE_ADMIN"/>
 		<intercept-url pattern="/system/*" access="ROLE_CUSTOMER,ROLE_ADMIN"/>
-	    <intercept-url pattern="/software/" access="ROLE_USER,ROLE_ADMIN,ROLE_CUSTOMER"/>
+	    <intercept-url pattern="/software/" access="ROLE_USER,ROLE_ADMIN, ROLE_CUSTOMER"/>
 	    <intercept-url pattern="/software/*" access="ROLE_ADMIN,ROLE_CUSTOMER"/>  
 	    <intercept-url pattern="/api/accessLog/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>  
 	    <intercept-url pattern="/api/calendarActivity/**" access="ROLE_ADMIN,ROLE_CUSTOMER,ROLE_USER"/>
