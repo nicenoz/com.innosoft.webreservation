@@ -29,7 +29,7 @@ public class SoftwareController {
 		if(userRole == 1){
 			model = new ModelAndView("system");
 		} else if(userRole == 2){
-			model = new ModelAndView("software");
+			model = new ModelAndView("system");
 		} else if(userRole == 3){
 			model = new ModelAndView("software");
 		} else{ //3

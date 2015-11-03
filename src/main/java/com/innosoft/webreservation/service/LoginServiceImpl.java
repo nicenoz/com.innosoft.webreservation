@@ -100,9 +100,9 @@ public class LoginServiceImpl implements UserDetailsService {
         if (role == 1) {
             roles.add("ROLE_ADMIN");
         } else if (role == 2) {
-            roles.add("ROLE_USER");
+            roles.add("ROLE_CUSTOMER");
         }else if (role == 3){
-        	roles.add("ROLE_CUSTOMER");
+        	roles.add("ROLE_USER");
         }
         return roles;
     }
