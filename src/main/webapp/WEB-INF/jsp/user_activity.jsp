@@ -154,7 +154,6 @@ var calendarDates;
 function getCustomers() {
 	customers = new wijmo.collections.ObservableArray();
 	var user = $('#currentUserName span').text();
-	console.log(user);
 	$.ajax({
 	    url: '${pageContext.request.contextPath}/api/customer/list',
 	    cache: false,
@@ -225,11 +224,11 @@ function getCustomerTimeForEdit(calendarActivity) {
 
                 
                 for(a = 0; a < customerTimes.length; a++){
-                	console.log("S " + customerTimes[a].CTIM_ID + " " + calendarActivity.CACT_START_TIME_ID);
                 	if(customerTimes[a].CTIM_ID == calendarActivity.CACT_START_TIME_ID){
                 		cboCustomerStartTime.dispose();
                     	cboCustomerStartTime = new wijmo.input.ComboBox('#EDIT_CACT_START_TIME', {
                     		itemsSource: customerTimes,
+                    		required: false,
                     		placeholder: 'Select Start time',
                     		displayMemberPath: "CTIM_DETAILS_NO",
                     		selectedIndex: a
@@ -239,7 +238,6 @@ function getCustomerTimeForEdit(calendarActivity) {
                 }
                 
                 for(a = 0; a < customerTimes.length; a++){
-                	console.log("D " + customerTimes[a].CTIM_ID + " " + calendarActivity.CACT_END_TIME_ID);
                 	if(customerTimes[a].CTIM_ID == calendarActivity.CACT_END_TIME_ID){
                 		cboCustomerEndTime.dispose();
                 		cboCustomerEndTime = new wijmo.input.ComboBox('#EDIT_CACT_END_TIME', {
@@ -291,21 +289,14 @@ function getCustomerTime(customerId) {
 // Combo Boxes
 // ===========
 function createCboCustomer(customers) {
-	cboCustomer.dispose();
-	cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID', {
-		itemsSource: customers,
-		placeholder: 'Select a Customer',
-		displayMemberPath: "CUST_NAME",
-		onSelectedIndexChanged: function () {
-			getCustomerTime(this.selectedValue.CUST_ID) 
-		}
-	});	
+	cboCustomer.itemsSource = customers;
 }
 
 function createCboCalendarDate(calendarDates) {
 	cboCalendarDate.dispose();
 	cboCalendarDate = new wijmo.input.ComboBox('#EDIT_CACT_CLDR_DATE', {
 		itemsSource: calendarDates,
+		required: false,
 		placeholder: 'Select a Calendar Date',
 		displayMemberPath: "CLDR_DAYCODE",
 	});	
@@ -315,6 +306,7 @@ function createCboCustomerTime(customerTimes) {
 	cboCustomerStartTime.dispose();
 	cboCustomerStartTime = new wijmo.input.ComboBox('#EDIT_CACT_START_TIME', {
 		itemsSource: customerTimes,
+		required: false,
 		placeholder: "Select Start time",
 		displayMemberPath: "CTIM_DETAILS_NO",
 	});	
@@ -322,6 +314,7 @@ function createCboCustomerTime(customerTimes) {
 	cboCustomerEndTime.dispose();
 	cboCustomerEndTime = new wijmo.input.ComboBox('#EDIT_CACT_END_TIME', {
 		itemsSource: customerTimes,
+		required: false,
 		placeholder: "Select End time",
 		displayMemberPath: "CTIM_DETAILS_NO",
 	});	
@@ -383,14 +376,14 @@ function cmdCalendarActivityAdd_OnClick() {
     document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value = 'NA';
     
 	cboCustomer.disabled = false;
-	cboCustomer.selectedValue = null;
-	cboCalendarDate.selectedValue = null;
-	cboCustomerStartTime.selectedValue = null;
-	cboCustomerEndTime.selectedValue = null;
-	cboCalendarActivityDetailsNo.selectedValue = null;
-	cboOperation.selectedValue = null;
 
-    console.log("done");
+	cboCustomer.selectedIndex = -1;
+	cboCalendarDate.selectedIndex = -1;
+	cboCustomerStartTime.selectedIndex = -1;
+	cboCustomerEndTime.selectedIndex = -1;
+	cboCalendarActivityDetailsNo.selectedIndex = -1;
+	cboOperation.selectedIndex = -1;
+
     $('#CalendarActivityEdit').modal({
         show: true,
         backdrop: 'static'
@@ -440,41 +433,73 @@ function cmdCalendarActivityEditCancel_OnClick() {
 // =============================     
 function cmdCalendarActivityEditOk_OnClick() {
 	var calendarActivityObject = new Object();
-
-	calendarActivityObject.CACT_ID = parseInt(document.getElementById('EDIT_CACT_ID').value);
-	calendarActivityObject.CACT_CLDR_ID = cboCalendarDate.selectedValue.CLDR_ID;
-	calendarActivityObject.CACT_CUST_ID = cboCustomer.selectedValue.CUST_ID;
-	calendarActivityObject.CACT_DETAILS_NO = cboCalendarActivityDetailsNo.selectedValue;
-	calendarActivityObject.CACT_ACTIVITY_CLASSIFICATION = document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value;
-	calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
-	calendarActivityObject.CACT_START_TIME_ID = cboCustomerStartTime.selectedValue.CTIM_ID;
-	calendarActivityObject.CACT_END_TIME_ID = cboCustomerEndTime.selectedValue.CTIM_ID;
-	calendarActivityObject.CACT_OPERATION_FLAG = cboOperation.selectedValue.CODE_ID;
 	
-	var data = JSON.stringify(calendarActivityObject);
-	$.ajax({
-	    type: "POST",
-	    url: '${pageContext.request.contextPath}/api/calendarActivity/update',
-	    contentType: "application/json; charset=utf-8",
-	    dataType: "json",
-	    data: data,
-	    statusCode: {
-            200: function (data) {
-            	if (data.CACT_ID > 0) {
-            		document.getElementById("cmdCalendarActivityEditOk").disabled = true;
-            		document.getElementById("cmdCalendarActivityEditCancel").disabled = true;
-   	        	 	toastr.success(getMessage("S0002"));
-                    window.setTimeout(function () { location.reload() }, 1000);
-	   	        } else {
-	   	            toastr.error(getMessage("E0006"));
-	   	        }
-            },
-            400: function () {
-           		toastr.success(getMessage("E0005"));
-            },
-        }
+	var completeEntry = true;
 	
-	});
+	if (cboCalendarDate.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	if (cboCustomer.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	if (cboCalendarActivityDetailsNo.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	
+	if (cboCustomerStartTime.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	if (cboCustomerEndTime.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	if (cboOperation.selectedValue == null){
+		completeEntry = false;
+	}
+	
+	
+	if(completeEntry){
+		calendarActivityObject.CACT_ID = parseInt(document.getElementById('EDIT_CACT_ID').value);
+		calendarActivityObject.CACT_CLDR_ID = cboCalendarDate.selectedValue.CLDR_ID;
+		calendarActivityObject.CACT_CUST_ID = cboCustomer.selectedValue.CUST_ID;
+		calendarActivityObject.CACT_DETAILS_NO = cboCalendarActivityDetailsNo.selectedValue;
+		calendarActivityObject.CACT_ACTIVITY_CLASSIFICATION = document.getElementById('EDIT_CACT_ACTIVITY_CLASSIFICATION').value;
+		calendarActivityObject.CACT_ACTIVITY_CONTENTS = document.getElementById('EDIT_CACT_ACTIVITY_CONTENTS').value;
+		calendarActivityObject.CACT_START_TIME_ID = cboCustomerStartTime.selectedValue.CTIM_ID;
+		calendarActivityObject.CACT_END_TIME_ID = cboCustomerEndTime.selectedValue.CTIM_ID;
+		calendarActivityObject.CACT_OPERATION_FLAG = cboOperation.selectedValue.CODE_ID;
+		
+		var data = JSON.stringify(calendarActivityObject);
+		$.ajax({
+		    type: "POST",
+		    url: '${pageContext.request.contextPath}/api/calendarActivity/update',
+		    contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+		    data: data,
+		    statusCode: {
+	            200: function (data) {
+	            	if (data.CACT_ID > 0) {
+	            		document.getElementById("cmdCalendarActivityEditOk").disabled = true;
+	            		document.getElementById("cmdCalendarActivityEditCancel").disabled = true;
+	   	        	 	toastr.success(getMessage("S0002"));
+	                    window.setTimeout(function () { location.reload() }, 1000);
+		   	        } else {
+		   	            toastr.error(getMessage("E0006"));
+		   	        }
+	            },
+	            400: function () {
+	           		toastr.error(getMessage("E0005"));
+	            },
+	        }
+		
+		});
+	}else{
+		toastr.error(getMessage("E0005"));
+	}
 }
 
 // =================
@@ -482,7 +507,6 @@ function cmdCalendarActivityEditOk_OnClick() {
 // =================   
 function getCalendarActivities() {
 	var user = $('#currentUserName span').text();
-	console.log(user);
     var calendarActivities = new wijmo.collections.ObservableArray();
     $('#loading').modal('show');
     $.ajax({
@@ -588,7 +612,6 @@ function FormValidate() {
         }
     });
     var x = validator.form();
-    console.log(x);
     return x;
 }
 
@@ -613,7 +636,18 @@ $.validator.setDefaults({
 // On Page Load
 // ============
 $(document).ready(function () {
-	
+    
+    cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID', {
+		placeholder: 'Select a Customer',
+		required: false,
+		displayMemberPath: "CUST_NAME",
+		onSelectedIndexChanged: function () {
+			if(this.selectedValue != null){
+				getCustomerTime(this.selectedValue.CUST_ID);
+			}
+		}
+	});	
+    
 	getCustomers();
 	getCalendarDate();
 	
@@ -648,6 +682,7 @@ $(document).ready(function () {
                 
                 cboOperation = new wijmo.input.ComboBox('#EDIT_CACT_OPERATION_FLAG', {
             		itemsSource: codeList,
+            		required: false,
 					displayMemberPath:"CODE_TEXT"
             	});	
             }
@@ -679,7 +714,6 @@ $(document).ready(function () {
 	    updateDetails();
 	});
     
-    cboCustomer = new wijmo.input.ComboBox('#EDIT_CACT_CUST_ID');
 	cboCalendarDate = new wijmo.input.ComboBox('#EDIT_CACT_CLDR_DATE');
 	cboCustomerStartTime = new wijmo.input.ComboBox('#EDIT_CACT_START_TIME');
 	cboCustomerEndTime = new wijmo.input.ComboBox('#EDIT_CACT_END_TIME');
@@ -690,6 +724,7 @@ $(document).ready(function () {
 	}
 	cboCalendarActivityDetailsNo = new wijmo.input.ComboBox('#EDIT_CACT_DETAILS_NO', {
 	     itemsSource: calendarActivityDetailsNo,
+		 required: false,
 	     placeholder: 'Select a details no.'
 	 });	
  

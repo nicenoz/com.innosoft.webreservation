@@ -800,7 +800,7 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 	
 	var currentDate = new Date(new Date().toJSON().slice(0,10));
 	
- 	if(regDate > currentDate){
+ 	if(regDate >= currentDate){
  		onDate = true;
  	}
 	

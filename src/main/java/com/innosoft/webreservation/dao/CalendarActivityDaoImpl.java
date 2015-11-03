@@ -48,8 +48,8 @@ public class CalendarActivityDaoImpl implements CalendarActivityDao{
 	@SuppressWarnings("unchecked")
 	public List<MstCalendarActivity> listCalendarActivity() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity").list();	
-		return list;		
+		List<MstCalendarActivity> list = session.createQuery("from MstCalendarActivity").list();
+		return list;
 	}
 	/**
 	 * List calendar activity by customer method

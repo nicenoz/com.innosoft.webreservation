@@ -7,12 +7,15 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innosoft.webreservation.entity.MstCalendar;
+import com.innosoft.webreservation.entity.MstCalendarActivity;
 /**
  *CRUD implementation for calendar data object.
  */
@@ -44,8 +47,13 @@ public class CalendarDaoImpl implements CalendarDao {
 	@SuppressWarnings("unchecked")
 	public List<MstCalendar> listCalendar() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<MstCalendar> list = session.createQuery("from MstCalendar").list();	
-		return list;
+//		List<MstCalendar> list = session.createQuery("from MstCalendar").list();
+		
+		Criteria criteria = session.createCriteria(MstCalendar.class);
+		criteria.addOrder(Order.asc("CLDR_DATE"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		return criteria.list();
 	}
 	/**
 	 * Get current session method

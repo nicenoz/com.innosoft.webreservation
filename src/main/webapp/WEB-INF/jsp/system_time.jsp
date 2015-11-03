@@ -165,7 +165,6 @@ function getCustomers() {
 	                });
 	            }
 	            setTimeout(createCboCustomer, 1000);
-/* 	            createCboCustomer(); */
 	        }
 	    }
 	}).fail(
@@ -182,6 +181,33 @@ function createCboCustomer() {
 		itemsSource: customers,
 		displayMemberPath: "CUST_NAME",
 		placeholder: 'Select a Customer',
+		onSelectedIndexChanged: function () {
+			$("#EDIT_CTIM_CUST_ID_DATA").val(customers[this.selectedIndex].CUST_ID);
+		}
+	});	 
+	$("#EDIT_CTIM_CUST_ID_DATA").val(customers[0].CUST_ID)
+}
+
+//==================
+//Customer Combo Box
+//==================
+function createCboCustomerEdit(customerTime) {
+	$('#loadingCustomer').hide();
+	
+	var selectedIndex = 0;
+	
+	for(a = 0; a < customers.length; a++){
+		if(customerTime.CTIM_CUST_ID == customers[a].CUST_ID){
+			selectedIndex = a;
+			break;
+		}
+	}
+		
+	cboCustomer = new wijmo.input.ComboBox('#EDIT_CTIM_CUST_ID', {
+		itemsSource: customers,
+		displayMemberPath: "CUST_NAME",
+		placeholder: 'Select a Customer',
+		selectedIndex: selectedIndex,
 		onSelectedIndexChanged: function () {
 			$("#EDIT_CTIM_CUST_ID_DATA").val(customers[this.selectedIndex].CUST_ID);
 		}
@@ -225,7 +251,31 @@ function cmdCustomerTimeEdit_OnClick() {
 	     }
 	 });
     
-	getCustomers(); 
+	customers = new wijmo.collections.ObservableArray();
+	document.getElementById('loadingCustomer').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCustomer').show();
+	cboCustomer.dispose();
+	$.ajax({
+	    url: '${pageContext.request.contextPath}/api/customer/list',
+	    cache: false,
+	    type: 'GET',
+	    contentType: 'application/json; charset=utf-8',
+	    success: function (results) {
+	        if (results.length > 0) {
+	            for (i = 0; i < results.length; i++) {
+	            	customers.push({
+	            		CUST_ID: results[i]["CUST_ID"],
+	            		CUST_NAME: results[i]["CUST_NAME"]
+	                });
+	            }
+	            setTimeout(function() {
+	            			createCboCustomerEdit(customerTime);
+	            		}, 1000);
+	        }
+	    }
+	}).fail(
+		// Fail message
+	);
 };
 
 // ==================
