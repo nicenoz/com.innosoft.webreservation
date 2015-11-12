@@ -76,6 +76,7 @@
 										<input id="EDIT_MEBR_ID" type="hidden" />
 
 										<div id="EDIT_MEBR_CUST_ID" class="autocomplete-wide"></div>
+										<div id='loadingCustomer' class="span-Custom"></div>
 										<input id="EDIT_MEBR_CUST_ID_DATA" name="EDIT_MEBR_CUST_ID_DATA" type="hidden" required /> 
 										<input id="EDIT_CUST_NAME" name="EDIT_CUST_NAME" type="hidden" required />
 									</dd>
@@ -86,6 +87,7 @@
 									<dt>User:</dt>
 									<dd>
 										<div id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID" class="autocomplete-wide"></div>
+										<div id='loadingCustomerMember' class="span-Custom"></div>
 										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_DATA" type="hidden" required />
 										<input id="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" name="EDIT_MEBR_CUSTOMER_MEMBER_USER_ID_NAME" type="hidden" required />
 									</dd>
@@ -198,6 +200,10 @@ var btnCurrentPageGrid;
 // Get Customer
 // ===================
 function getCustomers() {
+	document.getElementById('loadingCustomer').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCustomer').show();
+	$('#EDIT_MEBR_CUST_ID').hide();
+	
     var customers = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customer/list',
@@ -213,7 +219,9 @@ function getCustomers() {
                         customerName: results[i]["CUST_NAME"]
                     });
                 }
-                createCboCustomer(customers);
+                setTimeout(function() {
+                	 createCboCustomer(customers);
+    	      	}, 1000);   
             }
         }
     }).fail(
@@ -224,6 +232,10 @@ function getCustomers() {
 }
 
 function getUsers() {
+	document.getElementById('loadingCustomerMember').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCustomerMember').show();
+	$('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').hide();
+	
     var users = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/user/list',
@@ -239,7 +251,10 @@ function getUsers() {
                         userLogin: results[i]["USER_LOGIN"]
                     });
                 }
-                createCboUsers(users);
+                setTimeout(function() {
+                    createCboUsers(users);
+    	      	}, 1000);
+
             }
         }
     }).fail(
@@ -254,6 +269,8 @@ function getUsers() {
 // Combo Box
 // ===================
 function createCboCustomer(customers) {
+  	$('#loadingCustomer').hide();
+  	$('#EDIT_MEBR_CUST_ID').show();
 	customerCollection = new wijmo.collections.CollectionView(customers);
     var customerList = new Array();
     for (var i = 0; i < customerCollection.items.length; i++) {
@@ -274,6 +291,9 @@ function createCboCustomer(customers) {
 
 
 function createCboUsers(users) {
+  	$('#loadingCustomerMember').hide();
+  	$('#EDIT_MEBR_CUSTOMER_MEMBER_USER_ID').show();
+  	
 	userCollection = new wijmo.collections.CollectionView(users);
     var userList = new Array();
     for (var i = 0; i < userCollection.items.length; i++) {

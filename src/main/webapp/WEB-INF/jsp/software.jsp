@@ -7,12 +7,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
+            	<div id='loadingCustomer' class="span-Custom"></div>
 	            <div id="cboCustomer" class="border-custom"></div>
             </div>
             <div class="col-lg-2">
+            	<div id='loadingCalendarActivityStart' class="span-Custom"></div>
 	            <div id="cboCalendarActivityStart" class="border-custom"></div>
             </div>
             <div class="col-lg-2">
+           		<div id='loadingCalendarActivityEnd' class="span-Custom"></div>
 	            <div id="cboCalendarActivityEnd" class="border-custom"></div>
             </div>            
             <div class="col-lg-2">
@@ -947,6 +950,18 @@ function cmdEditReservation_OnClick(customerId, isUser) {
 // Getting the Data
 //=================   
 function getCustomers() {
+    document.getElementById('loadingCustomer').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCustomer').show();
+	$('#cboCustomer').hide();
+	
+	document.getElementById('loadingCalendarActivityStart').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCalendarActivityStart').show();
+	$('#cboCalendarActivityStart').hide();
+    
+	document.getElementById('loadingCalendarActivityEnd').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingCalendarActivityEnd').show();
+	$('#cboCalendarActivityEnd').hide();
+	
 	customerList = new wijmo.collections.ObservableArray();
     $.ajax({
         url: '${pageContext.request.contextPath}/api/customer/list',
@@ -964,8 +979,9 @@ function getCustomers() {
 	                    });
                 	}
                 }
-                
-                createCboCustomer(customerList);
+                setTimeout(function() {
+                	createCboCustomer(customerList);
+   	      		}, 1000);      
             }
         }
     }).fail(
@@ -987,7 +1003,6 @@ function getCalendarActivities(customerId, customerNumber) {
             success: function (results) {
             	reservationsList = new Array();
                 if (results.length > 0) {
-                            
 	                results.forEach(function(result){
 		             	calendarActivities.push({
 		                     id: result.CACT_ID,
@@ -1013,8 +1028,7 @@ function getCalendarActivities(customerId, customerNumber) {
 	            	        			name: part["CODE_TEXT"]
 	            	        		});
 	            	    	});
-	
-	                        createCboCalendarActivity(calendarActivities);
+	            	        createCboCalendarActivity(calendarActivities);
 	                    }
 	                }).fail(
 	                    function (xhr, textStatus, err) {
@@ -1036,6 +1050,9 @@ function getCalendarActivities(customerId, customerNumber) {
 //Comboxes
 //======== 
 function createCboCustomer(customers) {
+	$('#loadingCustomer').hide();
+	$('#cboCustomer').show();
+	
     cboCustomer.dispose();
 	cboCustomer = new wijmo.input.ComboBox('#cboCustomer', {
         itemsSource: customers,
@@ -1083,6 +1100,8 @@ function createCboCalendarActivity(calendarActivities) {
     	}
     } 
     
+    $('#loadingCalendarActivityStart').hide();
+	$('#cboCalendarActivityStart').show();   
     cboCalendarActivityStart.dispose();
     cboCalendarActivityStart = new wijmo.input.ComboBox('#cboCalendarActivityStart', {
         itemsSource: calendarActivityList,
@@ -1095,6 +1114,8 @@ function createCboCalendarActivity(calendarActivities) {
         }
     });		
     
+	$('#loadingCalendarActivityEnd').hide();
+	$('#cboCalendarActivityEnd').show();
     cboCalendarActivityEnd.dispose();
     cboCalendarActivityEnd = new wijmo.input.ComboBox('#cboCalendarActivityEnd', {
         itemsSource: calendarActivityList,

@@ -91,6 +91,7 @@
 						<dt>Level:</dt>
 						<dd>
 							<input type="text" id="EDIT_MESG_LEVEL_DATA" class="hidden" readonly required>
+							<div id='loadingMessageLevel' class="span-Custom"></div>
 							<div id="EDIT_MESG_LEVEL" class="autocomplete-wide"></div>
 						</dd>
 						<dt>Note:</dt>
@@ -162,16 +163,23 @@ function cmdMessageEdit_OnClick() {
     	mesgLvls.push(i);
     }
     
-    document.getElementById('EDIT_MESG_LEVEL_DATA').value = message.MESG_LEVEL; 
-    cboMesgLevel.dispose();
-    cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
-        itemsSource: mesgLvls,
-        selectedIndex: message.MESG_LEVEL - 1,
-        onSelectedIndexChanged: function () {
-        	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
-        }
-    });
+    document.getElementById('loadingMessageLevel').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingMessageLevel').show();
+	$('#EDIT_MESG_LEVEL').hide();
     
+    document.getElementById('EDIT_MESG_LEVEL_DATA').value = message.MESG_LEVEL;   
+    setTimeout(function() {
+    	$('#loadingMessageLevel').hide();
+    	$('#EDIT_MESG_LEVEL').show();
+    	cboMesgLevel.dispose();
+   	    cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
+   	        itemsSource: mesgLvls,
+   	        selectedIndex: message.MESG_LEVEL - 1,
+   	        onSelectedIndexChanged: function () {
+   	        	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
+   	        }
+   	    });
+	}, 1000);   
     
     var splitStartDate = message.MESG_START_DATE.split("-");
     var splitEndDate = message.MESG_END_DATE.split("-");
@@ -217,17 +225,26 @@ function cmdMessageAdd_OnClick() {
     for(i = 1; i <= 20; i++){
     	mesgLvls.push(i);
     }
-    
+    document.getElementById('loadingMessageLevel').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+	$('#loadingMessageLevel').show();
+	$('#EDIT_MESG_LEVEL').hide();
+	
     document.getElementById('EDIT_MESG_LEVEL_DATA').value = 1; 
-    cboMesgLevel.dispose();
-    cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
-        itemsSource: mesgLvls,
-        isEditable: false,
-        placeholder: 'select level',
-        onSelectedIndexChanged: function () {
-        	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
-        }
-    });	
+    
+    setTimeout(function() {
+    	$('#loadingMessageLevel').hide();
+    	$('#EDIT_MESG_LEVEL').show();
+    	cboMesgLevel.dispose();
+        cboMesgLevel = new wijmo.input.ComboBox('#EDIT_MESG_LEVEL', {
+            itemsSource: mesgLvls,
+            isEditable: false,
+            placeholder: 'select level',
+            onSelectedIndexChanged: function () {
+            	document.getElementById('EDIT_MESG_LEVEL_DATA').value = mesgLvls[this.selectedIndex]; 
+            }
+        });	
+	}, 1000);
+    
     
     messageStartDate.dispose();
     messageStartDate = new wijmo.input.InputDate('#EDIT_MESG_START_DATE', {

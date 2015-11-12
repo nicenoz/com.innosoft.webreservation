@@ -21,10 +21,12 @@
 										<br />
 										<label>Time Set:</label>
 										<div id="TIME" class="autocomplete-wide"></div>
+										<div id='loadingTime' class="span-Custom"></div>
 										<input id="TIME_DATA" class="form-control border-custom" name="TIME_DATA" type="hidden" required />
 										<br /><br />
 										<label>No. of Days:</label>
 										<div id="NO_OF_DAYS" class="autocomplete-wide"></div>
+										<div id='loadingDays' class="span-Custom"></div>
 										<input id="TIME_DATA" class="form-control border-custom" name="TIME_DATA" type="hidden" required />
 										<br /><br /><br />
 										<input type="button" value="Set" onclick="postItem();" class="btn btn-lg btn-primary btn-block border-custom pull-right" />
@@ -59,19 +61,36 @@
 var cmb;
 	$(document).ready(
 		function() {
-	
-			cmbSetStime = new wijmo.input.ComboBox('#TIME', {
-				itemsSource : getTimes(),
-				placeholder : 'Set a time',
-				isEditable : false
-			});
+			
+		    document.getElementById('loadingTime').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+			$('#loadingTime').show();
+			$('#TIME').hide();
+			
+			setTimeout(function() {
+				$('#loadingTime').hide();
+				$('#TIME').show();
+				cmbSetStime = new wijmo.input.ComboBox('#TIME', {
+					itemsSource : getTimes(),
+					placeholder : 'Set a time',
+					isEditable : false
+				});
+			}, 1000);
 			 
-			cmbSetNoOfDays = new wijmo.input.ComboBox('#NO_OF_DAYS', {
-				itemsSource : getDays(),
-				placeholder : 'Set No. of Days',
-				selectedValue : '3',
-				isEditable : false
-			});
+			
+			document.getElementById('loadingDays').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Loading...';
+			$('#loadingDays').show();
+			$('#NO_OF_DAYS').hide();
+			
+			setTimeout(function() {
+				$('#loadingDays').hide();
+				$('#NO_OF_DAYS').show();
+				cmbSetNoOfDays = new wijmo.input.ComboBox('#NO_OF_DAYS', {
+					itemsSource : getDays(),
+					placeholder : 'Set No. of Days',
+					selectedValue : '3',
+					isEditable : false
+				});
+			}, 1000);
 	
 			function getTimes() {
 				return [ '1 AM', '2 AM', '3 AM', '4 AM', '5 AM',
